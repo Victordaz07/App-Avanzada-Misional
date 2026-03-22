@@ -204,13 +204,7 @@ const MemberPhotos: React.FC = () => {
     try {
       const date = new Date(dateString);
       return date.toLocaleDateString(
-        locale === 'es'
-          ? 'es-ES'
-          : locale === 'fr'
-            ? 'fr-FR'
-            : locale === 'pt'
-              ? 'pt-BR'
-              : 'en-US',
+        locale === 'es' ? 'es-ES' : 'en-US',
         {
           year: 'numeric',
           month: 'long',

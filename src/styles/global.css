@@ -4,6 +4,9 @@
  */
 
 @import './design-system.css';
+@import './accent-preset-overrides.css';
+/* Superficies Liderazgo/Maestros (.leaders-mint-page, panel, hero) — mismo entry que /leaders/* en App unificada */
+@import '../leaders/styles/leaders-app-surfaces.css';
 @import './animations.css';
 
 * {

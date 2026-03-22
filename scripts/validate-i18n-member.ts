@@ -5,16 +5,13 @@
  * - app.{locale}.json
  * - member.{locale}.json
  *
- * Also validates missionary coverage by ensuring every supported locale
- * resolves to a non-empty dictionary (today all locales point to the same
- * Spanish source in runtime until dedicated translations are delivered).
  */
 
 import fs from 'fs';
 import path from 'path';
 
 type JsonObject = Record<string, any>;
-const LANGS = ['es', 'en', 'fr', 'pt'] as const;
+const LANGS = ['es', 'en'] as const;
 type Lang = (typeof LANGS)[number];
 
 const scriptDir =
@@ -110,19 +107,14 @@ function validateNamespace(
   return isValid;
 }
 
-function validateMissionaryCoverage(baseLang: Lang = 'es'): boolean {
-  return validateNamespace('missionary', 'src/i18n', baseLang);
-}
-
 function main() {
   const baseLang: Lang = 'es';
   
   try {
     const memberValid = validateNamespace('member', 'src/i18n', baseLang);
     const appValid = validateNamespace('app', 'src/i18n', baseLang);
-    const missionaryCovered = validateMissionaryCoverage(baseLang);
     console.log('');
-    if (memberValid && appValid && missionaryCovered) {
+    if (memberValid && appValid) {
       console.log('Validation complete! ✅');
       process.exit(0);
     }

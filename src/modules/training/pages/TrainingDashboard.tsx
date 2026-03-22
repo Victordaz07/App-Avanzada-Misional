@@ -1,18 +1,16 @@
 /**
- * TrainingDashboard - Main training hub for Member app
- * Core Foundations + Priesthood Training only.
- * Teaser card for Calling-Based (lives in Leaders app).
+ * TrainingDashboard - Hub de capacitación personal (Fundamentos + Sacerdocio).
+ * La zona de líderes está en perfil → «Líderes y maestros», no aquí.
  */
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaLock } from 'react-icons/fa6';
-import { useJourneyStage } from '../../../core/journey/useJourneyStore';
+import { useTrainingUnlockStage } from '../../../hooks/useMemberSpiritualPath';
 import { useTrainingStore } from '../store/useTrainingStore';
 import { paths, tracksById, lessonsById, getNodeById } from '../data/trainingPaths';
 import { isPathUnlocked, isTrackUnlocked } from '../utils/unlockLogic';
 import type { UnlockContext } from '../utils/unlockLogic';
-import { openLeadersApp, APP_URLS } from '../../../utils/appBridge';
 import { TrainingCard } from '../components';
 import { useI18n } from '../../../context/I18nContext';
 import './TrainingDashboard.css';
@@ -36,7 +34,7 @@ const TOAST_DURATION_MS = 4000;
 export default function TrainingDashboard(): JSX.Element {
   const { locale } = useI18n();
   const navigate = useNavigate();
-  const stage = useJourneyStage();
+  const stage = useTrainingUnlockStage();
   const completedLessons = useTrainingStore((s) => s.completedLessons);
   const getProgressForNode = useTrainingStore((s) => s.getProgressForNode);
   const getNextLessonToContinue = useTrainingStore((s) => s.getNextLessonToContinue);
@@ -78,7 +76,6 @@ export default function TrainingDashboard(): JSX.Element {
   }
 
   const next = getNextLessonToContinue(ctx);
-  const hasLeaderUrl = Boolean(APP_URLS?.leader);
   const coreProgress = getProgressForNode('core-foundations');
   const isCoreDone = coreProgress.total > 0 && coreProgress.completed === coreProgress.total;
 
@@ -134,12 +131,6 @@ export default function TrainingDashboard(): JSX.Element {
         coreCardDesc: 'Preparación esencial para el sacerdocio',
         completedBadge: 'Completado ✓',
         priesthoodSection: 'Capacitación del Sacerdocio',
-        callingSection: 'Capacitación por llamamiento',
-        callingTitle: 'Capacitación por llamamiento',
-        callingDesc: 'Disponible en la App de Líderes',
-        callingNote: 'La capacitación para presidencias, secretarios, maestros, etc. se gestiona en la app de Líderes (según tu llamamiento).',
-        openLeadersApp: 'Abrir App de Líderes',
-        leaderUrlMissing: 'URL de Líderes no configurada',
         previousTrack: 'el track anterior',
       }
     : {
@@ -173,12 +164,6 @@ export default function TrainingDashboard(): JSX.Element {
         coreCardDesc: 'Essential preparation for priesthood growth',
         completedBadge: 'Completed ✓',
         priesthoodSection: 'Priesthood Training',
-        callingSection: 'Calling-based training',
-        callingTitle: 'Calling-based training',
-        callingDesc: 'Available in the Leaders App',
-        callingNote: 'Training for presidencies, clerks, teachers, etc. is managed in the Leaders app (according to your calling).',
-        openLeadersApp: 'Open Leaders App',
-        leaderUrlMissing: 'Leaders URL is not configured',
         previousTrack: 'the previous track',
       };
 
@@ -333,35 +318,6 @@ export default function TrainingDashboard(): JSX.Element {
                 />
               );
             })}
-        </div>
-      </section>
-
-      <section className="tr-dashboard__section">
-        <h2 className="tr-dashboard__section-title">{ui.callingSection}</h2>
-        <div className="tr-dashboard__teaser">
-          <div className="tr-dashboard__teaser-card">
-            <h3 className="tr-dashboard__teaser-title">{ui.callingTitle}</h3>
-            <p className="tr-dashboard__teaser-desc">
-              {ui.callingDesc}
-            </p>
-            <p className="tr-dashboard__teaser-note">
-              {ui.callingNote}
-            </p>
-            <button
-              type="button"
-              className="tr-dashboard__teaser-btn"
-              disabled={!hasLeaderUrl}
-              onClick={() =>
-                openLeadersApp({
-                  path: '/training',
-                  target: '_blank',
-                  context: { from: 'member-training', intent: 'calling-based' },
-                })
-              }
-            >
-              {hasLeaderUrl ? ui.openLeadersApp : ui.leaderUrlMissing}
-            </button>
-          </div>
         </div>
       </section>
     </div>

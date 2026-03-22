@@ -7,6 +7,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { FaDownload, FaTrashCan, FaShieldHalved, FaCheck } from 'react-icons/fa6';
+import { useI18n } from '../context/I18nContext';
 import {
   exportLocalData,
   clearAllLocalData,
@@ -23,6 +24,7 @@ interface DataPrivacySectionProps {
 export default function DataPrivacySection({
   classPrefix = 'data-privacy',
 }: DataPrivacySectionProps): JSX.Element {
+  const { t } = useI18n();
   const [dataInfo, setDataInfo] = useState<DataInfo | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
@@ -38,7 +40,7 @@ export default function DataPrivacySection({
       setExportSuccess(true);
       setTimeout(() => setExportSuccess(false), 3000);
     } catch (error) {
-      alert('Export failed. Please try again.');
+      alert(t('app.dataPrivacy.exportFailed'));
     }
   };
 
@@ -61,36 +63,38 @@ export default function DataPrivacySection({
       <div className={`${classPrefix}__privacy-intro`}>
         <FaShieldHalved className={`${classPrefix}__privacy-icon`} />
         <p className={`${classPrefix}__privacy-message`}>
-          Everything you write here belongs to you.
+          {t('app.dataPrivacy.introLine1')}
           <br />
           <span className={`${classPrefix}__privacy-emphasis`}>
-            You can take it with you, anytime.
+            {t('app.dataPrivacy.introLine2')}
           </span>
         </p>
       </div>
 
       {/* What Exists */}
       <div className={`${classPrefix}__data-summary`}>
-        <h4 className={`${classPrefix}__data-summary-title`}>Your data on this device</h4>
+        <h4 className={`${classPrefix}__data-summary-title`}>{t('app.dataPrivacy.summaryTitle')}</h4>
         <ul className={`${classPrefix}__data-list`}>
-          <li className={dataInfo?.hasJourneyData ? '' : `${classPrefix}__data-empty`}>
-            <span>Journey dates</span>
-            <span>{dataInfo?.hasJourneyData ? '✓' : '—'}</span>
+          <li className={dataInfo?.hasBaptismPrepData ? '' : `${classPrefix}__data-empty`}>
+            <span>{t('app.dataPrivacy.localBaptismPrep')}</span>
+            <span>{dataInfo?.hasBaptismPrepData ? '✓' : '—'}</span>
           </li>
           <li className={dataInfo?.hasJournalEntries ? '' : `${classPrefix}__data-empty`}>
-            <span>Journal entries</span>
+            <span>{t('app.dataPrivacy.journalEntries')}</span>
             <span>
               {dataInfo?.hasJournalEntries
-                ? `${dataInfo.journalEntryCount} ${dataInfo.journalEntryCount === 1 ? 'entry' : 'entries'}`
+                ? (dataInfo.journalEntryCount === 1
+                    ? t('app.dataPrivacy.journalEntriesOne')
+                    : t('app.dataPrivacy.journalEntriesMany', { count: dataInfo.journalEntryCount }))
                 : '—'}
             </span>
           </li>
           <li className={dataInfo?.hasSpiritualMemory ? '' : `${classPrefix}__data-empty`}>
-            <span>Continuity memory</span>
+            <span>{t('app.dataPrivacy.continuityMemory')}</span>
             <span>{dataInfo?.hasSpiritualMemory ? '✓' : '—'}</span>
           </li>
           <li className={dataInfo?.hasLeadershipData ? '' : `${classPrefix}__data-empty`}>
-            <span>Leadership data</span>
+            <span>{t('app.dataPrivacy.wardLeadershipLocal')}</span>
             <span>{dataInfo?.hasLeadershipData ? '✓' : '—'}</span>
           </li>
         </ul>
@@ -99,8 +103,8 @@ export default function DataPrivacySection({
       {/* What Does NOT Exist */}
       <div className={`${classPrefix}__no-tracking`}>
         <p className={`${classPrefix}__no-tracking-text`}>
-          <strong>What we don't have:</strong> No accounts, no cloud sync, 
-          no tracking, no analytics. Your data stays on this device only.
+          <strong>{t('app.dataPrivacy.noTrackingLead')}</strong>{' '}
+          {t('app.dataPrivacy.noTrackingRest')}
         </p>
       </div>
 
@@ -113,11 +117,11 @@ export default function DataPrivacySection({
         >
           {exportSuccess ? (
             <>
-              <FaCheck /> Exported!
+              <FaCheck /> {t('app.dataPrivacy.exportedSuccess')}
             </>
           ) : (
             <>
-              <FaDownload /> Export my data
+              <FaDownload /> {t('app.dataPrivacy.exportButton')}
             </>
           )}
         </button>
@@ -126,7 +130,7 @@ export default function DataPrivacySection({
           className={`${classPrefix}__data-btn ${classPrefix}__data-btn--clear`}
           onClick={handleClearRequest}
         >
-          <FaTrashCan /> Clear local data
+          <FaTrashCan /> {t('app.dataPrivacy.clearButton')}
         </button>
       </div>
 
@@ -134,36 +138,36 @@ export default function DataPrivacySection({
       {showClearConfirm && (
         <div className={`${classPrefix}__confirm-overlay`}>
           <div className={`${classPrefix}__confirm-modal`}>
-            <h3 className={`${classPrefix}__confirm-title`}>Clear all data?</h3>
+            <h3 className={`${classPrefix}__confirm-title`}>{t('app.dataPrivacy.confirmTitle')}</h3>
             <p className={`${classPrefix}__confirm-text`}>
-              This will remove everything stored on this device:
+              {t('app.dataPrivacy.confirmIntro')}
               <br />
               <br />
-              • Journey dates
+              • {t('app.dataPrivacy.bulletBaptismPrep')}
               <br />
-              • Journal entries
+              • {t('app.dataPrivacy.bulletJournal')}
               <br />
-              • Leadership data (callings, notes, calendar)
+              • {t('app.dataPrivacy.bulletLeadership')}
               <br />
-              • App preferences
+              • {t('app.dataPrivacy.bulletPrefs')}
               <br />
               <br />
-              <strong>We recommend exporting your data first.</strong>
+              <strong>{t('app.dataPrivacy.recommendExport')}</strong>
               <br />
-              You can start fresh at any time.
+              {t('app.dataPrivacy.startFresh')}
             </p>
             <div className={`${classPrefix}__confirm-actions`}>
               <button
                 className={`${classPrefix}__confirm-btn ${classPrefix}__confirm-btn--cancel`}
                 onClick={handleClearCancel}
               >
-                Keep my data
+                {t('app.dataPrivacy.keepData')}
               </button>
               <button
                 className={`${classPrefix}__confirm-btn ${classPrefix}__confirm-btn--confirm`}
                 onClick={handleClearConfirm}
               >
-                Yes, clear everything
+                {t('app.dataPrivacy.clearEverything')}
               </button>
             </div>
           </div>

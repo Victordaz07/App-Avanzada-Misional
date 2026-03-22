@@ -1,0 +1,319 @@
+{
+  "app": {
+    "name": "xTheGospel Leaders",
+    "loading": "Cargando...",
+    "welcome": {
+      "eyebrow": "Bienvenida",
+      "title": "Bienvenido a xTheGospel Leaders",
+      "subtitle": "Una introducción breve para que empieces con claridad desde el primer día.",
+      "progressLabel": "Progreso de bienvenida",
+      "slides": [
+        {
+          "title": "¿De qué se trata esta app?",
+          "description": "Esta app ayuda a líderes de barrio y estaca a organizar llamamientos, coordinación y seguimiento con claridad."
+        },
+        {
+          "title": "¿Qué encontrarás aquí?",
+          "description": "Encontrarás dashboards, gestión de llamamientos, notas y herramientas prácticas para el liderazgo diario."
+        },
+        {
+          "title": "Tutorial rápido",
+          "description": "Empieza iniciando sesión, selecciona tu rol, completa la configuración del barrio y luego revisa tu dashboard y llamamientos."
+        }
+      ],
+      "skip": "Saltar",
+      "next": "Siguiente",
+      "start": "Comenzar"
+    }
+  },
+  "roles": {
+    "leader": {
+      "title": "Líder",
+      "description": "Acceso a herramientas de liderazgo"
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "callings": "Llamados",
+    "teaching": "Enseñanza",
+    "calendar": "Calendario",
+    "members": "Miembros",
+    "profile": "Perfil"
+  },
+  "ward": {
+    "exploration": {
+      "loadingWard": "Cargando barrio…",
+      "offlineBanner": "Sin conexión: puedes seguir explorando. La membresía del barrio se actualizará al volver en línea.",
+      "errorGeneric": "No pudimos cargar la membresía del barrio.",
+      "retry": "Reintentar",
+      "staleBanner": "Los datos del barrio pueden estar desactualizados.",
+      "emptyTitle": "Sin barrio vinculado",
+      "emptyDescription": "Puedes revisar y usar toda la app. Para datos y sesiones del barrio en la nube, vincula un barrio cuando quieras desde la pantalla de conectar barrio o tu perfil.",
+      "needWardForAction": "Vincula un barrio para usar esta acción con datos en la nube."
+    },
+    "setup": {
+      "choose": {
+        "title": "Conectar con tu barrio",
+        "subtitle": "Como {{role}}, este paso desbloquea orientación sobre tu deber según tu llamamiento, planes de estudio por bloques para maestros y el resto de herramientas del barrio.",
+        "createTitle": "Crear barrio",
+        "createDesc": "Soy el primero de mi barrio en usar la app",
+        "joinTitle": "Tengo un código",
+        "joinDesc": "Mi obispado me dio un código de barrio",
+        "noteNonBishopric": "Pide el código de tu barrio al obispado o al secretario ejecutivo."
+      },
+      "create": {
+        "back": "Volver",
+        "title": "Crear tu barrio",
+        "subtitle": "Se generará un código único para que otros líderes se unan",
+        "wardNameLabel": "Nombre del barrio / rama *",
+        "wardNamePlaceholder": "Ej.: Barrio Centro, Rama Norte",
+        "unitTypeLabel": "Tipo de unidad",
+        "unitWard": "Barrio",
+        "unitBranch": "Rama",
+        "stakeNameLabel": "Nombre de la estaca / distrito",
+        "stakeNamePlaceholder": "Ej.: Estaca Lima Centro",
+        "stakeTypeLabel": "Tipo",
+        "stakeTypeStake": "Estaca",
+        "stakeTypeDistrict": "Distrito",
+        "cityLabel": "Ciudad",
+        "cityPlaceholder": "Ciudad",
+        "countryLabel": "País",
+        "countryPlaceholder": "País",
+        "submit": "Crear barrio",
+        "submitting": "Creando…"
+      },
+      "join": {
+        "back": "Volver",
+        "title": "Unirse a un barrio",
+        "subtitle": "Ingresa el código de 6 caracteres que te dio tu obispado",
+        "codeLabel": "Código del barrio",
+        "submit": "Unirse al barrio",
+        "submitting": "Verificando…",
+        "helpTitle": "¿No tienes código?",
+        "helpBody": "Pide el código a tu obispo, consejero o secretario ejecutivo. Pueden encontrarlo en su perfil dentro de la app."
+      }
+    }
+  },
+  "leadership": {
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Bienvenido",
+      "quickActions": "Acciones rápidas",
+      "recentActivity": "Actividad reciente",
+      "discovery": {
+        "title": "Cuando quieras avanzar",
+        "hint": "Atajos suaves entre herramientas del barrio. Nada de esto compite con lo sagrado.",
+        "seeAll": "Ver llamados",
+        "badge": "Barrio",
+        "slots": {
+          "callings": {
+            "title": "Llamamientos",
+            "subtitle": "Ver, crear o dar seguimiento con calma."
+          },
+          "members": {
+            "title": "Miembros",
+            "subtitle": "Acompañar personas, no solo registros."
+          },
+          "teaching": {
+            "title": "Enseñando",
+            "subtitle": "Sesiones de clase, código y reportes."
+          },
+          "calendar": {
+            "title": "Calendario",
+            "subtitle": "Reuniones e hitos del barrio."
+          },
+          "responsibilities": {
+            "title": "Responsabilidades",
+            "subtitle": "Recordatorios de lo que importa."
+          },
+          "notes": {
+            "title": "Notas",
+            "subtitle": "Ideas y seguimiento personal del servicio."
+          }
+        }
+      },
+      "teachingStrip": {
+        "title": "Para quien enseña",
+        "hint": "Prepara la clase a tu ritmo. Aquí están la lista y la nueva sesión.",
+        "seeAll": "Abrir Enseñando",
+        "badge": "Clase",
+        "sessions": {
+          "title": "Mis sesiones",
+          "subtitle": "Retoma una clase o revisa el plan."
+        },
+        "newSession": {
+          "title": "Nueva sesión",
+          "subtitle": "Obtén código y QR cuando estés listo."
+        },
+        "bishop": {
+          "title": "Vista del obispado",
+          "subtitle": "Acompañar a los maestros sin juicio."
+        },
+        "calendarFallback": {
+          "title": "Calendario",
+          "subtitle": "Encuentra el siguiente espacio para enseñar."
+        }
+      }
+    },
+    "callings": {
+      "title": "Llamamientos",
+      "new": "Nuevo llamamiento",
+      "empty": "No hay llamamientos registrados",
+      "status": {
+        "active": "Activo",
+        "pending": "Pendiente",
+        "released": "Relevado"
+      }
+    },
+    "members": {
+      "title": "Miembros",
+      "search": "Buscar miembros",
+      "empty": "No se encontraron miembros"
+    },
+    "calendar": {
+      "title": "Calendario",
+      "empty": "No hay eventos programados"
+    },
+    "notes": {
+      "title": "Notas",
+      "new": "Nueva nota",
+      "empty": "No hay notas"
+    },
+    "responsibilities": {
+      "title": "Responsabilidades",
+      "empty": "No hay responsabilidades asignadas"
+    },
+    "canon": {
+      "dashboardTitle": "Liderazgo",
+      "leadershipEyebrow": "LIDERAZGO",
+      "dashboardSubtitle": "Organiza llamamientos y enseñanza con calma.",
+      "dashboardHeroNote": "Abre cada sección con calma. Nada aquí es urgente frente a lo sagrado.",
+      "teachingPageTitle": "Enseñando",
+      "bishopPageTitle": "Clases del barrio",
+      "teachingEyebrow": "ENSEÑANDO",
+      "teachingSubtitle": "Prepara y dirige sesiones de clase con claridad.",
+      "teachingHeroNote": "Crea una sesión para obtener código y QR. El audio de apoyo llegará próximamente.",
+      "bishopEyebrow": "OBISPADO",
+      "bishopSubtitle": "Supervisa las clases del barrio con perspectiva pastoral.",
+      "bishopHeroNote": "Vista de solo lectura para acompañar a los maestros.",
+      "sessionAudioEyebrow": "AUDIO DE APOYO",
+      "sessionAudioTitle": "Audio de la sesión",
+      "sessionAudioSummary": "Resumen de audio para preparar la clase antes de reunirte.",
+      "sessionAudioIntent": "Guía breve para el tono y el ritmo de la lección.",
+      "sessionAudioStatus": "Próximamente",
+      "sessionImageLabel": "Imagen o diapositiva",
+      "sessionImageTitle": "Material visual",
+      "sessionImagePrompt": "Imagen o diapositiva representativa de la clase, estilo sobrio. Próximamente.",
+      "sessionSubtitle": "{{calling}} · {{parts}} partes",
+      "sessionHeroNote": "Revisa el plan, activa el código cuando estés listo y lleva la clase con el Espíritu.",
+      "reflectionLabel": "Reflexión",
+      "reflectionBody": "Antes de enseñar, piensa en una persona a la que podría ayudar esta lección.",
+      "reportEyebrow": "REPORTE",
+      "reportHeroNote": "Revisa el resumen con calma. Exporta el PDF si necesitas compartirlo.",
+      "sessionCreatePageTitle": "Nueva sesión",
+      "sessionCreateSubtitle": "Define título, tipo de clase y partes antes de activar el código.",
+      "sessionCreateHeroNote": "Puedes editar el borrador hasta que actives la sesión.",
+      "sessionLiveEyebrow": "EN VIVO",
+      "sessionLiveSubtitle": "{{calling}}",
+      "sessionLiveHeroNote": "Guía la parte actual y acompaña a los participantes con paciencia.",
+      "analyticsPageTitle": "Métricas de clases",
+      "analyticsSubtitle": "Tendencias del barrio en el período seleccionado.",
+      "analyticsHeroNote": "Usa estos datos con pastoralidad, no para juicio."
+    }
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "back": "Volver",
+    "search": "Buscar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "confirm": "Confirmar"
+  },
+  "auth": {
+    "login": {
+      "title": "xTheGospel Leaders",
+      "subtitle": "Herramientas para líderes de barrio y estaca",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "passwordLabel": "Contraseña",
+      "submit": "Iniciar sesión",
+      "infoText": "Usa la misma cuenta que creaste en la app de miembros",
+      "noAccountPrefix": "¿No tienes cuenta? Visita",
+      "noAccountSuffix": "para más información.",
+      "errors": {
+        "completeAllFields": "Por favor completa todos los campos",
+        "invalidCredentials": "Correo o contraseña incorrectos. Inténtalo de nuevo."
+      }
+    },
+    "roleSelection": {
+      "title": "¿Cuál es tu llamamiento?",
+      "subtitle": "Selecciona tu rol para personalizar tu experiencia",
+      "confirm": "Confirmar",
+      "skip": "Omitir por ahora"
+    },
+    "profile": {
+      "title": "Perfil",
+      "userFallback": "Usuario",
+      "leadershipFallback": "Liderazgo",
+      "bishopric": "Obispado",
+      "wardSection": "Tu barrio",
+      "branch": "Rama",
+      "ward": "Barrio",
+      "district": "Distrito",
+      "stake": "Estaca",
+      "connected": "Conectado",
+      "joinedCreated": "Creador del barrio",
+      "joinedCode": "Por código",
+      "joinedInvited": "Invitado",
+      "callingSection": "Tu llamamiento",
+      "currentCalling": "Llamamiento actual",
+      "organization": "Organización",
+      "changeCalling": "Cambiar llamamiento",
+      "accountSection": "Cuenta",
+      "preferencesSection": "Preferencias",
+      "email": "Correo electrónico",
+      "userId": "ID de usuario",
+      "accountStatus": "Estado de la cuenta",
+      "accountStatusValue": "Activa",
+      "language": "Idioma",
+      "appearance": "Apariencia",
+      "appSection": "Aplicación",
+      "version": "Versión",
+      "storage": "Almacenamiento",
+      "storageValue": "Local + Cloud",
+      "logout": "Cerrar sesión",
+      "loggingOut": "Cerrando sesión...",
+      "footerSubtitle": "Herramientas para servir mejor",
+      "errors": {
+        "logout": "Error al cerrar sesión",
+        "unknown": "Error desconocido",
+        "sync": "Error al sincronizar",
+        "generic": "Error",
+        "hydrate": "Error al cargar desde la nube"
+      },
+      "sync": {
+        "section": "Sincronización",
+        "lastSync": "Última sincronización",
+        "syncing": "Sincronizando...",
+        "syncNow": "Sincronizar ahora",
+        "replaceFromCloud": "Reemplazar desde la nube",
+        "replaceConfirm": "Esto reemplazará tus datos locales con los de la nube. ¿Continuar?",
+        "loading": "Cargando...",
+        "never": "Nunca",
+        "justNow": "Hace un momento",
+        "minutesAgo": "Hace {{count}} min",
+        "hoursAgo": "Hace {{count}} h"
+      },
+      "theme": {
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema"
+      }
+    }
+  }
+}

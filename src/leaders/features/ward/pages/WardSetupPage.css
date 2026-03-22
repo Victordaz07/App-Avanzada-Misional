@@ -1,0 +1,327 @@
+/**
+ * Ward Setup — mismo lenguaje visual que home / lecciones (menta, tarjetas rail, tokens).
+ */
+
+.ward-setup-page {
+  /* leaders-mint-page añade fondo; espacio para BottomNav del LeadersTabShell */
+  box-sizing: border-box;
+  padding-bottom: calc(var(--space-6) + var(--app-bottom-nav-height, 88px) + env(safe-area-inset-bottom, 0px));
+}
+
+.ward-setup-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.ward-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border-subtle));
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.ward-back-button:hover {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--info-light) 35%, var(--background-card));
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+}
+
+.ward-setup-header.leaders-page-hero {
+  margin-bottom: var(--space-5);
+}
+
+.ward-setup-icon {
+  font-size: 2.75rem;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+}
+
+.ward-setup-title.leaders-page-hero__title {
+  /* hereda leaders-page-hero__title */
+}
+
+.ward-setup-subtitle.leaders-page-hero__subtitle {
+  /* hereda leaders-page-hero__subtitle */
+}
+
+.ward-setup-panel.leaders-mint-panel {
+  gap: var(--space-5);
+}
+
+.ward-setup-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Tarjetas opción — rail blanco */
+.ward-option-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--app-rail-card-padding);
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border-subtle));
+  border-radius: var(--app-rail-card-radius);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 92%, transparent) inset,
+    0 10px 36px -16px rgba(var(--primary-rgb), 0.14),
+    0 2px 10px -4px rgba(var(--primary-rgb), 0.08);
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.2, 0.64, 1),
+    border-color 0.2s ease,
+    box-shadow 0.22s ease;
+}
+
+.ward-option-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: var(--app-rail-card-stripe-inset-y);
+  bottom: var(--app-rail-card-stripe-inset-y);
+  width: var(--app-rail-card-stripe-width);
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.ward-option-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 95%, transparent) inset,
+    0 16px 42px -14px rgba(var(--primary-rgb), 0.2),
+    0 4px 14px -6px rgba(var(--primary-rgb), 0.1);
+}
+
+.ward-option-create {
+  border-color: color-mix(in srgb, var(--accent) 28%, var(--border-subtle));
+}
+
+.ward-option-create:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-subtle));
+}
+
+.option-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.option-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  font-family: var(--font-family-display);
+  color: var(--primary);
+  position: relative;
+  z-index: 1;
+}
+
+.option-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.45;
+  max-width: 28ch;
+  position: relative;
+  z-index: 1;
+}
+
+.ward-setup-note {
+  background: var(--background-card);
+  border: 1px dashed color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.ward-setup-note p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.55;
+}
+
+/* Formularios */
+.ward-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.ward-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ward-form .form-group label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ward-form .form-group input {
+  padding: 0.875rem 1rem;
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--border-subtle));
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ward-form .form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.ward-form .form-group input:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border-subtle));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.radio-option input[type='radio'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+.radio-option span {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.code-input {
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.form-error {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--danger-dark);
+  background: color-mix(in srgb, var(--danger-light) 55%, var(--background-card));
+  border: 1px solid color-mix(in srgb, var(--danger) 35%, var(--border-subtle));
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.ward-submit-button {
+  margin-top: var(--space-2);
+  padding: 1rem 1.25rem;
+  font-size: var(--text-base);
+  font-weight: 700;
+  font-family: var(--font-family-display);
+  color: var(--text-inverse);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  box-shadow:
+    0 4px 18px rgba(var(--primary-rgb), 0.28),
+    0 1px 0 color-mix(in srgb, var(--background-card) 35%, transparent) inset;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ward-submit-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.ward-submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ward-setup-help {
+  margin-top: var(--space-2);
+  padding: var(--space-5);
+  background: color-mix(in srgb, var(--info-light) 35%, var(--background-card));
+  border-radius: var(--radius-lg);
+  border: 1px dashed color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  text-align: center;
+}
+
+.ward-setup-help p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.ward-setup-help .help-text {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .code-input {
+    font-size: 1.25rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ward-option-card,
+  .ward-submit-button {
+    transition: none;
+  }
+
+  .ward-option-card:hover {
+    transform: none;
+  }
+
+  .ward-submit-button:hover:not(:disabled) {
+    transform: none;
+  }
+}

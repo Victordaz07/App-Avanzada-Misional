@@ -214,3 +214,16 @@ export function getCurrentUser(): User | null {
     return null;
   }
 }
+
+/** Keeps Firebase Auth display name / photo in line with Firestore profile. */
+export async function updateFirebaseAuthProfile(updates: {
+  displayName?: string;
+  photoURL?: string | null;
+}): Promise<void> {
+  const auth = getFirebaseAuth();
+  const current = auth.currentUser;
+  if (!current) {
+    throw new Error('Not signed in');
+  }
+  await firebaseUpdateProfile(current, updates);
+}

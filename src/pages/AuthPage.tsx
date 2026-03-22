@@ -117,12 +117,10 @@ const AuthPage: React.FC = () => {
     // Map role IDs to icons (you can customize this)
     const iconMap: Record<UserRoleKey, React.ReactNode> = {
       investigator: <FaSeedling />,
-      missionary: <FaHandsPraying />,
       member: <FaUsers />,
     };
     const accentClassMap: Record<UserRoleKey, string> = {
       investigator: 'role-icon-green',
-      missionary: 'role-icon-blue',
       member: 'role-icon-violet',
     };
 

@@ -1,0 +1,319 @@
+{
+  "app": {
+    "name": "xTheGospel Leaders",
+    "loading": "Loading...",
+    "welcome": {
+      "eyebrow": "Welcome",
+      "title": "Welcome to xTheGospel Leaders",
+      "subtitle": "A quick intro so you can get value from day one.",
+      "progressLabel": "Welcome progress",
+      "slides": [
+        {
+          "title": "What is this app?",
+          "description": "This app helps ward and stake leaders organize callings, coordination, and follow-up with clarity."
+        },
+        {
+          "title": "What can you find here?",
+          "description": "You will find dashboards, callings management, notes, and practical tools for day-to-day leadership."
+        },
+        {
+          "title": "Quick tutorial",
+          "description": "Start by signing in, choose your role, complete ward setup, and then review your dashboard and callings."
+        }
+      ],
+      "skip": "Skip",
+      "next": "Next",
+      "start": "Start"
+    }
+  },
+  "roles": {
+    "leader": {
+      "title": "Leader",
+      "description": "Access to leadership tools"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "callings": "Callings",
+    "teaching": "Teaching",
+    "calendar": "Calendar",
+    "members": "Members",
+    "profile": "Profile"
+  },
+  "ward": {
+    "exploration": {
+      "loadingWard": "Loading ward…",
+      "offlineBanner": "You're offline—you can keep exploring. Ward membership will refresh when you're back online.",
+      "errorGeneric": "We couldn't load ward membership.",
+      "retry": "Retry",
+      "staleBanner": "Ward data may be out of date.",
+      "emptyTitle": "No ward linked",
+      "emptyDescription": "You can browse and use the whole app. To load cloud data and ward sessions, link a ward whenever you're ready from Connect ward or your profile.",
+      "needWardForAction": "Link a ward to use this action with cloud data."
+    },
+    "setup": {
+      "choose": {
+        "title": "Connect to your ward",
+        "subtitle": "As {{role}}, this step unlocks guidance for your duties according to your calling, block-based study plans for teachers, and the rest of your ward tools.",
+        "createTitle": "Create ward",
+        "createDesc": "I'm the first in my ward to use the app",
+        "joinTitle": "I have a code",
+        "joinDesc": "My bishopric gave me a ward code",
+        "noteNonBishopric": "Ask your bishopric or executive secretary for your ward code."
+      },
+      "create": {
+        "back": "Back",
+        "title": "Create your ward",
+        "subtitle": "A unique code will be generated so other leaders can join",
+        "wardNameLabel": "Ward / branch name *",
+        "wardNamePlaceholder": "e.g. Downtown Ward, North Branch",
+        "unitTypeLabel": "Unit type",
+        "unitWard": "Ward",
+        "unitBranch": "Branch",
+        "stakeNameLabel": "Stake / district name",
+        "stakeNamePlaceholder": "e.g. Central Stake",
+        "stakeTypeLabel": "Type",
+        "stakeTypeStake": "Stake",
+        "stakeTypeDistrict": "District",
+        "cityLabel": "City",
+        "cityPlaceholder": "City",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Country",
+        "submit": "Create ward",
+        "submitting": "Creating…"
+      },
+      "join": {
+        "back": "Back",
+        "title": "Join a ward",
+        "subtitle": "Enter the 6-character code from your bishopric",
+        "codeLabel": "Ward code",
+        "submit": "Join ward",
+        "submitting": "Verifying…",
+        "helpTitle": "No code?",
+        "helpBody": "Ask your bishop, counselor, or executive secretary. They can find it in their profile in the app."
+      }
+    }
+  },
+  "leadership": {
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome",
+      "quickActions": "Quick actions",
+      "recentActivity": "Recent activity",
+      "discovery": {
+        "title": "When you're ready to move forward",
+        "hint": "Gentle shortcuts across ward tools. None of this competes with what is sacred.",
+        "seeAll": "View callings",
+        "badge": "Ward",
+        "slots": {
+          "callings": {
+            "title": "Callings",
+            "subtitle": "Review, create, or follow up calmly."
+          },
+          "members": {
+            "title": "Members",
+            "subtitle": "Care for people, not just records."
+          },
+          "teaching": {
+            "title": "Teaching",
+            "subtitle": "Class sessions, code, and reports."
+          },
+          "calendar": {
+            "title": "Calendar",
+            "subtitle": "Meetings and ward milestones."
+          },
+          "responsibilities": {
+            "title": "Responsibilities",
+            "subtitle": "Reminders of what matters."
+          },
+          "notes": {
+            "title": "Notes",
+            "subtitle": "Ideas and personal ministry follow-up."
+          }
+        }
+      },
+      "teachingStrip": {
+        "title": "For those who teach",
+        "hint": "Prepare your class at your pace. Here are your list and a new session.",
+        "seeAll": "Open Teaching",
+        "badge": "Class",
+        "sessions": {
+          "title": "My sessions",
+          "subtitle": "Resume a class or review the plan."
+        },
+        "newSession": {
+          "title": "New session",
+          "subtitle": "Get a code and QR when you're ready."
+        },
+        "bishop": {
+          "title": "Bishopric view",
+          "subtitle": "Support teachers without judgment."
+        },
+        "calendarFallback": {
+          "title": "Calendar",
+          "subtitle": "Find the next space to teach."
+        }
+      }
+    },
+    "callings": {
+      "title": "Callings",
+      "new": "New calling",
+      "empty": "No callings registered",
+      "status": {
+        "active": "Active",
+        "pending": "Pending",
+        "released": "Released"
+      }
+    },
+    "members": {
+      "title": "Members",
+      "search": "Search members",
+      "empty": "No members found"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "empty": "No scheduled events"
+    },
+    "notes": {
+      "title": "Notes",
+      "new": "New note",
+      "empty": "No notes"
+    },
+    "responsibilities": {
+      "title": "Responsibilities",
+      "empty": "No assigned responsibilities"
+    },
+    "canon": {
+      "dashboardTitle": "Leadership",
+      "leadershipEyebrow": "LEADERSHIP",
+      "dashboardSubtitle": "Organize callings and teaching with calm.",
+      "dashboardHeroNote": "Open each section calmly. Nothing here is urgent compared to sacred things.",
+      "teachingPageTitle": "Teaching",
+      "bishopPageTitle": "Ward classes",
+      "teachingEyebrow": "TEACHING",
+      "teachingSubtitle": "Prepare and lead class sessions with clarity.",
+      "teachingHeroNote": "Create a session to get a code and QR. Support audio will be available soon.",
+      "bishopEyebrow": "BISHOPRIC",
+      "bishopSubtitle": "Oversee ward classes with a pastoral view.",
+      "bishopHeroNote": "Read-only view to support teachers.",
+      "sessionAudioEyebrow": "SUPPORT AUDIO",
+      "sessionAudioTitle": "Session audio",
+      "sessionAudioSummary": "Audio summary to prepare the class before you meet.",
+      "sessionAudioIntent": "A brief guide for tone and pacing of the lesson.",
+      "sessionAudioStatus": "Coming soon",
+      "sessionImageLabel": "Image or slide",
+      "sessionImageTitle": "Visual material",
+      "sessionImagePrompt": "A representative image or slide for the class, sober style. Coming soon.",
+      "sessionSubtitle": "{{calling}} · {{parts}} parts",
+      "sessionHeroNote": "Review the plan, activate the code when ready, and teach with the Spirit.",
+      "reflectionLabel": "Reflection",
+      "reflectionBody": "Before you teach, think of one person this lesson might help.",
+      "reportEyebrow": "REPORT",
+      "reportHeroNote": "Review the summary calmly. Export the PDF if you need to share it.",
+      "sessionCreatePageTitle": "New session",
+      "sessionCreateSubtitle": "Set title, class type, and parts before activating the code.",
+      "sessionCreateHeroNote": "You can edit the draft until you activate the session.",
+      "sessionLiveEyebrow": "LIVE",
+      "sessionLiveSubtitle": "{{calling}}",
+      "sessionLiveHeroNote": "Guide the current part and support participants with patience.",
+      "analyticsPageTitle": "Class metrics",
+      "analyticsSubtitle": "Ward trends for the selected period.",
+      "analyticsHeroNote": "Use this data pastorally—not for judgment."
+    }
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "back": "Back",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm"
+  },
+  "auth": {
+    "login": {
+      "title": "xTheGospel Leaders",
+      "subtitle": "Tools for ward and stake leaders",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@email.com",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "infoText": "Use the same account you created in the members app",
+      "noAccountPrefix": "Don't have an account? Visit",
+      "noAccountSuffix": "for more information.",
+      "errors": {
+        "completeAllFields": "Please complete all fields",
+        "invalidCredentials": "Incorrect email or password. Please try again."
+      }
+    },
+    "roleSelection": {
+      "title": "What is your calling?",
+      "subtitle": "Select your role to personalize your experience",
+      "confirm": "Confirm",
+      "skip": "Skip for now"
+    },
+    "profile": {
+      "title": "Profile",
+      "userFallback": "User",
+      "leadershipFallback": "Leadership",
+      "bishopric": "Bishopric",
+      "wardSection": "Your ward",
+      "branch": "Branch",
+      "ward": "Ward",
+      "district": "District",
+      "stake": "Stake",
+      "connected": "Connected",
+      "joinedCreated": "Ward creator",
+      "joinedCode": "By code",
+      "joinedInvited": "Invited",
+      "callingSection": "Your calling",
+      "currentCalling": "Current calling",
+      "organization": "Organization",
+      "changeCalling": "Change calling",
+      "accountSection": "Account",
+      "preferencesSection": "Preferences",
+      "email": "Email",
+      "userId": "User ID",
+      "accountStatus": "Account status",
+      "accountStatusValue": "Active",
+      "language": "Language",
+      "appearance": "Appearance",
+      "appSection": "Application",
+      "version": "Version",
+      "storage": "Storage",
+      "storageValue": "Local + Cloud",
+      "logout": "Sign out",
+      "loggingOut": "Signing out...",
+      "footerSubtitle": "Tools to serve better",
+      "errors": {
+        "logout": "Error during sign out",
+        "unknown": "Unknown error",
+        "sync": "Error while syncing",
+        "generic": "Error",
+        "hydrate": "Error loading from cloud"
+      },
+      "sync": {
+        "section": "Sync",
+        "lastSync": "Last sync",
+        "syncing": "Syncing...",
+        "syncNow": "Sync now",
+        "replaceFromCloud": "Replace from cloud",
+        "replaceConfirm": "This will replace your local data with cloud data. Continue?",
+        "loading": "Loading...",
+        "never": "Never",
+        "justNow": "Just now",
+        "minutesAgo": "{{count}} min ago",
+        "hoursAgo": "{{count}} h ago"
+      },
+      "theme": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
+    }
+  }
+}

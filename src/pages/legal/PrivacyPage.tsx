@@ -39,7 +39,11 @@ export const PrivacyPage: React.FC = () => {
             necessary to provide the service, such as:
           </p>
           <ul>
-            <li>Account data (name, email, language, role in the app).</li>
+            <li>
+              Account data (name, email, language, role in the app), and optional onboarding
+              preferences such as age range, learning pace, optional gender, and accent color
+              preset—used only to personalize content and the interface.
+            </li>
             <li>
               Spiritual notes and journal entries you voluntarily write
               (experiences, commitments, progress).
@@ -49,6 +53,10 @@ export const PrivacyPage: React.FC = () => {
               non-confidential notes about investigators and members).
             </li>
             <li>Technical data (device, browser, usage logs) for security and performance.</li>
+            <li>
+              Optional social features: a minimal public card (name, photo, xTheGospel ID) for friend
+              requests, shared study references, and messages between users who accepted a connection.
+            </li>
           </ul>
 
           <p>
@@ -56,7 +64,11 @@ export const PrivacyPage: React.FC = () => {
             necesaria para prestar el servicio, por ejemplo:
           </p>
           <ul>
-            <li>Datos de cuenta (nombre, correo, idioma, rol en la app).</li>
+            <li>
+              Datos de cuenta (nombre, correo, idioma, rol en la app) y preferencias opcionales
+              del registro (rango de edad, ritmo de aprendizaje, género opcional, preset de color)
+              usadas solo para personalizar contenido e interfaz.
+            </li>
             <li>
               Notas espirituales y entradas de diario que tú mismo registras
               (experiencias, compromisos, progreso).
@@ -68,6 +80,11 @@ export const PrivacyPage: React.FC = () => {
             <li>
               Datos técnicos (dispositivo, navegador, registros de uso) para
               seguridad y rendimiento.
+            </li>
+            <li>
+              Funciones sociales opcionales: una tarjeta pública mínima (nombre, foto, xTheGospel ID)
+              para solicitudes de amistad, referencia de estudio compartido y mensajes entre usuarios
+              que aceptaron la conexión.
             </li>
           </ul>
         </XtgCard>

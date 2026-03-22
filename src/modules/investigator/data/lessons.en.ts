@@ -421,8 +421,129 @@ export const coreLessonsEn: Lesson[] = [
   lawsAndOrdinances,
 ];
 
-// Library lessons will be added incrementally
-export const libraryLessonsEn: Lesson[] = [];
+// ===============================
+// LIBRARY LESSONS (Non-Core) - English
+// ===============================
+export const libraryLessonsEn: Lesson[] = [
+  {
+    id: 'heavenly-father',
+    title: 'God Is Our Heavenly Father',
+    subtitle: 'Stage: Investigator · 15–20 min',
+    description:
+      'Help the investigator understand who God is, who they are before God, and how that truth changes daily life.',
+    icon: '👑',
+    estimatedMinutes: 20,
+    introParagraph:
+      'One of the deepest human questions is: "Who am I… and why am I here?" The answer of the Gospel begins with a simple but transforming truth: God is not a distant or impersonal being. He is our Heavenly Father. This teaching does not only define God; it redefines your worth, your purpose, and your destiny.',
+    sections: [
+      {
+        id: 'hf-1',
+        title: 'Who is God?',
+        content:
+          'God is a real, living, conscious Being. He is not abstract energy or a faceless force.\n\nIn the restored Gospel we learn that: God has a glorified, perfected body. He possesses all knowledge, all power, and all goodness. He governs with justice but acts with love.\n\nGod does not create on a whim or rule by fear. His work and His glory are clear: "For behold, this is my work and my glory—to bring to pass the immortality and eternal life of man." (Moses 1:39)\n\n👉 That means your eternal welfare is His personal work.',
+        scriptureRef: 'Moses 1:39',
+      },
+      {
+        id: 'hf-2',
+        title: 'God is a Father, not only a Creator',
+        content:
+          'Many people believe in God but do not feel like sons or daughters of God. The difference is huge.\n\nIf God were only a creator: we might admire Him, fear Him, or obey Him from a distance. But if God is our Father: He knows us individually, cares about our struggles, desires our real happiness—not only outward obedience.\n\nJesus Christ taught us to pray, "Our Father which art in heaven…" (Matthew 6:9) He did not say "Our Creator" or "Supreme Being." He said Father.\n\n👉 That implies closeness, relationship, and personal love.',
+        scriptureRef: 'Matthew 6:9',
+      },
+      {
+        id: 'hf-3',
+        title: 'Your eternal identity',
+        content:
+          'If God is your Father, then you are not an accident, a mistake, or a coincidence.\n\nBefore birth: you lived as a spirit, learned, and were known by God. In this life: you receive a body, face trials, and build character. After this life: you will continue to live, grow, and draw nearer to God.\n\nThat means: your worth does not depend on your achievements; your mistakes do not define your eternal identity; your life has divine purpose even when you do not understand everything.',
+      },
+      {
+        id: 'hf-4',
+        title: 'Where is God when we suffer?',
+        content:
+          'One of the most honest questions is: "If God is my Father, why does He allow pain?"\n\nThe Gospel does not teach that God prevents all suffering. It teaches that God walks with us through it. As a loving Father: He allows trials that strengthen us, respects our agency, and even uses pain to teach us.\n\nGod does not delight in suffering, but He is never indifferent to it. Jesus Christ Himself suffered deeply so He could understand and help us.',
+      },
+      {
+        id: 'hf-5',
+        title: 'How this truth changes your daily life',
+        content:
+          'Believing God is your Father changes:\n\n🔹 How you see yourself — You are not defined only by your mistakes. You understand you have divine dignity.\n\n🔹 How you face decisions — You seek His guidance. You trust that He wants what is best for you.\n\n🔹 How you pray — You speak with confidence. You speak honestly. You know someone is listening.\n\n🔹 How you treat others — You recognize that everyone is a child of God. You grow in compassion and patience.',
+      },
+    ],
+    featuredScriptureId: '1-john-3-1',
+    reflectionQuestions: [
+      'What is the difference between believing in God and feeling like a son or daughter of God?',
+      'How would your life change if you really trusted that God knows you by name?',
+      'When have you felt you were not alone, even without understanding why?',
+      'What parts of your life would you like to trust more to a loving Father?',
+    ],
+    reflectionPrompt:
+      'What does it mean to me to believe God is my Heavenly Father, and how do I want that truth to shape my daily choices? Write honestly. Do not look for fancy words; look for true words.',
+    finalMessage:
+      'It does not matter where you come from. It does not matter how many times you have failed. It does not matter how far away you feel. If God is your Father, then: your story is not over, your worth is intact, your life has hope. Walk at your own pace. Explore calmly. God is not in a hurry with you.',
+    recommendedNext: 'jesus-christ',
+  },
+  {
+    id: 'jesus-christ',
+    title: 'Jesus Christ: Our Savior and Redeemer',
+    subtitle: 'Stage: Investigator · 20–25 min',
+    description:
+      'Help the investigator know who Jesus Christ is, why He is central to God’s plan, and how His life and sacrifice matter in their life today.',
+    icon: '✝️',
+    estimatedMinutes: 25,
+    introParagraph:
+      'Throughout history, millions have spoken of Jesus Christ. Some see Him as a great teacher. Others, as a moral prophet. Others, as an inspiring figure from the past. But the restored Gospel testifies of something deeper: Jesus Christ did not only teach the way. He IS the way. Knowing Jesus Christ is not only learning about Him; it is beginning a relationship that changes life.',
+    sections: [
+      {
+        id: 'jc-1',
+        title: 'Who is Jesus Christ, really?',
+        content:
+          'Jesus Christ is: The Only Begotten Son of God the Father in the flesh. Jehovah of the Old Testament. The Creator, under the direction of the Father. The Savior and Redeemer of all mankind.\n\nBefore He was born in Bethlehem, Jesus Christ already existed. He lived with God the Father in premortal life and accepted a sacred mission: to come to earth, live without sin, and offer Himself for all of us.\n\nThat means His life was not a historical accident but the fulfillment of an eternal plan.',
+      },
+      {
+        id: 'jc-2',
+        title: 'Why did we need a Savior?',
+        content:
+          'Every human being faces two inevitable realities: Physical death. Sin and weakness.\n\nOn our own: we cannot overcome death, we cannot erase our faults, we cannot fully heal the wounds of the soul.\n\nGod, as a loving Father, prepared a solution: Jesus Christ. Jesus Christ came to do for us what we could not do alone.',
+      },
+      {
+        id: 'jc-3',
+        title: 'The Atonement of Jesus Christ',
+        content:
+          'The Atonement is the central act of the Gospel. It includes: His suffering in Gethsemane, His death on the cross, His glorious resurrection.\n\nIn Gethsemane, Jesus Christ took upon Himself: our sins, our guilt, our pains, our sorrows, our sicknesses of soul. Nothing you have lived is beyond His understanding.\n\nThe Atonement does not only cleanse sin; it heals, strengthens, and restores.',
+      },
+      {
+        id: 'jc-4',
+        title: 'The Resurrection: hope for everyone',
+        content:
+          'Jesus Christ overcame death. Because of His resurrection: everyone will be resurrected, every physical separation will end, death is not the end.\n\nResurrection is an unconditional gift to all mankind. That means: you will live again, your body will be restored, death does not have the last word.',
+      },
+      {
+        id: 'jc-5',
+        title: 'What does it mean to follow Jesus Christ today?',
+        content:
+          'Following Jesus Christ does not mean being perfect. It means learning, changing, and trusting.\n\nFollowing Christ includes: repenting when we fail, forgiving when it hurts, loving when it is hard, continuing when we are tired.\n\nJesus Christ does not ask us to carry everything alone. He walks ahead of us, beside us, and within us through His Spirit.',
+      },
+      {
+        id: 'jc-6',
+        title: 'Jesus Christ and your daily life',
+        content:
+          '🔹 When you feel guilty — He offers real forgiveness, not eternal shame.\n\n🔹 When you feel broken — He offers healing, not only judgment.\n\n🔹 When you feel alone — He promises constant companionship.\n\n🔹 When you do not know what to do — He is the perfect example to follow.\n\nJesus Christ does not only save at the end of life; He sustains us during life.',
+      },
+    ],
+    featuredScriptureId: 'john-3-16',
+    reflectionQuestions: [
+      'What ideas did I have about Jesus Christ before studying this lesson?',
+      'Why do you think God allowed His Son to suffer for us?',
+      'In what areas of your life do you need Christ’s healing power more?',
+      'What does it mean for you to "follow Jesus Christ" in practical terms?',
+    ],
+    reflectionPrompt:
+      'What does Jesus Christ mean to me today, and how do I want to draw nearer to Him in daily life? Write without fear. Jesus Christ knows your heart even before you put it into words.',
+    finalMessage:
+      'Jesus Christ did not come to create a cold religion. He came to offer life, light, and hope. It does not matter how far away you feel. It does not matter how many times you have failed. If you take one step toward Him, He will take many toward you.',
+    recommendedNext: 'holy-ghost',
+  },
+];
 
 // Combined lessons array for English
 export const lessonsEn: Lesson[] = [

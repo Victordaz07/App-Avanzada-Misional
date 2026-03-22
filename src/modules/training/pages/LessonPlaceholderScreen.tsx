@@ -1,18 +1,21 @@
 /**
- * LessonPlaceholderScreen - Placeholder for lesson content
- * TODO: Replace placeholder with real lesson components (e.g., LessonRestoration.tsx).
- * Keep layout and navigation; only swap internal content.
+ * Pantalla de lección de capacitación — layout Teaching Canon.
  */
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa6';
-import { useJourneyStage } from '../../../core/journey/useJourneyStore';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useTrainingUnlockStage } from '../../../hooks/useMemberSpiritualPath';
 import { useTrainingStore } from '../store/useTrainingStore';
 import { isLessonUnlocked } from '../utils/unlockLogic';
 import type { UnlockContext } from '../utils/unlockLogic';
 import { scrollToTop } from '../utils/scrollToTop';
-import { paths, tracksById, lessonsById, getLessonsForNode } from '../data/trainingPaths';
+import {
+  paths,
+  tracksById,
+  lessonsById,
+  getLessonsForNode,
+  getTrainingLessonCategoryLabel,
+} from '../data/trainingPaths';
 import { LessonRestoration } from '../lessons/LessonRestoration';
 import { LessonPlanOfSalvation } from '../lessons/LessonPlanOfSalvation';
 import { LessonPriesthood } from '../lessons/LessonPriesthood';
@@ -27,9 +30,31 @@ import { LessonElderMinistration } from '../lessons/LessonElderMinistration';
 import { LessonElderLeadership } from '../lessons/LessonElderLeadership';
 import { LessonHighPriestKeysPresidency } from '../lessons/LessonHighPriestKeysPresidency';
 import { LessonHighPriestShepherding } from '../lessons/LessonHighPriestShepherding';
+import {
+  TeachingCanonShell,
+  TeachingCanonBackLink,
+  TeachingCanonHeroHeader,
+  TeachingCanonNotFound,
+} from '../../../ui/teaching-canon';
+import { useI18n } from '../../../context/I18nContext';
 import './LessonPlaceholderScreen.css';
 
-const LESSONS_WITH_HINT = ['core-1', 'core-2', 'core-3', 'core-4', 'deacon-1', 'deacon-2', 'teacher-1', 'teacher-2', 'priest-1', 'priest-2', 'elder-1', 'elder-2', 'high-priest-1', 'high-priest-2'];
+const LESSONS_WITH_HINT = [
+  'core-1',
+  'core-2',
+  'core-3',
+  'core-4',
+  'deacon-1',
+  'deacon-2',
+  'teacher-1',
+  'teacher-2',
+  'priest-1',
+  'priest-2',
+  'elder-1',
+  'elder-2',
+  'high-priest-1',
+  'high-priest-2',
+];
 
 const ORDERED_NODES = [
   'core-foundations',
@@ -65,12 +90,13 @@ function getNextUnlockedLesson(
 }
 
 export default function LessonPlaceholderScreen(): JSX.Element {
+  const { t } = useI18n();
   const location = useLocation();
   const navigate = useNavigate();
   const parts = location.pathname.replace(/^\/training\/?/, '').split('/').filter(Boolean);
   const nodeId = parts[0] || null;
   const lessonId = parts[1] || null;
-  const stage = useJourneyStage();
+  const stage = useTrainingUnlockStage();
   const completedLessons = useTrainingStore((s) => s.completedLessons);
   const markLessonCompleted = useTrainingStore((s) => s.markLessonCompleted);
   const setLastVisited = useTrainingStore((s) => s.setLastVisited);
@@ -107,20 +133,18 @@ export default function LessonPlaceholderScreen(): JSX.Element {
   }, []);
 
   const lesson = lessonId ? lessonsById[lessonId] : null;
-  const nextLesson = nodeId && lessonId
-    ? getNextUnlockedLesson(nodeId, lessonId, ctx)
-    : null;
+  const nextLesson =
+    nodeId && lessonId ? getNextUnlockedLesson(nodeId, lessonId, ctx) : null;
 
   if (!nodeId || !lessonId || !lesson) {
     return (
-      <div className="tr-lesson">
-        <Link to="/training" className="tr-lesson__back">
-          <FaArrowLeft /> Volver a Capacitación
-        </Link>
-        <div className="tr-lesson__not-found">
-          <p>Lección no encontrada</p>
-        </div>
-      </div>
+      <TeachingCanonShell>
+        <TeachingCanonBackLink to="/training">{t('app.training.lesson.backToTraining')}</TeachingCanonBackLink>
+        <TeachingCanonNotFound
+          title={t('app.training.lesson.notFoundTitle')}
+          message={t('app.training.lesson.notFoundText')}
+        />
+      </TeachingCanonShell>
     );
   }
 
@@ -131,25 +155,31 @@ export default function LessonPlaceholderScreen(): JSX.Element {
   const shouldGateNext = isCompleteBlocked;
 
   const primaryButtonLabel = isCompleting
-    ? 'Finalizando…'
+    ? t('app.training.lesson.completing')
     : isHintLesson && canCompleteByPractice
-      ? 'Finalizar lección'
-      : 'Marcar como completada';
+      ? t('app.training.lesson.finishLesson')
+      : t('app.training.lesson.markCompleted');
 
   const completeHintText = isCompleteBlocked
     ? practiceProgress
-      ? (() => {
-          const n = practiceProgress.total - practiceProgress.checked;
-          return `Te faltan ${n} ${n === 1 ? 'práctica' : 'prácticas'} para finalizar.`;
-        })()
-      : 'Completa las prácticas para finalizar.'
+      ? practiceProgress.total - practiceProgress.checked === 1
+        ? t('app.training.lesson.practiceRemainingOne')
+        : t('app.training.lesson.practiceRemainingMany', {
+            count: practiceProgress.total - practiceProgress.checked,
+          })
+      : t('app.training.lesson.practiceIncompleteGeneric')
     : null;
 
-  const nextHintText = shouldGateNext && nextLesson
-    ? practiceProgress
-      ? `Completa las prácticas para desbloquear la siguiente lección. Te faltan ${practiceProgress.total - practiceProgress.checked} ${practiceProgress.total - practiceProgress.checked === 1 ? 'práctica' : 'prácticas'}.`
-      : 'Completa las prácticas para desbloquear la siguiente lección.'
-    : null;
+  const nextHintText =
+    shouldGateNext && nextLesson
+      ? practiceProgress
+        ? practiceProgress.total - practiceProgress.checked === 1
+          ? t('app.training.lesson.nextLessonGatedOne')
+          : t('app.training.lesson.nextLessonGatedMany', {
+              count: practiceProgress.total - practiceProgress.checked,
+            })
+        : t('app.training.lesson.practiceIncompleteGeneric')
+      : null;
 
   const handleNextLesson = () => {
     if (nextLesson && !shouldGateNext) {
@@ -161,117 +191,116 @@ export default function LessonPlaceholderScreen(): JSX.Element {
     if (!lesson || isCompleting) return;
     setIsCompleting(true);
     markLessonCompleted(lesson.nodeId, lesson.id, 100);
-    // Recalcular siguiente lección con el estado actualizado (tras marcar como completada).
-    // Importante: la siguiente lección (ej. deacon-1) puede desbloquearse solo al completar la actual (core-4).
     const updatedCompleted = useTrainingStore.getState().completedLessons;
     const updatedCtx: UnlockContext = { ...ctx, completedLessons: updatedCompleted };
     const nextAfterComplete = getNextUnlockedLesson(lesson.nodeId, lesson.id, updatedCtx);
     if (nextAfterComplete) {
       navigate(`/training/${nextAfterComplete.nodeId}/${nextAfterComplete.lessonId}`);
     } else {
-      // Sin siguiente lección (ej. stage 'seeking' o última lección): ir al dashboard
       navigate('/training');
     }
   };
 
-  return (
-    <div className="tr-lesson">
-      <Link to={`/training/${nodeId}`} className="tr-lesson__back">
-        <FaArrowLeft /> Volver
-      </Link>
+  const categoryLabel = getTrainingLessonCategoryLabel(lessonId);
 
-      <header className="tr-lesson__header">
-        <h1 className="tr-lesson__title">{lesson.title}</h1>
-      </header>
-
-      <div className="tr-lesson__body">
-        {lessonId === 'core-1' ? (
-          <LessonRestoration onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'core-2' ? (
-          <LessonPlanOfSalvation onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'core-3' ? (
-          <LessonPriesthood onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'core-4' ? (
-          <LessonOrdinancesPreparation onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'deacon-1' ? (
-          <LessonDeaconDuties onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'deacon-2' ? (
-          <LessonDeaconService onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'teacher-1' ? (
-          <LessonTeacherDuties onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'teacher-2' ? (
-          <LessonTeacherReverenceService onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'priest-1' ? (
-          <LessonPriestDuties onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'priest-2' ? (
-          <LessonPriestPastoral onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'elder-1' ? (
-          <LessonElderMinistration onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'elder-2' ? (
-          <LessonElderLeadership onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'high-priest-1' ? (
-          <LessonHighPriestKeysPresidency onPracticeProgress={handlePracticeProgress} />
-        ) : lessonId === 'high-priest-2' ? (
-          <LessonHighPriestShepherding onPracticeProgress={handlePracticeProgress} />
-        ) : (
-          <p className="tr-lesson__placeholder">
-            Contenido en preparación. Próximamente: {lesson.title}
-          </p>
-        )}
-      </div>
-
-      {isHintLesson && practiceProgress && practiceProgress.total > 0 && (
-        <p className="tr-lesson__practice-hint" role="status" aria-live="polite">
-          {practiceProgress.checked === practiceProgress.total ? (
-            <>Listo para finalizar ✓</>
-          ) : (
-            <>{practiceProgress.checked}/{practiceProgress.total} actividades completadas</>
-          )}
+  const lessonInner =
+    lessonId === 'core-1' ? (
+      <LessonRestoration onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'core-2' ? (
+      <LessonPlanOfSalvation onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'core-3' ? (
+      <LessonPriesthood onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'core-4' ? (
+      <LessonOrdinancesPreparation onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'deacon-1' ? (
+      <LessonDeaconDuties onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'deacon-2' ? (
+      <LessonDeaconService onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'teacher-1' ? (
+      <LessonTeacherDuties onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'teacher-2' ? (
+      <LessonTeacherReverenceService onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'priest-1' ? (
+      <LessonPriestDuties onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'priest-2' ? (
+      <LessonPriestPastoral onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'elder-1' ? (
+      <LessonElderMinistration onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'elder-2' ? (
+      <LessonElderLeadership onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'high-priest-1' ? (
+      <LessonHighPriestKeysPresidency onPracticeProgress={handlePracticeProgress} />
+    ) : lessonId === 'high-priest-2' ? (
+      <LessonHighPriestShepherding onPracticeProgress={handlePracticeProgress} />
+    ) : (
+      <>
+        <TeachingCanonHeroHeader
+          categoryLabel={categoryLabel}
+          title={lesson.title}
+          subtitle={t('app.training.lesson.placeholderSubtitle')}
+          heroNote={t('app.training.lesson.heroNote')}
+        />
+        <p className="tr-lesson__placeholder">
+          {t('app.training.lesson.placeholderBody', { title: lesson.title })}
         </p>
-      )}
-      <div className="tr-lesson__actions">
-        <button
-          type="button"
-          className="tr-lesson__btn tr-lesson__btn--primary"
-          onClick={handleMarkCompleted}
-          disabled={isCompleting || isCompleteBlocked}
-          aria-disabled={isCompleting || isCompleteBlocked}
-          aria-busy={isCompleting}
-        >
-          {primaryButtonLabel}
-        </button>
-        {completeHintText && (
-          <p className="tr-lesson__complete-hint" role="status">
-            {completeHintText}
+      </>
+    );
+
+  return (
+    <TeachingCanonShell>
+      <TeachingCanonBackLink to={`/training/${nodeId}`}>{t('app.training.lesson.backToNode')}</TeachingCanonBackLink>
+
+      <div className="tr-lesson">
+        {lessonInner}
+
+        {isHintLesson && practiceProgress && practiceProgress.total > 0 && (
+          <p className="tr-lesson__practice-hint" role="status" aria-live="polite">
+            {practiceProgress.checked === practiceProgress.total ? (
+              t('app.training.lesson.readyToFinish')
+            ) : (
+              t('app.training.lesson.practiceProgress', {
+                done: practiceProgress.checked,
+                total: practiceProgress.total,
+              })
+            )}
           </p>
         )}
-        {nextLesson && (
-          <>
-            <button
-              type="button"
-              className="tr-lesson__btn tr-lesson__btn--secondary"
-              onClick={handleNextLesson}
-              disabled={shouldGateNext}
-              aria-disabled={shouldGateNext}
-            >
-              Siguiente lección
-            </button>
-            {nextHintText && (
-              <p className="tr-lesson__next-hint" role="status" aria-live="polite">
-                {nextHintText}
-              </p>
-            )}
-          </>
-        )}
+        <div className="tr-lesson__actions">
+          <button
+            type="button"
+            className="nm-guide-detail__btn nm-guide-detail__btn--primary"
+            onClick={handleMarkCompleted}
+            disabled={isCompleting || isCompleteBlocked}
+            aria-disabled={isCompleting || isCompleteBlocked}
+            aria-busy={isCompleting}
+          >
+            {primaryButtonLabel}
+          </button>
+          {completeHintText && (
+            <p className="tr-lesson__complete-hint" role="status">
+              {completeHintText}
+            </p>
+          )}
+          {nextLesson && (
+            <>
+              <button
+                type="button"
+                className="nm-guide-detail__btn nm-guide-detail__btn--secondary"
+                onClick={handleNextLesson}
+                disabled={shouldGateNext}
+                aria-disabled={shouldGateNext}
+              >
+                {t('app.training.lesson.nextLesson')}
+              </button>
+              {nextHintText && (
+                <p className="tr-lesson__next-hint" role="status" aria-live="polite">
+                  {nextHintText}
+                </p>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </TeachingCanonShell>
   );
 }
-
-/**
- * Gating rules (Fase 2 + Fase 3 + Fase 4):
- * - "Marcar como completada" / "Finalizar lección": enabled when practiceProgress.checked === total (LESSONS_WITH_HINT).
- * - "Siguiente lección": disabled when !canCompleteByPractice for same lessons.
- * - Fase 4: "Finalizar lección" label when ready; auto-navigate to next lesson after completion.
- * Lessons not in LESSONS_WITH_HINT keep both CTAs enabled (Soft Gate).
- */

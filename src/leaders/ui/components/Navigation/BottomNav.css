@@ -1,0 +1,143 @@
+/**
+ * BottomNav — alineado a New Member (nm-bottom-nav): barra clara, sombra suave,
+ * etiquetas en mayúsculas, pill en activo; en desktop ancho acotado como el shell de líderes.
+ */
+
+.ui-bottom-nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--background-card);
+  box-shadow: 0 -2px 20px rgba(var(--primary-rgb), 0.1);
+  border-top: 1px solid rgba(var(--primary-rgb), 0.1);
+  padding: 8px 12px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  z-index: var(--z-fixed);
+  gap: 2px;
+}
+
+@media (min-width: 640px) {
+  .ui-bottom-nav {
+    padding: 10px 20px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ui-bottom-nav {
+    max-width: min(800px, 100%);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border-radius: 20px 20px 0 0;
+    border-left: 1px solid rgba(var(--primary-rgb), 0.08);
+    border-right: 1px solid rgba(var(--primary-rgb), 0.08);
+    box-shadow:
+      0 -4px 24px rgba(var(--primary-rgb), 0.08),
+      0 0 0 1px rgba(var(--primary-rgb), 0.06);
+  }
+}
+
+:root[data-theme='dark'] .ui-bottom-nav {
+  background: var(--background-card);
+  box-shadow: 0 -2px 24px rgba(0, 0, 0, 0.35);
+  border-top-color: var(--border-subtle);
+}
+
+.ui-bottom-nav__item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 6px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+  color: color-mix(in srgb, var(--primary) 72%, var(--text-secondary));
+  font: inherit;
+}
+
+@media (min-width: 640px) {
+  .ui-bottom-nav__item {
+    padding: 10px 12px;
+    min-width: 56px;
+  }
+}
+
+.ui-bottom-nav__item:hover {
+  background: rgba(var(--primary-rgb), 0.1);
+  color: var(--text-secondary);
+}
+
+.ui-bottom-nav__item--active {
+  color: var(--primary);
+  background: rgba(var(--primary-rgb), 0.15);
+}
+
+.ui-bottom-nav__item:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.ui-bottom-nav__icon {
+  position: relative;
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .ui-bottom-nav__icon {
+    font-size: 24px;
+  }
+}
+
+.ui-bottom-nav__badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--space-1);
+  background: var(--danger);
+  color: var(--text-inverse);
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-bottom-nav__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .ui-bottom-nav__label {
+    font-size: 11px;
+  }
+}

@@ -37,71 +37,74 @@ export default function InvestigatorLessonsPage(): JSX.Element {
         <p className="inv-lessons__subtitle">{t('app.lessons.subtitle')}</p>
       </header>
 
-      {/* Progress Indicator */}
-      <div className="inv-lessons__progress">
-        <div className="inv-lessons__progress-header">
-          <span className="inv-lessons__progress-label">
-            {t('app.lessons.progressLabel')}
-          </span>
-          <span className="inv-lessons__progress-count">
-            {completedCount} / {totalLessons}
-          </span>
-        </div>
-        <div
-          className="inv-lessons__progress-bar"
-          role="progressbar"
-          aria-valuenow={completedCount}
-          aria-valuemin={0}
-          aria-valuemax={totalLessons}
-          aria-label={`${t('app.lessons.progressLabel')}: ${completedCount} ${t('app.lessons.completed').toLowerCase()} / ${totalLessons}`}
-        >
-          <div
-            className="inv-lessons__progress-fill"
-            style={{ width: `${progressPercentage}%` }}
-          />
-          {exploringCount > 0 && (
-            <div
-              className="inv-lessons__progress-exploring"
-              style={{
-                left: `${progressPercentage}%`,
-                width: `${(exploringCount / totalLessons) * 100}%`,
-              }}
-            />
-          )}
-        </div>
-        <div className="inv-lessons__progress-legend">
-          {completedCount > 0 && (
-            <span className="inv-lessons__legend-item inv-lessons__legend-item--completed">
-              ✓ {completedCount} {t('app.lessons.completed').toLowerCase()}
+      {/* Panel menta: progreso + intro + lista (mismo lenguaje que «Sigue explorando» en home) */}
+      <div className="inv-lessons__panel">
+        {/* Progress Indicator */}
+        <div className="inv-lessons__progress">
+          <div className="inv-lessons__progress-header">
+            <span className="inv-lessons__progress-label">
+              {t('app.lessons.progressLabel')}
             </span>
-          )}
-          {exploringCount > 0 && (
-            <span className="inv-lessons__legend-item inv-lessons__legend-item--exploring">
-              ○ {exploringCount} {t('app.lessons.inProgress').toLowerCase()}
+            <span className="inv-lessons__progress-count">
+              {completedCount} / {totalLessons}
             </span>
-          )}
-        </div>
-      </div>
-
-      {/* Introduction */}
-      <div className="inv-lessons__intro">
-        <p className="inv-lessons__intro-text">{t('app.lessons.introText')}</p>
-      </div>
-
-      {/* Lessons List */}
-      <div className="inv-lessons__list">
-        {coreLessons.map((lesson, index) => (
-          <div
-            key={lesson.id}
-            className="anim-fade-up"
-            style={{ animationDelay: `${0.1 + index * 0.08}s` }}
-          >
-            <LessonListCard
-              lesson={lesson}
-              status={getLessonStatus(lesson.id)}
-            />
           </div>
-        ))}
+          <div
+            className="inv-lessons__progress-bar"
+            role="progressbar"
+            aria-valuenow={completedCount}
+            aria-valuemin={0}
+            aria-valuemax={totalLessons}
+            aria-label={`${t('app.lessons.progressLabel')}: ${completedCount} ${t('app.lessons.completed').toLowerCase()} / ${totalLessons}`}
+          >
+            <div
+              className="inv-lessons__progress-fill"
+              style={{ width: `${progressPercentage}%` }}
+            />
+            {exploringCount > 0 && (
+              <div
+                className="inv-lessons__progress-exploring"
+                style={{
+                  left: `${progressPercentage}%`,
+                  width: `${(exploringCount / totalLessons) * 100}%`,
+                }}
+              />
+            )}
+          </div>
+          <div className="inv-lessons__progress-legend">
+            {completedCount > 0 && (
+              <span className="inv-lessons__legend-item inv-lessons__legend-item--completed">
+                ✓ {completedCount} {t('app.lessons.completed').toLowerCase()}
+              </span>
+            )}
+            {exploringCount > 0 && (
+              <span className="inv-lessons__legend-item inv-lessons__legend-item--exploring">
+                ○ {exploringCount} {t('app.lessons.inProgress').toLowerCase()}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Introduction */}
+        <div className="inv-lessons__intro">
+          <p className="inv-lessons__intro-text">{t('app.lessons.introText')}</p>
+        </div>
+
+        {/* Lessons List */}
+        <div className="inv-lessons__list">
+          {coreLessons.map((lesson, index) => (
+            <div
+              key={lesson.id}
+              className="anim-fade-up"
+              style={{ animationDelay: `${0.1 + index * 0.08}s` }}
+            >
+              <LessonListCard
+                lesson={lesson}
+                status={getLessonStatus(lesson.id)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

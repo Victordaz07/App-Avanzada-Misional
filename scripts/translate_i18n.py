@@ -105,19 +105,12 @@ def translate_file(base_file: str, target_lang: str, output_file: str) -> None:
 
 
 def main() -> None:
+    # Solo ES/EN: útil para regenerar missionary.en.json desde español si hace falta.
     jobs = {
-        "app": [
-            ("app.es.json", "fr", "app.fr.json"),
-            ("app.es.json", "pt", "app.pt.json"),
-        ],
-        "member": [
-            ("member.es.json", "fr", "member.fr.json"),
-            ("member.es.json", "pt", "member.pt.json"),
-        ],
+        "app": [],
+        "member": [],
         "missionary": [
             ("missionary.es.json", "en", "missionary.en.json"),
-            ("missionary.es.json", "fr", "missionary.fr.json"),
-            ("missionary.es.json", "pt", "missionary.pt.json"),
         ],
     }
 

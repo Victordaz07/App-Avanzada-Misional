@@ -1,0 +1,102 @@
+.leaders-first-open.leaders-mint-page {
+  display: grid;
+  place-items: center;
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.leaders-first-open__card {
+  width: min(680px, 100%);
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border-subtle));
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 92%, transparent) inset,
+    0 14px 44px -20px rgba(var(--primary-rgb), 0.2);
+}
+
+.leaders-first-open__eyebrow {
+  margin: 0 0 var(--space-2) 0;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.leaders-first-open__title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  color: var(--primary);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+
+.leaders-first-open__subtitle {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+}
+
+.leaders-first-open__slide {
+  margin-top: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--info-light) 45%, var(--background-card));
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--border-subtle));
+  padding: var(--space-4);
+}
+
+.leaders-first-open__slide-title {
+  margin: 0 0 var(--space-2) 0;
+  color: var(--primary);
+  font-size: var(--text-base);
+  font-family: var(--font-family-display);
+}
+
+.leaders-first-open__slide-description {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.leaders-first-open__dots {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.leaders-first-open__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 28%, var(--border-subtle));
+}
+
+.leaders-first-open__dot--active {
+  width: 24px;
+  background: var(--primary);
+}
+
+.leaders-first-open__actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.leaders-first-open__btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.leaders-first-open__btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.leaders-first-open__btn--primary {
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+  color: var(--text-inverse);
+}

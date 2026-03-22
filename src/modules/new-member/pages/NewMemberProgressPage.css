@@ -420,6 +420,7 @@
   margin: 0;
   line-height: 1.8;
   font-weight: 400;
+  white-space: pre-line;
 }
 
 .nm-progress--belonging .nm-progress__belonging-text {
@@ -452,6 +453,7 @@
   margin: 0;
   line-height: 1.7;
   font-weight: 400;
+  white-space: pre-line;
 }
 
 .nm-progress--stabilizing .nm-progress__footer-text {

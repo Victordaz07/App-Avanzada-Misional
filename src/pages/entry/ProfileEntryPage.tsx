@@ -1,17 +1,16 @@
 import React from 'react';
-import { useJourneyStage } from '../../core/journey/useJourneyStore';
+import { useMemberSpiritualPath } from '../../hooks/useMemberSpiritualPath';
 import InvestigatorProfilePage from '../../modules/investigator/pages/InvestigatorProfilePage';
 import NewMemberProfilePage from '../../modules/new-member/pages/NewMemberProfilePage';
 
 /**
  * Profile Entry Page
- * Shows different profile views based on journey stage
- * Both include ordinance dates section for continuity
+ * Shows different profile views based on Firestore memberStatus (self-reported path).
  */
 export default function ProfileEntryPage(): JSX.Element {
-  const stage = useJourneyStage();
+  const { isBaptizedMemberPath } = useMemberSpiritualPath();
 
-  if (stage === 'covenanted') {
+  if (isBaptizedMemberPath) {
     return <NewMemberProfilePage />;
   }
 

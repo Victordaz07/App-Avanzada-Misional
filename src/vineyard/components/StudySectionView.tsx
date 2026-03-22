@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { memberStudyModules } from '../data/memberStudyModules';
+import { getMemberStudyModulesForLocale } from '../data/memberStudyModules';
 import { useMemberProgressStore } from '../state/memberProgressStore';
 import { buildSectionProgressId } from '../utils/progressIds';
 import { useI18n } from '../../context/I18nContext';
@@ -10,17 +10,17 @@ import './StudySectionView.css';
 export const StudySectionView: React.FC = () => {
   const { moduleId, sectionId } = useParams<{ moduleId: string; sectionId?: string }>();
   const navigate = useNavigate();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const contentRef = useRef<HTMLElement>(null);
 
-  // Find module - this will update when moduleId changes
+  const studyModules = useMemo(
+    () => getMemberStudyModulesForLocale(locale),
+    [locale],
+  );
+
   const module = useMemo(() => {
-    const found = memberStudyModules.find((item) => item.id === moduleId);
-    if (!found && moduleId) {
-      console.warn(`Module not found: ${moduleId}. Available modules:`, memberStudyModules.map(m => m.id));
-    }
-    return found;
-  }, [moduleId]);
+    return studyModules.find((item) => item.id === moduleId);
+  }, [studyModules, moduleId]);
 
   const firstSectionId = useMemo(() => module?.sections[0]?.id, [module?.id]);
 
@@ -60,7 +60,7 @@ export const StudySectionView: React.FC = () => {
     return (
       <div className="study-section-error">
         <div className="study-section-error-card">
-          No encontramos ese módulo o sección. Vuelve al listado de estudio para seleccionar otro contenido.
+          {t('memberStudy.error.notFound')}
         </div>
       </div>
     );
@@ -96,19 +96,19 @@ export const StudySectionView: React.FC = () => {
     <div className="study-section-container">
       {/* Module Header */}
       <header className="study-section-header-card">
-        <p className="study-section-module-label">Módulo</p>
+        <p className="study-section-module-label">{t('memberStudy.labels.module')}</p>
         <h1 className="study-section-title">{module.title}</h1>
         <p className="study-section-subtitle">{module.subtitle}</p>
         <div className="study-section-header-meta">
           <span className="study-section-time-badge">
-            {section.estimatedMinutes} min
+            {t('memberStudy.labels.minutes', { minutes: String(section.estimatedMinutes) })}
           </span>
         </div>
       </header>
 
       {/* Sections List - Always on top */}
       <aside className="study-section-sidebar" key={`module-sidebar-${module.id}`}>
-        <p className="study-section-sidebar-title">Secciones del módulo</p>
+        <p className="study-section-sidebar-title">{t('memberStudy.labels.sectionsSidebar')}</p>
         <ol className="study-section-list">
           {module.sections.map((item, index) => {
             const key = buildSectionProgressId(module.id, item.id);
@@ -128,7 +128,9 @@ export const StudySectionView: React.FC = () => {
                 >
                   <div className="study-section-button-header">
                     <span className="study-section-number">#{index + 1}</span>
-                    {completed && <span className="study-section-completed">Estudiado</span>}
+                    {completed && (
+                      <span className="study-section-completed">{t('memberStudy.labels.studiedBadge')}</span>
+                    )}
                   </div>
                   <p className="study-section-button-title">{item.title}</p>
                 </button>
@@ -150,7 +152,7 @@ export const StudySectionView: React.FC = () => {
 
         {section.references && section.references.length > 0 && (
           <section className="study-section-references">
-            <p className="study-section-references-title">Referencias sugeridas</p>
+            <p className="study-section-references-title">{t('memberStudy.labels.referencesTitle')}</p>
             <div className="study-section-references-list">
               {section.references.map((reference) => (
                 <div
@@ -174,14 +176,14 @@ export const StudySectionView: React.FC = () => {
             className={`study-section-button-primary ${isCompleted ? 'completed' : ''}`}
             disabled={isCompleted}
           >
-            {isCompleted ? 'Estudio registrado' : 'Marcar como estudiado (+5 XP)'}
+            {isCompleted ? t('memberStudy.actions.studyRecorded') : t('memberStudy.actions.markStudied')}
           </button>
           <button
             type="button"
             onClick={() => navigate('/member/study')}
             className="study-section-button-secondary"
           >
-            Volver al listado
+            {t('memberStudy.actions.backToList')}
           </button>
         </div>
       </article>

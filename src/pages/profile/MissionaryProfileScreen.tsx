@@ -2,24 +2,21 @@ import React, { useState, useMemo, useRef, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useI18n, Locale } from '../../context/I18nContext';
-import { LeadershipRoleService } from '../../services/leadershipRoleService';
-import { getLeadershipRoleConfig } from '../../data/missionary/leadershipMode';
 import { useRoleStore } from '../../store/useRoleStore';
 import { XtgPage } from '../../components/layout/XtgPage';
 import { XtgCard } from '../../components/ui/XtgCard';
 import { DataPrivacySection } from '../../components/profile/DataPrivacySection';
 import { LANGUAGE_OPTIONS } from '../../i18n/locales';
+import { LanguageSelectModal } from '../../components/ui/LanguageSelectModal';
 import '../../styles/xthegospel-ui.css';
 import './MissionaryProfileScreen.css';
 
-type ActiveAppRole = 'INVESTIGATOR' | 'MISSIONARY' | 'MEMBER';
+type ActiveAppRole = 'INVESTIGATOR' | 'MEMBER';
 
 const DEFAULT_AVATAR =
   'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg';
 
-const languageOptions: { code: Locale; name: string; flag: string }[] = [
-  ...LANGUAGE_OPTIONS.map((option) => ({ code: option.code, name: option.label, flag: option.flag })),
-];
+const MP = 'app.missionaryProfileWeb';
 
 export const MissionaryProfileScreen: React.FC = () => {
   const { userRole, logout } = useAuth();
@@ -43,38 +40,11 @@ export const MissionaryProfileScreen: React.FC = () => {
     DEFAULT_AVATAR,
   );
 
-  // Determinar rol activo en la app
   const activeAppRole: ActiveAppRole = useMemo(() => {
     if (userRole === 'investigator') return 'INVESTIGATOR';
-    if (userRole === 'missionary') return 'MISSIONARY';
     return 'MEMBER';
   }, [userRole]);
 
-  // Determinar si está en modo liderazgo
-  const isLeadershipMode = useMemo(() => {
-    if (userRole !== 'missionary') return false;
-    try {
-      const leadershipRole = LeadershipRoleService.getCurrentRole();
-      return leadershipRole !== 'none';
-    } catch {
-      return false;
-    }
-  }, [userRole]);
-
-  // Obtener etiqueta de liderazgo
-  const leadershipLabel = useMemo(() => {
-    if (!isLeadershipMode) return undefined;
-    try {
-      const leadershipRole = LeadershipRoleService.getCurrentRole();
-      if (leadershipRole === 'none') return undefined;
-      const config = getLeadershipRoleConfig(leadershipRole);
-      return config?.title;
-    } catch {
-      return undefined;
-    }
-  }, [isLeadershipMode]);
-
-  // Fecha de miembro desde (mock por ahora)
   const memberSinceLabel = useMemo(() => {
     const date = new Date('2023-06-01');
     return new Intl.DateTimeFormat(locale, {
@@ -93,31 +63,14 @@ export const MissionaryProfileScreen: React.FC = () => {
     e.preventDefault();
     setIsSavingProfile(true);
     setShowSavedMessage(false);
-    // Simular guardado
     await new Promise(resolve => setTimeout(resolve, 800));
     setIsSavingProfile(false);
     setShowSavedMessage(true);
     setTimeout(() => setShowSavedMessage(false), 3000);
   };
 
-  const handleToggleLeadershipMode = () => {
-    if (isLeadershipMode) {
-      // Salir del modo liderazgo
-      LeadershipRoleService.clearRole();
-      // Redirigir a la pantalla de recordatorio de identidad
-      navigate('/identity-reminder');
-    } else {
-      // Activar modo liderazgo (esto normalmente lo haría un presidente/asistente)
-      // Por ahora, solo mostramos un mensaje
-      alert(
-        'El modo liderazgo debe ser activado por tu presidente de misión o asistentes.',
-      );
-    }
-  };
-
   const handleChangeActiveRole = () => {
-    // Abrir modal/sheet para cambiar de rol
-    navigate('/auth');
+    navigate('/register');
   };
 
   const handleChangeLanguage = () => {
@@ -138,22 +91,23 @@ export const MissionaryProfileScreen: React.FC = () => {
 
   const appRoleLabel =
     activeAppRole === 'INVESTIGATOR'
-      ? 'Amigo'
-      : activeAppRole === 'MISSIONARY'
-        ? 'Misionero'
-        : 'Miembro';
+      ? t(`${MP}.roleFriend`)
+      : t(`${MP}.roleMember`);
 
-  const currentLanguage = languageOptions.find(opt => opt.code === locale);
-  const langLabel = currentLanguage?.name || 'Español';
+  const settingsRoleSummary =
+    userRole === 'member' && appRole === 'leader'
+      ? t(`${MP}.wardLeadershipActiveTitle`)
+      : appRoleLabel;
+
+  const currentLanguage = LANGUAGE_OPTIONS.find((opt) => opt.code === locale);
+  const langLabel = currentLanguage
+    ? `${currentLanguage.shortCode} ${currentLanguage.label}`
+    : t(`${MP}.defaultLanguageLabel`);
 
   return (
     <div className="xtg-screen xtg-profile-screen">
-      <XtgPage
-        title="Perfil"
-        subtitle="Configuración y preferencias personales"
-      >
+      <XtgPage title={t(`${MP}.pageTitle`)} subtitle={t(`${MP}.pageSubtitle`)}>
         <div className="xtg-section xtg-stack-lg">
-          {/* Tarjeta de identidad */}
           <section className="xtg-card xtg-profile-identity-card">
             <div className="xtg-profile-identity-main">
               <div className="xtg-profile-avatar-wrapper">
@@ -169,7 +123,7 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-profile-avatar-button"
                   onClick={() => avatarInputRef.current?.click()}
                 >
-                  Cambiar foto
+                  {t(`${MP}.changePhoto`)}
                 </button>
                 <input
                   ref={avatarInputRef}
@@ -187,42 +141,27 @@ export const MissionaryProfileScreen: React.FC = () => {
                   <span className="xtg-badge xtg-badge-primary">
                     {appRoleLabel}
                   </span>
-                  {isLeadershipMode && leadershipLabel && (
-                    <span className="xtg-badge xtg-badge-leadership">
-                      {leadershipLabel}
-                    </span>
-                  )}
                 </div>
 
                 <p className="xtg-profile-member-since">
-                  {userRole === 'missionary'
-                    ? 'En la misión desde'
-                    : 'Miembro desde'}{' '}
+                  {userRole === 'investigator'
+                    ? t(`${MP}.memberSinceFriend`)
+                    : t(`${MP}.memberSinceMember`)}{' '}
                   {memberSinceLabel}
                 </p>
               </div>
             </div>
-
-            {isLeadershipMode && (
-              <div className="xtg-profile-leadership-note">
-                Aunque sirves en un rol de liderazgo, sigues siendo un misionero
-                regular consagrado a predicar el Evangelio. El modo liderazgo
-                solo agrega herramientas; no cambia tu valor delante del Señor.
-              </div>
-            )}
           </section>
 
-          {/* Datos personales */}
-          <XtgCard title="🧍‍♂️ Información personal">
+          <XtgCard title={t(`${MP}.personalCardTitle`)}>
             <div>
               <p className="xtg-card-subtitle">
-                Mantén tus datos actualizados para que la misión pueda
-                contactarte de forma segura.
+                {t(`${MP}.personalCardSubtitle`)}
               </p>
 
               <form onSubmit={handleSubmit} className="xtg-form">
                 <label className="xtg-field">
-                  <span className="xtg-field-label">Nombre completo</span>
+                  <span className="xtg-field-label">{t(`${MP}.fullName`)}</span>
                   <input
                     type="text"
                     value={formState.fullName}
@@ -232,7 +171,7 @@ export const MissionaryProfileScreen: React.FC = () => {
                 </label>
 
                 <label className="xtg-field">
-                  <span className="xtg-field-label">Correo electrónico</span>
+                  <span className="xtg-field-label">{t(`${MP}.email`)}</span>
                   <input
                     type="email"
                     value={formState.email}
@@ -242,7 +181,7 @@ export const MissionaryProfileScreen: React.FC = () => {
                 </label>
 
                 <label className="xtg-field">
-                  <span className="xtg-field-label">Teléfono</span>
+                  <span className="xtg-field-label">{t(`${MP}.phone`)}</span>
                   <input
                     type="tel"
                     value={formState.phone}
@@ -252,7 +191,7 @@ export const MissionaryProfileScreen: React.FC = () => {
                 </label>
 
                 <label className="xtg-field">
-                  <span className="xtg-field-label">Dirección (opcional)</span>
+                  <span className="xtg-field-label">{t(`${MP}.addressOptional`)}</span>
                   <input
                     type="text"
                     value={formState.address}
@@ -266,74 +205,35 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-button-primary xtg-button-full"
                   disabled={isSavingProfile}
                 >
-                  {isSavingProfile ? 'Guardando...' : 'Guardar perfil'}
+                  {isSavingProfile ? t(`${MP}.saving`) : t(`${MP}.saveProfile`)}
                 </button>
                 {showSavedMessage && (
                   <p className="xtg-form-message xtg-form-message-success">
-                    ✓ Guardado
+                    {t(`${MP}.saved`)}
                   </p>
                 )}
               </form>
             </div>
           </XtgCard>
 
-          {/* Modo liderazgo - Missionary */}
-          {userRole === 'missionary' && (
-            <XtgCard title="🛡️ Mi llamamiento actual">
-              <div>
-                <p className="xtg-card-subtitle">
-                  Administra las herramientas de liderazgo asignadas por tu
-                  presidente de misión.
-                </p>
-
-                <div className="xtg-profile-row">
-                  <div>
-                    <p className="xtg-profile-row-title">
-                      {isLeadershipMode
-                        ? (leadershipLabel ?? 'Modo liderazgo activo')
-                        : 'Misionero regular (sin rol de liderazgo activo)'}
-                    </p>
-                    <p className="xtg-profile-row-text">
-                      {isLeadershipMode
-                        ? 'Puedes desactivar el modo liderazgo para usar solo las herramientas de misionero regular.'
-                        : 'Si recibiste un llamamiento de liderazgo, tu presidente o asistentes pueden activar las herramientas adicionales.'}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="xtg-button-ghost"
-                    onClick={handleToggleLeadershipMode}
-                  >
-                    {isLeadershipMode
-                      ? 'Salir de modo liderazgo'
-                      : 'Activar modo liderazgo'}
-                  </button>
-                </div>
-              </div>
-            </XtgCard>
-          )}
-
-          {/* Modo liderazgo - Member */}
           {userRole === 'member' && (
-            <XtgCard title="🛡️ Modo de Liderazgo">
+            <XtgCard title={t(`${MP}.memberLeadershipCardTitle`)}>
               <div>
                 <p className="xtg-card-subtitle">
-                  Accede al panel de liderazgo para apoyar la obra misional del
-                  barrio.
+                  {t(`${MP}.memberLeadershipSubtitle`)}
                 </p>
 
                 <div className="xtg-profile-row">
                   <div>
                     <p className="xtg-profile-row-title">
                       {appRole === 'leader'
-                        ? 'Modo liderazgo activo'
-                        : 'Miembro regular (sin acceso a herramientas de liderazgo)'}
+                        ? t(`${MP}.wardLeadershipActiveTitle`)
+                        : t(`${MP}.wardLeadershipInactiveTitle`)}
                     </p>
                     <p className="xtg-profile-row-text">
                       {appRole === 'leader'
-                        ? 'Tienes acceso al panel de liderazgo con KPIs, seguimiento de investigadores y herramientas de coordinación.'
-                        : 'Si tienes un llamamiento de liderazgo (Líder Misional, Presidencia de Cuórum, etc.), puedes activar el modo liderazgo.'}
+                        ? t(`${MP}.wardLeadershipActiveHelp`)
+                        : t(`${MP}.wardLeadershipInactiveHelp`)}
                     </p>
                   </div>
 
@@ -343,35 +243,34 @@ export const MissionaryProfileScreen: React.FC = () => {
                     onClick={() => {
                       if (appRole === 'leader') {
                         setRole('member');
-                        navigate('/missionary/home');
                       } else {
-                        // TODO: Check permissions before enabling
                         setRole('leader');
-                        navigate('/missionary/home');
                       }
+                      navigate('/home');
                     }}
                   >
                     {appRole === 'leader'
-                      ? 'Salir de modo liderazgo'
-                      : 'Activar modo liderazgo'}
+                      ? t(`${MP}.exitLeadershipMode`)
+                      : t(`${MP}.activateLeadershipMode`)}
                   </button>
                 </div>
               </div>
             </XtgCard>
           )}
 
-          {/* Contexto de uso + idioma */}
-          <XtgCard title="📚 Configuración">
+          <XtgCard title={t(`${MP}.settingsCardTitle`)}>
             <div>
               <p className="xtg-card-subtitle">
-                Ajusta cómo usas la app y en qué idioma la ves.
+                {t(`${MP}.settingsCardSubtitle`)}
               </p>
 
               <div className="xtg-profile-row">
                 <div>
-                  <p className="xtg-profile-row-title">Rol actual en la app</p>
+                  <p className="xtg-profile-row-title">
+                    {t(`${MP}.currentAppRoleTitle`)}
+                  </p>
                   <p className="xtg-profile-row-text">
-                    Estás usando la app como: <strong>{appRoleLabel}</strong>.
+                    {t(`${MP}.currentAppRoleBody`, { role: settingsRoleSummary })}
                   </p>
                 </div>
                 <button
@@ -379,13 +278,15 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-button-ghost"
                   onClick={handleChangeActiveRole}
                 >
-                  Cambiar rol
+                  {t(`${MP}.changeRole`)}
                 </button>
               </div>
 
               <div className="xtg-profile-row">
                 <div>
-                  <p className="xtg-profile-row-title">Idioma preferido</p>
+                  <p className="xtg-profile-row-title">
+                    {t(`${MP}.preferredLanguageTitle`)}
+                  </p>
                   <p className="xtg-profile-row-text">{langLabel}</p>
                 </div>
                 <button
@@ -393,23 +294,18 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-button-ghost"
                   onClick={handleChangeLanguage}
                 >
-                  Cambiar idioma
+                  {t(`${MP}.changeLanguageButton`)}
                 </button>
               </div>
             </div>
           </XtgCard>
 
-          {/* Data & Privacy (Beta) - Cloud Sync */}
           <DataPrivacySection />
 
-          {/* Privacidad / seguridad */}
-          <XtgCard title="🔐 Privacidad y seguridad">
+          <XtgCard title={t(`${MP}.privacySecurityTitle`)}>
             <div>
               <p className="xtg-card-subtitle">
-                xTheGospel / For The Gospel utiliza autenticación segura (por
-                ejemplo, Firebase Auth) y almacenamiento cifrado. No se exponen
-                datos sensibles de miembros ni de ordenanzas; tú decide qué
-                registrar y compartir.
+                {t(`${MP}.privacySecuritySubtitle`)}
               </p>
 
               <div className="xtg-profile-links-row">
@@ -418,7 +314,7 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-link-button"
                   onClick={() => navigate('/privacy')}
                 >
-                  Privacy
+                  {t(`${MP}.linkPrivacy`)}
                 </button>
                 <span className="xtg-dot">•</span>
                 <button
@@ -426,7 +322,7 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-link-button"
                   onClick={() => navigate('/terms')}
                 >
-                  Terms
+                  {t(`${MP}.linkTerms`)}
                 </button>
                 <span className="xtg-dot">•</span>
                 <button
@@ -434,60 +330,33 @@ export const MissionaryProfileScreen: React.FC = () => {
                   className="xtg-link-button"
                   onClick={() => navigate('/support')}
                 >
-                  Support
+                  {t(`${MP}.linkSupport`)}
                 </button>
               </div>
             </div>
           </XtgCard>
 
-          {/* Logout */}
           <section className="xtg-profile-logout-section">
             <button
               type="button"
               className="xtg-button-danger xtg-button-full"
               onClick={logout}
             >
-              Cerrar sesión
+              {t(`${MP}.logout`)}
             </button>
           </section>
         </div>
       </XtgPage>
 
-      {/* Modal de idioma */}
-      {showLanguageModal && (
-        <div
-          className="xtg-modal-backdrop"
-          onClick={() => setShowLanguageModal(false)}
-        >
-          <div className="xtg-modal-panel" onClick={e => e.stopPropagation()}>
-            <h3 className="xtg-modal-title">Idioma</h3>
-            <div className="xtg-modal-language-list">
-              {languageOptions.map(option => (
-                <button
-                  key={option.code}
-                  type="button"
-                  className={`xtg-modal-language-option ${locale === option.code ? 'selected' : ''}`}
-                  onClick={() => handleLanguageSelect(option.code)}
-                >
-                  <span>
-                    {option.flag} {option.name}
-                  </span>
-                  {locale === option.code && (
-                    <span className="xtg-checkmark">✓</span>
-                  )}
-                </button>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="xtg-button-ghost xtg-button-full"
-              onClick={() => setShowLanguageModal(false)}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      )}
+      <LanguageSelectModal
+        open={showLanguageModal}
+        onClose={() => setShowLanguageModal(false)}
+        title={t('app.profile.language')}
+        selectedLocale={locale}
+        onSelect={handleLanguageSelect}
+        cancelLabel={t('common.cancel')}
+        closeAriaLabel={t('common.close')}
+      />
     </div>
   );
 };

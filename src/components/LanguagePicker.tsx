@@ -2,95 +2,55 @@ import React, { useState } from 'react';
 import { useI18n } from '../context/I18nContext';
 import type { Locale } from '../context/I18nContext';
 import { LANGUAGE_OPTIONS } from '../i18n/locales';
+import { LanguageSelectModal } from './ui/LanguageSelectModal';
 import './LanguagePicker.css';
 
 interface LanguagePickerProps {
-    compact?: boolean;
+  compact?: boolean;
 }
 
-const languageOptions: { code: Locale; name: string; flag: string }[] = [
-    ...LANGUAGE_OPTIONS.map((option) => ({ code: option.code, name: option.label, flag: option.flag })),
-];
-
 export const LanguagePicker: React.FC<LanguagePickerProps> = ({ compact = false }) => {
-    const { locale, setLocale, t } = useI18n();
-    const [modalVisible, setModalVisible] = useState(false);
+  const { locale, setLocale, t } = useI18n();
+  const [modalVisible, setModalVisible] = useState(false);
 
-    const currentLanguage = languageOptions.find(opt => opt.code === locale);
+  const currentLanguage = LANGUAGE_OPTIONS.find((opt) => opt.code === locale);
 
-    const handleLanguageSelect = async (code: Locale) => {
-        await setLocale(code);
-        setModalVisible(false);
-    };
+  const handleLanguageSelect = async (code: Locale) => {
+    await setLocale(code);
+    setModalVisible(false);
+  };
 
-    if (compact) {
-        return (
-            <>
-                <button
-                    className="language-picker-compact"
-                    onClick={() => setModalVisible(true)}
-                >
-                    {currentLanguage?.flag} {currentLanguage?.name}
-                </button>
-                {modalVisible && (
-                    <div className="modal-overlay" onClick={() => setModalVisible(false)}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                            <h3 className="modal-title">{t('profile.language')}</h3>
-                            {languageOptions.map((option) => (
-                                <button
-                                    key={option.code}
-                                    className={`option-button ${locale === option.code ? 'selected' : ''}`}
-                                    onClick={() => handleLanguageSelect(option.code)}
-                                >
-                                    <span>{option.flag} {option.name}</span>
-                                    {locale === option.code && <span className="checkmark">✓</span>}
-                                </button>
-                            ))}
-                            <button
-                                className="cancel-button"
-                                onClick={() => setModalVisible(false)}
-                            >
-                                {t('common.cancel')}
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </>
-        );
-    }
+  const modal = (
+    <LanguageSelectModal
+      open={modalVisible}
+      onClose={() => setModalVisible(false)}
+      title={t('profile.language')}
+      selectedLocale={locale}
+      onSelect={handleLanguageSelect}
+      cancelLabel={t('common.cancel')}
+      closeAriaLabel={t('common.close')}
+    />
+  );
 
+  if (compact) {
     return (
-        <div className="language-picker">
-            <button
-                className="language-picker-button"
-                onClick={() => setModalVisible(true)}
-            >
-                {t('profile.language')}: {currentLanguage?.flag} {currentLanguage?.name}
-            </button>
-            {modalVisible && (
-                <div className="modal-overlay" onClick={() => setModalVisible(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h3 className="modal-title">{t('profile.language')}</h3>
-                        {languageOptions.map((option) => (
-                            <button
-                                key={option.code}
-                                className={`option-button ${locale === option.code ? 'selected' : ''}`}
-                                onClick={() => handleLanguageSelect(option.code)}
-                            >
-                                <span>{option.flag} {option.name}</span>
-                                {locale === option.code && <span className="checkmark">✓</span>}
-                            </button>
-                        ))}
-                        <button
-                            className="cancel-button"
-                            onClick={() => setModalVisible(false)}
-                        >
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
+      <>
+        <button type="button" className="language-picker-compact" onClick={() => setModalVisible(true)}>
+          <span className="language-picker-code">{currentLanguage?.shortCode}</span>{' '}
+          {currentLanguage?.label}
+        </button>
+        {modal}
+      </>
     );
-};
+  }
 
+  return (
+    <div className="language-picker">
+      <button type="button" className="language-picker-button" onClick={() => setModalVisible(true)}>
+        {t('profile.language')}: <span className="language-picker-code">{currentLanguage?.shortCode}</span>{' '}
+        {currentLanguage?.label}
+      </button>
+      {modal}
+    </div>
+  );
+};

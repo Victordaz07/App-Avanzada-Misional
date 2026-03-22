@@ -2,7 +2,7 @@
 
 ## 🎯 Implementación Completa del Prompt Maestro
 
-Este módulo implementa todas las **5 lecciones misionales oficiales** con internacionalización completa en 4 idiomas (ES, EN, FR, PT).
+Este módulo implementa las **5 lecciones misionales oficiales** con internacionalización en español e inglés (ES, EN).
 
 ## 📂 Estructura Implementada
 
@@ -20,9 +20,7 @@ app/lessons/
 
 i18n/
 ├── es.json                  # Traducciones en español
-├── en.json                  # Traducciones en inglés
-├── fr.json                  # Traducciones en francés
-└── pt.json                  # Traducciones en portugués
+└── en.json                  # Traducciones en inglés
 
 navigation/
 └── LessonsNavigator.tsx     # Navegador Stack para lecciones

@@ -5,7 +5,7 @@ import {
 } from "../data/dailyMessages";
 
 export const useDailyMessageForToday = (
-  role: "investigator" | "member" | "missionary" = "investigator"
+  role: "investigator" | "member" = "investigator"
 ): DailyMessageId => {
   return useMemo(() => {
     const list = ROLE_DAILY_MESSAGES[role] ?? [];

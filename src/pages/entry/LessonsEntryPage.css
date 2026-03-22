@@ -1,8 +1,20 @@
-/* Combina Camino Misional + Tu guía en una sola pestaña Lecciones */
+/* Camino Misional siempre; «Tu guía» solo si el perfil es miembro autodeclarado (LessonsEntryPage).
+ * Fondo menta suave alineado con home nuevo miembro (presets de acento). */
 .lessons-entry-combined {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--info-light) 24%, var(--background)) 0%,
+    var(--background) 38%,
+    color-mix(in srgb, var(--info-light) 14%, var(--background)) 100%
+  );
+  margin-inline: calc(-1 * var(--app-content-padding-x, 1rem));
+  padding-inline: var(--app-content-padding-x, 1rem);
+  padding-top: 0.35rem;
+  padding-bottom: 2rem;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
 .lessons-entry-combined__divider {
@@ -12,8 +24,8 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(6, 95, 70, 0.2) 15%,
-    rgba(6, 95, 70, 0.2) 85%,
+    color-mix(in srgb, var(--primary) 22%, transparent) 12%,
+    color-mix(in srgb, var(--primary) 22%, transparent) 88%,
     transparent
   );
 }
@@ -30,17 +42,18 @@
 
 .lessons-entry-combined__eyebrow {
   margin: 0 0 0.35rem 0;
+  font-family: var(--font-family-display);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #0f766e;
+  color: color-mix(in srgb, var(--primary) 82%, var(--text-tertiary));
 }
 
 .lessons-entry-combined__section-subtitle {
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.45;
-  color: #14532d;
+  color: var(--text-secondary);
   max-width: 52ch;
 }

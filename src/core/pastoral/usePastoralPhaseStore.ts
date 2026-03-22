@@ -282,167 +282,36 @@ export function useIsAbidingPhase(): boolean {
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * PASTORAL MESSAGES & QUESTIONS (COMPLETE)
+ * PASTORAL MESSAGES (i18n)
  * ═══════════════════════════════════════════════════════════════════════════
- * 
- * Philosophy: The user never knows they're in a "phase".
- * They just experience different tones over time.
- * 
- * Sprint 12 phases (stabilizing, rhythm):
- *   - Use declarative messages of reassurance
- *   - "There's no rush" / "Small steps matter"
- * 
- * Sprint 13 phases (understanding, belonging):
- *   - Use open-ended questions
- *   - Questions invite reflection, not response
- *   - No CTA, no expected action
- * 
- * Sprint 14 phases (integration, abiding):
- *   - Minimal or no text
- *   - One short line or intentional silence
- *   - The app withdraws, not instructs
- * 
+ *
+ * Copy lives in app.es.json / app.en.json under `app.pastoral.<group>.<phase>`.
+ * Use `getPastoralMessagePath` + I18n `t()` in components so locale matches UI.
+ *
+ * Note: In integration/abiding phases, many strings are empty — intentional silence.
  * ═══════════════════════════════════════════════════════════════════════════
  */
-export const PASTORAL_MESSAGES = {
-  /**
-   * Welcome/home screen primary content.
-   * 
-   * stabilizing/rhythm: Declarative reassurance
-   * understanding/belonging: Open-ended question
-   * integration/abiding: Minimal presence or silence
-   */
-  homeWelcome: {
-    stabilizing: "There's no rush here.\nFaith grows at its own pace.",
-    rhythm: "You're finding your way.\nSmall steps matter most.",
-    understanding: "What has helped you stay close to the Savior lately?",
-    belonging: "Where do you feel most at home in your faith right now?",
-    integration: "Your faith is already part of your life.",
-    abiding: "Remain.",
-  },
-  
-  /**
-   * Encouragement message (footer).
-   * 
-   * Earlier phases: More words, more reassurance
-   * Later phases: Fewer words, more silence
-   * Final phases: Almost nothing
-   */
-  encouragement: {
-    stabilizing: "Some weeks are quieter. That's okay.\nThe Savior walks with you.",
-    rhythm: "When you feel ready, you might return.\nThere's grace in the rhythm.",
-    understanding: "Faith grows in questions, not just answers.",
-    belonging: "You belong here, even on quiet weeks.",
-    integration: "", // Intentional silence
-    abiding: "", // Intentional silence
-  },
-  
-  /**
-   * Continue/resume study prompt.
-   * 
-   * Permission-based in all phases, but tone shifts:
-   * Earlier: "When you're ready" (permission)
-   * Later: More implicit, less directive
-   * Final: Removed entirely
-   */
-  continueStudy: {
-    stabilizing: "When you're ready",
-    rhythm: "Continue when you'd like",
-    understanding: "If you'd like to explore",
-    belonging: "A quiet place to return",
-    integration: "", // No prompt needed
-    abiding: "", // No prompt needed
-  },
-  
-  /**
-   * Progress page header.
-   * 
-   * Earlier: "Journey" language
-   * Later: "Presence" language
-   * Final: Affirmation of life, not app activity
-   */
-  progressHeader: {
-    stabilizing: "Your journey is unfolding",
-    rhythm: "Walking your path",
-    understanding: "Moments of presence",
-    belonging: "You've been here",
-    integration: "Faith lived",
-    abiding: "", // Intentional silence — the header speaks for itself
-  },
-  
-  /**
-   * Progress empty state.
-   * 
-   * Earlier: Reassurance about beginning
-   * Later: Affirmation of being, not doing
-   * Final: Complete acceptance of non-activity
-   */
-  progressEmpty: {
-    stabilizing: "Your new beginning is sacred.\nEvery quiet moment of faith matters.",
-    rhythm: "The path is yours to walk.\nThere's no schedule to keep.",
-    understanding: "Reflection doesn't need evidence.\nYour thoughts are enough.",
-    belonging: "Presence matters more than activity.\nYou're here. That's enough.",
-    integration: "Faith isn't something you finish.\nIt's something you live.",
-    abiding: "You're living it.", // Brief, complete
-  },
+export const PASTORAL_MESSAGE_GROUPS = [
+  'homeWelcome',
+  'encouragement',
+  'continueStudy',
+  'progressHeader',
+  'progressEmpty',
+  'journalInvite',
+  'belongingAffirmation',
+  'progressPermanence',
+] as const;
 
-  /**
-   * Journal invitation copy.
-   * 
-   * Sprint 13: Removes pressure to "write well"
-   * Sprint 14: Normalizes long absence
-   */
-  journalInvite: {
-    stabilizing: "A space for your thoughts",
-    rhythm: "Write when you feel like it",
-    understanding: "You don't need the right words.\nWrite what's true, not what sounds right.",
-    belonging: "Your words are for you.\nNo one else needs to see them.",
-    integration: "This space is here when you need it.",
-    abiding: "You don't have to return often.",
-  },
-
-  /**
-   * Community/belonging affirmation.
-   * 
-   * Sprint 13: Reinforces belonging without performance
-   * Sprint 14: Affirms integration into life
-   */
-  belongingAffirmation: {
-    stabilizing: "Your ward family is here to support you.",
-    rhythm: "You're part of something bigger.",
-    understanding: "Faith grows in community, not performance.",
-    belonging: "You belong here.\nNot because of what you do, but because you're here.",
-    integration: "Your faith is woven into your days.",
-    abiding: "", // Silence is the affirmation
-  },
-
-  /**
-   * Progress permanence message.
-   * Sprint 14: Single message for integration/abiding that affirms
-   * faith as life, not as app activity.
-   */
-  progressPermanence: {
-    stabilizing: "",
-    rhythm: "",
-    understanding: "",
-    belonging: "",
-    integration: "Faith isn't something you finish.\nIt's something you live.",
-    abiding: "You're living it.",
-  },
-} as const;
+export type PastoralMessageGroup = (typeof PASTORAL_MESSAGE_GROUPS)[number];
 
 /**
- * Get message for current phase.
- * Usage: getPastoralMessage('homeWelcome', phase)
- * 
- * Note: In integration/abiding phases, many messages return empty strings.
- * This is intentional — silence is part of the design.
+ * i18n path for pastoral copy, e.g. app.pastoral.homeWelcome.stabilizing
  */
-export function getPastoralMessage(
-  key: keyof typeof PASTORAL_MESSAGES,
+export function getPastoralMessagePath(
+  group: PastoralMessageGroup,
   phase: PastoralPhase
 ): string {
-  return PASTORAL_MESSAGES[key][phase];
+  return `app.pastoral.${group}.${phase}`;
 }
 
 /**

@@ -1,11 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useId, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { FaChevronRight, FaPenToSquare, FaGraduationCap } from 'react-icons/fa6';
+import {
+  FaChevronRight,
+  FaPenToSquare,
+  FaGraduationCap,
+  FaChurch,
+  FaDroplet,
+  FaHeart,
+  FaPeopleGroup,
+  FaBookOpen,
+} from 'react-icons/fa6';
+import { useAuth } from '../../../context/AuthContext';
 import { useSpiritualMemoryStore } from '../../../core/memory/useSpiritualMemoryStore';
 import { useI18n } from '../../../context/I18nContext';
+import HomeDiscoveryRails from '../../../ui/home-discovery/HomeDiscoveryRails';
+import { HomeWelcomeCard } from '../../../ui/home-welcome/HomeWelcomeCard';
+import { getLocalDayIndex } from '../../../utils/localDayIndex';
+import { getLocalWeekIndex } from '../../../utils/localWeekIndex';
+import { firstWelcomeName } from '../../../utils/profileFirstName';
+import type { GuideCategory } from '../data/guideTopics.types';
+import { getAllGuideTopics, getCategoryLabels, getGuideTopicById } from '../data/guideTopics';
+import { selectHomeDiscoveryTopics } from '../data/homeDiscovery';
 import { 
   usePastoralPhase, 
-  getPastoralMessage, 
+  getPastoralMessagePath, 
   isHomeContentQuestion,
   isHomeMinimal,
   useIsReflectivePhase,
@@ -14,11 +32,22 @@ import {
 } from '../../../core/pastoral/usePastoralPhaseStore';
 import './NewMemberHomePage.css';
 
-// Static first suggestion (canonical first topic for new members)
-const FIRST_TOPIC = {
-  id: 'sacrament-meeting',
-  title: 'Sacrament Meeting',
-};
+// Canonical first topic id for new members (title from i18n)
+const FIRST_TOPIC_ID = 'sacrament-meeting';
+const MEMBER_WEEKLY_LINES = 6;
+
+function DiscoveryCategoryIcon({ category }: { category: GuideCategory }): JSX.Element {
+  switch (category) {
+    case 'worship':
+      return <FaChurch aria-hidden />;
+    case 'covenant-living':
+      return <FaHeart aria-hidden />;
+    case 'ordinances':
+      return <FaDroplet aria-hidden />;
+    case 'belonging':
+      return <FaPeopleGroup aria-hidden />;
+  }
+}
 
 /**
  * New Member Home Page
@@ -66,7 +95,9 @@ const FIRST_TOPIC = {
  * ═══════════════════════════════════════════════════════════════════════════
  */
 export default function NewMemberHomePage(): JSX.Element {
-  const { t } = useI18n();
+  const continueSubtitleId = useId();
+  const { t, locale } = useI18n();
+  const { profile } = useAuth();
   const { lastLessonId, lastLessonTitle, isHydrated, hydrate } = useSpiritualMemoryStore();
   const phase = usePastoralPhase();
   const isReflective = useIsReflectivePhase();
@@ -84,14 +115,68 @@ export default function NewMemberHomePage(): JSX.Element {
 
   // Determine what to show for continue/start
   const hasContinue = isHydrated && lastLessonId && lastLessonTitle;
-  const continueId = hasContinue ? lastLessonId : FIRST_TOPIC.id;
-  const continueTitle = hasContinue ? lastLessonTitle : FIRST_TOPIC.title;
-  
-  // Phase-aware content
-  const continueLabel = getPastoralMessage('continueStudy', phase);
-  const homeContent = getPastoralMessage('homeWelcome', phase);
-  const journalInvite = getPastoralMessage('journalInvite', phase);
-  const encouragement = getPastoralMessage('encouragement', phase);
+  const continueId = hasContinue ? lastLessonId : FIRST_TOPIC_ID;
+  const continueTitle = hasContinue
+    ? lastLessonTitle
+    : t('app.newMemberHome.sacramentMeetingTitle');
+
+  const dayIndex = useMemo(() => getLocalDayIndex(), []);
+  const categoryLabels = useMemo(() => getCategoryLabels(locale), [locale]);
+  const discoveryTopics = useMemo(() => {
+    const all = getAllGuideTopics(locale);
+    return selectHomeDiscoveryTopics(all, { excludeId: continueId, dayIndex, max: 4 });
+  }, [locale, continueId, dayIndex]);
+
+  const continueGuideTopic = useMemo(
+    () => getGuideTopicById(continueId, locale),
+    [continueId, locale]
+  );
+
+  const isNewConvert = profile?.memberStatus === 'new_convert';
+  const discoveryTitle = t(
+    isNewConvert ? 'app.home.discoveryTitle' : 'app.home.discoveryTitleEstablished'
+  );
+  const discoveryHint = t(
+    isNewConvert ? 'app.home.discoveryHint' : 'app.home.discoveryHintEstablished'
+  );
+
+  const discoveryItems = useMemo(
+    () =>
+      discoveryTopics.map((topic) => ({
+        href: `/lessons/${topic.id}`,
+        title: topic.title,
+        subtitle: topic.subtitle,
+        badge: categoryLabels[topic.category],
+        icon: <DiscoveryCategoryIcon category={topic.category} />,
+      })),
+    [discoveryTopics, categoryLabels]
+  );
+
+  const weekIndex = useMemo(() => getLocalWeekIndex(), []);
+  const memberWeeklyLine = useMemo(() => {
+    const i = weekIndex % MEMBER_WEEKLY_LINES;
+    return t(`app.home.weeklyLightMember.line${i}`);
+  }, [weekIndex, t]);
+  const memberWeeklyQuestion = useMemo(() => {
+    const i = weekIndex % MEMBER_WEEKLY_LINES;
+    return t(`app.home.weeklyQuestionMember.line${i}`);
+  }, [weekIndex, t]);
+
+  const welcomeDateLine = useMemo(() => {
+    const loc = locale === 'es' ? 'es' : 'en-US';
+    const fmt = new Intl.DateTimeFormat(loc, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
+    return t('app.home.welcomeDateLine', { date: fmt.format(new Date()) });
+  }, [locale, t]);
+
+  // Phase-aware content (i18n)
+  const continueLabel = t(getPastoralMessagePath('continueStudy', phase));
+  const homeContent = t(getPastoralMessagePath('homeWelcome', phase));
+  const journalInvite = t(getPastoralMessagePath('journalInvite', phase));
+  const encouragement = t(getPastoralMessagePath('encouragement', phase));
 
   // In withdrawal phases, show minimal content
   if (isWithdrawal) {
@@ -155,42 +240,46 @@ export default function NewMemberHomePage(): JSX.Element {
     );
   }
 
+  const hour = new Date().getHours();
+  const timeGreeting =
+    hour < 12
+      ? t('app.home.greetingMorning')
+      : hour < 18
+        ? t('app.home.greetingAfternoon')
+        : t('app.home.greetingEvening');
+  const welcomeFirst = firstWelcomeName(profile);
+  const welcomeGreetingLine = welcomeFirst
+    ? t('app.home.welcomeGreetingNamed', { greeting: timeGreeting, name: welcomeFirst })
+    : t('app.home.welcomeGreetingWave', { greeting: timeGreeting });
+
+  const welcomePadClass =
+    phase === 'stabilizing'
+      ? 'hw-card--pad-stabilizing'
+      : phase === 'understanding' || phase === 'belonging'
+        ? 'hw-card--pad-reflective'
+        : '';
+
   // Earlier phases: full content
   return (
     <div className={`nm-home nm-home--${phase}`}>
-      {/* 
-        Primary Card — Message or Question
-        
-        Earlier phases (stabilizing/rhythm): 
-          Two-line declarative message of reassurance
-        
-        Later phases (understanding/belonging):
-          Single open-ended question
-          No expected response, no CTA
-          Just an invitation to reflect
-      */}
-      <div className={`nm-home__welcome ${isQuestion ? 'nm-home__welcome--question' : ''}`}>
-        {!isQuestion && (
-          <p className="nm-home__welcome-greeting">{t('app.home.greeting')}</p>
-        )}
-        
-        {isQuestion ? (
-          // Understanding/Belonging: Single reflective question
-          <p className="nm-home__welcome-question">
-            {homeContent}
-          </p>
-        ) : (
-          // Stabilizing/Rhythm: Two-line reassurance
-          <>
-            <h1 className="nm-home__welcome-title">
-              {homeContent.split('\n')[0]}
-            </h1>
-            <p className="nm-home__welcome-subtitle">
-              {homeContent.split('\n')[1]}
-            </p>
-          </>
-        )}
-      </div>
+      <HomeWelcomeCard
+        className={welcomePadClass}
+        ariaLabel={t('app.home.welcomeAriaLabel')}
+        greetingLine={welcomeGreetingLine}
+        dateLine={welcomeDateLine}
+        hour={hour}
+        tone={phase === 'understanding' || phase === 'belonging' ? 'soft' : 'default'}
+        mode={isQuestion ? 'question' : 'declarative'}
+        questionText={isQuestion ? homeContent : undefined}
+        title={!isQuestion ? homeContent.split('\n')[0] : undefined}
+        subtitle={!isQuestion ? homeContent.split('\n')[1] : undefined}
+        titleSize={phase === 'stabilizing' && !isQuestion ? 'large' : 'normal'}
+        subtitleSize={phase === 'stabilizing' && !isQuestion ? 'large' : 'normal'}
+        showQuickLinks
+        exploreLabel={t('app.home.welcomeExploreTopics')}
+        journalLabel={t('app.nav.journal')}
+        quickNavAriaLabel={t('app.home.welcomeActionsAria')}
+      />
 
       {/* 
         Journal Card — Increased visual priority in reflective phases
@@ -222,16 +311,61 @@ export default function NewMemberHomePage(): JSX.Element {
         </div>
       )}
 
-      {/* Continue Card — Gentle, not urgent */}
+      {/* Continue Card — Destacado, informativo, sin presión */}
       <div className="nm-home__continue">
-        <p className="nm-home__continue-label">{continueLabel}</p>
-        <Link to={`/lessons/${continueId}`} className="nm-home__continue-card">
-          <div className="nm-home__continue-content">
-            <h3 className="nm-home__continue-title">{continueTitle}</h3>
+        <div className="nm-home__continue-label-row">
+          <span className="nm-home__continue-label-dot" aria-hidden />
+          <p className="nm-home__continue-label">{continueLabel}</p>
+        </div>
+        <Link
+          to={`/lessons/${continueId}`}
+          className="nm-home__continue-card"
+          aria-describedby={continueSubtitleId}
+        >
+          <div className="nm-home__continue-card-inner">
+            <div className="nm-home__continue-icon" aria-hidden>
+              <FaBookOpen />
+            </div>
+            <div className="nm-home__continue-content">
+              {continueGuideTopic ? (
+                <span className="nm-home__continue-badge">
+                  {categoryLabels[continueGuideTopic.category]}
+                </span>
+              ) : null}
+              <h3 className="nm-home__continue-title">{continueTitle}</h3>
+              <p className="nm-home__continue-subtitle" id={continueSubtitleId}>
+                {continueGuideTopic?.subtitle ?? t('app.home.continueCardHint')}
+              </p>
+            </div>
+            <span className="nm-home__continue-arrow-wrap" aria-hidden>
+              <FaChevronRight className="nm-home__continue-arrow" />
+            </span>
           </div>
-          <FaChevronRight className="nm-home__continue-arrow" />
         </Link>
       </div>
+
+      <HomeDiscoveryRails
+        title={discoveryTitle}
+        hint={discoveryHint}
+        seeAllHref="/lessons"
+        seeAllLabel={t('app.home.discoveryOpenGuide')}
+        items={discoveryItems}
+        sectionAriaLabel={discoveryTitle}
+      />
+
+      <section
+        className="nm-home__weekly-light"
+        aria-label={t('app.home.weeklyLightMember.title')}
+      >
+        <p className="nm-home__weekly-light-eyebrow">
+          {t('app.home.weeklyLightMember.title')}
+        </p>
+        <p className="nm-home__weekly-light-text">{memberWeeklyLine}</p>
+        <p className="nm-home__weekly-question-label">
+          {t('app.home.weeklyQuestionMember.label')}
+        </p>
+        <p className="nm-home__weekly-question-text">{memberWeeklyQuestion}</p>
+      </section>
 
       {/* Training Card — Capacitación (covenanted only) */}
       <div className="nm-home__training">
@@ -245,7 +379,9 @@ export default function NewMemberHomePage(): JSX.Element {
               {t('app.home.trainingSubtitle')}
             </p>
           </div>
-          <FaChevronRight className="nm-home__training-arrow" />
+          <span className="nm-home__training-arrow-wrap" aria-hidden>
+            <FaChevronRight className="nm-home__training-arrow" />
+          </span>
         </Link>
       </div>
 

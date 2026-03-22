@@ -11,6 +11,7 @@ import {
   DEFAULT_LOCALE,
   FALLBACK_LOCALE,
   LOCALE_STORAGE_KEY,
+  LEGACY_LOCALE_TO_LOCALE,
   SUPPORTED_LOCALES,
   isSupportedLocale,
   type Locale,
@@ -19,51 +20,28 @@ import {
 // Import JSON translation files
 import esTranslations from '../../i18n/es.json';
 import enTranslations from '../../i18n/en.json';
-import frTranslations from '../../i18n/fr.json';
-import ptTranslations from '../../i18n/pt.json';
-import missionaryEsTranslations from '../i18n/missionary.es.json';
-import missionaryEnTranslations from '../i18n/missionary.en.json';
-import missionaryFrTranslations from '../i18n/missionary.fr.json';
-import missionaryPtTranslations from '../i18n/missionary.pt.json';
 import memberEsTranslations from '../i18n/member.es.json';
 import memberEnTranslations from '../i18n/member.en.json';
-import memberFrTranslations from '../i18n/member.fr.json';
-import memberPtTranslations from '../i18n/member.pt.json';
 // App UI translations (shared across all roles)
 import appEsTranslations from '../i18n/app.es.json';
 import appEnTranslations from '../i18n/app.en.json';
-import appFrTranslations from '../i18n/app.fr.json';
-import appPtTranslations from '../i18n/app.pt.json';
 
 export type { Locale } from '../i18n/locales';
 
 const dictionaries = {
   es: esTranslations,
   en: enTranslations,
-  fr: frTranslations,
-  pt: ptTranslations,
-};
-
-const missionaryDictionaries = {
-  es: missionaryEsTranslations,
-  en: missionaryEnTranslations,
-  fr: missionaryFrTranslations,
-  pt: missionaryPtTranslations,
 };
 
 const memberDictionaries = {
   es: memberEsTranslations,
   en: memberEnTranslations,
-  fr: memberFrTranslations,
-  pt: memberPtTranslations,
 };
 
 // App UI translations (available to all users regardless of role)
 const appDictionaries = {
   es: appEsTranslations,
   en: appEnTranslations,
-  fr: appFrTranslations,
-  pt: appPtTranslations,
 };
 
 interface I18nContextType {
@@ -161,6 +139,12 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const loadLocale = async () => {
     try {
       const storedLocale = StorageService.getItem(LOCALE_STORAGE_KEY);
+      if (storedLocale && storedLocale in LEGACY_LOCALE_TO_LOCALE) {
+        const migrated = LEGACY_LOCALE_TO_LOCALE[storedLocale];
+        StorageService.setItem(LOCALE_STORAGE_KEY, migrated);
+        setLocaleState(migrated);
+        return;
+      }
       if (isSupportedLocale(storedLocale)) {
         setLocaleState(storedLocale);
       } else {
@@ -221,23 +205,6 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
           });
         }
         return resolvedAppValue.toString();
-      }
-    }
-
-    // Si es misionero y la clave empieza con "missionary.", buscar primero en missionaryDictionaries
-    if (userRole === 'missionary' && path.startsWith('missionary.')) {
-      const missionaryTranslations = missionaryDictionaries[locale] as Record<
-        string,
-        any
-      >;
-      const missionaryValue = getNestedValue(missionaryTranslations, path);
-      if (missionaryValue !== undefined) {
-        if (vars && typeof missionaryValue === 'string') {
-          return missionaryValue.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-            return vars[key]?.toString() || match;
-          });
-        }
-        return missionaryValue.toString();
       }
     }
 

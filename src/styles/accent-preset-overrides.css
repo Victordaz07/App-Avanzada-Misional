@@ -1,0 +1,249 @@
+/**
+ * Accent preset overrides — apply after design-system.css
+ *
+ * SYNC: Swatch gradients live in `src/utils/accentPresetTheme.ts` (ACCENT_PRESET_SWATCH_BY_ID).
+ * When changing hues, update both this file and that module.
+ *
+ * Scope: primary scale, theme gradient, info*, shadow-primary, legacy --xtg-accent*.
+ * Does not remap neutrals, brass accent scale, or semantic success/warning/danger.
+ */
+
+/* Legacy entry/profile accents track interactive primary */
+:root {
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.08);
+}
+
+/* --- Ocean --- */
+:root[data-accent-preset="ocean"] {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --primary: #0369a1;
+  --primary-light: #0ea5e9;
+  --primary-dark: #0c4a6e;
+  --primary-rgb: 3, 105, 161;
+  --theme-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  --info: #0284c7;
+  --info-light: #e0f2fe;
+  --info-dark: #0c4a6e;
+  --shadow-primary: 0 4px 14px 0 rgba(3, 105, 161, 0.28);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.08);
+}
+
+/* --- Forest --- */
+:root[data-accent-preset="forest"] {
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-300: #86efac;
+  --color-primary-400: #4ade80;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #16a34a;
+  --color-primary-700: #15803d;
+  --color-primary-800: #166534;
+  --color-primary-900: #14532d;
+  --primary: #166534;
+  --primary-light: #22c55e;
+  --primary-dark: #14532d;
+  --primary-rgb: 22, 101, 52;
+  --theme-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  --info: #15803d;
+  --info-light: #dcfce7;
+  --info-dark: #14532d;
+  --shadow-primary: 0 4px 14px 0 rgba(22, 101, 52, 0.28);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.08);
+}
+
+/* --- Sunset --- */
+:root[data-accent-preset="sunset"] {
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --primary: #c2410c;
+  --primary-light: #fb923c;
+  --primary-dark: #7c2d12;
+  --primary-rgb: 194, 65, 12;
+  --theme-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  --info: #ea580c;
+  --info-light: #ffedd5;
+  --info-dark: #7c2d12;
+  --shadow-primary: 0 4px 14px 0 rgba(194, 65, 12, 0.28);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.08);
+}
+
+/* --- Dusk --- */
+:root[data-accent-preset="dusk"] {
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-300: #c4b5fd;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+  --primary: #6d28d9;
+  --primary-light: #a78bfa;
+  --primary-dark: #5b21b6;
+  --primary-rgb: 109, 40, 217;
+  --theme-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  --info: #7c3aed;
+  --info-light: #ede9fe;
+  --info-dark: #5b21b6;
+  --shadow-primary: 0 4px 14px 0 rgba(109, 40, 217, 0.28);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.08);
+}
+
+/* ========== Dark mode + preset ========== */
+[data-theme="dark"][data-accent-preset="ocean"],
+.dark-mode[data-accent-preset="ocean"] {
+  --color-primary-50: #082f49;
+  --color-primary-100: #0c4a6e;
+  --color-primary-200: #075985;
+  --color-primary-300: #0369a1;
+  --color-primary-400: #0284c7;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #38bdf8;
+  --color-primary-700: #7dd3fc;
+  --color-primary-800: #bae6fd;
+  --color-primary-900: #e0f2fe;
+  --primary: #38bdf8;
+  --primary-light: #7dd3fc;
+  --primary-dark: #0ea5e9;
+  --primary-rgb: 56, 189, 248;
+  --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  --info: #38bdf8;
+  --info-light: rgba(56, 189, 248, 0.15);
+  --info-dark: #7dd3fc;
+  --shadow-primary: 0 4px 14px 0 rgba(56, 189, 248, 0.35);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
+}
+
+[data-theme="dark"][data-accent-preset="forest"],
+.dark-mode[data-accent-preset="forest"] {
+  --color-primary-50: #052e16;
+  --color-primary-100: #14532d;
+  --color-primary-200: #166534;
+  --color-primary-300: #15803d;
+  --color-primary-400: #16a34a;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #4ade80;
+  --color-primary-700: #86efac;
+  --color-primary-800: #bbf7d0;
+  --color-primary-900: #dcfce7;
+  --primary: #4ade80;
+  --primary-light: #86efac;
+  --primary-dark: #22c55e;
+  --primary-rgb: 74, 222, 128;
+  --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  --info: #4ade80;
+  --info-light: rgba(74, 222, 128, 0.15);
+  --info-dark: #86efac;
+  --shadow-primary: 0 4px 14px 0 rgba(74, 222, 128, 0.35);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
+}
+
+[data-theme="dark"][data-accent-preset="sunset"],
+.dark-mode[data-accent-preset="sunset"] {
+  --color-primary-50: #431407;
+  --color-primary-100: #7c2d12;
+  --color-primary-200: #9a3412;
+  --color-primary-300: #c2410c;
+  --color-primary-400: #ea580c;
+  --color-primary-500: #fb923c;
+  --color-primary-600: #fdba74;
+  --color-primary-700: #fed7aa;
+  --color-primary-800: #ffedd5;
+  --color-primary-900: #fff7ed;
+  --primary: #fb923c;
+  --primary-light: #fdba74;
+  --primary-dark: #ea580c;
+  --primary-rgb: 251, 146, 60;
+  --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  --info: #fb923c;
+  --info-light: rgba(251, 146, 60, 0.15);
+  --info-dark: #fdba74;
+  --shadow-primary: 0 4px 14px 0 rgba(251, 146, 60, 0.35);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
+}
+
+[data-theme="dark"][data-accent-preset="dusk"],
+.dark-mode[data-accent-preset="dusk"] {
+  --color-primary-50: #1e1b4b;
+  --color-primary-100: #4c1d95;
+  --color-primary-200: #5b21b6;
+  --color-primary-300: #6d28d9;
+  --color-primary-400: #7c3aed;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #a78bfa;
+  --color-primary-700: #c4b5fd;
+  --color-primary-800: #ddd6fe;
+  --color-primary-900: #ede9fe;
+  --primary: #a78bfa;
+  --primary-light: #c4b5fd;
+  --primary-dark: #8b5cf6;
+  --primary-rgb: 167, 139, 250;
+  --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  --info: #a78bfa;
+  --info-light: rgba(167, 139, 250, 0.15);
+  --info-dark: #c4b5fd;
+  --shadow-primary: 0 4px 14px 0 rgba(167, 139, 250, 0.35);
+  --xtg-accent: var(--primary);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
+}
+
+/* Subtle hero tint per preset (dark only; matches default pattern in design-system.css) */
+[data-theme="dark"][data-accent-preset="ocean"] body,
+.dark-mode[data-accent-preset="ocean"] body {
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(56, 189, 248, 0.1), transparent 60%),
+    radial-gradient(900px 700px at 90% 20%, rgba(3, 105, 161, 0.06), transparent 55%),
+    var(--background);
+}
+
+[data-theme="dark"][data-accent-preset="forest"] body,
+.dark-mode[data-accent-preset="forest"] body {
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(74, 222, 128, 0.09), transparent 60%),
+    radial-gradient(900px 700px at 90% 20%, rgba(22, 101, 52, 0.06), transparent 55%),
+    var(--background);
+}
+
+[data-theme="dark"][data-accent-preset="sunset"] body,
+.dark-mode[data-accent-preset="sunset"] body {
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(251, 146, 60, 0.1), transparent 60%),
+    radial-gradient(900px 700px at 90% 20%, rgba(194, 65, 12, 0.06), transparent 55%),
+    var(--background);
+}
+
+[data-theme="dark"][data-accent-preset="dusk"] body,
+.dark-mode[data-accent-preset="dusk"] body {
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(167, 139, 250, 0.1), transparent 60%),
+    radial-gradient(900px 700px at 90% 20%, rgba(91, 33, 182, 0.06), transparent 55%),
+    var(--background);
+}

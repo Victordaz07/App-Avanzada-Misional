@@ -51,7 +51,7 @@ export default function InvestigatorJournalPage(): JSX.Element {
     if (!lessonId) return null;
     const lesson = getLessonById(lessonId, locale);
     if (lesson) return lesson.title;
-    const topic = getGuideTopicById(lessonId);
+    const topic = getGuideTopicById(lessonId, locale);
     if (topic) return topic.title;
     return null;
   };

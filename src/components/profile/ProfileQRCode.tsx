@@ -1,13 +1,11 @@
 /**
- * ProfileQRCode - QR Code for sharing xTheGospel ID
- * 
- * Generates a QR code that leaders can scan to look up the member.
- * Uses a simple SVG-based QR generation (no external library needed).
+ * QR con enlace al flujo de amigos / xTheGospel ID (misma app).
  */
 
 import React, { useEffect, useState } from 'react';
 import { FaQrcode, FaShareNodes, FaDownload } from 'react-icons/fa6';
 import { UniversalUserProfile } from '../../types/user';
+import { useI18n } from '../../context/I18nContext';
 import { generateProfileQRData, shareProfile } from '../../utils/appBridge';
 import './ProfileQRCode.css';
 
@@ -22,6 +20,7 @@ interface ProfileQRCodeProps {
  * For production, consider using a library like 'qrcode' or 'qr-code-styling'
  */
 export function ProfileQRCode({ profile, size = 200, compact = false }: ProfileQRCodeProps): JSX.Element {
+  const { t } = useI18n();
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +56,14 @@ export function ProfileQRCode({ profile, size = 200, compact = false }: ProfileQ
   };
 
   const handleShare = () => {
-    shareProfile(profile);
+    void shareProfile(profile, {
+      title: t('app.profileCard.shareTitle'),
+      text: t('app.profileCard.shareText', {
+        displayName: profile.displayName,
+        xtgId: profile.xthegospelId,
+      }),
+      clipboardHint: t('app.profileCard.clipboardHint'),
+    });
   };
 
   const handleDownload = async () => {
@@ -115,7 +121,7 @@ export function ProfileQRCode({ profile, size = 200, compact = false }: ProfileQ
         <div className="profile-qr__actions-compact">
           <button className="profile-qr__btn profile-qr__btn--primary" onClick={handleShare}>
             <FaShareNodes />
-            Compartir
+            {t('app.profileQr.share')}
           </button>
         </div>
       </div>
@@ -126,18 +132,16 @@ export function ProfileQRCode({ profile, size = 200, compact = false }: ProfileQ
     <div className="profile-qr">
       <div className="profile-qr__header">
         <FaQrcode className="profile-qr__icon" />
-        <h3 className="profile-qr__title">Mi Código QR</h3>
+        <h3 className="profile-qr__title">{t('app.profileQr.title')}</h3>
       </div>
 
-      <p className="profile-qr__desc">
-        Muestra este código a tu líder de barrio para que escanee y te registre
-      </p>
+      <p className="profile-qr__desc">{t('app.profileQr.desc')}</p>
 
       <div className="profile-qr__code-wrapper">
         {loading ? (
           <div className="profile-qr__loading">
             <div className="profile-qr__spinner" />
-            <span>Generando código...</span>
+            <span>{t('app.profileQr.generating')}</span>
           </div>
         ) : qrDataUrl ? (
           <img 
@@ -150,27 +154,25 @@ export function ProfileQRCode({ profile, size = 200, compact = false }: ProfileQ
         ) : (
           <div className="profile-qr__fallback">
             <span className="profile-qr__id">{profile.xthegospelId}</span>
-            <span className="profile-qr__fallback-text">
-              Comparte este ID con tu líder
-            </span>
+            <span className="profile-qr__fallback-text">{t('app.profileQr.fallbackText')}</span>
           </div>
         )}
       </div>
 
       <div className="profile-qr__id-display">
-        <span className="profile-qr__id-label">xTheGospel ID</span>
+        <span className="profile-qr__id-label">{t('app.profileQr.idLabel')}</span>
         <span className="profile-qr__id-value">{profile.xthegospelId}</span>
       </div>
 
       <div className="profile-qr__actions">
         <button className="profile-qr__btn profile-qr__btn--primary" onClick={handleShare}>
           <FaShareNodes />
-          Compartir
+          {t('app.profileQr.share')}
         </button>
         {qrDataUrl && (
           <button className="profile-qr__btn profile-qr__btn--secondary" onClick={handleDownload}>
             <FaDownload />
-            Descargar
+            {t('app.profileQr.download')}
           </button>
         )}
       </div>

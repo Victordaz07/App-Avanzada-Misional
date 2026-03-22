@@ -1,6 +1,6 @@
 # xTheGospel
 
-### For The Gospel — A Multilingual Web Application for Investigators, Missionaries, Members, and Mission Leaders
+### For The Gospel — A Multilingual Web Application for Investigators, Members, and Ward Mission Leadership
 
 ### _(Natively available in English, Spanish, French, and Portuguese)_
 
@@ -12,21 +12,19 @@
 
 > **Help investigators come unto Christ and progress toward baptism, conversion, and a lasting relationship with the Savior.**
 
-This application provides a unified, spiritually centered experience for four main audiences:
+This application provides a unified, spiritually centered experience for:
 
 1. **Investigators** — The primary focus of the entire platform
 
-2. **Missionaries** — Teachers and gospel companions who guide investigators
+2. **Members** — Supporters who strengthen and accompany new friends, with optional **ward mission leadership** mode to coordinate with elders in the ward
 
-3. **Members** — Supporters who strengthen and accompany new friends
-
-4. **Mission Leaders (DL, ZL, AP)** — Coordinators and spiritual trainers of the work
+Mission-specific hierarchy tools (full-time missionary app flows, district/zone/AP roles) are not part of this product surface.
 
 The entire architecture is built around a single guiding principle:
 
 > **"How can this help investigators draw closer to Jesus Christ?"**
 
-Everything else—missionary tools, member tools, leadership tools—exists to support that sacred purpose.
+Everything else—member tools and ward-level mission leadership support—exists to support that sacred purpose.
 
 ---
 

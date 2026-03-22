@@ -1,12 +1,9 @@
 /**
- * XtgProfileCard - Shareable xTheGospel ID Card
- * 
- * A beautiful, shareable profile card that displays the user's
- * xTheGospel ID. Can be shared with leaders for ward registration.
+ * XtgProfileCard — Tarjeta con xTheGospel ID para compartir con líderes, amigos o compañeros de estudio.
  */
 
 import React, { useState } from 'react';
-import { FaShareNodes, FaCopy, FaCheck, FaChurch, FaUser } from 'react-icons/fa6';
+import { FaShareNodes, FaCopy, FaCheck, FaChurch } from 'react-icons/fa6';
 import { UniversalUserProfile, MemberStatus } from '../../types/user';
 import { useI18n } from '../../context/I18nContext';
 import './XtgProfileCard.css';
@@ -32,7 +29,11 @@ export function XtgProfileCard({ profile, compact = false, onShare }: XtgProfile
 
   const handleCopyId = async () => {
     try {
-      await navigator.clipboard.writeText(profile.xthegospelId);
+      const block = `${t('app.profileCard.shareText', {
+        displayName: profile.displayName,
+        xtgId: profile.xthegospelId,
+      })}\n\n${t('app.profileCard.clipboardHint')}`;
+      await navigator.clipboard.writeText(block);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
@@ -46,24 +47,15 @@ export function XtgProfileCard({ profile, compact = false, onShare }: XtgProfile
       return;
     }
 
-    // Try native share if available
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: t('app.profileCard.shareTitle'),
-          text: t('app.profileCard.shareText', {
-            displayName: profile.displayName,
-            xtgId: profile.xthegospelId,
-          }),
-          url: `https://xthegospel.app/profile/${profile.xthegospelId}`,
-        });
-      } catch (error) {
-        // User cancelled or error - fallback to copy
-        handleCopyId();
-      }
-    } else {
-      handleCopyId();
-    }
+    const { shareProfile } = await import('../../utils/appBridge');
+    await shareProfile(profile, {
+      title: t('app.profileCard.shareTitle'),
+      text: t('app.profileCard.shareText', {
+        displayName: profile.displayName,
+        xtgId: profile.xthegospelId,
+      }),
+      clipboardHint: t('app.profileCard.clipboardHint'),
+    });
   };
 
   const initials = profile.displayName

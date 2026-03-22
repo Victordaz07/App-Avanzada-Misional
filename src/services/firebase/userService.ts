@@ -15,6 +15,7 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 import { getFirebaseDb } from './firebaseApp';
+import { syncPublicUserCard } from './publicUserCardService';
 import {
   UniversalUserProfile,
   ShareableProfile,
@@ -25,7 +26,39 @@ import {
   DEFAULT_PRIVACY_SETTINGS,
   ChurchUnit,
   OrdinanceDates,
+  churchRelationshipToMemberStatus,
+  COLOR_THEME_PRESET_IDS,
+  type OnboardingChurchRelationship,
+  type ProfileGender,
+  type LearningIntensity,
+  type AgeBand,
+  type ColorThemePresetId,
 } from '../../types/user';
+
+/** Strip deprecated app keys from Firestore (e.g. apps.missionary → member). */
+function sanitizeProfileApps(
+  apps: UniversalUserProfile['apps'] | Record<string, boolean> | undefined,
+): UniversalUserProfile['apps'] {
+  const merged: UniversalUserProfile['apps'] = { ...DEFAULT_PROFILE_APPS };
+  if (!apps || typeof apps !== 'object') return merged;
+  const raw = apps as Record<string, boolean>;
+  if (raw.missionary === true) {
+    merged.member = true;
+  }
+  for (const key of Object.keys(DEFAULT_PROFILE_APPS) as XtgAppKey[]) {
+    if (raw[key] === true) {
+      merged[key] = true;
+    }
+  }
+  return merged;
+}
+
+export function sanitizeUniversalProfile(raw: UniversalUserProfile): UniversalUserProfile {
+  return {
+    ...raw,
+    apps: sanitizeProfileApps(raw.apps),
+  };
+}
 
 /**
  * Generate a unique, readable xTheGospel ID
@@ -94,7 +127,13 @@ export async function createUniversalProfile(
   // Save to Firestore
   const db = getFirebaseDb();
   await setDoc(doc(db, 'users', user.uid), profile);
-  
+
+  try {
+    await syncPublicUserCard(profile);
+  } catch (e) {
+    console.warn('syncPublicUserCard after create:', e);
+  }
+
   console.log(`✅ Created xTheGospel profile: ${profile.xthegospelId}`);
   return profile;
 }
@@ -109,7 +148,7 @@ export async function getProfileByUid(uid: string): Promise<UniversalUserProfile
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
-      return docSnap.data() as UniversalUserProfile;
+      return sanitizeUniversalProfile(docSnap.data() as UniversalUserProfile);
     }
     return null;
   } catch (error) {
@@ -119,7 +158,8 @@ export async function getProfileByUid(uid: string): Promise<UniversalUserProfile
 }
 
 /**
- * Get user profile by xTheGospel ID (for sharing/lookup)
+ * Get user profile by xTheGospel ID (full `users` doc).
+ * Prefer `getPublicUserCardByXtgId` from publicUserCardService for cross-user discovery (amigos).
  */
 export async function getProfileByXtgId(xthegospelId: string): Promise<UniversalUserProfile | null> {
   try {
@@ -155,8 +195,79 @@ export async function updateProfile(
       ...updates,
       updatedAt: serverTimestamp(),
     });
+
+    const refreshed = await getProfileByUid(uid);
+    if (refreshed) {
+      try {
+        await syncPublicUserCard(refreshed);
+      } catch (e) {
+        console.warn('syncPublicUserCard after update:', e);
+      }
+    }
   } catch (error) {
     console.error('Error updating profile:', error);
+    throw error;
+  }
+}
+
+const LEARNING_INTENSITY_VALUES: readonly LearningIntensity[] = [
+  'low',
+  'moderate',
+  'high',
+];
+
+/** Partial update of `users/{uid}.preferences` without replacing the whole object. */
+export interface UserPreferencePatch {
+  colorThemePreset?: ColorThemePresetId;
+  preferredLocale?: 'es' | 'en';
+  learningIntensity?: LearningIntensity;
+}
+
+export async function patchUserPreferences(
+  uid: string,
+  patch: UserPreferencePatch,
+): Promise<void> {
+  const updates: Record<string, unknown> = { updatedAt: serverTimestamp() };
+
+  if (patch.colorThemePreset !== undefined) {
+    if (!COLOR_THEME_PRESET_IDS.includes(patch.colorThemePreset)) {
+      throw new Error('Invalid color theme preset');
+    }
+    updates['preferences.colorThemePreset'] = patch.colorThemePreset;
+  }
+  if (patch.preferredLocale !== undefined) {
+    if (patch.preferredLocale !== 'es' && patch.preferredLocale !== 'en') {
+      throw new Error('Invalid locale');
+    }
+    updates['preferences.preferredLocale'] = patch.preferredLocale;
+  }
+  if (patch.learningIntensity !== undefined) {
+    if (!LEARNING_INTENSITY_VALUES.includes(patch.learningIntensity)) {
+      throw new Error('Invalid learning intensity');
+    }
+    updates['preferences.learningIntensity'] = patch.learningIntensity;
+  }
+
+  const changedKeys = Object.keys(updates).filter((k) => k !== 'updatedAt');
+  if (changedKeys.length === 0) {
+    return;
+  }
+
+  try {
+    const db = getFirebaseDb();
+    const docRef = doc(db, 'users', uid);
+    await updateDoc(docRef, updates);
+
+    const refreshed = await getProfileByUid(uid);
+    if (refreshed) {
+      try {
+        await syncPublicUserCard(refreshed);
+      } catch (e) {
+        console.warn('syncPublicUserCard after patchUserPreferences:', e);
+      }
+    }
+  } catch (error) {
+    console.error('Error patching user preferences:', error);
     throw error;
   }
 }
@@ -174,6 +285,66 @@ export async function updateLastLogin(uid: string): Promise<void> {
   } catch (error) {
     // Non-critical, just log
     console.warn('Could not update last login:', error);
+  }
+}
+
+/** Payload to finish the post-signup onboarding wizard. */
+export interface CompleteOnboardingPayload {
+  churchRelationship: OnboardingChurchRelationship;
+  gender: ProfileGender;
+  learningIntensity: LearningIntensity;
+  ageBand: AgeBand;
+  preferredLocale: 'es' | 'en';
+  colorThemePreset: ColorThemePresetId;
+  /** Required when `ageBand` is `child_8_12` (COPPA / guardian supervision). */
+  guardianSupervisionConfirmed: boolean;
+}
+
+/**
+ * Persist onboarding preferences, member status, app flags, and mark profile complete.
+ */
+export async function completeOnboarding(
+  uid: string,
+  payload: CompleteOnboardingPayload,
+): Promise<void> {
+  if (payload.ageBand === 'child_8_12' && !payload.guardianSupervisionConfirmed) {
+    throw new Error('Guardian supervision must be confirmed for this age band');
+  }
+  if (!COLOR_THEME_PRESET_IDS.includes(payload.colorThemePreset)) {
+    throw new Error('Invalid color theme preset');
+  }
+
+  const memberStatus = churchRelationshipToMemberStatus(payload.churchRelationship);
+  const db = getFirebaseDb();
+  const docRef = doc(db, 'users', uid);
+
+  const preferences: Record<string, unknown> = {
+    gender: payload.gender,
+    learningIntensity: payload.learningIntensity,
+    ageBand: payload.ageBand,
+    preferredLocale: payload.preferredLocale,
+    colorThemePreset: payload.colorThemePreset,
+  };
+  if (payload.ageBand === 'child_8_12') {
+    preferences.guardianSupervisionAcknowledgedAt = serverTimestamp();
+  }
+
+  await updateDoc(docRef, {
+    memberStatus,
+    'apps.member': memberStatus !== 'investigator',
+    'apps.investigator': memberStatus === 'investigator',
+    preferences,
+    profileComplete: true,
+    updatedAt: serverTimestamp(),
+  });
+
+  const refreshed = await getProfileByUid(uid);
+  if (refreshed) {
+    try {
+      await syncPublicUserCard(refreshed);
+    } catch (e) {
+      console.warn('syncPublicUserCard after onboarding:', e);
+    }
   }
 }
 
@@ -208,6 +379,15 @@ export async function updateMemberStatus(
       memberStatus: status,
       updatedAt: serverTimestamp(),
     });
+
+    const refreshed = await getProfileByUid(uid);
+    if (refreshed) {
+      try {
+        await syncPublicUserCard(refreshed);
+      } catch (e) {
+        console.warn('syncPublicUserCard after memberStatus:', e);
+      }
+    }
   } catch (error) {
     console.error('Error updating member status:', error);
     throw error;

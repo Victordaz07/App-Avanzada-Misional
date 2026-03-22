@@ -7,48 +7,21 @@ import { useAuth } from '../context/AuthContext';
 import { useI18n } from '../context/I18nContext';
 import AuthScreen from '../app/(auth)/AuthScreen';
 
-// Importar pantallas del investigador (learning = investigator)
+// Investigador (learning)
 import InvestigatorHome from '../app/(tabs)/learning/index';
-import InvestigatorLessons from '../app/(tabs)/learning/lessons';
 import InvestigatorProgress from '../app/(tabs)/learning/progress';
 import InvestigatorBaptism from '../app/(tabs)/learning/baptism';
 import InvestigatorProfile from '../app/(tabs)/learning/profile';
 
-// Importar pantallas del misionero (serving = missionary)
-import MissionaryHomeScreen from '../src/screens/MissionaryHomeScreen';
-import MissionaryAgenda from '../app/(tabs)/serving/agenda';
-import MissionaryLessons from '../app/(tabs)/serving/lessons';
-import MissionaryPeople from '../app/(tabs)/serving/people';
-import MissionaryProfile from '../app/(tabs)/serving/profile';
-import { LeadershipCenterFeedScreen } from '../src/screens/LeadershipCenterFeedScreen';
-
-// Importar pantallas del Asistente del Presidente
-import APDashboard from '../app/(tabs)/ap/dashboard';
-import APCouncil from '../app/(tabs)/ap/council';
-import APTransfers from '../app/(tabs)/ap/transfers';
-import APOffice from '../app/(tabs)/ap/office';
-import APTours from '../app/(tabs)/ap/tours';
-import APCompanionship from '../app/(tabs)/ap/companionship';
-import APProfile from '../app/(tabs)/ap/profile';
-
-// Importar la nueva estructura de lecciones
 import LessonsNavigator from './LessonsNavigator';
-
-// Importar la nueva pantalla de Tareas
 import TasksScreen from '../screens/TasksScreen';
 
-// Quiz y Reflexiones ahora están dentro del módulo de Lecciones
-
-// QR Scanner removido temporalmente
-
-// Importación segura de LessonDetail - RUTA CORREGIDA
 let LessonDetail: React.ComponentType<any>;
 
 try {
   const lessonDetailModule = require('../screens/LessonDetail');
   LessonDetail = lessonDetailModule.default || lessonDetailModule;
-} catch (error) {
-  console.warn('LessonDetail not found, using fallback component');
+} catch {
   LessonDetail = () => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Pantalla de lección no disponible</Text>
@@ -59,17 +32,13 @@ try {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Tipos para la navegación
 export type RootStackParamList = {
   InvestigatorApp: undefined;
-  MissionaryApp: undefined;
-  APApp: undefined;
   Auth: undefined;
   LessonDetail: { lessonId: string };
   LessonsNavigator: undefined;
 };
 
-// Navigator para investigador
 const InvestigatorTabs = () => {
   const { t } = useI18n();
 
@@ -158,223 +127,6 @@ const InvestigatorTabs = () => {
   );
 };
 
-// Navigator para misionero
-const MissionaryTabs = () => {
-  const { t } = useI18n();
-
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#fff',
-          paddingBottom: 5,
-          paddingTop: 5,
-        },
-        tabBarActiveTintColor: '#007AFF',
-        tabBarInactiveTintColor: '#8E8E93',
-      }}
-    >
-      <Tab.Screen
-        name="Inicio"
-        component={MissionaryHomeScreen}
-        options={{
-          title: t('tabs.home'),
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Agenda"
-        component={MissionaryAgenda}
-        options={{
-          title: t('tabs.agenda'),
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="calendar" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Personas"
-        component={MissionaryPeople}
-        options={{
-          title: t('tabs.people'),
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="account-group"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Tareas"
-        component={TasksScreen}
-        options={{
-          title: t('tabs.tasks'),
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="format-list-checks"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Lecciones"
-        component={LessonsNavigator}
-        options={{
-          title: t('tabs.lessons'),
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="book" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Liderazgo"
-        component={LeadershipCenterFeedScreen}
-        options={{
-          title: 'Liderazgo',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="account-group"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Perfil"
-        component={MissionaryProfile}
-        options={{
-          title: t('tabs.profile'),
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
-
-// Navigator para Asistente del Presidente
-const APTabs = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#fff',
-          paddingBottom: 5,
-          paddingTop: 5,
-        },
-        tabBarActiveTintColor: '#007AFF',
-        tabBarInactiveTintColor: '#8E8E93',
-      }}
-    >
-      <Tab.Screen
-        name="Dashboard"
-        component={APDashboard}
-        options={{
-          title: 'Dashboard',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="view-dashboard"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Consejo"
-        component={APCouncil}
-        options={{
-          title: 'Consejo',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="account-group"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Transfers"
-        component={APTransfers}
-        options={{
-          title: 'Transfers',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="swap-horizontal"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Oficina"
-        component={APOffice}
-        options={{
-          title: 'Oficina',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="office-building"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Giras"
-        component={APTours}
-        options={{
-          title: 'Giras',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="map-marker-path"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Compañerismo"
-        component={APCompanionship}
-        options={{
-          title: 'Compañerismo',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="handshake"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Perfil"
-        component={APProfile}
-        options={{
-          title: 'Perfil',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
-
-// Componente de carga
 const LoadingScreen = () => (
   <View
     style={{
@@ -391,7 +143,10 @@ const LoadingScreen = () => (
   </View>
 );
 
-// Stack navigator principal
+/**
+ * Legacy RN shell: solo flujo investigador.
+ * Roles de misión (misionero, AP, etc.) se migran a web (Vite).
+ */
 const MainStack = () => {
   const { userRole, isLoading } = useAuth();
 
@@ -402,66 +157,24 @@ const MainStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {userRole ? (
-        userRole === 'investigator' ? (
-          <>
-            <Stack.Screen name="InvestigatorApp" component={InvestigatorTabs} />
-            <Stack.Screen
-              name="LessonDetail"
-              component={LessonDetail}
-              options={{
-                headerShown: true,
-                title: 'Detalle de Lección',
-                headerStyle: {
-                  backgroundColor: '#007AFF',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            />
-            {/* QR Scanner removido temporalmente */}
-          </>
-        ) : userRole === 'assistant_to_president' ? (
-          <>
-            <Stack.Screen name="APApp" component={APTabs} />
-            <Stack.Screen
-              name="LessonDetail"
-              component={LessonDetail}
-              options={{
-                headerShown: true,
-                title: 'Detalle de Lección',
-                headerStyle: {
-                  backgroundColor: '#007AFF',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="MissionaryApp" component={MissionaryTabs} />
-            <Stack.Screen
-              name="LessonDetail"
-              component={LessonDetail}
-              options={{
-                headerShown: true,
-                title: 'Detalle de Lección',
-                headerStyle: {
-                  backgroundColor: '#007AFF',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            />
-            {/* QR Scanner removido temporalmente */}
-          </>
-        )
+        <>
+          <Stack.Screen name="InvestigatorApp" component={InvestigatorTabs} />
+          <Stack.Screen
+            name="LessonDetail"
+            component={LessonDetail}
+            options={{
+              headerShown: true,
+              title: 'Detalle de Lección',
+              headerStyle: {
+                backgroundColor: '#007AFF',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+        </>
       ) : (
         <Stack.Screen
           name="Auth"
@@ -473,7 +186,6 @@ const MainStack = () => {
   );
 };
 
-// Navigator principal
 const AppNavigator: React.FC = () => {
   return <MainStack />;
 };

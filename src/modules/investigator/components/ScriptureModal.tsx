@@ -74,7 +74,7 @@ export function ScriptureModal({
               ) : (
                 <div className="scripture-modal__text">{scripture.text}</div>
               )}
-              {scripture.context && (
+              {!scripture.verses?.length && scripture.context && (
                 <p className="scripture-modal__context">{scripture.context}</p>
               )}
             </>

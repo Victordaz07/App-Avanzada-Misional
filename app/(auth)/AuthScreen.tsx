@@ -59,36 +59,18 @@ export default function AuthScreen() {
                 <TouchableOpacity
                     style={[
                         styles.roleButton,
-                        selectedRole === 'missionary' && styles.roleButtonSelected
+                        selectedRole === 'member' && styles.roleButtonSelected
                     ]}
-                    onPress={() => handleRoleSelection('missionary')}
+                    onPress={() => handleRoleSelection('member')}
                 >
                     <Text style={[
                         styles.roleButtonText,
-                        selectedRole === 'missionary' && styles.roleButtonTextSelected
+                        selectedRole === 'member' && styles.roleButtonTextSelected
                     ]}>
-                        🙌 Misionero
+                        🤝 Miembro
                     </Text>
                     <Text style={styles.roleDescription}>
-                        Estoy enseñando el evangelio
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[
-                        styles.roleButton,
-                        selectedRole === 'assistant_to_president' && styles.roleButtonSelected
-                    ]}
-                    onPress={() => handleRoleSelection('assistant_to_president')}
-                >
-                    <Text style={[
-                        styles.roleButtonText,
-                        selectedRole === 'assistant_to_president' && styles.roleButtonTextSelected
-                    ]}>
-                        🟩 Asistente del Presidente
-                    </Text>
-                    <Text style={styles.roleDescription}>
-                        Apoyo al presidente en el liderazgo de la misión
+                        Soy miembro (vista simplificada en esta app)
                     </Text>
                 </TouchableOpacity>
             </View>

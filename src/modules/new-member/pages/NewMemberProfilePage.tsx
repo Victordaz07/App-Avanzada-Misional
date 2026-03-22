@@ -1,157 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FaChevronRight,
-  FaUser,
   FaGlobe,
   FaCircleQuestion,
-  FaUserGear,
   FaPalette,
 } from 'react-icons/fa6';
-import { OrdinanceDatesSection } from '../../../components/OrdinanceDatesSection';
 import DataPrivacySection from '../../../components/DataPrivacySection';
-import { useMode, type AppMode } from '../../../state/mode';
+import { SpiritualPathSection } from '../../../components/profile/SpiritualPathSection';
+import { LeadersAndTeachersHub } from '../../../components/profile/LeadersAndTeachersHub';
+import {
+  ProfileRoleHero,
+  PersonalProfileCard,
+  AppearancePreferencesCard,
+} from '../../../components/profile/unified';
+import { useAuth } from '../../../context/AuthContext';
 import { useI18n } from '../../../context/I18nContext';
 import { useTheme } from '../../../context/ThemeContext';
 import { LANGUAGE_OPTIONS, type Locale } from '../../../i18n/locales';
+import { LanguageSelectModal } from '../../../components/ui/LanguageSelectModal';
+import { ThemeSelectModal, type ThemeChoice } from '../../../components/ui/ThemeSelectModal';
+import { patchUserPreferences } from '../../../services/firebase/userService';
 import '../../../components/DataPrivacySection.css';
 import './NewMemberProfilePage.css';
 
 /**
- * New Member Profile Page
- * Sprint 7 - Pastoral tone, no placeholders
- * Includes mode switcher (Investigador / Miembro / Liderazgo) to switch from Leadership back to Member.
+ * New Member Profile Page — shell around shared profile blocks (hero, personal, appearance).
  */
 export default function NewMemberProfilePage(): JSX.Element {
   const navigate = useNavigate();
-  const { mode, setMode } = useMode();
   const { t, locale, setLocale } = useI18n();
   const { theme, setTheme } = useTheme();
+  const { user, refreshProfile } = useAuth();
+  const [showLangModal, setShowLangModal] = useState(false);
+  const [showThemeModal, setShowThemeModal] = useState(false);
 
-  const cycleLocale = async (): Promise<void> => {
-    const idx = LANGUAGE_OPTIONS.findIndex((l) => l.code === locale);
-    const next = LANGUAGE_OPTIONS[(idx + 1) % LANGUAGE_OPTIONS.length];
-    await setLocale(next.code as Locale);
-  };
+  const currentLanguage = LANGUAGE_OPTIONS.find((l) => l.code === locale);
 
-  const cycleTheme = (): void => {
-    const order: Array<'light' | 'dark' | 'system'> = ['light', 'dark', 'system'];
-    const idx = order.indexOf(theme);
-    const next = order[(idx + 1) % order.length];
-    setTheme(next);
-  };
-
-  const handleModeChange = (newMode: AppMode): void => {
-    setMode(newMode);
-    switch (newMode) {
-      case 'leadership':
-        navigate('/home');
-        break;
-      case 'member':
-      case 'investigator':
-      default:
-        navigate('/home');
-        break;
+  const handleLanguageSelect = async (code: Locale): Promise<void> => {
+    await setLocale(code);
+    if (user?.uid && (code === 'es' || code === 'en')) {
+      try {
+        await patchUserPreferences(user.uid, { preferredLocale: code });
+        await refreshProfile();
+      } catch (err) {
+        console.warn('patchUserPreferences preferredLocale:', err);
+      }
     }
+    setShowLangModal(false);
+  };
+
+  const handleThemeSelect = (choice: ThemeChoice): void => {
+    setTheme(choice);
+    setShowThemeModal(false);
   };
 
   return (
     <div className="nm-profile">
-      {/* Role Card */}
-      <div className="nm-profile__role">
-        <div className="nm-profile__role-avatar">
-          <FaUser />
-        </div>
-        <h1 className="nm-profile__role-title">{t('app.profileNewMember.welcomeFriend')}</h1>
-        <p className="nm-profile__role-label">{t('app.profile.member')}</p>
-      </div>
+      <ProfileRoleHero roleLabelKey="app.profile.member" />
 
-      {/* Ward Family */}
+      <PersonalProfileCard />
+
+      <SpiritualPathSection classPrefix="nm-profile" />
+      <LeadersAndTeachersHub classPrefix="nm-profile" />
+
+      <AppearancePreferencesCard />
+
       <section className="nm-profile__section">
         <h2 className="nm-profile__section-title">{t('app.profileNewMember.myWardFamily')}</h2>
         <div className="nm-profile__ward-info">
-          <p className="nm-profile__ward-text">
-            {t('app.profileNewMember.wardInfo')}
-          </p>
+          <p className="nm-profile__ward-text">{t('app.profileNewMember.wardInfo')}</p>
         </div>
       </section>
 
-      {/* Ordinance Dates */}
-      <section className="nm-profile__section">
-        <h2 className="nm-profile__section-title">{t('app.profile.myJourney')}</h2>
-        <OrdinanceDatesSection />
-      </section>
-
-      {/* Mode Switcher - switch between Investigator / Member / Leadership */}
-      <section className="nm-profile__section">
-        <h2 className="nm-profile__section-title">{t('app.profile.switchModeTitle')}</h2>
-        <p className="nm-profile__section-desc">
-          {t('app.profile.switchModeDesc')}
-        </p>
-        <div className="nm-profile__mode-switcher">
-          <button
-            type="button"
-            className={`nm-profile__mode-btn ${mode === 'investigator' ? 'nm-profile__mode-btn--active' : ''}`}
-            onClick={() => handleModeChange('investigator')}
-          >
-            <FaUser className="nm-profile__mode-icon" />
-            <span>{t('app.profile.friend')}</span>
-          </button>
-          <button
-            type="button"
-            className={`nm-profile__mode-btn ${mode === 'member' ? 'nm-profile__mode-btn--active' : ''}`}
-            onClick={() => handleModeChange('member')}
-          >
-            <FaUser className="nm-profile__mode-icon" />
-            <span>{t('app.profile.member')}</span>
-          </button>
-          <button
-            type="button"
-            className={`nm-profile__mode-btn ${mode === 'leadership' ? 'nm-profile__mode-btn--active' : ''}`}
-            onClick={() => handleModeChange('leadership')}
-          >
-            <FaUserGear className="nm-profile__mode-icon" />
-            <span>{t('app.profile.leadership')}</span>
-          </button>
-        </div>
-      </section>
-
-      {/* Settings */}
       <section className="nm-profile__section">
         <h2 className="nm-profile__section-title">{t('app.profileNewMember.settings')}</h2>
         <div className="nm-profile__settings">
-          <button
-            className="nm-profile__setting"
-            onClick={cycleLocale}
-          >
+          <button type="button" className="nm-profile__setting" onClick={() => setShowLangModal(true)}>
             <div className="nm-profile__setting-icon">
               <FaGlobe />
             </div>
             <div className="nm-profile__setting-content">
               <h3 className="nm-profile__setting-title">{t('app.profile.language')}</h3>
-              <p className="nm-profile__setting-desc">{locale.toUpperCase()}</p>
+              <p className="nm-profile__setting-desc">
+                <span className="nm-profile__setting-code">{currentLanguage?.shortCode}</span>{' '}
+                {currentLanguage?.label ?? locale.toUpperCase()}
+              </p>
             </div>
             <FaChevronRight className="nm-profile__setting-arrow" />
           </button>
 
-          <button
-            className="nm-profile__setting"
-            onClick={cycleTheme}
-          >
+          <button type="button" className="nm-profile__setting" onClick={() => setShowThemeModal(true)}>
             <div className="nm-profile__setting-icon">
               <FaPalette />
             </div>
             <div className="nm-profile__setting-content">
               <h3 className="nm-profile__setting-title">{t('app.profile.appearance')}</h3>
-              <p className="nm-profile__setting-desc">{t(`app.settings.theme${theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'System'}`)}</p>
+              <p className="nm-profile__setting-desc">
+                {t(`app.settings.theme${theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'System'}`)}
+              </p>
             </div>
             <FaChevronRight className="nm-profile__setting-arrow" />
           </button>
 
-          <button
-            className="nm-profile__setting"
-            onClick={() => navigate('/support')}
-          >
+          <button type="button" className="nm-profile__setting" onClick={() => navigate('/support')}>
             <div className="nm-profile__setting-icon">
               <FaCircleQuestion />
             </div>
@@ -164,13 +116,31 @@ export default function NewMemberProfilePage(): JSX.Element {
         </div>
       </section>
 
-      {/* Data & Privacy */}
       <section className="nm-profile__section">
         <h2 className="nm-profile__section-title">{t('app.profile.dataPrivacy')}</h2>
         <DataPrivacySection classPrefix="nm-profile" />
       </section>
 
-      {/* Version */}
+      <LanguageSelectModal
+        open={showLangModal}
+        onClose={() => setShowLangModal(false)}
+        title={t('app.profile.language')}
+        selectedLocale={locale}
+        onSelect={handleLanguageSelect}
+        cancelLabel={t('common.cancel')}
+        closeAriaLabel={t('common.close')}
+      />
+
+      <ThemeSelectModal
+        open={showThemeModal}
+        onClose={() => setShowThemeModal(false)}
+        title={t('app.settings.theme')}
+        selectedTheme={theme}
+        onSelect={handleThemeSelect}
+        cancelLabel={t('common.cancel')}
+        closeAriaLabel={t('common.close')}
+      />
+
       <footer className="nm-profile__version">
         <p className="nm-profile__version-label">{t('app.profile.version', { version: '1.0.0' })}</p>
       </footer>

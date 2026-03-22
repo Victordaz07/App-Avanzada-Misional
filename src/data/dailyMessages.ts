@@ -9,7 +9,7 @@ export const DAILY_MESSAGE_IDS: DailyMessageId[] = [
   "peaceThroughPrayer"
 ];
 
-export type DailyMessageRole = "investigator" | "member" | "missionary";
+export type DailyMessageRole = "investigator" | "member";
 
 interface RoleDailyMessagesMap {
   [role: string]: DailyMessageId[];
@@ -18,7 +18,6 @@ interface RoleDailyMessagesMap {
 // Daily messages by role
 export const ROLE_DAILY_MESSAGES: RoleDailyMessagesMap = {
   investigator: DAILY_MESSAGE_IDS,
-  member: DAILY_MESSAGE_IDS, // Members can use the same messages for now
-  missionary: DAILY_MESSAGE_IDS
+  member: DAILY_MESSAGE_IDS,
 };
 

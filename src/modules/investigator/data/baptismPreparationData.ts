@@ -4,6 +4,8 @@
  * Used in Progreso → Preparación para el Bautismo
  */
 
+import type { Locale } from '../../../i18n/locales';
+
 export interface ScriptureRef {
   reference: string;
   text?: string;
@@ -29,7 +31,6 @@ export interface BaptismPreparationModule {
   sections: Section[];
 }
 
-type Locale = 'es' | 'en' | 'fr' | 'pt';
 type BaptismContentLocale = 'es' | 'en';
 
 function normalizeBaptismLocale(locale: Locale): BaptismContentLocale {

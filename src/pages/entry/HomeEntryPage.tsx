@@ -1,16 +1,16 @@
 import React from 'react';
-import { useJourneyStage } from '../../core/journey/useJourneyStore';
+import { useMemberSpiritualPath } from '../../hooks/useMemberSpiritualPath';
 import InvestigatorHomePage from '../../modules/investigator/pages/InvestigatorHomePage';
 import NewMemberHomePage from '../../modules/new-member/pages/NewMemberHomePage';
 
 /**
  * Home Entry Page
- * Renders different home content based on journey stage
+ * Renders investigator vs new-member home from profile.memberStatus (see useMemberSpiritualPath).
  */
 export default function HomeEntryPage(): JSX.Element {
-  const stage = useJourneyStage();
+  const { isBaptizedMemberPath } = useMemberSpiritualPath();
 
-  if (stage === 'covenanted') {
+  if (isBaptizedMemberPath) {
     return <NewMemberHomePage />;
   }
 

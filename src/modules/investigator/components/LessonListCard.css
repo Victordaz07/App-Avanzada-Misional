@@ -1,136 +1,260 @@
-/* Lesson List Card Component
- * Sprint 10 - Added visual status indicators
- */
+/* Camino Misional — tarjeta de lección (paralela a .home-discovery__card en home). */
 
 .lesson-list-card {
+  --ll-radius: var(--app-rail-card-radius);
+  --ll-border: color-mix(in srgb, var(--primary) 12%, var(--border-subtle));
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   background: var(--background-card);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  border: 1px solid var(--border-subtle);
+  border-radius: var(--ll-radius);
+  padding: var(--app-rail-card-padding);
+  border: 1px solid var(--ll-border);
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
+  align-items: flex-start;
+  gap: var(--app-rail-card-gap);
   cursor: pointer;
-  transition: transform var(--transition-base), background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.2, 0.64, 1),
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.22s ease;
   text-decoration: none;
   color: inherit;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 92%, transparent) inset,
+    0 10px 36px -16px rgba(var(--primary-rgb), 0.14),
+    0 2px 10px -4px rgba(var(--primary-rgb), 0.08);
+}
+
+.lesson-list-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: var(--app-rail-card-stripe-inset-y);
+  bottom: var(--app-rail-card-stripe-inset-y);
+  width: var(--app-rail-card-stripe-width);
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 35%, transparent);
 }
 
 .lesson-list-card:hover {
-  transform: translateY(-1px);
-  background: var(--background-muted);
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 95%, transparent) inset,
+    0 16px 42px -14px rgba(var(--primary-rgb), 0.2),
+    0 4px 14px -6px rgba(var(--primary-rgb), 0.1);
 }
 
 .lesson-list-card:active {
   transform: translateY(0);
 }
 
-/* Status variations */
+.lesson-list-card:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--primary) 28%, transparent),
+    0 12px 32px -12px rgba(var(--primary-rgb), 0.18);
+}
+
 .lesson-list-card--completed {
-  border-color: var(--success);
-  background: var(--success-light);
+  border-color: color-mix(in srgb, var(--success) 35%, var(--border-subtle));
+  background: color-mix(in srgb, var(--success-light) 22%, var(--background-card));
 }
 
 .lesson-list-card--completed:hover {
-  border-color: var(--success-dark);
-  background: var(--success-light);
+  border-color: color-mix(in srgb, var(--success) 45%, var(--border-subtle));
 }
 
 .lesson-list-card--exploring {
-  border-color: var(--warning);
-  background: var(--warning-light);
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border-subtle));
+  background: color-mix(in srgb, var(--info-light) 30%, var(--background-card));
 }
 
 .lesson-list-card--exploring:hover {
-  border-color: var(--warning-dark);
-  background: var(--warning-light);
+  border-color: color-mix(in srgb, var(--primary) 36%, var(--border-subtle));
 }
 
-/* Icon */
 .lesson-list-card__icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-lg);
-  background: var(--background-muted);
-  border: 1px solid var(--border-subtle);
+  position: relative;
+  z-index: 1;
+  width: var(--app-rail-card-icon-size);
+  height: var(--app-rail-card-icon-size);
+  border-radius: var(--app-rail-card-icon-radius);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--info-light) 85%, var(--background-card)) 0%,
+    color-mix(in srgb, var(--info-light) 45%, var(--background-card)) 100%
+  );
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--text-2xl);
+  font-size: 22px;
+  line-height: 1;
   flex-shrink: 0;
-  transition: background var(--transition-base), border-color var(--transition-base);
+  color: var(--primary);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--background-card) 85%, transparent) inset,
+    0 0 0 1px color-mix(in srgb, var(--primary) 28%, transparent),
+    0 6px 16px -6px rgba(var(--primary-rgb), 0.2);
 }
 
 .lesson-list-card__icon--completed {
-  background: var(--success);
-  border-color: var(--success);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-color: transparent;
+  color: var(--text-inverse);
+  box-shadow: 0 8px 22px rgba(var(--primary-rgb), 0.28);
 }
 
 .lesson-list-card__icon--exploring {
-  background: var(--warning);
-  border-color: var(--warning);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary-light) 92%, white) 0%,
+    var(--primary) 100%
+  );
+  border-color: transparent;
+  color: var(--text-inverse);
+  box-shadow: 0 8px 22px rgba(var(--primary-rgb), 0.22);
 }
 
-/* Content */
 .lesson-list-card__content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-width: 0;
+  padding-top: 2px;
 }
 
 .lesson-list-card__title {
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
-  color: var(--text-primary);
-  margin: 0 0 var(--space-1) 0;
+  font-family: var(--font-family-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .lesson-list-card__subtitle {
-  font-size: var(--text-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--text-secondary);
-  margin: 0;
-  line-height: var(--leading-snug);
+  margin: 0.5rem 0 0 0;
+  line-height: 1.5;
 }
 
-/* Status area */
-.lesson-list-card__status {
+/* Fila horizontal: estado a la izquierda de la flecha — misma altura que tarjetas sin badge */
+.lesson-list-card__trail {
+  position: relative;
+  z-index: 1;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: flex-end;
+  gap: 0.5rem;
   flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.lesson-list-card__badges {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
 }
 
 .lesson-list-card__status-badge {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  font-size: 11px;
 }
 
 .lesson-list-card__status-badge--completed {
-  background: var(--success);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: var(--text-inverse);
 }
 
 .lesson-list-card__status-badge--exploring {
-  background: var(--warning);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
   color: var(--text-inverse);
   font-size: 8px;
 }
 
-.lesson-list-card__arrow {
-  color: var(--accent);
-  font-size: var(--text-base);
+.lesson-list-card__arrow-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  opacity: 0.6;
-  transition: opacity var(--transition-base), transform var(--transition-base);
+  background: color-mix(in srgb, var(--info-light) 50%, var(--background-card));
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.lesson-list-card__arrow {
+  color: var(--primary);
+  font-size: 0.9375rem;
+  opacity: 0.88;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.lesson-list-card:hover .lesson-list-card__arrow-wrap {
+  background: color-mix(in srgb, var(--info-light) 70%, var(--background-card));
+  border-color: color-mix(in srgb, var(--primary) 32%, var(--border-subtle));
 }
 
 .lesson-list-card:hover .lesson-list-card__arrow {
   opacity: 1;
   transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-list-card,
+  .lesson-list-card__arrow {
+    transition: none;
+  }
+
+  .lesson-list-card:hover {
+    transform: none;
+  }
+
+  .lesson-list-card:hover .lesson-list-card__arrow {
+    transform: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .lesson-list-card {
+    padding: var(--app-rail-card-padding-compact);
+    gap: 0.875rem;
+  }
+
+  .lesson-list-card__icon {
+    width: var(--app-rail-card-icon-size-compact);
+    height: var(--app-rail-card-icon-size-compact);
+    font-size: 20px;
+  }
+
+  .lesson-list-card__arrow-wrap {
+    width: var(--app-rail-card-arrow-size-compact);
+    height: var(--app-rail-card-arrow-size-compact);
+  }
+
+  .lesson-list-card__title {
+    font-size: 1rem;
+  }
 }

@@ -1,12 +1,10 @@
-## Locales objetivo
+## Idiomas soportados
 
-- `en` (default/fallback)
+- `en` (default / fallback en `I18nContext`)
 - `es`
-- `fr`
-- `pt`
 
 ## Convenciones
 
-- La lista oficial de idiomas está en `src/i18n/locales.ts`.
-- `app.*` y `member.*` deben tener paridad de claves para los 4 idiomas.
-- `missionary.*` también debe mantener paridad completa en `es/en/fr/pt`.
+- La lista oficial está en `src/i18n/locales.ts`.
+- `app.*`, `member.*` y `missionary.*` deben tener **paridad de claves** entre `es` y `en` (validar con `npm run validate:i18n`).
+- Contenido largo por flujo puede vivir en TS (`guideTopics.*`, `training/lessons/content/*`, datos del viñedo) siempre con variantes `es`/`en`.

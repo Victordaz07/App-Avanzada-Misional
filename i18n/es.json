@@ -81,8 +81,6 @@
     "memberProfile.accountActions.deleteConfirm": "¿Deseas eliminar tu cuenta? Esta acción no se puede deshacer.",
     "memberProfile.languages.es": "Español",
     "memberProfile.languages.en": "Inglés",
-    "memberProfile.languages.fr": "Francés",
-    "memberProfile.languages.pt": "Portugués",
     "memberProfile.footer.version": "Versión {{version}}",
     "memberProfile.footer.tagline": "Herramientas para discípulos que aman compartir el evangelio.",
     "common.cancel": "Cancelar",
@@ -1697,6 +1695,15 @@
   "memberStudy.referenceType.scripture": "ESCRITURA",
   "memberStudy.referenceType.talk": "CHARLA",
   "memberStudy.referenceType.manual": "MANUAL",
+  "memberStudy.labels.module": "Módulo",
+  "memberStudy.labels.sectionsSidebar": "Secciones del módulo",
+  "memberStudy.labels.studiedBadge": "Estudiado",
+  "memberStudy.labels.referencesTitle": "Referencias sugeridas",
+  "memberStudy.labels.minutes": "{{minutes}} min",
+  "memberStudy.actions.markStudied": "Marcar como estudiado (+5 XP)",
+  "memberStudy.actions.studyRecorded": "Estudio registrado",
+  "memberStudy.actions.backToList": "Volver al listado",
+  "memberStudy.error.notFound": "No encontramos ese módulo o sección. Vuelve al listado de estudio para elegir otro contenido.",
   "memberLeader": {
     "roleName": "Líder — Apoyando la obra y nuevos conversos",
     "description": "Modo para líderes de barrio o rama que desean apoyar mejor a amigos en enseñanza y nuevos conversos, en armonía con Predicad Mi Evangelio y el Manual General",
@@ -1968,6 +1975,11 @@
       "boreTestimony": "Compartí mi testimonio",
       "helpedMissionaries": "Ayudé a los misioneros",
       "extendedInvitation": "Extendí una invitación"
+    },
+    "discovery": {
+      "title": "Temas para explorar con calma",
+      "hint": "Lecturas breves de la guía del miembro: culto, convenios y más. Abre el que te ayude hoy.",
+      "seeAll": "Ver toda la guía"
     }
   },
   "memberFriends": {

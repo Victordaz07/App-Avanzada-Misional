@@ -1,14 +1,14 @@
 /**
  * RegisterPage - Modern xTheGospel Registration
- * 
+ *
  * Registration flow:
  * 1. Login (default) - for existing users
  * 2. Select type - "Estoy conociendo la iglesia" vs "Ya soy miembro"
  * 3. Signup form - with ward code for members
- * 4. Success - shows xTheGospel ID
+ * 4. Onboarding (/onboarding) - required for email and Google sign-in
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   FaUser,
@@ -18,32 +18,30 @@ import {
   FaEyeSlash,
   FaArrowLeft,
   FaSpinner,
-  FaCheck,
   FaSeedling,
   FaChurch,
   FaHashtag,
 } from 'react-icons/fa6';
 import { useAuth } from '../context/AuthContext';
+import { useI18n } from '../context/I18nContext';
+import { isProfileFullyOnboarded } from '../types/user';
+import { getPostLoginDestination } from '../utils/authRedirect';
 import './RegisterPage.css';
 
-type RegisterMode = 'login' | 'select-type' | 'signup-friend' | 'signup-member' | 'success';
+type RegisterMode = 'login' | 'select-type' | 'signup-friend' | 'signup-member';
 
-/** Rutas internas válidas para redirect post-login (evita open redirect) */
-const VALID_REDIRECT_PATHS = ['/home', '/journal', '/progress', '/profile', '/training', '/lessons'];
-
-function getPostLoginDestination(searchParams: URLSearchParams): string {
-  const redirect = searchParams.get('redirect');
-  if (!redirect) return '/home';
-  const decoded = decodeURIComponent(redirect);
-  // Solo rutas internas que empiecen con path válido
-  const isValid = VALID_REDIRECT_PATHS.some((p) => decoded === p || decoded.startsWith(p + '/'));
-  return isValid ? decoded : '/home';
+function meetsPasswordPolicy(pw: string): boolean {
+  if (pw.length < 8) return false;
+  if (!/\d/.test(pw)) return false;
+  if (!/[^A-Za-z0-9]/.test(pw)) return false;
+  return true;
 }
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { signUpWithEmail, signInWithEmail, login, profile } = useAuth();
+  const { t } = useI18n();
+  const { signUpWithEmail, signInWithEmail, signInWithGoogle, login, profile, user } = useAuth();
   
   const [mode, setMode] = useState<RegisterMode>('login');
   const [fullName, setFullName] = useState('');
@@ -53,7 +51,6 @@ const RegisterPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [createdId, setCreatedId] = useState<string | null>(null);
   const [isMember, setIsMember] = useState(false);
 
   const resetForm = () => {
@@ -64,12 +61,23 @@ const RegisterPage: React.FC = () => {
     setError(null);
   };
 
+  useEffect(() => {
+    if (!user || !profile) return;
+    if (!isProfileFullyOnboarded(profile)) {
+      const dest = getPostLoginDestination(searchParams);
+      navigate(
+        `/onboarding?redirect=${encodeURIComponent(dest)}`,
+        { replace: true },
+      );
+    }
+  }, [user, profile, navigate, searchParams]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
     if (!email.trim() || !password.trim()) {
-      setError('Por favor completa todos los campos');
+      setError(t('app.register.errors.fillAll'));
       return;
     }
 
@@ -81,13 +89,13 @@ const RegisterPage: React.FC = () => {
     } catch (err: any) {
       console.error('Login error:', err);
       if (err.code === 'auth/user-not-found') {
-        setError('No existe una cuenta con este email');
+        setError(t('app.register.errors.userNotFound'));
       } else if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-        setError('Contraseña incorrecta');
+        setError(t('app.register.errors.wrongPassword'));
       } else if (err.code === 'auth/invalid-email') {
-        setError('Email inválido');
+        setError(t('app.register.errors.invalidEmail'));
       } else {
-        setError(err.message || 'Error al iniciar sesión');
+        setError(err.message || t('app.register.errors.loginGeneric'));
       }
     } finally {
       setLoading(false);
@@ -99,15 +107,15 @@ const RegisterPage: React.FC = () => {
     setError(null);
 
     if (!fullName.trim()) {
-      setError('Por favor ingresa tu nombre');
+      setError(t('app.register.errors.nameRequired'));
       return;
     }
     if (!email.trim()) {
-      setError('Por favor ingresa tu email');
+      setError(t('app.register.errors.emailRequired'));
       return;
     }
-    if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres');
+    if (!meetsPasswordPolicy(password)) {
+      setError(t('app.register.errors.passwordPolicy'));
       return;
     }
 
@@ -122,42 +130,46 @@ const RegisterPage: React.FC = () => {
       setLoading(true);
       // Pass isMember flag to set correct memberStatus
       await signUpWithEmail(email, password, fullName, isMember);
-      
-      // Set appropriate role based on member status
+
       await login(isMember ? 'member' : 'investigator');
-      
-      setCreatedId(profile?.xthegospelId || 'XTG-PENDING');
-      setMode('success');
+
+      const dest = getPostLoginDestination(searchParams);
+      navigate(`/onboarding?redirect=${encodeURIComponent(dest)}`, { replace: true });
     } catch (err: any) {
       console.error('Registration error:', err);
       if (err.code === 'auth/email-already-in-use') {
-        setError('Este email ya está registrado. Intenta iniciar sesión.');
+        setError(t('app.register.errors.emailInUse'));
       } else if (err.code === 'auth/invalid-email') {
-        setError('Email inválido');
+        setError(t('app.register.errors.invalidEmail'));
       } else if (err.code === 'auth/weak-password') {
-        setError('La contraseña debe tener al menos 6 caracteres');
+        setError(t('app.register.errors.weakPassword'));
       } else {
-        setError(err.message || 'Error al crear cuenta');
+        setError(err.message || t('app.register.errors.signupGeneric'));
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const handleContinue = () => {
-    const destination = getPostLoginDestination(searchParams);
-    navigate(destination, { replace: true });
+  const handleGoogleLogin = async () => {
+    setError(null);
+    try {
+      setLoading(true);
+      await signInWithGoogle();
+      const destination = getPostLoginDestination(searchParams);
+      navigate(destination, { replace: true });
+    } catch (err: unknown) {
+      console.error('Google login error:', err);
+      setError(t('app.register.errors.loginGeneric'));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSelectType = (memberType: boolean) => {
-    if (memberType) {
-      navigate('/home', { replace: true });
-      return;
-    }
-
-    setIsMember(false);
+    setIsMember(memberType);
     resetForm();
-    setMode('signup-friend');
+    setMode(memberType ? 'signup-member' : 'signup-friend');
   };
 
   // Login Form (Default)
@@ -167,34 +179,34 @@ const RegisterPage: React.FC = () => {
         <div className="reg-logo">
           <span className="reg-logo-icon">✦</span>
         </div>
-        <h1 className="reg-title">Bienvenido</h1>
-        <p className="reg-subtitle">Inicia sesión en tu cuenta xTheGospel</p>
+        <h1 className="reg-title">{t('app.register.loginTitle')}</h1>
+        <p className="reg-subtitle">{t('app.register.loginSubtitle')}</p>
       </div>
 
       <form className="reg-form" onSubmit={handleLogin}>
         <div className="reg-field">
-          <label>Correo Electrónico</label>
+          <label>{t('app.register.emailLabel')}</label>
           <div className="reg-input-wrapper">
             <FaEnvelope className="reg-input-icon" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="tu@email.com"
+              placeholder={t('app.register.emailPlaceholder')}
               autoComplete="email"
             />
           </div>
         </div>
 
         <div className="reg-field">
-          <label>Contraseña</label>
+          <label>{t('app.register.passwordLabel')}</label>
           <div className="reg-input-wrapper">
             <FaLock className="reg-input-icon" />
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Tu contraseña"
+              placeholder={t('app.register.passwordPlaceholder')}
               autoComplete="current-password"
             />
             <button
@@ -208,7 +220,7 @@ const RegisterPage: React.FC = () => {
         </div>
 
         <button type="button" className="reg-forgot">
-          ¿Olvidaste tu contraseña?
+          {t('app.register.forgotPassword')}
         </button>
 
         {error && (
@@ -225,18 +237,29 @@ const RegisterPage: React.FC = () => {
           {loading ? (
             <>
               <FaSpinner className="reg-spinner" />
-              Iniciando sesión...
+              {t('app.register.loginLoading')}
             </>
           ) : (
-            'Iniciar Sesión'
+            t('app.register.loginSubmit')
           )}
         </button>
       </form>
 
+      <div className="reg-oauth">
+        <button
+          type="button"
+          className="reg-google-btn"
+          onClick={() => void handleGoogleLogin()}
+          disabled={loading}
+        >
+          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+        </button>
+      </div>
+
       <p className="reg-switch">
-        ¿No tienes cuenta?{' '}
+        {t('app.register.noAccount')}{' '}
         <button type="button" onClick={() => { setMode('select-type'); setError(null); }}>
-          Crear una
+          {t('app.register.createAccountLink')}
         </button>
       </p>
     </div>
@@ -247,15 +270,15 @@ const RegisterPage: React.FC = () => {
     <div className="reg-container">
       <button className="reg-back" onClick={() => { setMode('login'); setError(null); }}>
         <FaArrowLeft />
-        <span>Volver</span>
+        <span>{t('app.register.back')}</span>
       </button>
 
       <div className="reg-header">
         <div className="reg-logo">
           <span className="reg-logo-icon">✦</span>
         </div>
-        <h1 className="reg-title">Crear Cuenta</h1>
-        <p className="reg-subtitle">¿Cómo te describes mejor?</p>
+        <h1 className="reg-title">{t('app.register.selectTypeTitle')}</h1>
+        <p className="reg-subtitle">{t('app.register.selectTypeSubtitle')}</p>
       </div>
 
       <div className="reg-type-options">
@@ -267,8 +290,8 @@ const RegisterPage: React.FC = () => {
             <FaSeedling />
           </div>
           <div className="reg-type-content">
-            <h3>Estoy conociendo la iglesia</h3>
-            <p>Soy nuevo y quiero aprender sobre el evangelio</p>
+            <h3>{t('app.register.friendOptionTitle')}</h3>
+            <p>{t('app.register.friendOptionDesc')}</p>
           </div>
           <span className="reg-type-arrow">→</span>
         </button>
@@ -281,8 +304,8 @@ const RegisterPage: React.FC = () => {
             <FaChurch />
           </div>
           <div className="reg-type-content">
-            <h3>Ya soy miembro bautizado</h3>
-            <p>Quiero registrar mi cuenta de miembro</p>
+            <h3>{t('app.register.memberOptionTitle')}</h3>
+            <p>{t('app.register.memberOptionDesc')}</p>
           </div>
           <span className="reg-type-arrow">→</span>
         </button>
@@ -290,7 +313,7 @@ const RegisterPage: React.FC = () => {
 
       <div className="reg-footer">
         <p className="reg-footer-note">
-          Puedes cambiar tu estado más adelante si te bautizas
+          {t('app.register.selectTypeFooter')}
         </p>
       </div>
     </div>
@@ -301,56 +324,56 @@ const RegisterPage: React.FC = () => {
     <div className="reg-container">
       <button className="reg-back" onClick={() => { setMode('select-type'); setError(null); }}>
         <FaArrowLeft />
-        <span>Volver</span>
+        <span>{t('app.register.back')}</span>
       </button>
 
       <div className="reg-header reg-header--compact">
         <div className="reg-type-badge reg-type-badge--friend">
           <FaSeedling />
-          <span>Conociendo la iglesia</span>
+          <span>{t('app.register.badgeFriend')}</span>
         </div>
-        <h1 className="reg-title">Crear Cuenta</h1>
-        <p className="reg-subtitle">Comienza tu camino espiritual</p>
+        <h1 className="reg-title">{t('app.register.signupTitle')}</h1>
+        <p className="reg-subtitle">{t('app.register.signupFriendSubtitle')}</p>
       </div>
 
       <form className="reg-form" onSubmit={handleSignup}>
         <div className="reg-field">
-          <label>Nombre Completo</label>
+          <label>{t('app.register.fullNameLabel')}</label>
           <div className="reg-input-wrapper">
             <FaUser className="reg-input-icon" />
             <input
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="Tu nombre"
+              placeholder={t('app.register.namePlaceholder')}
               autoComplete="name"
             />
           </div>
         </div>
 
         <div className="reg-field">
-          <label>Correo Electrónico</label>
+          <label>{t('app.register.emailLabel')}</label>
           <div className="reg-input-wrapper">
             <FaEnvelope className="reg-input-icon" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="tu@email.com"
+              placeholder={t('app.register.emailPlaceholder')}
               autoComplete="email"
             />
           </div>
         </div>
 
         <div className="reg-field">
-          <label>Contraseña</label>
+          <label>{t('app.register.passwordLabel')}</label>
           <div className="reg-input-wrapper">
             <FaLock className="reg-input-icon" />
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mínimo 6 caracteres"
+              placeholder={t('app.register.passwordMinPlaceholder')}
               autoComplete="new-password"
             />
             <button
@@ -377,18 +400,29 @@ const RegisterPage: React.FC = () => {
           {loading ? (
             <>
               <FaSpinner className="reg-spinner" />
-              Creando cuenta...
+              {t('app.register.creatingAccount')}
             </>
           ) : (
-            'Crear Mi Cuenta'
+            t('app.register.createSubmit')
           )}
         </button>
       </form>
 
+      <div className="reg-oauth">
+        <button
+          type="button"
+          className="reg-google-btn"
+          onClick={() => void handleGoogleLogin()}
+          disabled={loading}
+        >
+          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+        </button>
+      </div>
+
       <p className="reg-terms">
-        Al crear tu cuenta, aceptas nuestros{' '}
-        <a href="/terms">Términos</a> y{' '}
-        <a href="/privacy">Privacidad</a>
+        {t('app.register.termsPrefix')}{' '}
+        <a href="/terms">{t('app.register.termsLink')}</a> {t('app.register.termsAnd')}{' '}
+        <a href="/privacy">{t('app.register.privacyLink')}</a>
       </p>
     </div>
   );
@@ -398,56 +432,56 @@ const RegisterPage: React.FC = () => {
     <div className="reg-container">
       <button className="reg-back" onClick={() => { setMode('select-type'); setError(null); }}>
         <FaArrowLeft />
-        <span>Volver</span>
+        <span>{t('app.register.back')}</span>
       </button>
 
       <div className="reg-header reg-header--compact">
         <div className="reg-type-badge reg-type-badge--member">
           <FaChurch />
-          <span>Miembro bautizado</span>
+          <span>{t('app.register.badgeMember')}</span>
         </div>
-        <h1 className="reg-title">Crear Cuenta</h1>
-        <p className="reg-subtitle">Registra tu cuenta de miembro</p>
+        <h1 className="reg-title">{t('app.register.signupTitle')}</h1>
+        <p className="reg-subtitle">{t('app.register.signupMemberSubtitle')}</p>
       </div>
 
       <form className="reg-form" onSubmit={handleSignup}>
         <div className="reg-field">
-          <label>Nombre Completo</label>
+          <label>{t('app.register.fullNameLabel')}</label>
           <div className="reg-input-wrapper">
             <FaUser className="reg-input-icon" />
             <input
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="Tu nombre"
+              placeholder={t('app.register.namePlaceholder')}
               autoComplete="name"
             />
           </div>
         </div>
 
         <div className="reg-field">
-          <label>Correo Electrónico</label>
+          <label>{t('app.register.emailLabel')}</label>
           <div className="reg-input-wrapper">
             <FaEnvelope className="reg-input-icon" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="tu@email.com"
+              placeholder={t('app.register.emailPlaceholder')}
               autoComplete="email"
             />
           </div>
         </div>
 
         <div className="reg-field">
-          <label>Contraseña</label>
+          <label>{t('app.register.passwordLabel')}</label>
           <div className="reg-input-wrapper">
             <FaLock className="reg-input-icon" />
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mínimo 6 caracteres"
+              placeholder={t('app.register.passwordMinPlaceholder')}
               autoComplete="new-password"
             />
             <button
@@ -462,7 +496,8 @@ const RegisterPage: React.FC = () => {
 
         <div className="reg-field">
           <label>
-            Código de Barrio <span className="reg-optional">(opcional)</span>
+            {t('app.register.wardCodeLabel')}{' '}
+            <span className="reg-optional">{t('app.register.wardOptional')}</span>
           </label>
           <div className="reg-input-wrapper">
             <FaHashtag className="reg-input-icon" />
@@ -470,12 +505,12 @@ const RegisterPage: React.FC = () => {
               type="text"
               value={wardCode}
               onChange={(e) => setWardCode(e.target.value.toUpperCase())}
-              placeholder="Ej: CENTRO-2026-X7K9"
+              placeholder={t('app.register.wardPlaceholder')}
               autoComplete="off"
             />
           </div>
           <p className="reg-field-hint">
-            Si tu líder te dio un código, ingrésalo para unirte a tu barrio
+            {t('app.register.wardHint')}
           </p>
         </div>
 
@@ -493,65 +528,36 @@ const RegisterPage: React.FC = () => {
           {loading ? (
             <>
               <FaSpinner className="reg-spinner" />
-              Creando cuenta...
+              {t('app.register.creatingAccount')}
             </>
           ) : (
-            'Crear Mi Cuenta'
+            t('app.register.createSubmit')
           )}
         </button>
       </form>
 
+      <div className="reg-oauth">
+        <button
+          type="button"
+          className="reg-google-btn"
+          onClick={() => void handleGoogleLogin()}
+          disabled={loading}
+        >
+          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+        </button>
+      </div>
+
       <div className="reg-footer">
         <p className="reg-footer-note">
-          Tu cuenta quedará pendiente de verificación por un líder
+          {t('app.register.memberFooterNote')}
         </p>
       </div>
 
       <p className="reg-terms">
-        Al crear tu cuenta, aceptas nuestros{' '}
-        <a href="/terms">Términos</a> y{' '}
-        <a href="/privacy">Privacidad</a>
+        {t('app.register.termsPrefix')}{' '}
+        <a href="/terms">{t('app.register.termsLink')}</a> {t('app.register.termsAnd')}{' '}
+        <a href="/privacy">{t('app.register.privacyLink')}</a>
       </p>
-    </div>
-  );
-
-  // Success Screen
-  const renderSuccess = () => (
-    <div className="reg-container reg-container--success">
-      <div className="reg-success-icon">
-        <FaCheck />
-      </div>
-      
-      <h1 className="reg-success-title">¡Cuenta Creada!</h1>
-      <p className="reg-success-subtitle">
-        {isMember 
-          ? 'Bienvenido de vuelta a la familia' 
-          : 'Bienvenido a tu camino espiritual'}
-      </p>
-
-      <div className="reg-id-card">
-        <span className="reg-id-label">Tu xTheGospel ID</span>
-        <span className="reg-id-value">{profile?.xthegospelId || createdId}</span>
-        <span className="reg-id-hint">
-          {isMember 
-            ? 'Comparte este ID con tu líder para verificar tu cuenta'
-            : 'Guarda este ID para tu registro futuro'}
-        </span>
-      </div>
-
-      {isMember && (
-        <div className="reg-pending-notice">
-          <span>Tu cuenta está pendiente de verificación</span>
-          <p>Un líder de tu barrio verificará tu cuenta pronto</p>
-        </div>
-      )}
-
-      <button 
-        className="reg-submit"
-        onClick={handleContinue}
-      >
-        Comenzar
-      </button>
     </div>
   );
 
@@ -561,7 +567,6 @@ const RegisterPage: React.FC = () => {
       {mode === 'select-type' && renderSelectType()}
       {mode === 'signup-friend' && renderSignupFriend()}
       {mode === 'signup-member' && renderSignupMember()}
-      {mode === 'success' && renderSuccess()}
     </div>
   );
 };

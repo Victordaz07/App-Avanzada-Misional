@@ -6,7 +6,7 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { FaArrowLeft, FaLock } from 'react-icons/fa6';
-import { useJourneyStage } from '../../../core/journey/useJourneyStore';
+import { useTrainingUnlockStage } from '../../../hooks/useMemberSpiritualPath';
 import { useTrainingStore } from '../store/useTrainingStore';
 import { getNodeById, getLessonsForNode } from '../data/trainingPaths';
 import { getLessonStatus, isLessonUnlocked, isTrackUnlocked } from '../utils/unlockLogic';
@@ -86,7 +86,7 @@ export default function TrainingPathScreen(): JSX.Element {
   const { locale } = useI18n();
   const location = useLocation();
   const nodeId = location.pathname.replace(/^\/training\/?/, '').split('/')[0] || null;
-  const stage = useJourneyStage();
+  const stage = useTrainingUnlockStage();
   const completedLessons = useTrainingStore((s) => s.completedLessons);
   const getProgressForNode = useTrainingStore((s) => s.getProgressForNode);
 

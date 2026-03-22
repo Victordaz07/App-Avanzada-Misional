@@ -1,13 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaChevronRight } from 'react-icons/fa6';
+import {
+  FaChevronRight,
+  FaChurch,
+  FaHeart,
+  FaDroplet,
+  FaPeopleGroup,
+} from 'react-icons/fa6';
 import {
   getAllGuideTopics,
-  categoryLabels,
-  GuideTopic,
+  getCategoryLabels,
+  type GuideTopic,
+  type GuideCategory,
 } from '../data/guideTopics';
 import { getNewMemberLibraryLessons } from '../../investigator/data/lessons';
+import { useI18n } from '../../../context/I18nContext';
 import './NewMemberGuidePage.css';
+
+function GuideCategoryIcon({ category }: { category: GuideCategory }): JSX.Element {
+  switch (category) {
+    case 'worship':
+      return <FaChurch aria-hidden />;
+    case 'covenant-living':
+      return <FaHeart aria-hidden />;
+    case 'ordinances':
+      return <FaDroplet aria-hidden />;
+    case 'belonging':
+      return <FaPeopleGroup aria-hidden />;
+  }
+}
 
 /**
  * New Member Guide Page
@@ -17,8 +38,10 @@ import './NewMemberGuidePage.css';
  * Each topic links to /lessons/<topicId> for detail view.
  */
 export default function NewMemberGuidePage(): JSX.Element {
-  const topics = getAllGuideTopics();
-  const libraryLessons = getNewMemberLibraryLessons();
+  const { t, locale } = useI18n();
+  const topics = getAllGuideTopics(locale);
+  const libraryLessons = getNewMemberLibraryLessons(locale);
+  const categoryLabels = getCategoryLabels(locale);
 
   // Group topics by category
   const topicsByCategory = topics.reduce<Record<string, GuideTopic[]>>(
@@ -40,83 +63,101 @@ export default function NewMemberGuidePage(): JSX.Element {
     'belonging',
   ];
 
+  let toneCounter = 0;
+
   return (
     <div className="nm-guide">
-      {/* Header */}
+      {/* Header (fuera del panel menta, como en home + sección transición) */}
       <header className="nm-guide__header">
-        <h1 className="nm-guide__title">Your Guide</h1>
-        <p className="nm-guide__subtitle">
-          Resources to help you grow in your new life as a member of the Church
-        </p>
+        <h1 className="nm-guide__title">{t('app.newMemberGuide.title')}</h1>
+        <p className="nm-guide__subtitle">{t('app.newMemberGuide.subtitle')}</p>
       </header>
 
-      {/* Topics by Category */}
-      {categoryOrder.map(category => {
-        const categoryTopics = topicsByCategory[category];
-        if (!categoryTopics || categoryTopics.length === 0) return null;
+      <div className="nm-guide__shell">
+        {/* Topics by Category */}
+        {categoryOrder.map(category => {
+          const categoryTopics = topicsByCategory[category];
+          if (!categoryTopics || categoryTopics.length === 0) return null;
 
-        return (
-          <section key={category} className="nm-guide__category">
-            <h2 className="nm-guide__category-title">
-              {categoryLabels[category]}
-            </h2>
-            <div className="nm-guide__topics">
-              {categoryTopics.map(topic => (
-                <Link
-                  key={topic.id}
-                  to={`/lessons/${topic.id}`}
-                  className="nm-guide__topic"
-                >
-                  <div className="nm-guide__topic-content">
-                    <h3 className="nm-guide__topic-title">{topic.title}</h3>
-                    <p className="nm-guide__topic-desc">{topic.subtitle}</p>
-                  </div>
-                  <span className="nm-guide__topic-arrow">
-                    <FaChevronRight />
-                  </span>
-                </Link>
-              ))}
+          return (
+            <section key={category} className="nm-guide__category">
+              <h2 className="nm-guide__category-title">
+                {categoryLabels[category]}
+              </h2>
+              <div className="nm-guide__topics" role="list">
+                {categoryTopics.map(topic => {
+                  const tone = toneCounter % 4;
+                  toneCounter += 1;
+                  return (
+                    <Link
+                      key={topic.id}
+                      to={`/lessons/${topic.id}`}
+                      className={`nm-guide__topic nm-guide__topic--tone-${tone}`}
+                      role="listitem"
+                    >
+                      <div className="nm-guide__topic-icon" aria-hidden>
+                        <GuideCategoryIcon category={topic.category} />
+                      </div>
+                      <div className="nm-guide__topic-body">
+                        <span className="nm-guide__topic-badge">
+                          {categoryLabels[topic.category]}
+                        </span>
+                        <h3 className="nm-guide__topic-title">{topic.title}</h3>
+                        <p className="nm-guide__topic-desc">{topic.subtitle}</p>
+                      </div>
+                      <span className="nm-guide__topic-arrow-wrap" aria-hidden>
+                        <FaChevronRight className="nm-guide__topic-arrow" />
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
+
+        {/* Library (lessons.ts) */}
+        {libraryLessons.length > 0 && (
+          <details className="nm-guide__library">
+            <summary className="nm-guide__library-summary">
+              {t('app.newMemberGuide.librarySummary')}
+            </summary>
+            <p className="nm-guide__library-note">{t('app.newMemberGuide.libraryNote')}</p>
+            <div className="nm-guide__topics" role="list">
+              {libraryLessons.map(lesson => {
+                const tone = toneCounter % 4;
+                toneCounter += 1;
+                return (
+                  <Link
+                    key={lesson.id}
+                    to={`/lessons/${lesson.id}`}
+                    className={`nm-guide__topic nm-guide__topic--tone-${tone} nm-guide__topic--library`}
+                    role="listitem"
+                  >
+                    <div className="nm-guide__topic-icon nm-guide__topic-icon--emoji" aria-hidden>
+                      <span className="nm-guide__topic-emoji">{lesson.icon}</span>
+                    </div>
+                    <div className="nm-guide__topic-body">
+                      <span className="nm-guide__topic-badge nm-guide__topic-badge--library">
+                        {t('app.newMemberGuide.libraryBadge')}
+                      </span>
+                      <h3 className="nm-guide__topic-title">{lesson.title}</h3>
+                      <p className="nm-guide__topic-desc">{lesson.subtitle}</p>
+                    </div>
+                    <span className="nm-guide__topic-arrow-wrap" aria-hidden>
+                      <FaChevronRight className="nm-guide__topic-arrow" />
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
-          </section>
-        );
-      })}
-
-      {/* Library (lessons.ts) */}
-      {libraryLessons.length > 0 && (
-        <details className="nm-guide__library">
-          <summary className="nm-guide__library-summary">
-            Profundizar (biblioteca)
-          </summary>
-          <p className="nm-guide__library-note">
-            Aquí está todo el contenido ampliado que antes aparecía como tópicos
-            del investigador. Ábrelo solo cuando lo necesites.
-          </p>
-          <div className="nm-guide__topics">
-            {libraryLessons.map(lesson => (
-              <Link
-                key={lesson.id}
-                to={`/lessons/${lesson.id}`}
-                className="nm-guide__topic"
-              >
-                <div className="nm-guide__topic-content">
-                  <h3 className="nm-guide__topic-title">{lesson.title}</h3>
-                  <p className="nm-guide__topic-desc">{lesson.subtitle}</p>
-                </div>
-                <span className="nm-guide__topic-arrow">
-                  <FaChevronRight />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </details>
-      )}
+          </details>
+        )}
+      </div>
 
       {/* Closing encouragement */}
       <footer className="nm-guide__footer">
-        <p className="nm-guide__footer-text">
-          Take your time exploring these topics. There's no rush—your journey is
-          personal and the Savior walks with you.
-        </p>
+        <p className="nm-guide__footer-text">{t('app.newMemberGuide.footer')}</p>
       </footer>
     </div>
   );

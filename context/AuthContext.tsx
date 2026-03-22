@@ -16,14 +16,27 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Definir roles disponibles en la aplicación
+/** Legacy RN: solo investigador y miembro (flujo unificado en web). */
 const AVAILABLE_ROLES = [
   { key: 'investigator', label: '👤 Investigador', description: 'Estoy aprendiendo sobre el evangelio' },
-  { key: 'missionary', label: '🙌 Misionero', description: 'Estoy enseñando el evangelio' },
-  { key: 'district_leader', label: '🟦 Líder de Distrito', description: 'Dirijo y cuido un distrito de la misión' },
-  { key: 'zone_leader', label: '🟧 Líder de Zona', description: 'Dirijo y cuido una zona de la misión' },
-  { key: 'assistant_to_president', label: '🟩 Asistente del Presidente', description: 'Apoyo al presidente en el liderazgo de la misión' },
+  { key: 'member', label: '🤝 Miembro', description: 'Soy miembro y uso la app en modo simplificado' },
 ];
+
+function normalizeRnRole(raw: string | null): string | null {
+  if (!raw) return null;
+  const n = raw.toLowerCase().trim();
+  if (n === 'investigator' || n === 'member') return n;
+  if (
+    n === 'missionary' ||
+    n === 'misionero' ||
+    n === 'district_leader' ||
+    n === 'zone_leader' ||
+    n === 'assistant_to_president'
+  ) {
+    return 'member';
+  }
+  return 'investigator';
+}
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -38,20 +51,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       const storedRole = await AsyncStorage.getItem('userRole');
-      const storedAvailableRoles = await AsyncStorage.getItem('availableRoles');
-      
-      if (storedRole) {
-        setUserRole(storedRole);
+      const normalized = normalizeRnRole(storedRole);
+      if (normalized && normalized !== storedRole) {
+        await AsyncStorage.setItem('userRole', normalized);
       }
-      
-      if (storedAvailableRoles) {
-        setAvailableRoles(JSON.parse(storedAvailableRoles));
-      } else {
-        // Por defecto, todos los roles están disponibles
-        const defaultRoles = AVAILABLE_ROLES.map(r => r.key);
-        setAvailableRoles(defaultRoles);
-        await AsyncStorage.setItem('availableRoles', JSON.stringify(defaultRoles));
+      if (normalized) {
+        setUserRole(normalized);
       }
+
+      const defaultKeys = AVAILABLE_ROLES.map((r) => r.key);
+      setAvailableRoles(defaultKeys);
+      await AsyncStorage.setItem('availableRoles', JSON.stringify(defaultKeys));
     } catch (error) {
       console.error('Error loading stored role:', error);
     } finally {
@@ -60,18 +70,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const login = async (role: string) => {
+    const normalized = normalizeRnRole(role);
+    if (!normalized) {
+      throw new Error('Invalid role');
+    }
     try {
       setIsLoading(true);
-      await AsyncStorage.setItem('userRole', role);
-      setUserRole(role);
-      
-      // Si es el primer login, guardar todos los roles como disponibles
-      const storedAvailableRoles = await AsyncStorage.getItem('availableRoles');
-      if (!storedAvailableRoles) {
-        const defaultRoles = AVAILABLE_ROLES.map(r => r.key);
-        setAvailableRoles(defaultRoles);
-        await AsyncStorage.setItem('availableRoles', JSON.stringify(defaultRoles));
-      }
+      await AsyncStorage.setItem('userRole', normalized);
+      setUserRole(normalized);
+      const defaultKeys = AVAILABLE_ROLES.map((r) => r.key);
+      setAvailableRoles(defaultKeys);
+      await AsyncStorage.setItem('availableRoles', JSON.stringify(defaultKeys));
     } catch (error) {
       console.error('Error saving role:', error);
       throw error;
@@ -81,16 +90,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const switchRole = async (role: string) => {
-    try {
-      setIsLoading(true);
-      await AsyncStorage.setItem('userRole', role);
-      setUserRole(role);
-    } catch (error) {
-      console.error('Error switching role:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
+    await login(role);
   };
 
   const logout = async () => {

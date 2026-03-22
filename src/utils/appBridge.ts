@@ -17,7 +17,6 @@ import { UniversalUserProfile, ShareableProfile } from '../types/user';
 export const APP_URLS = {
   member: import.meta.env.VITE_APP_URL_MEMBER || 'https://app.xthegospel.com',
   leader: import.meta.env.VITE_APP_URL_LEADER || 'https://leader.xthegospel.com',
-  missionary: import.meta.env.VITE_APP_URL_MISSIONARY || 'https://missionary.xthegospel.com',
 } as const;
 
 // ============================================
@@ -25,24 +24,15 @@ export const APP_URLS = {
 // ============================================
 
 /**
- * Generate QR code data for profile sharing
- * Returns a URL that leaders can scan to look up the member
+ * QR payload: deep link en la misma app para añadir amigo por xTheGospel ID.
+ * Mantiene compatibilidad con URLs antiguas codificadas en base64 (app de líderes).
  */
 export function generateProfileQRData(profile: UniversalUserProfile | ShareableProfile): string {
-  // Create a URL that the leader app can handle
-  const data = {
-    type: 'xtg-profile',
-    id: profile.xthegospelId,
-    name: profile.displayName,
-    v: 1, // Version for future compatibility
-  };
-  
-  // Encode as URL for easy scanning
-  const params = new URLSearchParams({
-    data: btoa(JSON.stringify(data)),
-  });
-  
-  return `${APP_URLS.leader}/lookup?${params.toString()}`;
+  const origin =
+    typeof window !== 'undefined' && window.location?.origin
+      ? window.location.origin
+      : APP_URLS.member.replace(/\/$/, '');
+  return `${origin}/friends?xtgInvite=${encodeURIComponent(profile.xthegospelId)}`;
 }
 
 /**
@@ -54,6 +44,11 @@ export function parseProfileQRData(url: string): {
 } | null {
   try {
     const urlObj = new URL(url);
+    const invite = urlObj.searchParams.get('xtgInvite');
+    if (invite && /^XTG-\d{4}-[A-Z0-9]{6}$/i.test(invite)) {
+      return { xthegospelId: invite.toUpperCase() };
+    }
+
     const dataParam = urlObj.searchParams.get('data');
     
     if (!dataParam) {
@@ -154,19 +149,29 @@ export function openLeadersApp(opts: OpenLeadersOptions = {}): void {
 /**
  * Copy xTheGospel ID to clipboard with optional message
  */
+export type XtgShareCopyOptions = {
+  lineNameAndId?: string;
+  hint?: string;
+};
+
 export async function copyXtgIdToClipboard(
   profile: UniversalUserProfile | ShareableProfile,
-  includeMessage: boolean = true
+  includeMessage: boolean = true,
+  copyLines?: XtgShareCopyOptions
 ): Promise<boolean> {
   try {
     let text = profile.xthegospelId;
-    
+
     if (includeMessage) {
-      text = `Mi xTheGospel ID: ${profile.xthegospelId}\n` +
-             `Nombre: ${profile.displayName}\n` +
-             `\nUsa este ID para encontrarme en la app de líderes.`;
+      const body =
+        copyLines?.lineNameAndId ??
+        `${profile.displayName}\nxTheGospel ID: ${profile.xthegospelId}`;
+      const hint =
+        copyLines?.hint ??
+        'You can use this ID to connect with me on xTheGospel (friends, study, or ward).';
+      text = `${body}\n\n${hint}`;
     }
-    
+
     await navigator.clipboard.writeText(text);
     return true;
   } catch (error) {
@@ -179,18 +184,34 @@ export async function copyXtgIdToClipboard(
 // NATIVE SHARE API
 // ============================================
 
+export type ShareProfileOptions = {
+  title?: string;
+  text?: string;
+  url?: string;
+  clipboardHint?: string;
+};
+
 /**
  * Share profile using native share (mobile/desktop)
  */
 export async function shareProfile(
-  profile: UniversalUserProfile | ShareableProfile
+  profile: UniversalUserProfile | ShareableProfile,
+  options?: ShareProfileOptions
 ): Promise<boolean> {
+  const origin =
+    typeof window !== 'undefined' && window.location?.origin
+      ? window.location.origin
+      : APP_URLS.member.replace(/\/$/, '');
+  const defaultUrl = `${origin}/friends?xtgInvite=${encodeURIComponent(profile.xthegospelId)}`;
+
   const shareData = {
-    title: 'Mi xTheGospel ID',
-    text: `${profile.displayName}\nxTheGospel ID: ${profile.xthegospelId}`,
-    url: generateLeaderDeepLink(profile.xthegospelId),
+    title: options?.title ?? 'xTheGospel ID',
+    text:
+      options?.text ??
+      `${profile.displayName}\nxTheGospel ID: ${profile.xthegospelId}`,
+    url: options?.url ?? defaultUrl,
   };
-  
+
   // Check if native share is available
   if (navigator.share && navigator.canShare?.(shareData)) {
     try {
@@ -204,9 +225,12 @@ export async function shareProfile(
       return false;
     }
   }
-  
+
   // Fallback to clipboard
-  return copyXtgIdToClipboard(profile);
+  return copyXtgIdToClipboard(profile, true, {
+    lineNameAndId: shareData.text,
+    hint: options?.clipboardHint,
+  });
 }
 
 // ============================================
@@ -220,8 +244,11 @@ export async function shareProfile(
 export function getXtgIdFromUrl(): string | null {
   // Check URL params
   const params = new URLSearchParams(window.location.search);
-  const idParam = params.get('xtgId') || params.get('id');
-  
+  const idParam =
+    params.get('xtgInvite') ||
+    params.get('xtgId') ||
+    params.get('id');
+
   if (idParam && /^XTG-\d{4}-[A-Z0-9]{6}$/i.test(idParam)) {
     return idParam.toUpperCase();
   }

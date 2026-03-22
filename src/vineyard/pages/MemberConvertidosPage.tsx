@@ -7,15 +7,11 @@ import { NewConvertProgressBar } from '../../components/NewConvertProgressBar';
 import { NewConvertSectionCard } from '../../components/NewConvertSectionCard';
 import { newConvertGuideEs } from '../data/newConvertGuide.es';
 import { newConvertGuideEn } from '../data/newConvertGuide.en';
-import { newConvertGuideFr } from '../data/newConvertGuide.fr';
-import { newConvertGuidePt } from '../data/newConvertGuide.pt';
 import '../../pages/Page.css';
 
 const guidesByLocale: Record<Locale, NewConvertSection[]> = {
   es: newConvertGuideEs,
   en: newConvertGuideEn,
-  fr: newConvertGuideFr,
-  pt: newConvertGuidePt,
 };
 
 const getGuideForLocale = (locale: Locale): NewConvertSection[] => guidesByLocale[locale] ?? guidesByLocale.es;

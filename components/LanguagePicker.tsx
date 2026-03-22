@@ -10,8 +10,6 @@ interface LanguagePickerProps {
 const languageOptions: { code: Locale; name: string; flag: string }[] = [
     { code: 'es', name: 'Español', flag: '🇪🇸' },
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'pt', name: 'Português', flag: '🇧🇷' },
 ];
 
 export const LanguagePicker: React.FC<LanguagePickerProps> = ({ compact = false }) => {

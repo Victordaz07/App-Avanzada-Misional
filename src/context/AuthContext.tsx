@@ -1,9 +1,16 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { StorageService } from '../utils/storage';
-import { UserRoleKey, normalizeStoredRole, isValidRole } from '../config/roles';
-import { signUp, signIn, signOut as firebaseSignOut, SignUpOptions } from '../services/firebase/authService';
-import { getOrCreateProfile } from '../services/firebase/userService';
+import { UserRoleKey, normalizeStoredRole, isValidRole, userRoleFromMemberStatus } from '../config/roles';
+import {
+  signUp,
+  signIn,
+  signOut as firebaseSignOut,
+  signInWithGoogle as firebaseSignInWithGoogle,
+  SignUpOptions,
+} from '../services/firebase/authService';
+import { getOrCreateProfile, getProfileByUid, sanitizeUniversalProfile } from '../services/firebase/userService';
+import { syncPublicUserCard } from '../services/firebase/publicUserCardService';
 import { UniversalUserProfile, XtgAppKey } from '../types/user';
 
 // Try to get Firebase auth, but don't crash if not available
@@ -29,6 +36,9 @@ interface AuthContextType {
   // New auth methods with Firebase
   signUpWithEmail: (email: string, password: string, displayName?: string, isMember?: boolean) => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  /** Reload profile from Firestore and sync local role from memberStatus */
+  refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -43,6 +53,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UniversalUserProfile | null>(null);
 
+  const syncRoleFromProfile = (userProfile: UniversalUserProfile | null): void => {
+    if (!userProfile) return;
+    const role = userRoleFromMemberStatus(userProfile.memberStatus);
+    StorageService.setItem('userRole', role);
+    setUserRole(role);
+  };
+
+  const refreshProfile = async (): Promise<void> => {
+    if (!user) return;
+    try {
+      const next = await getProfileByUid(user.uid);
+      if (next) {
+        const sanitized = sanitizeUniversalProfile(next);
+        setProfile(sanitized);
+        syncRoleFromProfile(sanitized);
+      }
+    } catch (e) {
+      console.error('refreshProfile failed:', e);
+    }
+  };
+
+  useEffect(() => {
+    if (!profile) return;
+    void syncPublicUserCard(profile).catch((e) => console.warn('syncPublicUserCard:', e));
+  }, [profile]);
+
   // Listen for Firebase auth state changes
   useEffect(() => {
     if (!firebaseAuth) {
@@ -52,22 +88,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const unsubscribe = onAuthStateChanged(firebaseAuth, async (firebaseUser) => {
       setUser(firebaseUser);
-      
-      if (firebaseUser) {
-        try {
-          // Get or create the user's universal profile
-          const userProfile = await getOrCreateProfile(firebaseUser, mapRoleToApp(userRole));
-          setProfile(userProfile);
-          console.log('✅ Profile loaded:', userProfile.xthegospelId);
-        } catch (error) {
-          console.error('Error loading profile:', error);
-        }
-      } else {
+
+      if (!firebaseUser) {
         setProfile(null);
+        await loadStoredRole();
+        return;
       }
-      
-      // Also load stored role
-      loadStoredRole();
+
+      try {
+        const stored = StorageService.getItem('userRole');
+        const hint = normalizeStoredRole(stored);
+        const userProfile = await getOrCreateProfile(firebaseUser, mapRoleToApp(hint));
+        const sanitized = sanitizeUniversalProfile(userProfile);
+        setProfile(sanitized);
+        syncRoleFromProfile(sanitized);
+        console.log('✅ Profile loaded:', sanitized.xthegospelId);
+      } catch (error) {
+        console.error('Error loading profile:', error);
+      } finally {
+        setIsLoading(false);
+      }
     });
 
     return () => unsubscribe();
@@ -76,17 +116,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Map role to app key
   const mapRoleToApp = (role: UserRoleKey | null): XtgAppKey => {
     switch (role) {
-      case 'investigator': return 'investigator';
-      case 'missionary': return 'missionary';
-      case 'member': return 'member';
-      default: return 'member';
+      case 'investigator':
+        return 'investigator';
+      case 'member':
+        return 'member';
+      default:
+        return 'member';
     }
+  };
+
+  const clearDeprecatedMissionStorage = (): void => {
+    StorageService.removeItem('@missionaryLeadershipRole');
+    StorageService.removeItem('@missionaryLeadershipRoleChangeDate');
   };
 
   const loadStoredRole = async () => {
     try {
       setIsLoading(true);
       console.log('🔐 AuthContext: Cargando rol almacenado...');
+      clearDeprecatedMissionStorage();
       const storedRoleRaw = StorageService.getItem('userRole');
       
       const normalizedRole = normalizeStoredRole(storedRoleRaw);
@@ -153,8 +201,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       const result = await signUp(options);
       setUser(result.user);
-      setProfile(result.profile);
-      
+      const sanitized = sanitizeUniversalProfile(result.profile);
+      setProfile(sanitized);
+      syncRoleFromProfile(sanitized);
+
       console.log('🎉 Registro exitoso! xTheGospel ID:', result.profile.xthegospelId);
       console.log(`📋 Status: ${memberStatus}, App: ${initialApp}`);
     } catch (error: any) {
@@ -173,12 +223,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const result = await signIn(email, password);
       setUser(result.user);
       if (result.profile) {
-        setProfile(result.profile);
+        const sanitized = sanitizeUniversalProfile(result.profile);
+        setProfile(sanitized);
+        syncRoleFromProfile(sanitized);
       }
-      
+
       console.log('👋 Login exitoso!');
     } catch (error: any) {
       console.error('Error en login:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      setIsLoading(true);
+      const result = await firebaseSignInWithGoogle();
+      setUser(result.user);
+      const sanitized = sanitizeUniversalProfile(result.profile);
+      setProfile(sanitized);
+      syncRoleFromProfile(sanitized);
+    } catch (error: unknown) {
+      console.error('Error en login con Google:', error);
       throw error;
     } finally {
       setIsLoading(false);
@@ -218,6 +286,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       profile,
       signUpWithEmail,
       signInWithEmail,
+      signInWithGoogle,
+      refreshProfile,
     }}>
       {children}
     </AuthContext.Provider>

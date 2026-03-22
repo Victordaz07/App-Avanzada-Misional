@@ -103,6 +103,8 @@ export type { DevotionalCardProps } from './Content/DevotionalCard';
 
 export { ScriptureReferenceCard } from './Content/ScriptureReferenceCard';
 export type { ScriptureReferenceCardProps } from './Content/ScriptureReferenceCard';
+export { CanonicalScriptureExcerpt } from './Content/CanonicalScriptureExcerpt';
+export type { CanonicalScriptureExcerptProps } from './Content/CanonicalScriptureExcerpt';
 
 // ===========================================
 // NAVIGATION - Navigation components

@@ -23,28 +23,84 @@
     "nav": {
       "home": "Home",
       "lessons": "Lessons",
+      "studyLearning": "Study",
       "journal": "Journal",
       "progress": "Progress",
       "profile": "Profile"
+    },
+    "studyHub": {
+      "title": "Study and learning",
+      "subtitle": "Choose lessons or your training path.",
+      "lessonsTitle": "Lessons",
+      "lessonsDesc": "Missionary path, your guide, and library.",
+      "trainingTitle": "Training",
+      "trainingDesc": "Paths and lessons to keep growing."
     },
     "home": {
       "greeting": "Welcome",
       "greetingMorning": "Good morning",
       "greetingAfternoon": "Good afternoon",
       "greetingEvening": "Good evening",
+      "welcomeGreetingNamed": "{{greeting}}, {{name}}",
+      "welcomeGreetingWave": "{{greeting}} 👋",
+      "welcomeDateLine": "Today is {{date}}",
+      "welcomeAriaLabel": "Welcome and message for today",
+      "welcomeExploreTopics": "Browse the guide",
+      "welcomeActionsAria": "Optional shortcuts, no rush",
       "title": "Walk with peace",
       "subtitle": "No rush. Just light, step by step.",
       "continueLabel": "Continue",
       "startLabel": "Start",
+      "continueCardHint": "Go at your own pace—read and reflect when you’re ready. Tap to open the topic.",
       "nextSteps": "Next step",
-      "actions": "Quick actions",
       "scriptureTitle": "Scripture of the day",
-      "missionaryPath": "Missionary path",
-      "myJournal": "My journal",
-      "myProgress": "My progress",
-      "pray": "Pray",
       "trainingTitle": "Training",
-      "trainingSubtitle": "Prepare your priesthood growth"
+      "trainingSubtitle": "Prepare your priesthood growth",
+      "discoveryTitle": "When you want to go deeper",
+      "discoveryHint": "Short topics on worship, covenants, and ordinances. No rush—open what feels right today.",
+      "discoveryTitleEstablished": "Keep exploring at your pace",
+      "discoveryHintEstablished": "Your guide is still here when you want it: worship, covenants, and ordinances. One topic at a time.",
+      "discoveryTitleInvestigator": "Explore the message",
+      "discoveryHintInvestigator": "More topics from the missionary path. Open whichever draws you today—no rush.",
+      "discoveryBadgeMissionaryPath": "Missionary path",
+      "discoveryOpenMissionaryPath": "See all lessons",
+      "discoveryOpenGuide": "See the full guide",
+      "weeklyLightInvestigator": {
+        "title": "A light for this week",
+        "line0": "An honest question is worth more than having every answer ready.",
+        "line1": "Sometimes one paragraph—and a little silence—is enough for today.",
+        "line2": "You don't have to “finish” a topic for God to speak to you.",
+        "line3": "Praying in a few plain words is still real prayer.",
+        "line4": "Sharing what you feel, even simply, can be testimony.",
+        "line5": "Rereading a passage you’ve seen before can still teach you something new."
+      },
+      "weeklyLightMember": {
+        "title": "A gentle pause this week",
+        "line0": "Sunday worship isn't a performance test—it's turning your eyes to Christ again.",
+        "line1": "Covenants don't grade you—they uphold you as you walk sincerely.",
+        "line2": "It's okay not to understand everything yet; faith grows with patience and practice.",
+        "line3": "A small act of service matters more than you think.",
+        "line4": "Your journal is a refuge, not a task—write when your heart asks.",
+        "line5": "Quiet weeks are still part of walking with the Savior."
+      },
+      "weeklyQuestionInvestigator": {
+        "label": "Something to ponder",
+        "line0": "What would you like to ask God today—even in a single sentence?",
+        "line1": "Which part of the message feels newest or most surprising to you?",
+        "line2": "Is there something you’d like to understand a little better this week?",
+        "line3": "What brings you peace when you think about Jesus Christ?",
+        "line4": "Who is someone you could safely tell what you’re feeling?",
+        "line5": "What might you do differently if you truly knew the Savior walks with you?"
+      },
+      "weeklyQuestionMember": {
+        "label": "Something to ponder",
+        "line0": "What would you honestly like to bring to the sacrament this Sunday?",
+        "line1": "Where in your life would you like to feel the Spirit’s companionship more?",
+        "line2": "What small act of service could realistically fit your week?",
+        "line3": "What question would you like to ask in class or with a leader—without fear?",
+        "line4": "What verse or phrase has come back to your mind lately?",
+        "line5": "How could you be a little kinder to yourself if the week has been heavy?"
+      }
     },
     "progress": {
       "title": "My Journey",
@@ -212,7 +268,22 @@
       "title": "Profile",
       "myId": "My ID",
       "myQr": "My QR",
-      "myJourney": "My Journey",
+      "spiritualPath": {
+        "title": "How you use the app",
+        "subtitle": "Choose whether you are getting to know the Church or you are a baptized member. This only personalizes your experience in the app.",
+        "disclaimer": "This is not an official Church membership record.",
+        "optionFriend": "Getting to know the Church",
+        "optionMember": "Baptized member",
+        "errorSave": "Could not save. Check your connection and try again."
+      },
+      "leadersAndTeachers": {
+        "category": "LEADERS & TEACHERS",
+        "title": "Leaders and teachers",
+        "subtitle": "Sessions, follow-up, and teaching tools in one place.",
+        "heroNote": "Use this area when you are helping others learn and live the gospel—not as a status in the Church.",
+        "cta": "Open leaders and teachers",
+        "ctaAria": "Open leaders and teachers area"
+      },
       "preferences": "Preferences",
       "notifications": "Notifications",
       "notificationsDesc": "Manage your alerts",
@@ -229,9 +300,7 @@
       "welcome": "Welcome",
       "friend": "Friend",
       "member": "Member",
-      "leadership": "Leadership",
-      "switchModeTitle": "Switch mode",
-      "switchModeDesc": "Select how you want to use the app. To return to normal member mode, choose \"Member\"."
+      "leadership": "Leadership"
     },
     "profileCard": {
       "status": {
@@ -242,66 +311,90 @@
         "returned": "Returned missionary"
       },
       "myXtgId": "xTheGospel ID",
-      "shareWithLeader": "Share with leader",
+      "shareWithLeader": "Share my ID",
       "copyId": "Copy ID",
       "copied": "Copied!",
       "verifiedByLeader": "Verified by leader",
-      "useThisId": "Use this ID to register in your ward",
+      "useThisId": "Share it with a leader, a study companion, or a friend in the app.",
       "shareTitle": "My xTheGospel ID",
-      "shareText": "{{displayName}}\nxTheGospel ID: {{xtgId}}"
+      "shareText": "{{displayName}}\nxTheGospel ID: {{xtgId}}",
+      "clipboardHint": "You can use this ID to connect with me on xTheGospel (friends, study, or ward)."
+    },
+    "profileQr": {
+      "title": "My QR code",
+      "titleCompact": "QR code",
+      "desc": "Scan or show this code to share your xTheGospel ID with a friend or study companion.",
+      "hintCompact": "A friend can scan it to send you a friend request.",
+      "generating": "Generating code…",
+      "fallbackText": "Share your ID manually if the QR does not load.",
+      "idLabel": "xTheGospel ID",
+      "share": "Share",
+      "download": "Download"
+    },
+    "friends": {
+      "loginRequired": "Sign in to use Friends.",
+      "nav": "Friends",
+      "title": "Friends",
+      "subtitle": "Connect with study companions using the xTheGospel ID.",
+      "minorNotice": "If you are under 18, use this area with a parent or guardian.",
+      "addById": "Add by ID",
+      "xtgPlaceholder": "e.g. XTG-2026-ABC123",
+      "sendRequest": "Send request",
+      "requestSent": "Request sent.",
+      "listTitle": "My friends",
+      "lookupError": "We could not find that ID. Check the code or ask your friend to refresh their profile.",
+      "selfError": "You cannot send a request to yourself.",
+      "pendingOutgoing": "Sent requests",
+      "pendingIncoming": "Received requests",
+      "accept": "Accept",
+      "reject": "Decline",
+      "cancel": "Cancel",
+      "noFriends": "You have no connected friends yet.",
+      "noRequests": "No pending requests.",
+      "studyTitle": "Study together",
+      "studySubtitle": "Pick a missionary-path topic as a shared reference (progress stays personal).",
+      "studySelectLesson": "Topic",
+      "studySave": "Save shared topic",
+      "studySaved": "Topic saved for this friend.",
+      "studyWith": "With {{name}}",
+      "chatTitle": "Messages",
+      "chatPlaceholder": "Write a message…",
+      "chatSend": "Send",
+      "chatEmpty": "No messages yet. Say hello respectfully; minors should have adult supervision.",
+      "openChat": "Open chat",
+      "back": "Back",
+      "errorDuplicate": "You already have a pending request to this person.",
+      "errorAlreadyFriends": "You are already friends in the app.",
+      "errorGeneric": "Could not send the request. Please try again."
     },
     "profileNewMember": {
       "welcomeFriend": "Welcome, friend",
+      "greetingNamed": "Hi, {{name}}",
+      "profileCardTitle": "Your profile",
+      "profileCardSubtitle": "Your name and photo in the app. Update them whenever you like.",
+      "displayNameLabel": "Name",
+      "displayNamePlaceholder": "What you like to be called",
+      "displayNameInvalid": "Enter a name between 2 and 100 characters.",
+      "changePhoto": "Change photo",
+      "photoHint": "JPG, PNG, or WebP. Up to 5 MB.",
+      "photoMinorNotice": "If you are a minor, ask a parent or guardian for help uploading a photo.",
+      "saveProfile": "Save profile",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "appearanceSectionTitle": "Look & options",
+      "appearanceSectionSubtitle": "Accent color and learning pace—no pressure.",
+      "accentTitle": "Accent color",
+      "learningPaceTitle": "Learning pace",
+      "errorGeneric": "Could not save. Please try again.",
+      "errorOffline": "Sign in and check your connection to save.",
+      "photoErrorInvalidType": "Use a JPG, PNG, or WebP image.",
+      "photoErrorTooLarge": "Image is too large (max 5 MB).",
+      "photoErrorUpload": "Could not upload the photo. If it keeps failing, ask your admin to check Firebase Storage rules.",
       "myWardFamily": "My ward family",
       "wardInfo": "Your ward is your spiritual family. As you attend meetings and activities, you'll build meaningful friendships and find support.",
       "settings": "Settings",
       "helpSupport": "Help & Support",
       "getAssistance": "Get assistance"
-    },
-    "ordinances": {
-      "title": "Ordinance dates",
-      "subtitle": "Baptism and Confirmation",
-      "devModeActive": "Test mode active",
-      "deactivate": "Deactivate",
-      "infoText": "This information must be verified by a bishopric member or ward clerk to confirm your membership.",
-      "baptismSection": "Baptism",
-      "baptismDate": "Baptism date",
-      "baptizedByQuestion": "Who baptized you?",
-      "confirmationSection": "Confirmation",
-      "confirmationDate": "Confirmation date",
-      "confirmedByQuestion": "Who confirmed you?",
-      "priesthoodHolderPlaceholder": "Name of the priesthood holder",
-      "submitForVerification": "Submit for verification",
-      "stateLabel": "Status",
-      "clearData": "Clear data",
-      "testSwitchText": "Testing: switch between investigator and new member views.",
-      "switchToInvestigator": "Back to investigator",
-      "switchToMember": "Switch to member (testing)",
-      "stage": {
-        "seeking": "Learning and preparing",
-        "covenanted": "Growing as a new member",
-        "member": "Growing in the gospel"
-      },
-      "status": {
-        "none": {
-          "title": "Not verified",
-          "desc": "Complete the information and submit it for verification"
-        },
-        "pending": {
-          "title": "Pending verification",
-          "desc": "A ward leader will review this information",
-          "devBypass": "Test mode: go directly to member profile"
-        },
-        "verified": {
-          "title": "Verified",
-          "by": "By {{verifiedBy}} ({{verifiedByRole}})"
-        },
-        "rejected": {
-          "title": "Information rejected",
-          "defaultReason": "Please review and correct the information",
-          "reviewedBy": "Reviewed by: {{verifiedBy}}"
-        }
-      }
     },
     "onboarding": {
       "screen1Title": "Welcome to xTheGospel",
@@ -376,7 +469,7 @@
       "preferredLanguageTitle": "Preferred language",
       "changeLanguageButton": "Change language",
       "privacySecurityTitle": "🔐 Privacy and security",
-      "privacySecuritySubtitle": "xTheGospel / For The Gospel uses secure authentication (for example, Firebase Auth) and encrypted storage. Sensitive member or ordinance data is not exposed; you choose what to record and share.",
+      "privacySecuritySubtitle": "xTheGospel / For The Gospel uses secure authentication (for example, Firebase Auth) and encrypted storage. We do not collect official ordinance dates or ecclesiastical records; you choose what personal notes to save and share.",
       "linkPrivacy": "Privacy",
       "linkTerms": "Terms",
       "linkSupport": "Support",
@@ -410,7 +503,9 @@
       "signupMemberSubtitle": "Register your member account",
       "fullNameLabel": "Full name",
       "namePlaceholder": "Your name",
-      "passwordMinPlaceholder": "At least 6 characters",
+      "passwordMinPlaceholder": "Min. 8 chars, 1 number & 1 special",
+      "googleContinue": "Continue with Google",
+      "googleLoading": "Connecting…",
       "createSubmit": "Create my account",
       "creatingAccount": "Creating account...",
       "termsPrefix": "By creating an account, you accept our",
@@ -439,16 +534,119 @@
         "loginGeneric": "Could not sign in",
         "nameRequired": "Please enter your name",
         "emailRequired": "Please enter your email",
-        "passwordShort": "Password must be at least 6 characters",
+        "passwordShort": "Password must be at least 8 characters with one number and one special character",
+        "passwordPolicy": "Use at least 8 characters, include one number and one special character (e.g. ! or ?).",
         "emailInUse": "This email is already registered. Try signing in.",
-        "weakPassword": "Password must be at least 6 characters",
+        "weakPassword": "Password does not meet security requirements",
         "signupGeneric": "Could not create account"
+      }
+    },
+    "onboarding": {
+      "stepLabel": "Step {{current}} of {{total}}",
+      "back": "Back",
+      "next": "Next",
+      "finish": "Get started",
+      "saving": "Saving…",
+      "idReminder": "Your xTheGospel ID:",
+      "errors": {
+        "incomplete": "Complete every step before continuing.",
+        "saveFailed": "Could not save. Please try again."
+      },
+      "church": {
+        "title": "Your relationship with the Church",
+        "subtitle": "Choose what fits you best today. You can update this later.",
+        "options": {
+          "discovering": {
+            "title": "I'm learning about the Church",
+            "desc": "I want to learn about the gospel."
+          },
+          "member": {
+            "title": "I'm a baptized member",
+            "desc": "I'm already part of the Church."
+          },
+          "new_convert": {
+            "title": "I was recently baptized",
+            "desc": "I'm newer as a member."
+          }
+        }
+      },
+      "intensity": {
+        "title": "How deep do you want to go?",
+        "subtitle": "We'll use this to suggest pace, topics, and study formats.",
+        "options": {
+          "low": {
+            "title": "Light",
+            "desc": "Short, gentle steps—no rush."
+          },
+          "moderate": {
+            "title": "Moderate",
+            "desc": "A balanced rhythm of depth and time."
+          },
+          "high": {
+            "title": "Intense",
+            "desc": "More depth and challenge to grow quickly."
+          }
+        }
+      },
+      "age": {
+        "title": "Age range",
+        "subtitle": "Helps us tailor content for children, youth, or adults.",
+        "options": {
+          "child_8_12": {
+            "title": "Ages 8–12",
+            "desc": "Content designed for children."
+          },
+          "teen_13_17": {
+            "title": "Ages 13–17",
+            "desc": "Content for youth."
+          },
+          "adult_18_99": {
+            "title": "18 or older",
+            "desc": "Content for adults."
+          }
+        },
+        "guardianCheckbox": "I am a parent or legal guardian and I supervise use of this account.",
+        "guardianNote": "Accounts for minors should be used with guidance from a responsible adult."
+      },
+      "gender": {
+        "title": "Gender",
+        "subtitle": "Optional. Helps us personalize your experience.",
+        "options": {
+          "male": {
+            "title": "Male"
+          },
+          "female": {
+            "title": "Female"
+          },
+          "prefer_not_to_say": {
+            "title": "Prefer not to say",
+            "pastoralNote": "We believe God created male and female. At the same time, we respect every person as a beloved child of God, however they see themselves."
+          }
+        }
+      },
+      "locale": {
+        "title": "Preferred language",
+        "subtitle": "We'll save this on your profile.",
+        "es": "Español",
+        "en": "English"
+      },
+      "theme": {
+        "title": "Accent colors",
+        "subtitle": "Pick a style; you'll be able to refine the look later.",
+        "presets": {
+          "default": "Classic",
+          "ocean": "Ocean",
+          "forest": "Forest",
+          "sunset": "Sunset",
+          "dusk": "Dusk"
+        }
       }
     },
     "newMemberGuide": {
       "title": "Your Guide",
       "subtitle": "Resources to help you grow in your new life as a member of the Church",
       "librarySummary": "Go deeper (library)",
+      "libraryBadge": "Library",
       "libraryNote": "Extended topics that used to appear in the investigator path. Open when you need them.",
       "footer": "Take your time exploring these topics. There's no rush—your journey is personal and the Savior walks with you."
     },
@@ -538,7 +736,7 @@
       "introLine1": "Everything you write here belongs to you.",
       "introLine2": "You can take it with you, anytime.",
       "summaryTitle": "Your data on this device",
-      "journeyDates": "Journey dates",
+      "localBaptismPrep": "Baptism preparation (on this device)",
       "journalEntries": "Journal entries",
       "continuityMemory": "Continuity memory",
       "wardLeadershipLocal": "Ward leadership data (local)",
@@ -552,7 +750,7 @@
       "exportFailed": "Export failed. Please try again.",
       "confirmTitle": "Clear all data?",
       "confirmIntro": "This will remove everything stored on this device:",
-      "bulletJourney": "Journey dates",
+      "bulletBaptismPrep": "Baptism preparation drafts on this device",
       "bulletJournal": "Journal entries",
       "bulletLeadership": "Ward leadership data (local): callings, notes, calendar",
       "bulletPrefs": "App preferences",
@@ -566,6 +764,15 @@
       "themeLight": "Light",
       "themeDark": "Dark",
       "themeSystem": "System"
+    },
+    "roleSettings": {
+      "unified": {
+        "title": "Unified experience",
+        "description": "Your path (friend or member) and leader tools live in the main app. Open profile or the leaders area from here.",
+        "openProfile": "Open main profile",
+        "openLeaders": "Open leaders and teachers",
+        "currentExperience": "Current view on this screen: {{role}}"
+      }
     }
   }
 }

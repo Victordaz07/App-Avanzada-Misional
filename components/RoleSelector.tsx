@@ -20,10 +20,7 @@ interface RoleSelectorProps {
 
 const ROLE_DEFINITIONS: Role[] = [
   { key: 'investigator', label: '👤 Investigador', description: 'Estoy aprendiendo sobre el evangelio' },
-  { key: 'missionary', label: '🙌 Misionero', description: 'Estoy enseñando el evangelio' },
-  { key: 'district_leader', label: '🟦 Líder de Distrito', description: 'Dirijo y cuido un distrito de la misión' },
-  { key: 'zone_leader', label: '🟧 Líder de Zona', description: 'Dirijo y cuido una zona de la misión' },
-  { key: 'assistant_to_president', label: '🟩 Asistente del Presidente', description: 'Apoyo al presidente en el liderazgo de la misión' },
+  { key: 'member', label: '🤝 Miembro', description: 'Soy miembro (vista simplificada en esta app)' },
 ];
 
 export default function RoleSelector({ 
@@ -65,7 +62,7 @@ export default function RoleSelector({
 
       <Text style={styles.sectionTitle}>Configuración de Rol</Text>
       <Text style={styles.sectionDescription}>
-        Estás usando las herramientas misioneras. Puedes ver la aplicación como investigador o miembro solo para pruebas/demos.
+        El rol de misionero de tiempo completo y liderazgo de misión vive en la app web. Aquí solo investigador o miembro.
       </Text>
       
       <ScrollView 
@@ -88,17 +85,8 @@ export default function RoleSelector({
                 {role.key === 'investigator' && (
                   <MaterialCommunityIcons name="account-search" size={32} color={isCurrentRole ? '#007AFF' : '#6b7280'} />
                 )}
-                {role.key === 'missionary' && (
-                  <MaterialCommunityIcons name="book-open-variant" size={32} color={isCurrentRole ? '#007AFF' : '#6b7280'} />
-                )}
-                {role.key === 'district_leader' && (
-                  <MaterialCommunityIcons name="account-group" size={32} color={isCurrentRole ? '#007AFF' : '#6b7280'} />
-                )}
-                {role.key === 'zone_leader' && (
-                  <MaterialCommunityIcons name="account-group" size={32} color={isCurrentRole ? '#007AFF' : '#6b7280'} />
-                )}
-                {role.key === 'assistant_to_president' && (
-                  <MaterialCommunityIcons name="account-tie" size={32} color={isCurrentRole ? '#007AFF' : '#6b7280'} />
+                {role.key === 'member' && (
+                  <MaterialCommunityIcons name="account-heart" size={32} color={isCurrentRole ? '#007AFF' : '#6b7280'} />
                 )}
               </View>
               <View style={styles.roleTextContainer}>

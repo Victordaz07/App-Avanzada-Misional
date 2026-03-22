@@ -11,7 +11,7 @@ export interface FeaturedContentItem {
   descriptionKey: string;  // i18n key for description
   topicTagKey: string;     // i18n key for topic tag
   estMinutes: number;
-  targetRole: 'investigator' | 'missionary' | 'member';
+  targetRole: 'investigator' | 'member';
   targetRoute: string;
   imageType: 'doctrine_of_christ' | 'new_converts' | 'temple_preparation' | 'member_missionary' | 'scriptures' | 'service' | 'inspiration' | 'leadership';
 }

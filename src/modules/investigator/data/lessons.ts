@@ -4,8 +4,11 @@
  * PME+ Core Lessons v2.0
  */
 
+import type { Locale } from '../../../i18n/locales';
 import { coreLessonsEs, libraryLessonsEs } from './lessons.es';
 import { coreLessonsEn, libraryLessonsEn } from './lessons.en';
+
+export type { Locale } from '../../../i18n/locales';
 
 // ===============================
 // TYPES & INTERFACES
@@ -52,7 +55,6 @@ export interface Lesson {
   recommendedNext?: string;
 }
 
-export type Locale = 'es' | 'en' | 'fr' | 'pt';
 type LessonsContentLocale = 'es' | 'en';
 
 function normalizeLessonsLocale(locale: Locale): LessonsContentLocale {
@@ -79,6 +81,15 @@ export type InvestigatorCoreTopicId = (typeof INVESTIGATOR_CORE_TOPIC_IDS)[numbe
 
 export function isInvestigatorCoreTopicId(id: string): id is InvestigatorCoreTopicId {
   return (INVESTIGATOR_CORE_TOPIC_IDS as readonly string[]).includes(id);
+}
+
+/**
+ * Contenido permitido en «Conociendo la iglesia»: solo Camino Misional (5 lecciones) y sub-temas bajo esos padres.
+ */
+export function isLessonInInvestigatorMissionaryPath(lesson: Lesson): boolean {
+  if (isInvestigatorCoreTopicId(lesson.id)) return true;
+  if (lesson.parentId && isInvestigatorCoreTopicId(lesson.parentId)) return true;
+  return false;
 }
 
 // ===============================

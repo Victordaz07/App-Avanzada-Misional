@@ -3,6 +3,7 @@ import { FaChevronRight, FaGlobe, FaSignOutAlt, FaBullseye, FaStickyNote, FaCog,
 import { useAuth } from '../../context/AuthContext';
 import { useI18n, Locale } from '../../context/I18nContext';
 import { LANGUAGE_OPTIONS } from '../../i18n/locales';
+import { LanguageSelectModal } from '../../components/ui/LanguageSelectModal';
 import { ProfileService, MainGoal } from '../../services/profileService';
 import { RoleSettingsCard } from '../../components/RoleSettingsCard';
 import { PageContainer, Card } from '../../ui/components';
@@ -24,15 +25,9 @@ interface ProfileFormState {
   avatarUrl: string;
 }
 
-const languageOptions: { code: Locale; name: string; flag: string }[] = [
-  ...LANGUAGE_OPTIONS.map((option) => ({ code: option.code, name: option.label, flag: option.flag })),
-];
-
 const localeLabels: Record<Locale, string> = {
   es: LANGUAGE_OPTIONS.find((option) => option.code === 'es')?.label ?? 'Español',
   en: LANGUAGE_OPTIONS.find((option) => option.code === 'en')?.label ?? 'English',
-  fr: LANGUAGE_OPTIONS.find((option) => option.code === 'fr')?.label ?? 'Français',
-  pt: LANGUAGE_OPTIONS.find((option) => option.code === 'pt')?.label ?? 'Português',
 };
 
 const InvestigatorProfile: React.FC = () => {
@@ -109,7 +104,7 @@ const InvestigatorProfile: React.FC = () => {
   };
 
   const localeLabel = t(`memberProfile.languages.${locale}`) || localeLabels[locale];
-  const currentLanguage = languageOptions.find(opt => opt.code === locale);
+  const currentLanguage = LANGUAGE_OPTIONS.find((opt) => opt.code === locale);
 
   const formattedMemberSince = useMemo(() => {
     try {
@@ -403,7 +398,8 @@ const InvestigatorProfile: React.FC = () => {
               className="profile-language-button"
               onClick={openLanguageModal}
             >
-              {currentLanguage?.flag} {currentLanguage?.name}
+              <span className="profile-language-code">{currentLanguage?.shortCode}</span>{' '}
+              {currentLanguage?.label ?? localeLabel}
               <FaChevronRight />
             </button>
           </div>
@@ -421,34 +417,15 @@ const InvestigatorProfile: React.FC = () => {
           </button>
         </Card>
 
-        {/* Modal de idioma */}
-        {showLanguageModal && (
-          <div className="modal-backdrop" onClick={closeAllOverlays}>
-            <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
-              <h3 className="modal-title">{t('memberProfile.preferences.language') || 'Idioma'}</h3>
-              <div className="modal-language-list">
-                {languageOptions.map((option) => (
-                  <button
-                    key={option.code}
-                    type="button"
-                    className={`modal-language-option ${locale === option.code ? 'selected' : ''}`}
-                    onClick={() => handleLanguageSelect(option.code)}
-                  >
-                    <span>{option.flag} {option.name}</span>
-                    {locale === option.code && <span className="checkmark">✓</span>}
-                  </button>
-                ))}
-              </div>
-              <button
-                type="button"
-                className="modal-cancel-button"
-                onClick={closeAllOverlays}
-              >
-                {t('common.cancel') || 'Cancelar'}
-              </button>
-            </div>
-          </div>
-        )}
+        <LanguageSelectModal
+          open={showLanguageModal}
+          onClose={closeAllOverlays}
+          title={t('memberProfile.preferences.language') || 'Idioma'}
+          selectedLocale={locale}
+          onSelect={handleLanguageSelect}
+          cancelLabel={t('common.cancel') || 'Cancelar'}
+          closeAriaLabel={t('common.close') || 'Cerrar'}
+        />
 
         {/* Hoja inferior de rol */}
         {showRoleSheet && (

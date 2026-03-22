@@ -1,0 +1,225 @@
+.friends-entry {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 1rem 1rem 5rem;
+}
+
+.friends-entry__header {
+  margin-bottom: 1.25rem;
+}
+
+.friends-entry__title {
+  font-size: 1.5rem;
+  margin: 0 0 0.35rem;
+}
+
+.friends-entry__subtitle {
+  margin: 0;
+  color: var(--xtg-text-muted, #64748b);
+  font-size: 0.95rem;
+}
+
+.friends-entry__notice {
+  margin: 0.75rem 0 0;
+  font-size: 0.8rem;
+  color: var(--xtg-text-muted, #64748b);
+  border-left: 3px solid var(--xtg-accent, #2563eb);
+  padding-left: 0.6rem;
+}
+
+.friends-entry__banner {
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.friends-entry__banner--ok {
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+}
+
+.friends-entry__banner--err {
+  background: rgba(239, 68, 68, 0.12);
+  color: #991b1b;
+}
+
+.friends-entry__card {
+  background: var(--xtg-surface, #fff);
+  border: 1px solid var(--xtg-border-subtle, rgba(0, 0, 0, 0.08));
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.friends-entry__h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.75rem;
+}
+
+.friends-entry__h3 {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem;
+}
+
+.friends-entry__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.friends-entry__row--chat {
+  margin-top: 0.75rem;
+}
+
+.friends-entry__input {
+  flex: 1;
+  min-width: 10rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--xtg-border, #e2e8f0);
+  font-size: 0.95rem;
+}
+
+.friends-entry__select {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--xtg-border, #e2e8f0);
+}
+
+.friends-entry__label {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.friends-entry__btn {
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.friends-entry__btn--primary {
+  background: var(--xtg-accent, #2563eb);
+  color: #fff;
+}
+
+.friends-entry__btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.friends-entry__btn--ghost {
+  background: transparent;
+  border: 1px solid var(--xtg-border, #e2e8f0);
+  color: var(--xtg-text, #0f172a);
+}
+
+.friends-entry__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.friends-entry__list-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--xtg-border-subtle, rgba(0, 0, 0, 0.06));
+}
+
+.friends-entry__list-item:last-child {
+  border-bottom: none;
+}
+
+.friends-entry__name {
+  font-weight: 600;
+}
+
+.friends-entry__id {
+  font-size: 0.8rem;
+  color: var(--xtg-text-muted, #64748b);
+}
+
+.friends-entry__actions {
+  display: flex;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.friends-entry__friends {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.friends-entry__friend-pill {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--xtg-border, #e2e8f0);
+  background: var(--xtg-surface-2, #f8fafc);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.friends-entry__friend-pill--active {
+  border-color: var(--xtg-accent, #2563eb);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.friends-entry__detail {
+  margin-top: 0.5rem;
+}
+
+.friends-entry__back {
+  background: none;
+  border: none;
+  color: var(--xtg-accent, #2563eb);
+  cursor: pointer;
+  padding: 0 0 0.75rem;
+  font-size: 0.9rem;
+}
+
+.friends-entry__muted {
+  color: var(--xtg-text-muted, #64748b);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.friends-entry__chat-log {
+  max-height: 14rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: var(--xtg-surface-2, #f8fafc);
+  border-radius: 0.5rem;
+}
+
+.friends-entry__msg {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.friends-entry__msg--me {
+  text-align: right;
+}
+
+.friends-entry__msg-text {
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.5rem;
+  background: #e2e8f0;
+}
+
+.friends-entry__msg--me .friends-entry__msg-text {
+  background: rgba(37, 99, 235, 0.15);
+}

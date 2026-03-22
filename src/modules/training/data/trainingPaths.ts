@@ -169,3 +169,12 @@ export function getLessonsForNode(nodeId: string): TrainingLesson[] {
     .filter((l) => l.nodeId === nodeId)
     .sort((a, b) => a.order - b.order);
 }
+
+/** Etiqueta de categoría para el hero canónico (título del path o del track). */
+export function getTrainingLessonCategoryLabel(lessonId: string): string {
+  const lesson = lessonsById[lessonId];
+  if (!lesson) return '';
+  const node = getNodeById(lesson.nodeId);
+  if (!node) return '';
+  return node.title;
+}

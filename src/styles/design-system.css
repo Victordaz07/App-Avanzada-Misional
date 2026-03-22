@@ -163,6 +163,29 @@
   --space-20: 5rem;      /* 80px */
   --space-24: 6rem;      /* 96px */
   
+  /* Paneles menta / discovery: hueco entre borde del shell y tarjetas (homogéneo en la app) */
+  --app-panel-inset-x: var(--space-5);
+  --app-panel-inset-x-compact: 0.9rem;
+
+  /* Tarjetas tipo rail (SSOT: misma caja que home-discovery + fila «Continuar») */
+  --app-rail-card-radius: 26px;
+  --app-rail-card-padding-y: 1.125rem;
+  --app-rail-card-padding-inline-end: var(--space-4);
+  --app-rail-card-padding-inline-start: var(--app-panel-inset-x);
+  --app-rail-card-gap: var(--space-4);
+  --app-rail-card-padding: var(--app-rail-card-padding-y) var(--app-rail-card-padding-inline-end)
+    var(--app-rail-card-padding-y) var(--app-rail-card-padding-inline-start);
+  --app-rail-card-icon-size: 52px;
+  --app-rail-card-icon-radius: var(--radius-lg);
+  --app-rail-card-stripe-width: 3px;
+  --app-rail-card-stripe-inset-y: 0.875rem;
+  /* Viewports muy estrechos (alineado a HomeDiscoveryRails @375px) */
+  --app-rail-card-padding-y-compact: 1rem;
+  --app-rail-card-padding-compact: var(--app-rail-card-padding-y-compact) var(--space-3)
+    var(--app-rail-card-padding-y-compact) calc(var(--app-panel-inset-x-compact) + 0.1rem);
+  --app-rail-card-icon-size-compact: 48px;
+  --app-rail-card-arrow-size-compact: 38px;
+  
   /* ===========================================
    * BORDER RADIUS (Estilo FamilyDash - Redondeado)
    * =========================================== */

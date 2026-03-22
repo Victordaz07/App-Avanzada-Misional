@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const LANGS = ['es', 'en', 'fr', 'pt'];
+const LANGS = ['es', 'en'];
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
@@ -78,17 +78,12 @@ function validateNamespace(namespace, localePathPrefix = 'src/i18n', baseLang = 
   return isValid;
 }
 
-function validateMissionaryCoverage(baseLang = 'es') {
-  return validateNamespace('missionary', 'src/i18n', baseLang);
-}
-
 function main() {
   try {
     const memberValid = validateNamespace('member');
     const appValid = validateNamespace('app');
-    const missionaryCovered = validateMissionaryCoverage();
     console.log('');
-    if (memberValid && appValid && missionaryCovered) {
+    if (memberValid && appValid) {
       console.log('Validation complete! ✅');
       process.exit(0);
     }

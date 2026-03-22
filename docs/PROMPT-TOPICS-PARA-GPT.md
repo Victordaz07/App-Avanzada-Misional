@@ -65,9 +65,8 @@ E) CONTENIDO Y DATOS
 - Diario (journal).
 - Progreso (progress, journey).
 - Datos líder (leaderMode, leaderScreensConfig, friendsInTeaching, newConverts, etc.).
-- Datos missionary (leadershipMode, districtLeader, zoneLeader, assistantToPresident).
-- Member types, vineyard, new convert guide.
-- i18n: claves, locale (es, en, fr, pt), member.*, missionary.*, leaders.*.
+- Member types, vineyard, new convert guide; guías de enseñanza tipo PMG para miembros (sin app de misionero de tiempo completo).
+- i18n: claves, locale (es, en, fr, pt), member.*, app.*, leaders.*.
 
 F) TECNOLOGÍA Y ARQUITECTURA
 - UI: design system, tokens, PageShell, Card, Button, EmptyState, TopBar, BottomNav.
@@ -79,7 +78,7 @@ F) TECNOLOGÍA Y ARQUITECTURA
 G) PENDIENTES Y ROADMAP
 - Configuración Firebase (opcional para MVP).
 - Dictado de voz real, export PDF, notificaciones, modo offline, sync multi-dispositivo.
-- Completar módulos Investigator, Member, Missionary; integración entre módulos.
+- Completar módulos Investigator y Member; integración entre módulos.
 
 H) CUALQUIER OTRO ÁREA
 - Tests, CI, despliegue, accesibilidad, performance, seguridad, privacidad.

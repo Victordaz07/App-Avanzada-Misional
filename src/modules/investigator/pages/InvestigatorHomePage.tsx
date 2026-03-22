@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { FaChevronRight, FaBookOpen, FaPenToSquare, FaChartLine, FaHandsPraying, FaComments } from 'react-icons/fa6';
+import { FaChevronRight } from 'react-icons/fa6';
+import { useAuth } from '../../../context/AuthContext';
 import {
   getInvestigatorCoreLessons,
   getLessonById,
   isInvestigatorCoreTopicId,
 } from '../data/lessons';
+import { selectInvestigatorDiscoveryLessons } from '../data/homeDiscoveryInvestigator';
 import { getHomeScripture } from '../data/scriptures';
 import { useInvestigatorStore } from '../store/useInvestigatorStore';
 import { ScriptureCard } from '../components/ScriptureCard';
 import { useI18n } from '../../../context/I18nContext';
-import { useChatNavigation } from '../hooks/useChatNavigation';
+import HomeDiscoveryRails from '../../../ui/home-discovery/HomeDiscoveryRails';
+import { HomeWelcomeCard } from '../../../ui/home-welcome/HomeWelcomeCard';
+import { firstWelcomeName } from '../../../utils/profileFirstName';
+import { getLocalDayIndex } from '../../../utils/localDayIndex';
+import { getLocalWeekIndex } from '../../../utils/localWeekIndex';
 import './InvestigatorHomePage.css';
+
+const INVESTIGATOR_WEEKLY_LINES = 6;
 
 /**
  * Investigator Home Page
@@ -20,26 +28,33 @@ import './InvestigatorHomePage.css';
  */
 export default function InvestigatorHomePage(): JSX.Element {
   const { t, locale } = useI18n();
+  const { profile } = useAuth();
   const { lastLessonId } = useInvestigatorStore();
-  const { openChat, status, clearStatus } = useChatNavigation();
   const contentLocale: 'es' | 'en' = locale === 'es' ? 'es' : 'en';
   const homeScripture = getHomeScripture(contentLocale);
   const coreLessons = getInvestigatorCoreLessons(contentLocale);
 
-  useEffect(() => {
-    if (status === 'no-missionaries' || status === 'error') {
-      const timer = setTimeout(clearStatus, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [status, clearStatus]);
+  const hour = new Date().getHours();
+  const timeGreeting =
+    hour < 12
+      ? t('app.home.greetingMorning')
+      : hour < 18
+        ? t('app.home.greetingAfternoon')
+        : t('app.home.greetingEvening');
+  const welcomeFirst = firstWelcomeName(profile);
+  const welcomeGreetingLine = welcomeFirst
+    ? t('app.home.welcomeGreetingNamed', { greeting: timeGreeting, name: welcomeFirst })
+    : t('app.home.welcomeGreetingWave', { greeting: timeGreeting });
 
-  // Get time-based greeting
-  const getGreeting = (): string => {
-    const hour = new Date().getHours();
-    if (hour < 12) return t('app.home.greetingMorning');
-    if (hour < 18) return t('app.home.greetingAfternoon');
-    return t('app.home.greetingEvening');
-  };
+  const welcomeDateLine = useMemo(() => {
+    const loc = locale === 'es' ? 'es' : 'en-US';
+    const fmt = new Intl.DateTimeFormat(loc, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
+    return t('app.home.welcomeDateLine', { date: fmt.format(new Date()) });
+  }, [locale, t]);
 
   // Get current lesson to continue or first lesson
   const currentLesson =
@@ -47,16 +62,53 @@ export default function InvestigatorHomePage(): JSX.Element {
       ? getLessonById(lastLessonId, contentLocale)
       : coreLessons[0];
 
+  const dayIndex = useMemo(() => getLocalDayIndex(), []);
+  const continueId = currentLesson?.id ?? '';
+  const discoveryLessons = useMemo(
+    () =>
+      selectInvestigatorDiscoveryLessons(coreLessons, {
+        excludeId: continueId,
+        dayIndex,
+        max: 4,
+      }),
+    [coreLessons, continueId, dayIndex]
+  );
+
+  const weekIndex = useMemo(() => getLocalWeekIndex(), []);
+  const investigatorWeeklyLine = useMemo(() => {
+    const i = weekIndex % INVESTIGATOR_WEEKLY_LINES;
+    return t(`app.home.weeklyLightInvestigator.line${i}`);
+  }, [weekIndex, t]);
+  const investigatorWeeklyQuestion = useMemo(() => {
+    const i = weekIndex % INVESTIGATOR_WEEKLY_LINES;
+    return t(`app.home.weeklyQuestionInvestigator.line${i}`);
+  }, [weekIndex, t]);
+  const discoveryItems = useMemo(
+    () =>
+      discoveryLessons.map((lesson) => ({
+        href: `/lessons/${lesson.id}`,
+        title: lesson.title,
+        subtitle: lesson.subtitle,
+        badge: t('app.home.discoveryBadgeMissionaryPath'),
+        icon: <span aria-hidden>{lesson.icon}</span>,
+      })),
+    [discoveryLessons, t]
+  );
+
   return (
     <div className="inv-home anim-fade-up">
-      {/* Welcome Card - Hero */}
-      <section className="inv-home__welcome" aria-label={t('app.home.greeting')}>
-        <p className="inv-home__welcome-greeting">{getGreeting()} 👋</p>
-        <h1 className="inv-home__welcome-title">{t('app.home.title')}</h1>
-        <p className="inv-home__welcome-subtitle">
-          {t('app.home.subtitle')}
-        </p>
-      </section>
+      <HomeWelcomeCard
+        ariaLabel={t('app.home.welcomeAriaLabel')}
+        greetingLine={welcomeGreetingLine}
+        dateLine={welcomeDateLine}
+        hour={hour}
+        title={t('app.home.title')}
+        subtitle={t('app.home.subtitle')}
+        showQuickLinks
+        exploreLabel={t('app.home.welcomeExploreTopics')}
+        journalLabel={t('app.nav.journal')}
+        quickNavAriaLabel={t('app.home.welcomeActionsAria')}
+      />
 
       {/* Continue Learning - Hero Card */}
       {currentLesson && (
@@ -87,64 +139,37 @@ export default function InvestigatorHomePage(): JSX.Element {
         </div>
       )}
 
+      {discoveryItems.length > 0 ? (
+        <HomeDiscoveryRails
+          className="inv-home__discovery"
+          title={t('app.home.discoveryTitleInvestigator')}
+          hint={t('app.home.discoveryHintInvestigator')}
+          seeAllHref="/lessons"
+          seeAllLabel={t('app.home.discoveryOpenMissionaryPath')}
+          items={discoveryItems}
+          sectionAriaLabel={t('app.home.discoveryTitleInvestigator')}
+        />
+      ) : null}
+
       {/* Daily Scripture */}
       <div className="inv-home__scripture-section">
         <h2 className="inv-home__section-title">{t('app.home.scriptureTitle')}</h2>
         <ScriptureCard scripture={homeScripture} />
       </div>
 
-      {/* Quick Actions - Grid of 4 */}
-      <nav className="inv-home__section" aria-label={t('app.home.actions')}>
-        <h2 className="inv-home__section-title">{t('app.home.actions')}</h2>
-        <div className="inv-home__actions" role="list">
-          <Link to="/lessons" className="inv-home__action-btn" role="listitem" aria-label={t('app.home.missionaryPath')}>
-            <div className="inv-home__action-icon" aria-hidden="true">
-              <FaBookOpen />
-            </div>
-            <span className="inv-home__action-label">{t('app.home.missionaryPath')}</span>
-          </Link>
-          <Link to="/journal" className="inv-home__action-btn" role="listitem" aria-label={t('app.home.myJournal')}>
-            <div className="inv-home__action-icon" aria-hidden="true">
-              <FaPenToSquare />
-            </div>
-            <span className="inv-home__action-label">{t('app.home.myJournal')}</span>
-          </Link>
-          <Link to="/progress" className="inv-home__action-btn" role="listitem" aria-label={t('app.home.myProgress')}>
-            <div className="inv-home__action-icon" aria-hidden="true">
-              <FaChartLine />
-            </div>
-            <span className="inv-home__action-label">{t('app.home.myProgress')}</span>
-          </Link>
-          <Link to="/profile" className="inv-home__action-btn" role="listitem" aria-label={t('app.home.pray')}>
-            <div className="inv-home__action-icon" aria-hidden="true">
-              <FaHandsPraying />
-            </div>
-            <span className="inv-home__action-label">{t('app.home.pray')}</span>
-          </Link>
-          <button
-            type="button"
-            className="inv-home__action-btn"
-            role="listitem"
-            onClick={openChat}
-            disabled={status === 'loading'}
-            aria-label={t('app.home.chatWithMissionaries')}
-          >
-            <div className="inv-home__action-icon" aria-hidden="true">
-              <FaComments />
-            </div>
-            <span className="inv-home__action-label">
-              {status === 'loading' ? t('app.common.loading') : t('app.home.chatWithMissionaries')}
-            </span>
-          </button>
-        </div>
-      </nav>
-      {(status === 'no-missionaries' || status === 'error') && (
-        <div className="inv-home__toast" role="status">
-          {status === 'no-missionaries'
-            ? t('app.home.noMissionariesAssigned')
-            : t('app.home.chatError')}
-        </div>
-      )}
+      <section
+        className="inv-home__weekly-light"
+        aria-label={t('app.home.weeklyLightInvestigator.title')}
+      >
+        <p className="inv-home__weekly-light-eyebrow">
+          {t('app.home.weeklyLightInvestigator.title')}
+        </p>
+        <p className="inv-home__weekly-light-text">{investigatorWeeklyLine}</p>
+        <p className="inv-home__weekly-question-label">
+          {t('app.home.weeklyQuestionInvestigator.label')}
+        </p>
+        <p className="inv-home__weekly-question-text">{investigatorWeeklyQuestion}</p>
+      </section>
     </div>
   );
 }

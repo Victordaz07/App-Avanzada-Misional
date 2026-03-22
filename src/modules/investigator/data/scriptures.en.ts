@@ -20,12 +20,24 @@ export const scripturesEn: Scripture[] = [
     id: 'john-14-26',
     reference: 'John 14:26',
     text: 'But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things, and bring all things to your remembrance, whatsoever I have said unto you.',
+    verses: [
+      {
+        verse: 26,
+        text: 'But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things, and bring all things to your remembrance, whatsoever I have said unto you.',
+      },
+    ],
     context: 'Jesus Christ promised His disciples that, even when He was no longer physically with them, the Holy Ghost would continue to guide and teach them.',
   },
   {
     id: 'matthew-7-7',
     reference: 'Matthew 7:7',
     text: 'Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you.',
+    verses: [
+      {
+        verse: 7,
+        text: 'Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you.',
+      },
+    ],
     context: 'Jesus Christ taught that God is not indifferent to our requests. He answers, although not always in the way or time we expect.',
   },
   {
@@ -114,24 +126,38 @@ export const scripturesEn: Scripture[] = [
     id: 'acts-8-17',
     reference: 'Acts 8:17',
     text: 'Then laid they their hands on them, and they received the Holy Ghost.',
+    verses: [{ verse: 17, text: 'Then laid they their hands on them, and they received the Holy Ghost.' }],
     context: 'In the early Church, the apostles followed this same pattern: baptism followed by the laying on of hands to confer the gift of the Holy Ghost.',
   },
   {
     id: 'dc-20-77',
     reference: 'Doctrine and Covenants 20:77',
-    text: 'And if ye do always remember me ye shall have my Spirit to be with you.',
+    text: 'O God, the Eternal Father, we ask thee in the name of thy Son, Jesus Christ, to bless and sanctify this bread to the souls of all those who partake of it; that they may eat in remembrance of the body of thy Son, and witness unto thee, O God, the Eternal Father, that they are willing to take upon them the name of thy Son, and always remember him and keep his commandments which he has given them; that they may always have his Spirit to be with them. Amen.',
+    verses: [
+      {
+        verse: 77,
+        text: 'O God, the Eternal Father, we ask thee in the name of thy Son, Jesus Christ, to bless and sanctify this bread to the souls of all those who partake of it; that they may eat in remembrance of the body of thy Son, and witness unto thee, O God, the Eternal Father, that they are willing to take upon them the name of thy Son, and always remember him and keep his commandments which he has given them; that they may always have his Spirit to be with them. Amen.',
+      },
+    ],
     context: 'This scripture is part of the sacramental prayer and clearly establishes the divine promise associated with the Sacrament.',
   },
   {
     id: 'john-14-15',
     reference: 'John 14:15',
     text: 'If ye love me, keep my commandments.',
+    verses: [{ verse: 15, text: 'If ye love me, keep my commandments.' }],
     context: 'Jesus Christ taught that obedience is not born of fear, but of love and personal relationship with Him.',
   },
   {
     id: 'ephesians-4-11',
     reference: 'Ephesians 4:11',
     text: 'And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers.',
+    verses: [
+      {
+        verse: 11,
+        text: 'And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers.',
+      },
+    ],
     context: 'The apostle Paul teaches that Jesus Christ organized His Church with specific leaders and functions to build up and care for the saints.',
   },
   {
@@ -165,6 +191,12 @@ export const scripturesEn: Scripture[] = [
     id: 'hebrews-5-4',
     reference: 'Hebrews 5:4',
     text: 'And no man taketh this honour unto himself, but he that is called of God, as was Aaron.',
+    verses: [
+      {
+        verse: 4,
+        text: 'And no man taketh this honour unto himself, but he that is called of God, as was Aaron.',
+      },
+    ],
     context: 'The apostle Paul teaches that the priesthood is not assumed by one\'s own initiative, but is received by calling and divine ordination.',
   },
   {
@@ -200,30 +232,76 @@ export const scripturesEn: Scripture[] = [
     id: 'matthew-19-6',
     reference: 'Matthew 19:6',
     text: 'Wherefore they are no more twain, but one flesh. What therefore God hath joined together, let not man put asunder.',
+    verses: [
+      {
+        verse: 6,
+        text: 'Wherefore they are no more twain, but one flesh. What therefore God hath joined together, let not man put asunder.',
+      },
+    ],
     context: 'Jesus Christ teaches that marriage is a sacred union established by God.',
   },
   {
     id: 'john-14-2',
     reference: 'John 14:2',
     text: 'In my Father\'s house are many mansions: if it were not so, I would have told you. I go to prepare a place for you.',
+    verses: [
+      {
+        verse: 2,
+        text: 'In my Father\'s house are many mansions: if it were not so, I would have told you. I go to prepare a place for you.',
+      },
+    ],
     context: 'Jesus Christ teaches that heaven is not uniform, but prepared for each person.',
   },
   {
     id: 'malachi-3-10',
     reference: 'Malachi 3:10',
     text: 'Bring ye all the tithes into the storehouse, that there may be meat in mine house, and prove me now herewith, saith the Lord of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it.',
+    verses: [
+      {
+        verse: 10,
+        text: 'Bring ye all the tithes into the storehouse, that there may be meat in mine house, and prove me now herewith, saith the Lord of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it.',
+      },
+    ],
     context: 'God invites His people to trust in Him through tithing, promising real blessings and reminding us that obedience can be proven with faith, not pressure.',
   },
   {
     id: 'matthew-6-21',
     reference: 'Matthew 6:21',
     text: 'For where your treasure is, there will your heart be also.',
+    verses: [
+      {
+        verse: 21,
+        text: 'For where your treasure is, there will your heart be also.',
+      },
+    ],
     context: 'Jesus Christ teaches that our real priorities are revealed by what we dedicate our resources, attention, and trust to.',
+  },
+  {
+    id: 'matthew-6-9',
+    reference: 'Matthew 6:9',
+    text: 'After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name.',
+    verses: [
+      {
+        verse: 9,
+        text: 'After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name.',
+      },
+    ],
+    context: 'Jesus Christ teaches His disciples how to pray, beginning by addressing God as Father in heaven.',
   },
   {
     id: '1-corinthians-6-19-20',
     reference: '1 Corinthians 6:19–20',
     text: 'What? know ye not that your body is the temple of the Holy Ghost which is in you, which ye have of God, and ye are not your own? For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God\'s.',
+    verses: [
+      {
+        verse: 19,
+        text: 'What? know ye not that your body is the temple of the Holy Ghost which is in you, which ye have of God, and ye are not your own?',
+      },
+      {
+        verse: 20,
+        text: 'For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God\'s.',
+      },
+    ],
     context: 'Paul teaches the sacred dignity of the body and the spiritual responsibility to honor God with our decisions.',
   },
   {
@@ -368,6 +446,63 @@ export const scripturesEn: Scripture[] = [
     ],
     context:
       'In His teachings about the Sacrament, Jesus Christ affirms blessings associated with remembering, obeying, and renewing covenants.',
+  },
+  {
+    id: 'dc-20-53-59',
+    reference: 'Doctrine and Covenants 20:53–59',
+    text: 'The teacher’s duty is to watch over the church always, and be with and strengthen them; and see that there is no iniquity in the church, neither hardness with each other, neither lying, backbiting, nor evil speaking; and see that the church meet together often, and also see that all the members do their duty. And he is to take the lead of meetings in the absence of the elder or priest and is to be assisted always, in all his duties in the church, by the deacons, if occasion requires. But neither teachers nor deacons have authority to baptize, administer the sacrament, or lay on hands; they are, however, to warn, expound, exhort, and teach, and invite all to come unto Christ.',
+    verses: [
+      { verse: 53, text: 'The teacher’s duty is to watch over the church always, and be with and strengthen them;' },
+      { verse: 54, text: 'And see that there is no iniquity in the church, neither hardness with each other, neither lying, backbiting, nor evil speaking;' },
+      { verse: 55, text: 'And see that the church meet together often, and also see that all the members do their duty.' },
+      { verse: 56, text: 'And he is to take the lead of meetings in the absence of the elder or priest—' },
+      { verse: 57, text: 'And is to be assisted always, in all his duties in the church, by the deacons, if occasion requires.' },
+      { verse: 58, text: 'But neither teachers nor deacons have authority to baptize, administer the sacrament, or lay on hands;' },
+      { verse: 59, text: 'They are, however, to warn, expound, exhort, and teach, and invite all to come unto Christ.' },
+    ],
+    context:
+      'These verses define the teacher’s office in practical terms: watch, strengthen, preserve spiritual order, and teach faithfully.',
+  },
+  {
+    id: 'dc-107-86',
+    reference: 'Doctrine and Covenants 107:86',
+    text: 'And also the duty of the president over the office of the teachers is to preside over twenty-four of the teachers, and to sit in council with them, teaching them the duties of their office, as given in the covenants.',
+    verses: [
+      { verse: 86, text: 'And also the duty of the president over the office of the teachers is to preside over twenty-four of the teachers, and to sit in council with them, teaching them the duties of their office, as given in the covenants.' },
+    ],
+    context:
+      'The Lord orders the teachers’ office through counsel, presidency, and instruction in duty.',
+  },
+  {
+    id: 'moroni-6-4',
+    reference: 'Moroni 6:4',
+    text: 'And after they had been received unto baptism, and were wrought upon and cleansed by the power of the Holy Ghost, they were numbered among the people of the church of Christ; and their names were taken, that they might be remembered and nourished by the good word of God, to keep them in the right way, to keep them continually watchful unto prayer, relying alone upon the merits of Christ, who was the author and the finisher of their faith.',
+    verses: [
+      { verse: 4, text: 'And after they had been received unto baptism, and were wrought upon and cleansed by the power of the Holy Ghost, they were numbered among the people of the church of Christ; and their names were taken, that they might be remembered and nourished by the good word of God, to keep them in the right way, to keep them continually watchful unto prayer, relying alone upon the merits of Christ, who was the author and the finisher of their faith.' },
+    ],
+    context:
+      'Moroni describes how the Church cares for newly baptized members: remember them, nourish them, and help them remain in Christ.',
+  },
+  {
+    id: 'galatians-6-1',
+    reference: 'Galatians 6:1',
+    text: 'Brethren, if a man be overtaken in a fault, ye which are spiritual, restore such an one in the spirit of meekness; considering thyself, lest thou also be tempted.',
+    verses: [
+      { verse: 1, text: 'Brethren, if a man be overtaken in a fault, ye which are spiritual, restore such an one in the spirit of meekness; considering thyself, lest thou also be tempted.' },
+    ],
+    context:
+      'Paul teaches that Christian correction must be done with humility, meekness, and awareness of one’s own weakness.',
+  },
+  {
+    id: 'dc-121-41-42',
+    reference: 'Doctrine and Covenants 121:41–42',
+    text: 'No power or influence can or ought to be maintained by virtue of the priesthood, only by persuasion, by long-suffering, by gentleness and meekness, and by love unfeigned; By kindness, and pure knowledge, which shall greatly enlarge the soul without hypocrisy, and without guile—',
+    verses: [
+      { verse: 41, text: 'No power or influence can or ought to be maintained by virtue of the priesthood, only by persuasion, by long-suffering, by gentleness and meekness, and by love unfeigned;' },
+      { verse: 42, text: 'By kindness, and pure knowledge, which shall greatly enlarge the soul without hypocrisy, and without guile—' },
+    ],
+    context:
+      'These verses define the righteous exercise of influence: never by compulsion, but by Christlike attributes.',
   },
   {
     id: '1-corinthians-15-20-22',

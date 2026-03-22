@@ -30,14 +30,6 @@ import { GodStoryEntry } from '../../services/godStoryService';
 // TYPES
 // ============================================================================
 
-/** Journey state from useJourneyStore */
-export interface JourneyExport {
-  ordinanceDates: {
-    baptismDate?: string;
-    confirmationDate?: string;
-  };
-}
-
 /** Spiritual memory from useSpiritualMemoryStore */
 export interface SpiritualMemoryExport {
   lastLessonId?: string;
@@ -79,7 +71,6 @@ export interface LeadershipExport {
 
 /** Complete export payload */
 export interface ExportPayload {
-  journey: JourneyExport;
   journal: GodStoryEntry[];
   spiritualMemory: SpiritualMemoryExport;
   baptismPreparation?: BaptismPreparationExport;
@@ -98,7 +89,6 @@ export interface ExportPayload {
  * We intentionally DO NOT export system/config keys.
  */
 const USER_DATA_KEYS = {
-  journey: 'journey-storage',           // Zustand persist
   spiritualMemory: 'xtg_spiritual_memory_v1',
   identityShell: 'xtg_identity_shell_v1',
   journal: '@godStory',
@@ -145,15 +135,6 @@ function safeReadJSON<T>(key: string, fallback: T): T {
  * Returns a clean, structured payload.
  */
 export function gatherExportData(): ExportPayload {
-  // Journey state (Zustand persist format)
-  const journeyRaw = safeReadJSON<{ state?: { ordinanceDates?: object } }>(
-    USER_DATA_KEYS.journey,
-    {}
-  );
-  const journey: JourneyExport = {
-    ordinanceDates: journeyRaw?.state?.ordinanceDates || {},
-  };
-
   // Journal entries
   const journal = safeReadJSON<GodStoryEntry[]>(USER_DATA_KEYS.journal, []);
 
@@ -185,7 +166,6 @@ export function gatherExportData(): ExportPayload {
   const hasLeadershipData = Object.values(leadership).some(v => v !== null && v !== undefined);
 
   return {
-    journey,
     journal,
     spiritualMemory,
     ...(baptismPreparation && { baptismPreparation }),
@@ -353,7 +333,7 @@ export function clearAllLocalData(): void {
 // ============================================================================
 
 export interface DataInfo {
-  hasJourneyData: boolean;
+  hasBaptismPrepData: boolean;
   hasJournalEntries: boolean;
   hasSpiritualMemory: boolean;
   hasLeadershipData: boolean;
@@ -365,10 +345,11 @@ export interface DataInfo {
  * Used to show users what they have stored.
  */
 export function getDataInfo(): DataInfo {
-  const journey = safeReadJSON<{ state?: { ordinanceDates?: object } }>(
-    USER_DATA_KEYS.journey,
+  const baptismRaw = safeReadJSON<{ state?: Record<string, unknown> }>(
+    USER_DATA_KEYS.baptismPreparation,
     {}
   );
+  const baptismState = baptismRaw?.state;
   const journal = safeReadJSON<GodStoryEntry[]>(USER_DATA_KEYS.journal, []);
   const memory = safeReadJSON<SpiritualMemoryExport>(
     USER_DATA_KEYS.spiritualMemory,
@@ -394,9 +375,8 @@ export function getDataInfo(): DataInfo {
   });
 
   return {
-    hasJourneyData: Boolean(
-      journey?.state?.ordinanceDates &&
-      Object.keys(journey.state.ordinanceDates).length > 0
+    hasBaptismPrepData: Boolean(
+      baptismState && typeof baptismState === 'object' && Object.keys(baptismState).length > 0
     ),
     hasJournalEntries: journal.length > 0,
     hasSpiritualMemory: Boolean(memory.lastLessonId || memory.lastVisitedAt),

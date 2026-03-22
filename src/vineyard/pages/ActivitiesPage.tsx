@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useI18n } from '../../context/I18nContext';
-import { memberActivities } from '../data/memberActivities';
-import { memberStudyModules } from '../data/memberStudyModules';
+import { getMemberActivitiesForLocale } from '../data/memberActivities';
+import { getMemberStudyModulesForLocale } from '../data/memberStudyModules';
 import { ActivityRenderer } from '../components/ActivityRenderer';
 import { MemberActivityCard } from '../components/MemberActivityCard';
 import { CustomSelect } from '../components/CustomSelect';
@@ -11,25 +11,34 @@ import '../../pages/Page.css';
 import './ActivitiesPage.css';
 
 export const ActivitiesPage: React.FC = () => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedModuleId, setSelectedModuleId] = useState<string>('all');
   const [activeActivityId, setActiveActivityId] = useState<string | null>(searchParams.get('activity'));
 
+  const studyModulesForLocale = useMemo(
+    () => getMemberStudyModulesForLocale(locale),
+    [locale],
+  );
+
+  const activitiesForLocale = useMemo(() => getMemberActivitiesForLocale(locale), [locale]);
+
   const filteredActivities = useMemo(() => {
-    return memberActivities.filter((activity) => selectedModuleId === 'all' || activity.moduleId === selectedModuleId);
-  }, [selectedModuleId]);
+    return activitiesForLocale.filter(
+      (activity) => selectedModuleId === 'all' || activity.moduleId === selectedModuleId,
+    );
+  }, [activitiesForLocale, selectedModuleId]);
 
   const groupedByType = useMemo(() => {
-    return filteredActivities.reduce<Record<string, typeof memberActivities>>((acc, activity) => {
+    return filteredActivities.reduce<Record<string, typeof activitiesForLocale>>((acc, activity) => {
       if (!acc[activity.type]) acc[activity.type] = [];
       acc[activity.type].push(activity);
       return acc;
     }, {});
   }, [filteredActivities]);
 
-  const activeActivity = memberActivities.find((activity) => activity.id === activeActivityId) ?? null;
+  const activeActivity = activitiesForLocale.find((activity) => activity.id === activeActivityId) ?? null;
 
   const handleModuleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedModuleId(event.target.value);
@@ -79,7 +88,7 @@ export const ActivitiesPage: React.FC = () => {
               onChange={(value) => setSelectedModuleId(value)}
               options={[
                 { value: 'all', label: t('member.activities.allModules') || 'Todos los módulos' },
-                ...memberStudyModules.map((module) => ({
+                ...studyModulesForLocale.map((module) => ({
                   value: module.id,
                   label: module.title,
                 })),

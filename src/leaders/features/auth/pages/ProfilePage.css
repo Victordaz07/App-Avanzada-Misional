@@ -1,0 +1,203 @@
+/**
+ * Profile Page Styles
+ */
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 32px;
+}
+
+/* Profile Card */
+.profile-card {
+  text-align: center;
+}
+
+.profile-card--badges .profile-email--hero-meta {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: var(--am-color-text-muted, #64748b);
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: var(--text-inverse);
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(var(--primary-rgb), 0.28);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--am-color-text-main, #1C2430);
+  margin: 0;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: var(--am-color-text-muted, #64748b);
+  margin: 0;
+}
+
+.profile-badge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: color-mix(in srgb, var(--info-light) 42%, var(--background-card));
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border-subtle));
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--primary);
+}
+
+.profile-badge-bishopric {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: var(--text-inverse);
+  border-color: transparent;
+}
+
+.profile-badge-level {
+  font-size: 11px;
+  font-weight: 600;
+  color: #A67C52;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-icon {
+  font-size: 16px;
+}
+
+.badge-text {
+  font-weight: 500;
+}
+
+/* Section */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Menu Card */
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.menu-icon {
+  font-size: 20px;
+  width: 32px;
+  text-align: center;
+}
+
+.menu-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.menu-label {
+  font-size: 13px;
+  color: var(--am-color-text-muted, #64748b);
+}
+
+.menu-value {
+  font-size: 15px;
+  color: var(--am-color-text-main, #1C2430);
+  font-weight: 500;
+}
+
+.menu-value-mono {
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+}
+
+.menu-divider {
+  height: 1px;
+  background: var(--am-color-border-soft, #E5E7EB);
+  margin: 8px 0;
+}
+
+.menu-item-button {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 200ms ease;
+  border-radius: 8px;
+  margin: -8px;
+  padding: 16px 8px;
+  width: calc(100% + 16px);
+}
+
+.menu-item-button:hover {
+  background: var(--am-color-bg-subtle, #F5F5F5);
+}
+
+.menu-arrow {
+  color: var(--am-color-text-muted, #64748b);
+  font-size: 16px;
+}
+
+/* Actions */
+.profile-actions {
+  margin-top: 8px;
+}
+
+/* Footer */
+.profile-footer {
+  text-align: center;
+  padding-top: 16px;
+}
+
+.footer-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--am-color-text-main, #1C2430);
+  margin: 0 0 4px 0;
+}
+
+.footer-subtext {
+  font-size: 12px;
+  color: var(--am-color-text-muted, #64748b);
+  margin: 0;
+}

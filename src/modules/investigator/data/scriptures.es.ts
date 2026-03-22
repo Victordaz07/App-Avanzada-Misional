@@ -13,18 +13,26 @@ export const scripturesEs: Scripture[] = [
     id: '1-john-3-1',
     reference: '1 Juan 3:1',
     text: 'Mirad cuál amor nos ha dado el Padre, para que seamos llamados hijos de Dios.',
+    verses: [{ verse: 1, text: 'Mirad cuál amor nos ha dado el Padre, para que seamos llamados hijos de Dios.' }],
     context: 'El apóstol Juan enseña que ser llamado "hijo de Dios" no es simbólico, sino una realidad espiritual que define quiénes somos y hacia dónde vamos.',
   },
   {
     id: 'john-14-26',
     reference: 'Juan 14:26',
     text: 'Mas el Consolador, el Espíritu Santo, a quien el Padre enviará en mi nombre, él os enseñará todas las cosas, y os recordará todo lo que yo os he dicho.',
+    verses: [
+      {
+        verse: 26,
+        text: 'Mas el Consolador, el Espíritu Santo, a quien el Padre enviará en mi nombre, él os enseñará todas las cosas, y os recordará todo lo que yo os he dicho.',
+      },
+    ],
     context: 'Jesucristo prometió a Sus discípulos que, aun cuando Él ya no estuviera físicamente con ellos, el Espíritu Santo continuaría guiándolos y enseñándolos.',
   },
   {
     id: 'matthew-7-7',
     reference: 'Mateo 7:7',
     text: 'Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.',
+    verses: [{ verse: 7, text: 'Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.' }],
     context: 'Jesucristo enseñó que Dios no es indiferente a nuestras peticiones. Él responde, aunque no siempre de la manera o en el tiempo que esperamos.',
   },
   {
@@ -37,6 +45,12 @@ export const scripturesEs: Scripture[] = [
     id: 'james-1-5',
     reference: 'Santiago 1:5',
     text: 'Y si alguno de vosotros tiene falta de sabiduría, pídala a Dios, el cual da a todos abundantemente y sin reproche, y le será dada.',
+    verses: [
+      {
+        verse: 5,
+        text: 'Y si alguno de vosotros tiene falta de sabiduría, pídala a Dios, el cual da a todos abundantemente y sin reproche, y le será dada.',
+      },
+    ],
     context: 'Santiago enseña sobre buscar sabiduría de Dios. Esta escritura inspiró a José Smith a orar y recibir la Primera Visión.',
   },
   {
@@ -97,6 +111,12 @@ export const scripturesEs: Scripture[] = [
     id: 'matthew-11-28',
     reference: 'Mateo 11:28',
     text: 'Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.',
+    verses: [
+      {
+        verse: 28,
+        text: 'Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.',
+      },
+    ],
     context: 'Jesucristo invita a quienes se sienten agobiados por el pecado, el error o la carga emocional a acudir a Él para encontrar descanso y renovación espiritual.',
   },
   {
@@ -109,24 +129,43 @@ export const scripturesEs: Scripture[] = [
     id: 'acts-8-17',
     reference: 'Hechos 8:17',
     text: 'Y después que fueron bautizados, les impusieron las manos, y recibieron el Espíritu Santo.',
+    verses: [
+      {
+        verse: 17,
+        text: 'Y después que fueron bautizados, les impusieron las manos, y recibieron el Espíritu Santo.',
+      },
+    ],
     context: 'En la Iglesia primitiva, los apóstoles seguían este mismo patrón: bautismo seguido de la imposición de manos para conferir el don del Espíritu Santo.',
   },
   {
     id: 'dc-20-77',
     reference: 'Doctrina y Convenios 20:77',
-    text: 'Y si guardáis mis mandamientos, siempre tendréis mi Espíritu con vosotros.',
+    text: 'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este pan para las almas de todos los que participen de él, para que lo coman en memoria del cuerpo de tu Hijo, y testifiquen ante ti, oh Dios, Padre Eterno, que están dispuestos a tomar sobre sí el nombre de tu Hijo, y a recordarle siempre, y a guardar sus mandamientos que él les ha dado, para que siempre puedan tener su Espíritu consigo. Amén.',
+    verses: [
+      {
+        verse: 77,
+        text: 'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este pan para las almas de todos los que participen de él, para que lo coman en memoria del cuerpo de tu Hijo, y testifiquen ante ti, oh Dios, Padre Eterno, que están dispuestos a tomar sobre sí el nombre de tu Hijo, y a recordarle siempre, y a guardar sus mandamientos que él les ha dado, para que siempre puedan tener su Espíritu consigo. Amén.',
+      },
+    ],
     context: 'Esta escritura forma parte de la oración sacramental y establece claramente la promesa divina asociada a la Santa Cena.',
   },
   {
     id: 'john-14-15',
     reference: 'Juan 14:15',
     text: 'Si me amáis, guardad mis mandamientos.',
+    verses: [{ verse: 15, text: 'Si me amáis, guardad mis mandamientos.' }],
     context: 'Jesucristo enseñó que la obediencia no nace del miedo, sino del amor y de la relación personal con Él.',
   },
   {
     id: 'ephesians-4-11',
     reference: 'Efesios 4:11',
     text: 'Y él mismo constituyó a unos, apóstoles; a otros, profetas; a otros, evangelistas; a otros, pastores y maestros.',
+    verses: [
+      {
+        verse: 11,
+        text: 'Y él mismo constituyó a unos, apóstoles; a otros, profetas; a otros, evangelistas; a otros, pastores y maestros.',
+      },
+    ],
     context: 'El apóstol Pablo enseña que Jesucristo organizó Su Iglesia con líderes y funciones específicas para edificar y cuidar a los santos.',
   },
   {
@@ -158,6 +197,12 @@ export const scripturesEs: Scripture[] = [
     id: 'hebrews-5-4',
     reference: 'Hebreos 5:4',
     text: 'Y nadie toma para sí esta honra, sino el que es llamado por Dios, como lo fue Aarón.',
+    verses: [
+      {
+        verse: 4,
+        text: 'Y nadie toma para sí esta honra, sino el que es llamado por Dios, como lo fue Aarón.',
+      },
+    ],
     context: 'El apóstol Pablo enseña que el sacerdocio no se asume por iniciativa propia, sino que se recibe por llamamiento y ordenación divina.',
   },
   {
@@ -192,30 +237,76 @@ export const scripturesEs: Scripture[] = [
     id: 'matthew-19-6',
     reference: 'Mateo 19:6',
     text: 'Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre.',
+    verses: [
+      {
+        verse: 6,
+        text: 'Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre.',
+      },
+    ],
     context: 'Jesucristo enseña que el matrimonio es una unión sagrada establecida por Dios.',
   },
   {
     id: 'john-14-2',
     reference: 'Juan 14:2',
     text: 'En la casa de mi Padre muchas moradas hay; si así no fuera, yo os lo hubiera dicho; voy, pues, a preparar lugar para vosotros.',
+    verses: [
+      {
+        verse: 2,
+        text: 'En la casa de mi Padre muchas moradas hay; si así no fuera, yo os lo hubiera dicho; voy, pues, a preparar lugar para vosotros.',
+      },
+    ],
     context: 'Jesucristo enseña que el cielo no es uniforme, sino preparado para cada persona.',
   },
   {
     id: 'malachi-3-10',
     reference: 'Malaquías 3:10',
     text: 'Traed todos los diezmos al alfolí y haya alimento en mi casa; y probadme ahora en esto, dice Jehová de los ejércitos, si no os abriré las ventanas de los cielos y derramaré sobre vosotros bendición hasta que sobreabunde.',
+    verses: [
+      {
+        verse: 10,
+        text: 'Traed todos los diezmos al alfolí y haya alimento en mi casa; y probadme ahora en esto, dice Jehová de los ejércitos, si no os abriré las ventanas de los cielos y derramaré sobre vosotros bendición hasta que sobreabunde.',
+      },
+    ],
     context: 'Dios invita a Su pueblo a confiar en Él mediante el diezmo, prometiendo bendiciones reales y recordando que la obediencia puede probarse con fe, no con presión.',
   },
   {
     id: 'matthew-6-21',
     reference: 'Mateo 6:21',
     text: 'Porque donde esté vuestro tesoro, allí estará también vuestro corazón.',
+    verses: [
+      {
+        verse: 21,
+        text: 'Porque donde esté vuestro tesoro, allí estará también vuestro corazón.',
+      },
+    ],
     context: 'Jesucristo enseña que nuestras prioridades reales se revelan por aquello a lo que dedicamos nuestros recursos, atención y confianza.',
+  },
+  {
+    id: 'matthew-6-9',
+    reference: 'Mateo 6:9',
+    text: 'De esta manera, pues, orad vosotros: Padre nuestro que estás en los cielos, santificado sea tu nombre.',
+    verses: [
+      {
+        verse: 9,
+        text: 'De esta manera, pues, orad vosotros: Padre nuestro que estás en los cielos, santificado sea tu nombre.',
+      },
+    ],
+    context: 'Jesucristo enseña a Sus discípulos cómo orar, comenzando dirigiéndose a Dios como Padre en los cielos.',
   },
   {
     id: '1-corinthians-6-19-20',
     reference: '1 Corintios 6:19–20',
     text: '¿O ignoráis que vuestro cuerpo es templo del Espíritu Santo, el cual está en vosotros, el cual tenéis de Dios, y que no sois vuestros? Porque habéis sido comprados por precio; glorificad, pues, a Dios en vuestro cuerpo y en vuestro espíritu, los cuales son de Dios.',
+    verses: [
+      {
+        verse: 19,
+        text: '¿O ignoráis que vuestro cuerpo es templo del Espíritu Santo, el cual está en vosotros, el cual tenéis de Dios, y que no sois vuestros?',
+      },
+      {
+        verse: 20,
+        text: 'Porque habéis sido comprados por precio; glorificad, pues, a Dios en vuestro cuerpo y en vuestro espíritu, los cuales son de Dios.',
+      },
+    ],
     context: 'Pablo enseña la dignidad sagrada del cuerpo y la responsabilidad espiritual de honrar a Dios con nuestras decisiones.',
   },
   {
@@ -354,12 +445,69 @@ export const scripturesEs: Scripture[] = [
   {
     id: '3-nephi-18-11',
     reference: '3 Nefi 18:11',
-    text: 'Y esto haréis siempre a los que se arrepientan y sean bautizados en mi nombre; y lo haréis en memoria de mi sangre, que he derramado por vosotros, para que deis testimonio al Padre de que siempre os acordáis de mí. Y si siempre os acordáis de mí, tendréis mi Espíritu con vosotros.',
+    text: 'Y siempre haréis esto por todos los que se arrepientan y se bauticen en mi nombre; y lo haréis en memoria de mi sangre, que he vertido por vosotros, para que testifiquéis al Padre que siempre os acordáis de mí. Y si os acordáis siempre de mí, tendréis mi Espíritu para que esté con vosotros.',
     verses: [
-      { verse: 11, text: 'Y esto haréis siempre a los que se arrepientan y sean bautizados en mi nombre; y lo haréis en memoria de mi sangre, que he derramado por vosotros, para que deis testimonio al Padre de que siempre os acordáis de mí. Y si siempre os acordáis de mí, tendréis mi Espíritu con vosotros.' },
+      { verse: 11, text: 'Y siempre haréis esto por todos los que se arrepientan y se bauticen en mi nombre; y lo haréis en memoria de mi sangre, que he vertido por vosotros, para que testifiquéis al Padre que siempre os acordáis de mí. Y si os acordáis siempre de mí, tendréis mi Espíritu para que esté con vosotros.' },
     ],
     context:
       'En Sus enseñanzas sobre la Santa Cena, Jesucristo afirma bendiciones asociadas a recordar, obedecer y renovar convenios.',
+  },
+  {
+    id: 'dc-20-53-59',
+    reference: 'Doctrina y Convenios 20:53–59',
+    text: 'El deber del maestro es velar siempre por los miembros de la iglesia, y estar con ellos y fortalecerlos; y cuidar de que no haya iniquidad en la iglesia, ni aspereza entre uno y otro, ni mentiras, ni difamaciones, ni calumnias; y ver que los miembros de la iglesia se reúnan con frecuencia, y también ver que todos los miembros cumplan con sus deberes. Y se hará cargo de las reuniones si está ausente el élder o presbítero, y los diáconos le ayudarán siempre en todos sus deberes en la iglesia, si la ocasión lo requiere. Pero ni los maestros ni los diáconos tienen la autoridad para bautizar, administrar la santa cena, ni imponer las manos; deben, sin embargo, amonestar, exponer, exhortar, enseñar e invitar a todos a venir a Cristo.',
+    verses: [
+      { verse: 53, text: 'El deber del maestro es velar siempre por los miembros de la iglesia, y estar con ellos y fortalecerlos;' },
+      { verse: 54, text: 'y cuidar de que no haya iniquidad en la iglesia, ni aspereza entre uno y otro, ni mentiras, ni difamaciones, ni calumnias;' },
+      { verse: 55, text: 'y ver que los miembros de la iglesia se reúnan con frecuencia, y también ver que todos los miembros cumplan con sus deberes.' },
+      { verse: 56, text: 'Y se hará cargo de las reuniones si está ausente el élder o presbítero,' },
+      { verse: 57, text: 'y los diáconos le ayudarán siempre en todos sus deberes en la iglesia, si la ocasión lo requiere.' },
+      { verse: 58, text: 'Pero ni los maestros ni los diáconos tienen la autoridad para bautizar, administrar la santa cena, ni imponer las manos;' },
+      { verse: 59, text: 'deben, sin embargo, amonestar, exponer, exhortar, enseñar e invitar a todos a venir a Cristo.' },
+    ],
+    context:
+      'Estos versículos describen deberes concretos del oficio de maestro: velar, fortalecer, preservar el orden espiritual y enseñar con fidelidad.',
+  },
+  {
+    id: 'dc-107-86',
+    reference: 'Doctrina y Convenios 107:86',
+    text: 'Y también el deber del presidente del oficio de los maestros es presidir a veinticuatro maestros, y sentarse en concilio con ellos, enseñándoles los deberes de su oficio, cual se indican en los convenios.',
+    verses: [
+      { verse: 86, text: 'Y también el deber del presidente del oficio de los maestros es presidir a veinticuatro maestros, y sentarse en concilio con ellos, enseñándoles los deberes de su oficio, cual se indican en los convenios.' },
+    ],
+    context:
+      'El Señor organiza el oficio de maestro con orden, consejo y enseñanza de deberes, no con improvisación.',
+  },
+  {
+    id: 'moroni-6-4',
+    reference: 'Moroni 6:4',
+    text: 'Y después que habían sido recibidos por el bautismo, y el poder del Espíritu Santo había obrado en ellos y los había purificado, eran contados entre los del pueblo de la iglesia de Cristo; y se inscribían sus nombres, a fin de que se hiciese memoria de ellos y fuesen nutridos por la buena palabra de Dios, para guardarlos en la vía correcta, para conservarlos continuamente atentos a orar, confiando solamente en los méritos de Cristo, que era el autor y perfeccionador de su fe.',
+    verses: [
+      { verse: 4, text: 'Y después que habían sido recibidos por el bautismo, y el poder del Espíritu Santo había obrado en ellos y los había purificado, eran contados entre los del pueblo de la iglesia de Cristo; y se inscribían sus nombres, a fin de que se hiciese memoria de ellos y fuesen nutridos por la buena palabra de Dios, para guardarlos en la vía correcta, para conservarlos continuamente atentos a orar, confiando solamente en los méritos de Cristo, que era el autor y perfeccionador de su fe.' },
+    ],
+    context:
+      'Moroni describe cómo la Iglesia cuida a los recién bautizados: recordarlos, nutrirlos y ayudarles a perseverar en Cristo.',
+  },
+  {
+    id: 'galatians-6-1',
+    reference: 'Gálatas 6:1',
+    text: 'Hermanos, si alguno fuere sorprendido en alguna falta, vosotros que sois espirituales, restauradle con espíritu de mansedumbre, considerándote a ti mismo, no sea que tú también seas tentado.',
+    verses: [
+      { verse: 1, text: 'Hermanos, si alguno fuere sorprendido en alguna falta, vosotros que sois espirituales, restauradle con espíritu de mansedumbre, considerándote a ti mismo, no sea que tú también seas tentado.' },
+    ],
+    context:
+      'Pablo enseña que la corrección cristiana debe hacerse con humildad, mansedumbre y conciencia de la propia fragilidad.',
+  },
+  {
+    id: 'dc-121-41-42',
+    reference: 'Doctrina y Convenios 121:41–42',
+    text: 'Ningún poder o influencia se puede ni se debe mantener en virtud del sacerdocio, sino por persuasión, por longanimidad, benignidad, mansedumbre y por amor sincero; por bondad y por conocimiento puro, lo cual engrandecerá en gran manera el alma sin hipocresía y sin malicia;',
+    verses: [
+      { verse: 41, text: 'Ningún poder o influencia se puede ni se debe mantener en virtud del sacerdocio, sino por persuasión, por longanimidad, benignidad, mansedumbre y por amor sincero;' },
+      { verse: 42, text: 'por bondad y por conocimiento puro, lo cual engrandecerá en gran manera el alma sin hipocresía y sin malicia;' },
+    ],
+    context:
+      'Estos versículos definen la manera justa y santa de ejercer influencia: no con compulsión, sino con atributos semejantes a los de Cristo.',
   },
   {
     id: '1-corinthians-15-20-22',

@@ -75,8 +75,6 @@
   "memberProfile.accountActions.deleteConfirm": "Delete your account? This action cannot be undone.",
   "memberProfile.languages.es": "Spanish",
   "memberProfile.languages.en": "English",
-  "memberProfile.languages.fr": "French",
-  "memberProfile.languages.pt": "Portuguese",
   "memberProfile.footer.version": "Version {{version}}",
   "memberProfile.footer.tagline": "Built for disciples who gather Israel.",
   "common.cancel": "Cancel",
@@ -1322,6 +1320,15 @@
   "memberStudy.referenceType.scripture": "SCRIPTURE",
   "memberStudy.referenceType.talk": "TALK",
   "memberStudy.referenceType.manual": "MANUAL",
+  "memberStudy.labels.module": "Module",
+  "memberStudy.labels.sectionsSidebar": "Module sections",
+  "memberStudy.labels.studiedBadge": "Studied",
+  "memberStudy.labels.referencesTitle": "Suggested references",
+  "memberStudy.labels.minutes": "{{minutes}} min",
+  "memberStudy.actions.markStudied": "Mark as studied (+5 XP)",
+  "memberStudy.actions.studyRecorded": "Study recorded",
+  "memberStudy.actions.backToList": "Back to list",
+  "memberStudy.error.notFound": "We could not find that module or section. Return to the study list to choose other content.",
   "missionaryGuide.headerTitle": "Missionary Guide",
   "missionaryGuide.headerSubtitle": "Doctrine of Christ",
   "lesson1.title": "The Restoration of the Gospel of Jesus Christ",
@@ -1702,6 +1709,11 @@
       "boreTestimony": "Shared my testimony",
       "helpedMissionaries": "Helped missionaries",
       "extendedInvitation": "Extended an invitation"
+    },
+    "discovery": {
+      "title": "Topics to explore calmly",
+      "hint": "Short reads from the member guide: worship, covenants, and more. Open what helps you today.",
+      "seeAll": "See the full guide"
     }
   },
   "memberFriends": {

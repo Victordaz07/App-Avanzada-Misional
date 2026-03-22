@@ -37,26 +37,32 @@ export function LessonListCard({
         <h3 className="lesson-list-card__title">{lesson.title}</h3>
         <p className="lesson-list-card__subtitle">{lesson.subtitle}</p>
       </div>
-      <div className="lesson-list-card__status">
-        {status === 'completed' && (
-          <span
-            className="lesson-list-card__status-badge lesson-list-card__status-badge--completed"
-            title={t('app.lessons.completed')}
-            aria-label={t('app.lessons.completed')}
-          >
-            <FaCheck aria-hidden="true" />
-          </span>
+      <div className="lesson-list-card__trail">
+        {(status === 'completed' || status === 'exploring') && (
+          <div className="lesson-list-card__badges">
+            {status === 'completed' && (
+              <span
+                className="lesson-list-card__status-badge lesson-list-card__status-badge--completed"
+                title={t('app.lessons.completed')}
+                aria-label={t('app.lessons.completed')}
+              >
+                <FaCheck aria-hidden="true" />
+              </span>
+            )}
+            {status === 'exploring' && (
+              <span
+                className="lesson-list-card__status-badge lesson-list-card__status-badge--exploring"
+                title={t('app.lessons.inProgress')}
+                aria-label={t('app.lessons.inProgress')}
+              >
+                <FaCircle aria-hidden="true" />
+              </span>
+            )}
+          </div>
         )}
-        {status === 'exploring' && (
-          <span
-            className="lesson-list-card__status-badge lesson-list-card__status-badge--exploring"
-            title={t('app.lessons.inProgress')}
-            aria-label={t('app.lessons.inProgress')}
-          >
-            <FaCircle aria-hidden="true" />
-          </span>
-        )}
-        <FaChevronRight className="lesson-list-card__arrow" aria-hidden="true" />
+        <span className="lesson-list-card__arrow-wrap" aria-hidden>
+          <FaChevronRight className="lesson-list-card__arrow" />
+        </span>
       </div>
     </Link>
   );

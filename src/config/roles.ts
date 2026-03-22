@@ -1,16 +1,26 @@
+import type { MemberStatus } from '../types/user';
+
+/**
+ * Map Firestore `memberStatus` to in-app navigation role (friend vs member experience).
+ * All statuses except `investigator` use the member shell (incl. training when applicable).
+ */
+export function userRoleFromMemberStatus(status: MemberStatus | undefined): UserRoleKey {
+  if (status === 'investigator') return 'investigator';
+  return 'member';
+}
+
 /**
  * Centralized Role Configuration
  * 
  * This file defines the canonical role system for the application.
  * 
  * IMPORTANT:
- * - Internal role keys are ALWAYS: 'investigator' | 'missionary' | 'member'
+ * - Internal role keys are ALWAYS: 'investigator' | 'member'
+ * - Legacy 'missionary' in storage migrates to 'member'
  * - UI labels (what users see) come from i18n translations
- * - Storage, routing, and logic MUST use these 3 keys only
- * - Never introduce new role strings elsewhere in the codebase
  */
 
-export type UserRoleKey = 'investigator' | 'missionary' | 'member';
+export type UserRoleKey = 'investigator' | 'member';
 
 /**
  * Role metadata configuration
@@ -31,12 +41,6 @@ export const ROLE_DEFINITIONS: Record<UserRoleKey, {
     icon: '🔍',
     defaultRoute: '/home',
   },
-  missionary: {
-    id: 'missionary',
-    i18nKey: 'roles.missionary.title',
-    icon: '📘',
-    defaultRoute: '/home',
-  },
   member: {
     id: 'member',
     i18nKey: 'roles.member.title',
@@ -48,7 +52,7 @@ export const ROLE_DEFINITIONS: Record<UserRoleKey, {
 /**
  * Array of all valid role keys
  */
-export const ALL_ROLES: UserRoleKey[] = ['investigator', 'missionary', 'member'];
+export const ALL_ROLES: UserRoleKey[] = ['investigator', 'member'];
 
 /**
  * Normalizes a stored role value to a canonical UserRoleKey
@@ -67,9 +71,15 @@ export function normalizeStoredRole(value: string | null): UserRoleKey | null {
   // Canonical keys
   switch (normalized) {
     case 'investigator':
-    case 'missionary':
     case 'member':
       return normalized as UserRoleKey;
+    case 'missionary':
+    case 'misionero':
+    case 'serving':
+    case 'assistant_to_president':
+    case 'district_leader':
+    case 'zone_leader':
+      return 'member';
   }
 
   // Legacy/invalid keys - migrate to canonical
@@ -79,9 +89,6 @@ export function normalizeStoredRole(value: string | null): UserRoleKey | null {
     case 'amigo':
     case 'learning':
       return 'investigator';
-    case 'misionero':
-    case 'serving':
-      return 'missionary';
     case 'miembro':
       return 'member';
     default:

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa6';
-import { memberStudyModules } from '../data/memberStudyModules';
+import { getMemberStudyModulesForLocale } from '../data/memberStudyModules';
 import { useMemberProgressStore } from '../state/memberProgressStore';
 import { StudyModuleCard } from '../components/StudyModuleCard';
 import { useI18n } from '../../context/I18nContext';
@@ -9,16 +9,16 @@ import './StudyModulesPage.css';
 
 export const StudyModulesPage: React.FC = () => {
   const navigate = useNavigate();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const completedSections = useMemberProgressStore((state) => state.completedStudySectionIds);
 
   const orderedModules = useMemo(
     () =>
-      [...memberStudyModules].sort((a, b) => {
+      [...getMemberStudyModulesForLocale(locale)].sort((a, b) => {
         if (a.levelRecommended === b.levelRecommended) return a.title.localeCompare(b.title);
         return a.levelRecommended - b.levelRecommended;
       }),
-    [],
+    [locale],
   );
 
   return (

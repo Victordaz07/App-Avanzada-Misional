@@ -1,0 +1,200 @@
+/**
+ * Selección de rol — menta + panel + tarjetas rail (misma familia que ward-setup / miembro).
+ */
+
+.role-selection-page {
+  box-sizing: border-box;
+}
+
+.role-selection-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.role-selection-header.leaders-page-hero {
+  margin-bottom: var(--space-5);
+}
+
+.role-selection-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+}
+
+.role-selection-panel.leaders-mint-panel {
+  gap: var(--space-6);
+}
+
+.role-groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.role-group {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+
+.role-group-title {
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 var(--space-3) 0;
+  padding-left: 2px;
+}
+
+.role-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.role-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--app-rail-card-padding);
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border-subtle));
+  border-radius: var(--app-rail-card-radius);
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 92%, transparent) inset,
+    0 10px 36px -16px rgba(var(--primary-rgb), 0.14),
+    0 2px 10px -4px rgba(var(--primary-rgb), 0.08);
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.2, 0.64, 1),
+    border-color 0.2s ease,
+    box-shadow 0.22s ease;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: var(--app-rail-card-stripe-inset-y);
+  bottom: var(--app-rail-card-stripe-inset-y);
+  width: var(--app-rail-card-stripe-width);
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.role-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+}
+
+.role-card-selected {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-subtle));
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 12px 36px -14px rgba(var(--primary-rgb), 0.18);
+}
+
+.role-card-icon {
+  font-size: 1.5rem;
+  width: 2.25rem;
+  text-align: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.role-card-label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--primary);
+  position: relative;
+  z-index: 1;
+}
+
+.role-selection-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+}
+
+.role-confirm-button {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: var(--text-base);
+  font-weight: 700;
+  font-family: var(--font-family-display);
+  color: var(--text-inverse);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  box-shadow:
+    0 4px 18px rgba(var(--primary-rgb), 0.28),
+    0 1px 0 color-mix(in srgb, var(--background-card) 35%, transparent) inset;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.role-confirm-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.role-confirm-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.role-skip-button {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--border-subtle));
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.role-skip-button:hover {
+  background: color-mix(in srgb, var(--info-light) 40%, var(--background-card));
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  color: var(--primary);
+}
+
+@media (max-width: 480px) {
+  .role-card {
+    padding: var(--app-rail-card-padding-compact);
+  }
+
+  .role-card-label {
+    font-size: var(--text-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role-card,
+  .role-confirm-button {
+    transition: none;
+  }
+
+  .role-card:hover,
+  .role-confirm-button:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useI18n } from '../../context/I18nContext';
 import { useMemberProgressStore } from '../../vineyard/state/memberProgressStore';
-import { memberStudyModules } from '../../vineyard/data/memberStudyModules';
+import { getMemberStudyModulesForLocale } from '../../vineyard/data/memberStudyModules';
 import { memberActivities } from '../../vineyard/data/memberActivities';
 import { SpiritualProgressCard } from '../../vineyard/components/SpiritualProgressCard';
 import { buildSectionProgressId } from '../../vineyard/utils/progressIds';
@@ -17,7 +17,7 @@ const LEVEL_BOUNDARIES = [
 const BADGE_CATALOG_TOTAL = 6;
 
 export const ProgressPage: React.FC = () => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const progress = useMemberProgressStore(state => state.progress);
   const completedStudySectionIds = useMemberProgressStore(
     state => state.completedStudySectionIds,
@@ -35,7 +35,7 @@ export const ProgressPage: React.FC = () => {
 
   const completedSectionsList = useMemo(() => {
     const entries: { moduleTitle: string; sectionTitle: string }[] = [];
-    memberStudyModules.forEach(module => {
+    getMemberStudyModulesForLocale(locale).forEach(module => {
       module.sections.forEach(section => {
         if (
           completedStudySectionIds.includes(
@@ -50,7 +50,7 @@ export const ProgressPage: React.FC = () => {
       });
     });
     return entries;
-  }, [completedStudySectionIds]);
+  }, [completedStudySectionIds, locale]);
 
   const completedActivities = useMemo(() => {
     return memberActivities.filter(activity =>

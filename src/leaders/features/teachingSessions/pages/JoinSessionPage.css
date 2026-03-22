@@ -1,0 +1,49 @@
+.join-session-page.leaders-mint-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.join-session-panel.leaders-mint-panel {
+  width: 100%;
+  max-width: min(440px, 100%);
+  box-sizing: border-box;
+}
+
+.join-session-panel .ui-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.join-session-page h2 {
+  margin: 0 0 var(--space-3) 0;
+  font-size: var(--text-xl);
+  font-family: var(--font-family-display);
+  color: var(--primary);
+}
+
+.join-session-page p {
+  margin: 0 0 var(--space-2) 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.join-session-title {
+  font-weight: 700;
+  color: var(--primary) !important;
+}
+
+.join-session-code {
+  font-family: monospace;
+  letter-spacing: 1px;
+  font-size: 16px !important;
+}
+
+.join-session-hint {
+  font-size: 12px !important;
+  word-break: break-all;
+}

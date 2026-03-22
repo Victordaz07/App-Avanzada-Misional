@@ -1,0 +1,190 @@
+/* Training lesson body — alineado al Teaching Canon (mint / teal). */
+
+.tr-canon__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tr-canon__section-content {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #1f2937;
+  font-family: var(--font-reading, inherit);
+}
+
+.tr-canon__section-content p {
+  margin: 0;
+}
+
+.tr-canon__section-content p + p {
+  margin-top: 14px;
+}
+
+.tr-canon__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.tr-canon__list li {
+  margin-bottom: 8px;
+}
+
+.tr-canon__list li:last-child {
+  margin-bottom: 0;
+}
+
+.tr-canon__hint {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-tertiary, #6b7280);
+}
+
+.tr-canon__scripture-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border-subtle, #e5e7eb);
+}
+
+.tr-canon__scripture-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tr-canon__scripture-excerpt {
+  margin: 0;
+  font-style: italic;
+  line-height: 1.75;
+  color: #1f2937;
+}
+
+.tr-canon__callout {
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  background: linear-gradient(145deg, rgba(240, 253, 250, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
+}
+
+.tr-canon__callout-title {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+.tr-canon__callout-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+  color: #1f2937;
+}
+
+.tr-canon__callout-list li {
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.tr-canon__checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tr-canon__checklist-item-wrapper {
+  list-style: none;
+}
+
+.tr-canon__checklist-item {
+  display: flex;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font: inherit;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tr-canon__checklist-item:hover {
+  background: rgba(240, 253, 250, 0.65);
+}
+
+.tr-canon__checklist-item--done .tr-canon__checklist-icon {
+  color: #059669;
+}
+
+.tr-canon__checklist-icon {
+  flex-shrink: 0;
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.tr-canon__reflections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tr-canon__reflection-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tr-canon__reflection-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.tr-canon__textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-radius: 14px;
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.65;
+  color: #1f2937;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.tr-canon__textarea:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.tr-canon__action-card {
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-left: 4px solid #0f766e;
+}
+
+.tr-canon__action-title {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #064e3b;
+}
+
+.tr-canon__action-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #374151;
+}

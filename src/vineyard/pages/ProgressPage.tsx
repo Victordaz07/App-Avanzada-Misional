@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaArrowLeft, FaBookOpen, FaHandshake, FaBook, FaHeart, FaStar, FaFire, FaUsers, FaCrown, FaLock, FaGamepad, FaRocket, FaChevronRight } from 'react-icons/fa';
 import { useI18n } from '../../context/I18nContext';
 import { useMemberProgressStore } from '../state/memberProgressStore';
-import { memberStudyModules } from '../data/memberStudyModules';
+import { getMemberStudyModulesForLocale } from '../data/memberStudyModules';
 import { memberActivities } from '../data/memberActivities';
 import { buildSectionProgressId } from '../utils/progressIds';
 import '../../pages/Page.css';
@@ -28,7 +28,7 @@ const BADGE_CATALOG = [
 const BADGE_CATALOG_TOTAL = 24; // Total badges available
 
 export const ProgressPage: React.FC = () => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const navigate = useNavigate();
   const progress = useMemberProgressStore((state) => state.progress);
   const completedStudySectionIds = useMemberProgressStore((state) => state.completedStudySectionIds);
@@ -45,7 +45,6 @@ export const ProgressPage: React.FC = () => {
   }
 
   // Calculate level progress data
-  console.log('ProgressPage rendering', { progress, completedStudySectionIds });
   const currentWindow = LEVEL_BOUNDARIES.find((entry) => entry.level === progress.level) ?? LEVEL_BOUNDARIES[0];
   const xpIntoLevel = Math.max(progress.xp - currentWindow.min, 0);
   const xpWindowSize = currentWindow.max === Infinity ? 400 : currentWindow.max - currentWindow.min + 1;
@@ -53,7 +52,7 @@ export const ProgressPage: React.FC = () => {
 
   const completedSectionsList = useMemo(() => {
     const entries: { moduleTitle: string; sectionTitle: string }[] = [];
-    memberStudyModules.forEach((module) => {
+    getMemberStudyModulesForLocale(locale).forEach((module) => {
       module.sections.forEach((section) => {
         if (completedStudySectionIds.includes(buildSectionProgressId(module.id, section.id))) {
           entries.push({ moduleTitle: module.title, sectionTitle: section.title });
@@ -61,7 +60,7 @@ export const ProgressPage: React.FC = () => {
       });
     });
     return entries;
-  }, [completedStudySectionIds]);
+  }, [completedStudySectionIds, locale]);
 
   const completedActivities = useMemo(() => {
     return memberActivities.filter((activity) => progress.completedActivityIds.includes(activity.id));
@@ -75,8 +74,6 @@ export const ProgressPage: React.FC = () => {
     subtitle: t('member.progress.nextLesson.subtitle') || 'Doctrina de Cristo en la vida diaria',
     link: '/member/study',
   };
-
-  console.log('ProgressPage render - progress:', progress);
 
   return (
     <div className="page progress-page-new">

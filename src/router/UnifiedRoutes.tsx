@@ -8,6 +8,8 @@ import {
   JournalEntryPage,
   ProgressEntryPage,
   ProfileEntryPage,
+  FriendsEntryPage,
+  StudyEntryPage,
 } from '../pages/entry';
 import TrainingDashboard from '../modules/training/pages/TrainingDashboard';
 import TrainingPathScreen from '../modules/training/pages/TrainingPathScreen';
@@ -17,13 +19,15 @@ import LessonPlaceholderScreen from '../modules/training/pages/LessonPlaceholder
  * Unified Routes
  * Same 5 tabs + training, content switches based on journey stage.
  *
- * Mounted at: /home/*, /lessons/*, /journal/*, /progress/*, /profile/*, /training/*
+ * Mounted at: /home/*, /study/*, /lessons/*, /journal/*, /progress/*, /profile/*, /training/*
  */
 export default function UnifiedRoutes(): JSX.Element {
   const location = useLocation();
 
   const getPageForPath = (): JSX.Element => {
     const path = location.pathname;
+
+    if (path.startsWith('/study')) return <StudyEntryPage />;
 
     if (path.startsWith('/training/')) {
       const parts = path.replace(/^\/training\/?/, '').split('/').filter(Boolean);
@@ -43,6 +47,7 @@ export default function UnifiedRoutes(): JSX.Element {
     if (path.startsWith('/lessons')) return <LessonsEntryPage />;
     if (path.startsWith('/journal')) return <JournalEntryPage />;
     if (path.startsWith('/progress')) return <ProgressEntryPage />;
+    if (path.startsWith('/friends')) return <FriendsEntryPage />;
     if (path.startsWith('/profile')) return <ProfileEntryPage />;
     if (path.startsWith('/home') || path === '/') return <HomeEntryPage />;
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { I18nProvider } from './context/I18nContext';
 import { AuthProvider } from './context/AuthContext';
+import ProfileLocaleSync from './components/ProfileLocaleSync';
 import { ProgressProvider } from './context/ProgressContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ModeProvider } from './state/mode';
@@ -39,6 +40,7 @@ export default function App() {
       <ThemeProvider>
         <I18nProvider>
           <AuthProvider>
+            <ProfileLocaleSync />
             <ProgressProvider>
               <ModeProvider>
                 <BrowserRouter>

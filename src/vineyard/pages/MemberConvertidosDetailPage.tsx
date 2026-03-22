@@ -7,16 +7,12 @@ import { useNewConvertProgress } from '../../hooks/useNewConvertProgress';
 import { useI18n, Locale } from '../../context/I18nContext';
 import { newConvertGuideEs } from '../data/newConvertGuide.es';
 import { newConvertGuideEn } from '../data/newConvertGuide.en';
-import { newConvertGuideFr } from '../data/newConvertGuide.fr';
-import { newConvertGuidePt } from '../data/newConvertGuide.pt';
 import '../../pages/Page.css';
 import './MemberConvertidosDetailPage.css';
 
 const guidesByLocale: Record<Locale, NewConvertSection[]> = {
   es: newConvertGuideEs,
   en: newConvertGuideEn,
-  fr: newConvertGuideFr,
-  pt: newConvertGuidePt,
 };
 
 const getGuideForLocale = (locale: Locale): NewConvertSection[] => guidesByLocale[locale] ?? guidesByLocale.es;

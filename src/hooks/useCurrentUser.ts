@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export interface CurrentUser {
   id: string;
   displayName: string;
-  missionRole: 'zone_leader' | 'district_leader' | 'assistant_to_president' | 'missionary' | 'investigator';
+  missionRole: 'investigator' | 'member';
   missionId: string;
   zoneId: string;
   districtId?: string;
@@ -38,7 +38,7 @@ export function useCurrentUser() {
           // Esto es temporal hasta que tengas Firebase Auth completo
           const mockUser: CurrentUser = {
             id: 'temp-user-id',
-            displayName: 'Líder de Zona',
+            displayName: userRole === 'member' ? 'Miembro' : 'Amigo',
             missionRole: userRole as CurrentUser['missionRole'],
             missionId: await AsyncStorage.getItem('missionId') || 'MI-MISION',
             zoneId: await AsyncStorage.getItem('zoneId') || 'MI-ZONA',

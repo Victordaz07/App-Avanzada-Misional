@@ -10,19 +10,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Import JSON translation files
 import esTranslations from '../i18n/es.json';
 import enTranslations from '../i18n/en.json';
-import frTranslations from '../i18n/fr.json';
-import ptTranslations from '../i18n/pt.json';
 
 const dictionaries = {
   es: esTranslations,
   en: enTranslations,
-  fr: frTranslations,
-  pt: ptTranslations,
 };
 
 const LOCALE_STORAGE_KEY = 'appLang';
 
-export type Locale = 'es' | 'en' | 'fr' | 'pt';
+export type Locale = 'es' | 'en';
 
 interface I18nContextType {
   locale: Locale;
@@ -46,7 +42,10 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const loadLocale = async () => {
     try {
       const storedLocale = await AsyncStorage.getItem(LOCALE_STORAGE_KEY);
-      if (storedLocale && ['es', 'en', 'fr', 'pt'].includes(storedLocale)) {
+      if (storedLocale === 'fr' || storedLocale === 'pt') {
+        await AsyncStorage.setItem(LOCALE_STORAGE_KEY, 'es');
+        setLocaleState('es');
+      } else if (storedLocale && ['es', 'en'].includes(storedLocale)) {
         setLocaleState(storedLocale as Locale);
       } else {
         // Detectar idioma del sistema

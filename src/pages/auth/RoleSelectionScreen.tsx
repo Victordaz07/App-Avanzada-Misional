@@ -30,16 +30,6 @@ const ROLE_OPTIONS: RoleOption[] = [
     colorClass: 'role-card--green',
   },
   {
-    id: 'missionary',
-    icon: '🙏',
-    title: 'Predicando el Evangelio',
-    tagline: 'Estoy sirviendo o ayudando como misionero.',
-    description:
-      'Enseño el evangelio, acompaño a investigadores y quiero organizar mejor mi servicio.',
-    actionLabel: 'Comenzar a Enseñar',
-    colorClass: 'role-card--purple',
-  },
-  {
     id: 'member',
     icon: '🤝',
     title: 'Aprendiendo a Predicar',
@@ -86,7 +76,7 @@ export const RoleSelectionScreen: React.FC<Props> = ({ onContinue }) => {
       <div className="xtg-section xtg-stack-lg">
         <XtgCard>
           <p className="xtg-text-muted">
-            Esta aplicación fue creada para investigadores, misioneros y miembros.
+            Esta aplicación fue creada para investigadores y miembros.
             Elige la opción que mejor describe tu situación actual.
           </p>
         </XtgCard>

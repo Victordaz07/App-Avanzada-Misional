@@ -1,0 +1,102 @@
+/**
+ * Superficies Liderazgo / Maestros — alineadas a home y lecciones (menta + tokens + preset).
+ * Importar desde global.css del bundle leaders.
+ */
+
+/* Página completa (login, ward-setup, rol, /join, bienvenida) */
+.leaders-mint-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--info-light) 24%, var(--background)) 0%,
+    var(--background) 42%,
+    color-mix(in srgb, var(--info-light) 14%, var(--background)) 100%
+  );
+  color: var(--text-primary);
+}
+
+.leaders-mint-page--inset {
+  padding-inline: var(--app-content-padding-x, var(--space-4));
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-10);
+}
+
+/* Cabecera de página tipo Camino Misional / Tu guía */
+.leaders-page-hero {
+  margin-bottom: var(--space-5);
+  padding: 1.35rem var(--app-panel-inset-x);
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--primary) 12%, transparent), transparent 40%),
+    radial-gradient(circle at bottom left, color-mix(in srgb, var(--primary) 8%, transparent), transparent 36%),
+    linear-gradient(
+      145deg,
+      var(--background-card) 0%,
+      color-mix(in srgb, var(--info-light) 55%, var(--background-card)) 100%
+    );
+  box-shadow: none;
+  text-align: center;
+}
+
+.leaders-page-hero__title {
+  font-family: var(--font-family-display);
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.leaders-page-hero__subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.55;
+  max-width: 48ch;
+  margin-inline: auto;
+}
+
+.leaders-page-hero__subtitle strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Panel menta interior (lista de opciones / formularios) */
+.leaders-mint-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.35rem var(--app-panel-inset-x) 1.5rem;
+  margin-inline: -4px;
+  border-radius: calc(var(--app-rail-card-radius) + 6px);
+  background:
+    radial-gradient(120% 85% at 100% 0%, color-mix(in srgb, var(--primary) 10%, transparent) 0%, transparent 52%),
+    radial-gradient(90% 70% at 0% 100%, color-mix(in srgb, var(--primary) 7%, transparent) 0%, transparent 48%),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--info-light) 38%, var(--background)) 0%,
+      color-mix(in srgb, var(--info-light) 28%, var(--background)) 100%
+    );
+  border: 1px solid color-mix(in srgb, var(--primary) 16%, var(--border-subtle));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 80%, transparent) inset,
+    0 14px 44px -20px rgba(var(--primary-rgb), 0.2);
+}
+
+@media (max-width: 375px) {
+  .leaders-mint-panel {
+    padding: 1.1rem var(--app-panel-inset-x-compact) 1.25rem;
+    margin-inline: -2px;
+  }
+
+  .leaders-page-hero {
+    padding: 1.1rem var(--app-panel-inset-x-compact);
+  }
+}

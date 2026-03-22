@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { CanonicalScriptureExcerpt } from '../../ui/components';
 import {
   MemberActivity,
   QuizOption,
@@ -74,7 +75,10 @@ const renderScriptureMatch = (
           <p className="activity-option-text activity-option-reference">
             {scripture.reference}
           </p>
-          <p className="activity-option-description">{scripture.text}</p>
+          <CanonicalScriptureExcerpt
+            reference={scripture.reference}
+            className="activity-option-description"
+          />
           {isSelected && scripture.explanation && (
             <p className="activity-option-feedback">{scripture.explanation}</p>
           )}
