@@ -39,9 +39,9 @@ export function TrainingCard({
 
   const content = (
       <Card variant="default" padding="md" className="tr-training-card__inner">
-        <div className="tr-training-card__content">
-          <div className="tr-training-card__main">
-            <div className="tr-training-card__header">
+        <div className="tr-training-card__body">
+          <div className="tr-training-card__top">
+            <div className="tr-training-card__leading">
               <div className="tr-training-card__title-wrap">
                 {isLocked && (
                   <span className="tr-training-card__lock">
@@ -50,7 +50,7 @@ export function TrainingCard({
                 )}
                 <h3 className="tr-training-card__title">{title}</h3>
               </div>
-              {badge && (
+              {badge ? (
                 <span
                   className={`tr-training-card__badge tr-training-card__badge--${variant}`}
                   aria-label={badge.label}
@@ -58,24 +58,24 @@ export function TrainingCard({
                 >
                   {badge.label}
                 </span>
-              )}
+              ) : null}
             </div>
-            {description && (
-              <p className="tr-training-card__desc">{description}</p>
-            )}
+            <div className="tr-training-card__progress">
+              <ProgressRing
+                value={progress.percent}
+                max={100}
+                size="sm"
+                variant={progress.percent === 100 ? 'success' : 'primary'}
+              />
+            </div>
           </div>
-          <div className="tr-training-card__progress">
-            <ProgressRing
-              value={progress.percent}
-              max={100}
-              size="sm"
-              variant={progress.percent === 100 ? 'success' : 'primary'}
-            />
-          </div>
+          {description ? (
+            <p className="tr-training-card__desc">{description}</p>
+          ) : null}
         </div>
-        {!isLocked && (
+        {!isLocked ? (
           <FaChevronRight className="tr-training-card__arrow" />
-        )}
+        ) : null}
       </Card>
   );
 

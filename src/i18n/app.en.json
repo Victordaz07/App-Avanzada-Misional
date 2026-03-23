@@ -5,6 +5,7 @@
       "comingSoon": "coming soon!",
       "save": "Save",
       "cancel": "Cancel",
+      "close": "Close",
       "delete": "Delete",
       "edit": "Edit",
       "back": "Back",
@@ -30,6 +31,7 @@
     },
     "studyHub": {
       "title": "Study and learning",
+      "navAria": "Links to lessons and training",
       "subtitle": "Choose lessons or your training path.",
       "lessonsTitle": "Lessons",
       "lessonsDesc": "Missionary path, your guide, and library.",
@@ -235,6 +237,9 @@
       "entryAfterMissionaryPathSubtitle": "Resources for new members and the topic library."
     },
     "training": {
+      "dashboard": {
+        "priesthoodTracksComplete": "You have completed all priesthood training tracks ✓"
+      },
       "lesson": {
         "backToNode": "Back",
         "backToTraining": "Back to Training",

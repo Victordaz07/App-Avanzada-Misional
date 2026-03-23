@@ -32,7 +32,7 @@ function getNextTrackAfter(trackId: string): string | null {
 const TOAST_DURATION_MS = 4000;
 
 export default function TrainingDashboard(): JSX.Element {
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
   const navigate = useNavigate();
   const stage = useTrainingUnlockStage();
   const completedLessons = useTrainingStore((s) => s.completedLessons);
@@ -129,7 +129,6 @@ export default function TrainingDashboard(): JSX.Element {
         coreSection: 'Fundamentos Básicos',
         coreCardTitle: 'Fundamentos Básicos',
         coreCardDesc: 'Preparación esencial para el sacerdocio',
-        completedBadge: 'Completado ✓',
         priesthoodSection: 'Capacitación del Sacerdocio',
         previousTrack: 'el track anterior',
       }
@@ -149,7 +148,6 @@ export default function TrainingDashboard(): JSX.Element {
         startPriesthood: 'Start Priesthood',
         coreSummary: 'View Core summary',
         readyToAdvance: 'Ready to move forward',
-        priesthoodCompleted: 'Priesthood completed ✓',
         completedPrefix: 'Completed:',
         nextPrefix: 'Next:',
         nextTrack: 'Next track',
@@ -162,7 +160,6 @@ export default function TrainingDashboard(): JSX.Element {
         coreSection: 'Core Foundations',
         coreCardTitle: 'Core Foundations',
         coreCardDesc: 'Essential preparation for priesthood growth',
-        completedBadge: 'Completed ✓',
         priesthoodSection: 'Priesthood Training',
         previousTrack: 'the previous track',
       };
@@ -212,7 +209,9 @@ export default function TrainingDashboard(): JSX.Element {
         <div className="tr-dashboard__next-track">
           <h2 className="tr-dashboard__next-track-title">{ui.readyToAdvance}</h2>
           {isPriesthoodComplete ? (
-            <p className="tr-dashboard__next-track-body">{ui.priesthoodCompleted}</p>
+            <p className="tr-dashboard__next-track-body">
+              {t('app.training.dashboard.priesthoodTracksComplete')}
+            </p>
           ) : (
             <>
               <p className="tr-dashboard__next-track-body">
@@ -282,14 +281,6 @@ export default function TrainingDashboard(): JSX.Element {
             status={isPathUnlocked('core-foundations', ctx) ? 'in_progress' : 'locked'}
             progress={getProgressForNode('core-foundations')}
             to="/training/core-foundations"
-            badge={
-              (() => {
-                const p = getProgressForNode('core-foundations');
-                return p.total > 0 && p.completed === p.total
-                  ? { label: ui.completedBadge, variant: 'success' as const }
-                  : undefined;
-              })()
-            }
           />
         </div>
       </section>
@@ -304,7 +295,6 @@ export default function TrainingDashboard(): JSX.Element {
               if (!track) return null;
               const unlocked = isTrackUnlocked(trackId, ctx);
               const trackProgress = getProgressForNode(trackId);
-              const isTrackDone = trackProgress.total > 0 && trackProgress.completed === trackProgress.total;
               return (
                 <TrainingCard
                   key={trackId}
@@ -314,7 +304,6 @@ export default function TrainingDashboard(): JSX.Element {
                   status={unlocked ? 'in_progress' : 'locked'}
                   progress={trackProgress}
                   to={`/training/${trackId}`}
-                  badge={isTrackDone ? { label: ui.completedBadge, variant: 'success' } : undefined}
                 />
               );
             })}

@@ -8,6 +8,8 @@ export const SupportPage: React.FC = () => {
   return (
     <XtgAppLayout>
       <XtgPage
+      showBack
+      backFallbackTo="/profile"
       title="Support / Soporte"
       subtitle="Help for using xTheGospel / Ayuda para usar xTheGospel"
       badge="Support"

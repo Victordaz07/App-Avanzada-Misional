@@ -180,3 +180,78 @@
     transform: scale(1);
   }
 }
+
+/* --------------------------------------------------------------------------
+ * Modo oscuro (mismo patrón que el resto de la app)
+ * -------------------------------------------------------------------------- */
+
+[data-theme='dark'] .xtg-opmodal-panel,
+.dark-mode .xtg-opmodal-panel {
+  background: var(--background-card);
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border-subtle));
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.55),
+    0 0 0 1px color-mix(in srgb, var(--border-subtle) 80%, transparent);
+}
+
+[data-theme='dark'] .xtg-opmodal-header,
+.dark-mode .xtg-opmodal-header {
+  border-bottom-color: color-mix(in srgb, var(--primary) 14%, var(--border-subtle));
+}
+
+[data-theme='dark'] .xtg-opmodal-title,
+.dark-mode .xtg-opmodal-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .xtg-opmodal-close,
+.dark-mode .xtg-opmodal-close {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .xtg-opmodal-close:hover,
+.dark-mode .xtg-opmodal-close:hover {
+  background: color-mix(in srgb, var(--primary) 14%, var(--background-elevated));
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .xtg-opmodal-row:hover,
+.dark-mode .xtg-opmodal-row:hover {
+  background: color-mix(in srgb, var(--primary) 10%, var(--background-elevated));
+}
+
+[data-theme='dark'] .xtg-opmodal-row--selected,
+.dark-mode .xtg-opmodal-row--selected {
+  background: color-mix(in srgb, var(--primary) 22%, var(--background-elevated));
+}
+
+[data-theme='dark'] .xtg-opmodal-code,
+.dark-mode .xtg-opmodal-code,
+[data-theme='dark'] .xtg-opmodal-label,
+.dark-mode .xtg-opmodal-label {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .xtg-opmodal-theme-icon,
+.dark-mode .xtg-opmodal-theme-icon {
+  color: color-mix(in srgb, var(--accent) 55%, var(--primary));
+}
+
+[data-theme='dark'] .xtg-opmodal-check,
+.dark-mode .xtg-opmodal-check {
+  color: var(--primary-light);
+}
+
+[data-theme='dark'] .xtg-opmodal-cancel,
+.dark-mode .xtg-opmodal-cancel {
+  background: var(--background-elevated);
+  border-color: color-mix(in srgb, var(--primary) 24%, var(--border-subtle));
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .xtg-opmodal-cancel:hover,
+.dark-mode .xtg-opmodal-cancel:hover {
+  background: color-mix(in srgb, var(--primary) 12%, var(--background-elevated));
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border-subtle));
+  color: var(--text-primary);
+}

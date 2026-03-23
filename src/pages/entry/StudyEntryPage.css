@@ -1,89 +1,24 @@
+/* Estudio — hero compartido + lista tipo home-discovery */
+
 .study-hub {
-  max-width: 32rem;
-  margin: 0 auto;
-  padding: 1rem 1rem 5rem;
-}
-
-.study-hub__header {
-  margin-bottom: 1.5rem;
-}
-
-.study-hub__title {
-  font-size: 1.45rem;
-  margin: 0 0 0.4rem;
-  color: var(--xtg-text, #0f172a);
-}
-
-.study-hub__subtitle {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
-  font-size: 0.95rem;
-  color: var(--xtg-text-muted, #64748b);
-  line-height: 1.45;
+  padding: 0 0 0.5rem;
 }
 
-.study-hub__cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+.study-hub__hero-wrap {
+  margin-bottom: 0.35rem;
 }
 
-.study-hub__card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.1rem;
-  border-radius: 0.85rem;
-  border: 1px solid var(--xtg-border-subtle, rgba(0, 0, 0, 0.08));
-  background: var(--xtg-surface, #fff);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+/* La sección mint hereda padding/márgenes de `.home-discovery` (design system) */
+.study-hub__discovery {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.study-hub__card:hover {
-  border-color: var(--xtg-accent, #2563eb);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
-}
-
-.study-hub__card-icon {
-  flex-shrink: 0;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.35rem;
-  color: #fff;
-}
-
-.study-hub__card-icon--lessons {
-  background: linear-gradient(135deg, #0d9488, #0f766e);
-}
-
-.study-hub__card-icon--training {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-}
-
-.study-hub__card-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.study-hub__card-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.05rem;
-}
-
-.study-hub__card-desc {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--xtg-text-muted, #64748b);
-  line-height: 1.35;
-}
-
-.study-hub__card-arrow {
-  flex-shrink: 0;
-  color: var(--xtg-text-muted, #94a3b8);
-  font-size: 0.9rem;
+@media (min-width: 640px) {
+  .study-hub__hero-wrap {
+    margin-bottom: 0.5rem;
+  }
 }

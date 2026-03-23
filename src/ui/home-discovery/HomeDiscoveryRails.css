@@ -292,6 +292,52 @@
   }
 }
 
+/* Oscuro: menos “menta” competidora; tarjetas con relieve y borde legible */
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate),
+.dark-mode .home-discovery:not(.home-discovery--slate) {
+  --hd-mint-shell: color-mix(in srgb, var(--background-muted) 94%, var(--background));
+  --hd-border-outer: color-mix(in srgb, var(--primary) 18%, var(--border));
+  --hd-card-border: color-mix(in srgb, var(--border-strong) 58%, var(--primary));
+
+  background:
+    radial-gradient(120% 85% at 100% 0%, color-mix(in srgb, var(--primary) 5%, transparent) 0%, transparent 52%),
+    radial-gradient(90% 70% at 0% 100%, color-mix(in srgb, var(--primary) 3.5%, transparent) 0%, transparent 48%),
+    linear-gradient(165deg, var(--hd-mint-shell) 0%, color-mix(in srgb, var(--background-card) 88%, var(--background)) 100%);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 55%, transparent) inset,
+    0 14px 44px -18px rgba(0, 0, 0, 0.42);
+}
+
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate) .home-discovery__card,
+.dark-mode .home-discovery:not(.home-discovery--slate) .home-discovery__card {
+  border-color: var(--hd-card-border);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-elevated) 65%, transparent) inset,
+    0 10px 32px -14px rgba(0, 0, 0, 0.48),
+    0 0 0 1px color-mix(in srgb, var(--primary) 9%, transparent);
+}
+
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate) .home-discovery__card:hover,
+.dark-mode .home-discovery:not(.home-discovery--slate) .home-discovery__card:hover {
+  border-color: color-mix(in srgb, var(--primary) 24%, var(--border-strong));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-elevated) 75%, transparent) inset,
+    0 14px 38px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-0,
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-1,
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-2,
+[data-theme='dark'] .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-3,
+.dark-mode .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-0,
+.dark-mode .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-1,
+.dark-mode .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-2,
+.dark-mode .home-discovery:not(.home-discovery--slate) .home-discovery__card--tone-3 {
+  --hd-icon-a: color-mix(in srgb, var(--background-elevated) 72%, var(--info-light));
+  --hd-icon-b: color-mix(in srgb, var(--background-card) 82%, var(--info-light));
+}
+
 /* Variante slate (liderazgo) */
 .home-discovery--slate {
   --hd-mint-shell: color-mix(in srgb, var(--color-neutral-200) 40%, var(--background));

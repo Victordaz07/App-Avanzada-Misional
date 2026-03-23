@@ -8,6 +8,8 @@ export const PrivacyPage: React.FC = () => {
   return (
     <XtgAppLayout>
       <XtgPage
+      showBack
+      backFallbackTo="/profile"
       title="Privacy Policy / Política de Privacidad"
       subtitle="xTheGospel / For The Gospel"
       badge="Legal"

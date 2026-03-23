@@ -5,6 +5,7 @@
       "comingSoon": "próximamente!",
       "save": "Guardar",
       "cancel": "Cancelar",
+      "close": "Cerrar",
       "delete": "Eliminar",
       "edit": "Editar",
       "back": "Volver",
@@ -30,6 +31,7 @@
     },
     "studyHub": {
       "title": "Estudio y aprendizaje",
+      "navAria": "Accesos a lecciones y capacitación",
       "subtitle": "Elige si quieres seguir las lecciones o tu ruta de capacitación.",
       "lessonsTitle": "Lecciones",
       "lessonsDesc": "Camino misional, tu guía y biblioteca.",
@@ -235,6 +237,9 @@
       "entryAfterMissionaryPathSubtitle": "Recursos para nuevos miembros y biblioteca temática."
     },
     "training": {
+      "dashboard": {
+        "priesthoodTracksComplete": "Has completado toda la capacitación del sacerdocio ✓"
+      },
       "lesson": {
         "backToNode": "Volver",
         "backToTraining": "Volver a Capacitación",

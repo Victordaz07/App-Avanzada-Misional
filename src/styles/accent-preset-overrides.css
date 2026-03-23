@@ -133,9 +133,9 @@
   --primary-rgb: 56, 189, 248;
   --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
   --info: #38bdf8;
-  --info-light: rgba(56, 189, 248, 0.15);
+  --info-light: rgba(56, 189, 248, 0.1);
   --info-dark: #7dd3fc;
-  --shadow-primary: 0 4px 14px 0 rgba(56, 189, 248, 0.35);
+  --shadow-primary: 0 4px 14px 0 rgba(56, 189, 248, 0.26);
   --xtg-accent: var(--primary);
   --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
 }
@@ -158,9 +158,9 @@
   --primary-rgb: 74, 222, 128;
   --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
   --info: #4ade80;
-  --info-light: rgba(74, 222, 128, 0.15);
+  --info-light: rgba(74, 222, 128, 0.1);
   --info-dark: #86efac;
-  --shadow-primary: 0 4px 14px 0 rgba(74, 222, 128, 0.35);
+  --shadow-primary: 0 4px 14px 0 rgba(74, 222, 128, 0.26);
   --xtg-accent: var(--primary);
   --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
 }
@@ -183,9 +183,9 @@
   --primary-rgb: 251, 146, 60;
   --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
   --info: #fb923c;
-  --info-light: rgba(251, 146, 60, 0.15);
+  --info-light: rgba(251, 146, 60, 0.1);
   --info-dark: #fdba74;
-  --shadow-primary: 0 4px 14px 0 rgba(251, 146, 60, 0.35);
+  --shadow-primary: 0 4px 14px 0 rgba(251, 146, 60, 0.26);
   --xtg-accent: var(--primary);
   --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
 }
@@ -198,21 +198,22 @@
   --color-primary-300: #6d28d9;
   --color-primary-400: #7c3aed;
   --color-primary-500: #8b5cf6;
-  --color-primary-600: #a78bfa;
-  --color-primary-700: #c4b5fd;
-  --color-primary-800: #ddd6fe;
+  --color-primary-600: #9d8ae8;
+  --color-primary-700: #b5a9f0;
+  --color-primary-800: #d4caf8;
   --color-primary-900: #ede9fe;
-  --primary: #a78bfa;
-  --primary-light: #c4b5fd;
-  --primary-dark: #8b5cf6;
-  --primary-rgb: 167, 139, 250;
-  --theme-gradient: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-  --info: #a78bfa;
-  --info-light: rgba(167, 139, 250, 0.15);
-  --info-dark: #c4b5fd;
-  --shadow-primary: 0 4px 14px 0 rgba(167, 139, 250, 0.35);
+  /* Menos pastel: ancla profundo + acento medio (CTA sigue legible con --text-inverse) */
+  --primary: #9d8ae8;
+  --primary-light: #bdb0f5;
+  --primary-dark: #5b21b6;
+  --primary-rgb: 157, 138, 232;
+  --theme-gradient: linear-gradient(135deg, #4c1d95 0%, #6d28d9 42%, #8b7fd4 100%);
+  --info: #9d8ae8;
+  --info-light: rgba(157, 138, 232, 0.09);
+  --info-dark: #bdb0f5;
+  --shadow-primary: 0 4px 14px 0 rgba(91, 33, 182, 0.28);
   --xtg-accent: var(--primary);
-  --xtg-accent-soft: rgba(var(--primary-rgb), 0.12);
+  --xtg-accent-soft: rgba(var(--primary-rgb), 0.1);
 }
 
 /* Subtle hero tint per preset (dark only; matches default pattern in design-system.css) */
@@ -243,7 +244,7 @@
 [data-theme="dark"][data-accent-preset="dusk"] body,
 .dark-mode[data-accent-preset="dusk"] body {
   background:
-    radial-gradient(1200px 800px at 20% 0%, rgba(167, 139, 250, 0.1), transparent 60%),
-    radial-gradient(900px 700px at 90% 20%, rgba(91, 33, 182, 0.06), transparent 55%),
+    radial-gradient(1200px 800px at 20% 0%, rgba(157, 138, 232, 0.06), transparent 60%),
+    radial-gradient(900px 700px at 90% 20%, rgba(76, 29, 149, 0.05), transparent 55%),
     var(--background);
 }

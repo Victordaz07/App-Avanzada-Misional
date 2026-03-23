@@ -12,11 +12,16 @@
   padding-bottom: 48px;
 }
 
+/* Sección plana (sin acordeón): título + contenido directo en el article */
+.nm-guide-detail__section:not(:has(.nm-guide-detail__section-trigger)) {
+  padding: 20px;
+}
+
 .nm-guide-detail__back {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--color-primary-default);
+  color: var(--primary);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -26,7 +31,7 @@
 }
 
 .nm-guide-detail__back:hover {
-  color: var(--color-primary-dark);
+  color: var(--primary-light);
   opacity: 1;
 }
 
@@ -684,4 +689,284 @@
   .nm-guide-detail__image-placeholder {
     grid-template-columns: 1fr;
   }
+
+  .nm-guide-detail__section:not(:has(.nm-guide-detail__section-trigger)) {
+    padding: 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Dark theme — tarjetas y tipografía del Teaching Canon (Estudio, guías, etc.)
+ * -------------------------------------------------------------------------- */
+
+[data-theme="dark"] .nm-guide-detail__audio-card,
+.dark-mode .nm-guide-detail__audio-card,
+[data-theme="dark"] .nm-guide-detail__featured-scripture,
+.dark-mode .nm-guide-detail__featured-scripture,
+[data-theme="dark"] .nm-guide-detail__reflection,
+.dark-mode .nm-guide-detail__reflection,
+[data-theme="dark"] .nm-guide-detail__section,
+.dark-mode .nm-guide-detail__section,
+[data-theme="dark"] .nm-guide-detail__extra,
+.dark-mode .nm-guide-detail__extra {
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border-subtle));
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.38);
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-card,
+.dark-mode .nm-guide-detail__audio-card {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--primary) 14%, var(--background-card)) 0%,
+    color-mix(in srgb, var(--info-light) 35%, var(--background-card)) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-card::after,
+.dark-mode .nm-guide-detail__audio-card::after {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--primary) 32%, transparent),
+    transparent 70%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-eyebrow,
+.dark-mode .nm-guide-detail__audio-eyebrow {
+  color: color-mix(in srgb, var(--primary) 72%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-title,
+.dark-mode .nm-guide-detail__audio-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-summary,
+.dark-mode .nm-guide-detail__audio-summary {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-chip,
+.dark-mode .nm-guide-detail__audio-chip {
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border-subtle));
+  background: color-mix(in srgb, var(--background-elevated) 92%, var(--primary));
+  color: color-mix(in srgb, var(--primary) 55%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__audio-intent,
+.dark-mode .nm-guide-detail__audio-intent {
+  color: color-mix(in srgb, var(--primary) 50%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__featured-scripture,
+.dark-mode .nm-guide-detail__featured-scripture {
+  background: var(--background-card);
+}
+
+[data-theme="dark"] .nm-guide-detail__featured-scripture-label,
+.dark-mode .nm-guide-detail__featured-scripture-label,
+[data-theme="dark"] .nm-guide-detail__section-scripture-label,
+.dark-mode .nm-guide-detail__section-scripture-label {
+  color: color-mix(in srgb, var(--primary) 65%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__featured-scripture-card,
+.dark-mode .nm-guide-detail__featured-scripture-card {
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border-subtle));
+  background: linear-gradient(
+    145deg,
+    var(--background-elevated) 0%,
+    color-mix(in srgb, var(--info-light) 22%, var(--background-card)) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__featured-scripture-verse,
+.dark-mode .nm-guide-detail__featured-scripture-verse {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__featured-scripture-number,
+.dark-mode .nm-guide-detail__featured-scripture-number {
+  color: color-mix(in srgb, var(--primary) 45%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__section,
+.dark-mode .nm-guide-detail__section {
+  background: var(--background-card);
+}
+
+[data-theme="dark"] .nm-guide-detail__section--open,
+.dark-mode .nm-guide-detail__section--open {
+  border-color: color-mix(in srgb, var(--primary) 38%, var(--border-subtle));
+}
+
+[data-theme="dark"] .nm-guide-detail__section-trigger,
+.dark-mode .nm-guide-detail__section-trigger {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--background-muted) 100%, transparent) 0%,
+    var(--background-card) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__section-trigger:hover,
+.dark-mode .nm-guide-detail__section-trigger:hover {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 10%, var(--background-muted)) 0%,
+    color-mix(in srgb, var(--primary) 6%, var(--background-card)) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__section-kicker,
+.dark-mode .nm-guide-detail__section-kicker {
+  color: color-mix(in srgb, var(--primary) 55%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__section-title,
+.dark-mode .nm-guide-detail__section-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__section-chevron,
+.dark-mode .nm-guide-detail__section-chevron {
+  color: color-mix(in srgb, var(--primary) 70%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__section-content,
+.dark-mode .nm-guide-detail__section-content {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nm-guide-detail__section-content li,
+.dark-mode .nm-guide-detail__section-content li,
+[data-theme="dark"] .nm-guide-detail__section-content ul,
+.dark-mode .nm-guide-detail__section-content ul,
+[data-theme="dark"] .nm-guide-detail__section-content ol,
+.dark-mode .nm-guide-detail__section-content ol {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nm-guide-detail__image-placeholder,
+.dark-mode .nm-guide-detail__image-placeholder {
+  border-color: color-mix(in srgb, var(--primary) 32%, var(--border-subtle));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 12%, var(--background-card)) 0%,
+    color-mix(in srgb, var(--info-light) 28%, var(--background-card)) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__image-placeholder::after,
+.dark-mode .nm-guide-detail__image-placeholder::after {
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+[data-theme="dark"] .nm-guide-detail__image-icon,
+.dark-mode .nm-guide-detail__image-icon {
+  background: color-mix(in srgb, var(--primary) 18%, var(--background-elevated));
+  color: color-mix(in srgb, var(--primary) 75%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__image-label,
+.dark-mode .nm-guide-detail__image-label {
+  color: color-mix(in srgb, var(--primary) 65%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__image-title,
+.dark-mode .nm-guide-detail__image-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__image-prompt,
+.dark-mode .nm-guide-detail__image-prompt {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nm-guide-detail__extra,
+.dark-mode .nm-guide-detail__extra {
+  background: var(--background-card);
+}
+
+[data-theme="dark"] .nm-guide-detail__extra-trigger,
+.dark-mode .nm-guide-detail__extra-trigger {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--background-muted) 100%, transparent) 0%,
+    var(--background-card) 100%
+  );
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__extra-trigger:hover,
+.dark-mode .nm-guide-detail__extra-trigger:hover {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 10%, var(--background-muted)) 0%,
+    color-mix(in srgb, var(--primary) 6%, var(--background-card)) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__extra-list,
+.dark-mode .nm-guide-detail__extra-list,
+[data-theme="dark"] .nm-guide-detail__extra-list li,
+.dark-mode .nm-guide-detail__extra-list li {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nm-guide-detail__reflection,
+.dark-mode .nm-guide-detail__reflection {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--primary) 12%, var(--background-card)) 0%,
+    color-mix(in srgb, var(--info-light) 30%, var(--background-card)) 100%
+  );
+}
+
+[data-theme="dark"] .nm-guide-detail__reflection-label,
+.dark-mode .nm-guide-detail__reflection-label {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__reflection-prompt,
+.dark-mode .nm-guide-detail__reflection-prompt {
+  color: color-mix(in srgb, var(--primary) 40%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__reflection-textarea,
+.dark-mode .nm-guide-detail__reflection-textarea {
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border-subtle));
+  background: var(--background-elevated);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__reflection-textarea::placeholder,
+.dark-mode .nm-guide-detail__reflection-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+[data-theme="dark"] .nm-guide-detail__reflection-textarea:focus,
+.dark-mode .nm-guide-detail__reflection-textarea:focus {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--border-subtle));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+[data-theme="dark"] .nm-guide-detail__saved-message,
+.dark-mode .nm-guide-detail__saved-message {
+  color: color-mix(in srgb, var(--success) 70%, var(--text-secondary));
+}
+
+[data-theme="dark"] .nm-guide-detail__not-found-title,
+.dark-mode .nm-guide-detail__not-found-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .nm-guide-detail__not-found-text,
+.dark-mode .nm-guide-detail__not-found-text {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nm-guide-detail__footer-text,
+.dark-mode .nm-guide-detail__footer-text {
+  color: color-mix(in srgb, var(--primary) 35%, var(--text-secondary));
 }

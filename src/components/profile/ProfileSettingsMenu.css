@@ -1,0 +1,186 @@
+/* Menú de ajustes de perfil — alineado con design-system + tarjetas tipo rail */
+
+.up-settings {
+  margin-top: 4px;
+}
+
+.up-settings__section-title {
+  font-family: var(--font-family-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.up-settings__section-title::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent);
+  flex-shrink: 0;
+}
+
+.up-settings__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radius-lg, 18px);
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--border-subtle));
+  background: var(--background-card);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 90%, transparent) inset,
+    0 10px 36px -16px rgba(var(--primary-rgb), 0.12),
+    0 2px 10px -4px rgba(var(--primary-rgb), 0.06);
+  overflow: hidden;
+}
+
+.up-settings__item:not(:last-child) .up-settings__row {
+  border-bottom: 1px solid color-mix(in srgb, var(--primary) 8%, var(--border-subtle));
+}
+
+.up-settings__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  min-height: 72px;
+  box-sizing: border-box;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.up-settings__row:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--info-light) 45%, var(--background-card));
+}
+
+.up-settings__row:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--primary) 35%, transparent);
+  position: relative;
+  z-index: 1;
+}
+
+.up-settings__row:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.up-settings__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--primary);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--info-light) 88%, var(--background-card)) 0%,
+    color-mix(in srgb, var(--info-light) 50%, var(--background-card)) 100%
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--background-card) 85%, transparent) inset,
+    0 0 0 1px color-mix(in srgb, var(--primary) 22%, transparent),
+    0 6px 16px -6px rgba(var(--primary-rgb), 0.18);
+}
+
+.up-settings__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.up-settings__title {
+  font-family: var(--font-family-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.up-settings__desc {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* Evitar herencia rara del `button` y asegurar contraste en oscuro */
+button.up-settings__row .up-settings__desc {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] button.up-settings__row .up-settings__desc,
+.dark-mode button.up-settings__row .up-settings__desc {
+  color: color-mix(in srgb, var(--text-secondary) 92%, var(--text-primary));
+}
+
+.up-settings__code {
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-right: 4px;
+  letter-spacing: 0.04em;
+}
+
+.up-settings__chevron-wrap {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--info-light) 50%, var(--background-card));
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border-subtle));
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.up-settings__chevron {
+  font-size: 0.875rem;
+  color: var(--primary);
+  opacity: 0.88;
+  transition: transform 0.2s ease;
+}
+
+.up-settings__row:hover:not(:disabled) .up-settings__chevron-wrap {
+  background: color-mix(in srgb, var(--info-light) 72%, var(--background-card));
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border-subtle));
+}
+
+.up-settings__row:hover:not(:disabled) .up-settings__chevron {
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .up-settings__row,
+  .up-settings__chevron {
+    transition: none;
+  }
+
+  .up-settings__row:hover:not(:disabled) .up-settings__chevron {
+    transform: none;
+  }
+}

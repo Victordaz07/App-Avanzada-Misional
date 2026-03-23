@@ -108,7 +108,7 @@ export const MissionaryProfileScreen: React.FC = () => {
     <div className="xtg-screen xtg-profile-screen">
       <XtgPage title={t(`${MP}.pageTitle`)} subtitle={t(`${MP}.pageSubtitle`)}>
         <div className="xtg-section xtg-stack-lg">
-          <section className="xtg-card xtg-profile-identity-card">
+          <section className="xtg-profile-identity-card">
             <div className="xtg-profile-identity-main">
               <div className="xtg-profile-avatar-wrapper">
                 <div className="xtg-profile-avatar">

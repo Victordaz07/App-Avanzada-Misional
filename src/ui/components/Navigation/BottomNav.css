@@ -73,3 +73,22 @@
   font-weight: var(--font-medium);
   white-space: nowrap;
 }
+
+/* Dark mode: barra alineada a superficies del design system */
+[data-theme='dark'] .ui-bottom-nav,
+.dark-mode .ui-bottom-nav {
+  background: color-mix(in srgb, var(--background-elevated) 88%, transparent);
+  border-top-color: var(--border);
+}
+
+[data-theme='dark'] .ui-bottom-nav__item:hover,
+.dark-mode .ui-bottom-nav__item:hover {
+  background: var(--color-neutral-200);
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .ui-bottom-nav__item--active,
+.dark-mode .ui-bottom-nav__item--active {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 14%, var(--background-elevated));
+}

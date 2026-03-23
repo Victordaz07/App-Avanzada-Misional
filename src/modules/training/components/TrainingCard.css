@@ -20,30 +20,32 @@
   transition: all var(--transition-base, 200ms ease);
 }
 
-.tr-training-card:not(.tr-training-card--locked):hover .tr-training-card__inner {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+.tr-training-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
 }
 
-.tr-training-card__content {
+.tr-training-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+}
+
+.tr-training-card__leading {
   flex: 1;
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: var(--space-4, 16px);
-}
-
-.tr-training-card__main {
-  flex: 1;
-  min-width: 0;
-}
-
-.tr-training-card__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-2, 8px);
   flex-wrap: wrap;
+  gap: var(--space-2, 8px);
+}
+
+.tr-training-card:not(.tr-training-card--locked):hover .tr-training-card__inner {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
 }
 
 .tr-training-card__title-wrap {
@@ -52,7 +54,6 @@
   flex-wrap: wrap;
   gap: var(--space-2, 8px);
   min-width: 0;
-  flex: 1;
 }
 
 .tr-training-card__lock {
@@ -88,7 +89,7 @@
   font-size: var(--text-base, 16px);
   font-weight: var(--font-semibold, 600);
   color: var(--text-primary, #1C2430);
-  margin: 0 0 var(--space-1, 4px) 0;
+  margin: 0;
 }
 
 .tr-training-card__desc {
@@ -100,6 +101,7 @@
 
 .tr-training-card__progress {
   flex-shrink: 0;
+  align-self: center;
 }
 
 .tr-training-card__arrow {
@@ -111,4 +113,18 @@
 
 .tr-training-card:not(.tr-training-card--locked):hover .tr-training-card__arrow {
   opacity: 1;
+}
+
+[data-theme="dark"] .tr-training-card__badge--success,
+.dark-mode .tr-training-card__badge--success {
+  background: color-mix(in srgb, var(--success) 22%, var(--background-elevated));
+  color: color-mix(in srgb, var(--success) 65%, var(--text-primary));
+  border-color: color-mix(in srgb, var(--success) 40%, var(--border-subtle));
+}
+
+[data-theme="dark"] .tr-training-card__badge--neutral,
+.dark-mode .tr-training-card__badge--neutral {
+  background: color-mix(in srgb, var(--primary) 14%, var(--background-elevated));
+  color: var(--text-secondary);
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border-subtle));
 }

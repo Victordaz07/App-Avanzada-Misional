@@ -72,13 +72,56 @@
   color: var(--xtg-text-muted);
 }
 
-/* Cards */
-.xtg-card {
+.xtg-page-back-row {
+  margin-bottom: var(--xtg-space-md);
+}
+
+.xtg-page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--xtg-space-sm);
+  padding: var(--xtg-space-xs) 0;
+  margin: 0 0 var(--xtg-space-xs) 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--xtg-primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.92;
+}
+
+.xtg-page-back:hover {
+  color: color-mix(in srgb, var(--xtg-primary) 85%, var(--xtg-text));
+  opacity: 1;
+}
+
+.xtg-page-back svg {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+[data-theme='dark'] .xtg-page-back,
+.dark-mode .xtg-page-back {
+  color: var(--primary-light);
+}
+
+[data-theme='dark'] .xtg-page-back:hover,
+.dark-mode .xtg-page-back:hover {
+  color: var(--text-primary);
+}
+
+/* Tarjetas de contenido legal / soporte / formularios (NO confundir con `.xtg-card` del ID perfil) */
+.xtg-doc-card {
   background-color: var(--xtg-surface);
   border-radius: var(--xtg-radius-lg);
   border: 1px solid var(--xtg-border);
   box-shadow: var(--xtg-shadow-soft);
   padding: var(--xtg-space-lg);
+  color: var(--xtg-text);
 }
 
 /* Sections */
@@ -136,8 +179,8 @@
   margin-bottom: var(--xtg-space-sm);
 }
 
-/* Card header */
-.xtg-card-header {
+/* Doc card header */
+.xtg-doc-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -145,16 +188,17 @@
   gap: var(--xtg-space-md);
 }
 
-/* Card title */
-.xtg-card-title {
+/* Doc card title */
+.xtg-doc-card-title {
   font-size: 15px;
   font-weight: 600;
   margin: 0;
   flex: 1;
+  color: var(--xtg-text);
 }
 
-/* Card action button */
-.xtg-card-action {
+/* Doc card action button */
+.xtg-doc-card-action {
   font-size: 13px;
   font-weight: 500;
   color: var(--xtg-primary);
@@ -167,9 +211,29 @@
   white-space: nowrap;
 }
 
-.xtg-card-action:hover {
+.xtg-doc-card-action:hover {
   background-color: var(--xtg-primary-soft);
   color: #1e40af;
+}
+
+.xtg-doc-card-subtitle {
+  font-size: 13px;
+  color: var(--xtg-text-muted);
+  margin: 0 0 var(--xtg-space-lg) 0;
+  line-height: 1.5;
+}
+
+.xtg-doc-card p,
+.xtg-doc-card li {
+  color: var(--xtg-text);
+}
+
+.xtg-doc-card strong {
+  color: var(--xtg-text);
+}
+
+.xtg-doc-card em {
+  color: var(--xtg-text-muted);
 }
 
 /* Vertical stacks */
@@ -179,5 +243,67 @@
 
 .xtg-stack-lg > * + * {
   margin-top: var(--xtg-space-lg);
+}
+
+/* Alinear superficies legacy con design-system en modo oscuro */
+[data-theme='dark'],
+.dark-mode {
+  --xtg-bg: var(--background);
+  --xtg-surface: var(--background-card);
+  --xtg-surface-2: var(--background-elevated);
+  --xtg-border: var(--border);
+  --xtg-border-subtle: var(--border-subtle);
+  --xtg-text: var(--text-primary);
+  --xtg-text-muted: var(--text-secondary);
+  --xtg-primary: var(--primary);
+  --xtg-accent: var(--accent);
+  --xtg-primary-soft: color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+[data-theme='dark'] .xtg-badge,
+.dark-mode .xtg-badge {
+  color: var(--primary);
+}
+
+[data-theme='dark'] .xtg-doc-card-action:hover,
+.dark-mode .xtg-doc-card-action:hover {
+  color: var(--primary-light);
+}
+
+[data-theme='dark'] .xtg-doc-card,
+.dark-mode .xtg-doc-card {
+  background-color: var(--background-card);
+  border-color: var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='dark'] .xtg-doc-card-title,
+.dark-mode .xtg-doc-card-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .xtg-doc-card-subtitle,
+.dark-mode .xtg-doc-card-subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .xtg-doc-card p,
+[data-theme='dark'] .xtg-doc-card li,
+[data-theme='dark'] .xtg-doc-card strong,
+.dark-mode .xtg-doc-card p,
+.dark-mode .xtg-doc-card li,
+.dark-mode .xtg-doc-card strong {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .xtg-doc-card em,
+.dark-mode .xtg-doc-card em {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .xtg-doc-card-action,
+.dark-mode .xtg-doc-card-action {
+  color: var(--primary-light);
 }
 

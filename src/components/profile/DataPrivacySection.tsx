@@ -78,14 +78,14 @@ export const DataPrivacySection: React.FC = () => {
   }
 
   return (
-    <div className="xtg-card xtg-stack-md">
-      <h2 className="xtg-card-title">☁️ Data & Privacy (Beta)</h2>
+    <div className="xtg-doc-card xtg-stack-md">
+      <h2 className="xtg-doc-card-title">☁️ Data & Privacy (Beta)</h2>
       
       {/* Auth Section */}
       <div className="xtg-stack-sm">
         {!user ? (
           <div>
-            <p className="xtg-card-subtitle">
+            <p className="xtg-doc-card-subtitle">
               Sign in to enable cloud sync for your data.
             </p>
             {!showAuthForm ? (
@@ -156,7 +156,7 @@ export const DataPrivacySection: React.FC = () => {
           </div>
         ) : (
           <div>
-            <p className="xtg-card-subtitle">
+            <p className="xtg-doc-card-subtitle">
               Signed in as: <strong>{user.email}</strong>
             </p>
             <button

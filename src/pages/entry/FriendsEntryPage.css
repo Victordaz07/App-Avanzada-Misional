@@ -223,3 +223,65 @@
 .friends-entry__msg--me .friends-entry__msg-text {
   background: rgba(37, 99, 235, 0.15);
 }
+
+/* Modo oscuro: tarjetas y campos (refuerzo si --xtg-* no bastara) */
+[data-theme='dark'] .friends-entry__title,
+.dark-mode .friends-entry__title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__h2,
+[data-theme='dark'] .friends-entry__h3,
+.dark-mode .friends-entry__h2,
+.dark-mode .friends-entry__h3 {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__label,
+.dark-mode .friends-entry__label {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .friends-entry__input,
+[data-theme='dark'] .friends-entry__select,
+.dark-mode .friends-entry__input,
+.dark-mode .friends-entry__select {
+  background: var(--background-elevated);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .friends-entry__btn--ghost,
+.dark-mode .friends-entry__btn--ghost {
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__banner--ok,
+.dark-mode .friends-entry__banner--ok {
+  background: color-mix(in srgb, var(--success) 22%, var(--background-elevated));
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__banner--err,
+.dark-mode .friends-entry__banner--err {
+  background: color-mix(in srgb, var(--danger) 22%, var(--background-elevated));
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__name,
+.dark-mode .friends-entry__name {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__msg-text,
+.dark-mode .friends-entry__msg-text {
+  background: var(--color-neutral-300);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .friends-entry__msg--me .friends-entry__msg-text,
+.dark-mode .friends-entry__msg--me .friends-entry__msg-text {
+  background: color-mix(in srgb, var(--primary) 22%, var(--background-elevated));
+  color: var(--text-primary);
+}

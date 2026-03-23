@@ -557,3 +557,133 @@
     padding: 24px 18px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Modo oscuro — memoria espiritual / progreso miembro
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme='dark'] .nm-progress__title,
+.dark-mode .nm-progress__title {
+  color: var(--primary);
+}
+
+[data-theme='dark'] .nm-progress__title--minimal,
+.dark-mode .nm-progress__title--minimal {
+  color: var(--text-secondary);
+  opacity: 0.95;
+}
+
+[data-theme='dark'] .nm-progress__subtitle,
+.dark-mode .nm-progress__subtitle {
+  color: var(--text-secondary);
+  opacity: 0.95;
+}
+
+[data-theme='dark'] .nm-progress__permanence-text,
+.dark-mode .nm-progress__permanence-text {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .nm-progress--integration .nm-progress__permanence-text,
+.dark-mode .nm-progress--integration .nm-progress__permanence-text {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .nm-progress__permanence-text--secondary,
+.dark-mode .nm-progress__permanence-text--secondary {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .nm-progress__experiences,
+.dark-mode .nm-progress__experiences {
+  background: var(--background-card);
+  border-color: color-mix(in srgb, var(--primary) 16%, var(--border-subtle));
+}
+
+[data-theme='dark'] .nm-progress--understanding .nm-progress__experiences,
+[data-theme='dark'] .nm-progress--belonging .nm-progress__experiences,
+.dark-mode .nm-progress--understanding .nm-progress__experiences,
+.dark-mode .nm-progress--belonging .nm-progress__experiences {
+  background: var(--background-card);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .nm-progress--belonging .nm-progress__experiences,
+.dark-mode .nm-progress--belonging .nm-progress__experiences {
+  background: color-mix(in srgb, var(--background-elevated) 70%, var(--background-card));
+}
+
+[data-theme='dark'] .nm-progress__moment-text,
+.dark-mode .nm-progress__moment-text {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .nm-progress--understanding .nm-progress__moment-text,
+[data-theme='dark'] .nm-progress--belonging .nm-progress__moment-text,
+.dark-mode .nm-progress--understanding .nm-progress__moment-text,
+.dark-mode .nm-progress--belonging .nm-progress__moment-text {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+[data-theme='dark'] .nm-progress__empty-text,
+.dark-mode .nm-progress__empty-text {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .nm-progress__empty-text--secondary,
+.dark-mode .nm-progress__empty-text--secondary {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+[data-theme='dark'] .nm-progress__empty-action,
+.dark-mode .nm-progress__empty-action {
+  background: color-mix(in srgb, var(--primary) 12%, var(--background-elevated));
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .nm-progress__empty-action:hover,
+.dark-mode .nm-progress__empty-action:hover {
+  background: color-mix(in srgb, var(--primary) 18%, var(--background-elevated));
+  border-color: var(--primary);
+}
+
+[data-theme='dark'] .nm-progress__empty-action--journal,
+.dark-mode .nm-progress__empty-action--journal {
+  background: var(--background-elevated);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+[data-theme='dark'] .nm-progress__empty-action--journal:hover,
+.dark-mode .nm-progress__empty-action--journal:hover {
+  background: var(--background-muted);
+}
+
+[data-theme='dark'] .nm-progress__footer-text,
+.dark-mode .nm-progress__footer-text {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .nm-progress__footer-text--secondary,
+.dark-mode .nm-progress__footer-text--secondary {
+  color: var(--text-tertiary);
+}
+
+[data-theme='dark'] .nm-progress__belonging,
+.dark-mode .nm-progress__belonging {
+  background: var(--background-card);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .nm-progress__belonging-text,
+.dark-mode .nm-progress__belonging-text {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .nm-progress__belonging-text--secondary,
+.dark-mode .nm-progress__belonging-text--secondary {
+  color: var(--text-secondary);
+}

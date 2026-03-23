@@ -371,3 +371,177 @@
 .nm-profile__confirm-btn--cancel {
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
 }
+
+/* ========== Modo oscuro ========== */
+[data-theme='dark'] .data-privacy__data-privacy,
+[data-theme='dark'] .inv-profile__data-privacy,
+[data-theme='dark'] .nm-profile__data-privacy,
+.dark-mode .data-privacy__data-privacy,
+.dark-mode .inv-profile__data-privacy,
+.dark-mode .nm-profile__data-privacy {
+  background: var(--background-card);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .data-privacy__privacy-intro,
+[data-theme='dark'] .inv-profile__privacy-intro,
+[data-theme='dark'] .nm-profile__privacy-intro,
+.dark-mode .data-privacy__privacy-intro,
+.dark-mode .inv-profile__privacy-intro,
+.dark-mode .nm-profile__privacy-intro {
+  background: color-mix(in srgb, var(--info-light) 45%, var(--background-elevated));
+  border: 1px solid color-mix(in srgb, var(--primary) 20%, var(--border));
+}
+
+[data-theme='dark'] .data-privacy__privacy-icon,
+[data-theme='dark'] .inv-profile__privacy-icon,
+[data-theme='dark'] .nm-profile__privacy-icon,
+.dark-mode .data-privacy__privacy-icon,
+.dark-mode .inv-profile__privacy-icon,
+.dark-mode .nm-profile__privacy-icon {
+  color: var(--primary);
+}
+
+[data-theme='dark'] .data-privacy__privacy-message,
+[data-theme='dark'] .inv-profile__privacy-message,
+[data-theme='dark'] .nm-profile__privacy-message,
+.dark-mode .data-privacy__privacy-message,
+.dark-mode .inv-profile__privacy-message,
+.dark-mode .nm-profile__privacy-message {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .data-privacy__privacy-emphasis,
+[data-theme='dark'] .inv-profile__privacy-emphasis,
+[data-theme='dark'] .nm-profile__privacy-emphasis,
+.dark-mode .data-privacy__privacy-emphasis,
+.dark-mode .inv-profile__privacy-emphasis,
+.dark-mode .nm-profile__privacy-emphasis {
+  color: var(--primary-light);
+}
+
+[data-theme='dark'] .data-privacy__data-summary-title,
+[data-theme='dark'] .inv-profile__data-summary-title,
+[data-theme='dark'] .nm-profile__data-summary-title,
+.dark-mode .data-privacy__data-summary-title,
+.dark-mode .inv-profile__data-summary-title,
+.dark-mode .nm-profile__data-summary-title {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .data-privacy__data-list li,
+[data-theme='dark'] .inv-profile__data-list li,
+[data-theme='dark'] .nm-profile__data-list li,
+.dark-mode .data-privacy__data-list li,
+.dark-mode .inv-profile__data-list li,
+.dark-mode .nm-profile__data-list li {
+  border-bottom-color: var(--border);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .data-privacy__data-empty,
+[data-theme='dark'] .inv-profile__data-empty,
+[data-theme='dark'] .nm-profile__data-empty,
+.dark-mode .data-privacy__data-empty,
+.dark-mode .inv-profile__data-empty,
+.dark-mode .nm-profile__data-empty {
+  color: var(--text-muted) !important;
+}
+
+[data-theme='dark'] .data-privacy__no-tracking,
+[data-theme='dark'] .inv-profile__no-tracking,
+[data-theme='dark'] .nm-profile__no-tracking,
+.dark-mode .data-privacy__no-tracking,
+.dark-mode .inv-profile__no-tracking,
+.dark-mode .nm-profile__no-tracking {
+  background: color-mix(in srgb, var(--warning-light) 35%, var(--background-elevated));
+  border: 1px solid color-mix(in srgb, var(--warning) 25%, var(--border));
+}
+
+[data-theme='dark'] .data-privacy__no-tracking-text,
+[data-theme='dark'] .inv-profile__no-tracking-text,
+[data-theme='dark'] .nm-profile__no-tracking-text,
+.dark-mode .data-privacy__no-tracking-text,
+.dark-mode .inv-profile__no-tracking-text,
+.dark-mode .nm-profile__no-tracking-text {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .data-privacy__no-tracking-text strong,
+[data-theme='dark'] .inv-profile__no-tracking-text strong,
+[data-theme='dark'] .nm-profile__no-tracking-text strong,
+.dark-mode .data-privacy__no-tracking-text strong,
+.dark-mode .inv-profile__no-tracking-text strong,
+.dark-mode .nm-profile__no-tracking-text strong {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .data-privacy__data-btn--clear,
+[data-theme='dark'] .inv-profile__data-btn--clear,
+[data-theme='dark'] .nm-profile__data-btn--clear,
+.dark-mode .data-privacy__data-btn--clear,
+.dark-mode .inv-profile__data-btn--clear,
+.dark-mode .nm-profile__data-btn--clear {
+  background: var(--background-elevated);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .data-privacy__data-btn--clear:hover,
+[data-theme='dark'] .inv-profile__data-btn--clear:hover,
+[data-theme='dark'] .nm-profile__data-btn--clear:hover,
+.dark-mode .data-privacy__data-btn--clear:hover,
+.dark-mode .inv-profile__data-btn--clear:hover,
+.dark-mode .nm-profile__data-btn--clear:hover {
+  background: color-mix(in srgb, var(--danger-light) 40%, var(--background-elevated));
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+[data-theme='dark'] .data-privacy__confirm-modal,
+[data-theme='dark'] .inv-profile__confirm-modal,
+[data-theme='dark'] .nm-profile__confirm-modal,
+.dark-mode .data-privacy__confirm-modal,
+.dark-mode .inv-profile__confirm-modal,
+.dark-mode .nm-profile__confirm-modal {
+  background: var(--background-card);
+  border: 1px solid var(--border);
+}
+
+[data-theme='dark'] .data-privacy__confirm-title,
+[data-theme='dark'] .inv-profile__confirm-title,
+[data-theme='dark'] .nm-profile__confirm-title,
+.dark-mode .data-privacy__confirm-title,
+.dark-mode .inv-profile__confirm-title,
+.dark-mode .nm-profile__confirm-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .data-privacy__confirm-text,
+[data-theme='dark'] .inv-profile__confirm-text,
+[data-theme='dark'] .nm-profile__confirm-text,
+.dark-mode .data-privacy__confirm-text,
+.dark-mode .inv-profile__confirm-text,
+.dark-mode .nm-profile__confirm-text {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .data-privacy__confirm-btn--confirm,
+[data-theme='dark'] .inv-profile__confirm-btn--confirm,
+[data-theme='dark'] .nm-profile__confirm-btn--confirm,
+.dark-mode .data-privacy__confirm-btn--confirm,
+.dark-mode .inv-profile__confirm-btn--confirm,
+.dark-mode .nm-profile__confirm-btn--confirm {
+  background: var(--background-elevated);
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--border));
+}
+
+[data-theme='dark'] .data-privacy__confirm-btn--confirm:hover,
+[data-theme='dark'] .inv-profile__confirm-btn--confirm:hover,
+[data-theme='dark'] .nm-profile__confirm-btn--confirm:hover,
+.dark-mode .data-privacy__confirm-btn--confirm:hover,
+.dark-mode .inv-profile__confirm-btn--confirm:hover,
+.dark-mode .nm-profile__confirm-btn--confirm:hover {
+  background: color-mix(in srgb, var(--danger-light) 50%, var(--background-elevated));
+}

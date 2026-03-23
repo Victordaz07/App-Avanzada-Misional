@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  FaChevronRight,
   FaBell,
   FaGlobe,
   FaPalette,
@@ -10,8 +9,6 @@ import {
   FaRightFromBracket,
   FaIdCard,
   FaQrcode,
-  FaSun,
-  FaMoon,
 } from 'react-icons/fa6';
 import DataPrivacySection from '../../../components/DataPrivacySection';
 import { SpiritualPathSection } from '../../../components/profile/SpiritualPathSection';
@@ -20,6 +17,7 @@ import {
   ProfileRoleHero,
   PersonalProfileCard,
   AppearancePreferencesCard,
+  ProfileSettingsMenu,
 } from '../../../components/profile/unified';
 import { XtgProfileCard } from '../../../components/profile/XtgProfileCard';
 import { ProfileQRCode } from '../../../components/profile/ProfileQRCode';
@@ -30,6 +28,7 @@ import { LANGUAGE_OPTIONS } from '../../../i18n/locales';
 import { LanguageSelectModal } from '../../../components/ui/LanguageSelectModal';
 import { ThemeSelectModal, type ThemeChoice } from '../../../components/ui/ThemeSelectModal';
 import { patchUserPreferences } from '../../../services/firebase/userService';
+import { themeModeLabelKey } from '../../../utils/themeModeLabelKey';
 import '../../../components/DataPrivacySection.css';
 import '../../new-member/pages/NewMemberProfilePage.css';
 import './InvestigatorProfilePage.css';
@@ -41,7 +40,7 @@ export default function InvestigatorProfilePage(): JSX.Element {
   const { user, profile, refreshProfile, isLoading: authLoading } = useAuth();
   const { logout } = useAuth();
   const { locale, setLocale, t } = useI18n();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [idTab, setIdTab] = useState<IdTab>('card');
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
@@ -127,70 +126,58 @@ export default function InvestigatorProfilePage(): JSX.Element {
       <SpiritualPathSection classPrefix="nm-profile" />
       <LeadersAndTeachersHub classPrefix="nm-profile" />
 
-      <section className="nm-profile__section">
-        <h2 className="nm-profile__section-title">{t('app.profile.preferences')}</h2>
-        <div className="nm-profile__settings">
-          <button type="button" className="nm-profile__setting" disabled>
-            <div className="nm-profile__setting-icon">
-              <FaBell />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profile.notifications')}</h3>
-              <p className="nm-profile__setting-desc">{t('app.profile.notificationsDesc')}</p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-
-          <button type="button" className="nm-profile__setting" onClick={() => setShowLanguageModal(true)}>
-            <div className="nm-profile__setting-icon">
-              <FaGlobe />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profile.language')}</h3>
-              <p className="nm-profile__setting-desc">
-                <span className="nm-profile__setting-code">{currentLanguage.shortCode}</span>{' '}
+      <ProfileSettingsMenu
+        sectionTitle={t('app.profile.preferences')}
+        rows={[
+          {
+            id: 'notifications',
+            icon: <FaBell />,
+            title: t('app.profile.notifications'),
+            description: t('app.profile.notificationsDesc'),
+            detailAria: t('app.profile.notificationsDesc'),
+            disabled: true,
+          },
+          {
+            id: 'language',
+            icon: <FaGlobe />,
+            title: t('app.profile.language'),
+            description: (
+              <>
+                <span className="up-settings__code">{currentLanguage.shortCode}</span>{' '}
                 {currentLanguage.label}
-              </p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-
-          <button type="button" className="nm-profile__setting" onClick={() => setShowThemeModal(true)}>
-            <div className="nm-profile__setting-icon">
-              <FaPalette />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profile.appearance')}</h3>
-              <p className="nm-profile__setting-desc">
-                {resolvedTheme === 'dark' ? <FaMoon style={{ marginRight: 6 }} aria-hidden /> : <FaSun style={{ marginRight: 6 }} aria-hidden />}
-                {t(`app.settings.theme${theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'System'}`)}
-              </p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-        </div>
-      </section>
+              </>
+            ),
+            detailAria: `${currentLanguage.shortCode} ${currentLanguage.label}`,
+            onClick: () => setShowLanguageModal(true),
+          },
+          {
+            id: 'theme',
+            icon: <FaPalette />,
+            title: t('app.profile.appearance'),
+            description: t(themeModeLabelKey(theme)),
+            detailAria: t(themeModeLabelKey(theme)),
+            onClick: () => setShowThemeModal(true),
+          },
+        ]}
+      />
 
       <section className="nm-profile__section">
         <h2 className="nm-profile__section-title">{t('app.profile.dataPrivacy')}</h2>
         <DataPrivacySection classPrefix="nm-profile" />
       </section>
 
-      <section className="nm-profile__section">
-        <h2 className="nm-profile__section-title">{t('app.profile.support')}</h2>
-        <div className="nm-profile__settings">
-          <button type="button" className="nm-profile__setting" onClick={() => navigate('/support')}>
-            <div className="nm-profile__setting-icon">
-              <FaCircleQuestion />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profile.help')}</h3>
-              <p className="nm-profile__setting-desc">{t('app.profileNewMember.getAssistance')}</p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-        </div>
-      </section>
+      <ProfileSettingsMenu
+        sectionTitle={t('app.profile.support')}
+        rows={[
+          {
+            id: 'help',
+            icon: <FaCircleQuestion />,
+            title: t('app.profile.help'),
+            description: t('app.profileNewMember.getAssistance'),
+            onClick: () => navigate('/support'),
+          },
+        ]}
+      />
 
       <section className="nm-profile__section">
         <button type="button" className="inv-profile__logout-btn" onClick={handleLogout}>
@@ -209,8 +196,8 @@ export default function InvestigatorProfilePage(): JSX.Element {
         title={t('app.profile.language')}
         selectedLocale={locale}
         onSelect={handleLanguageSelect}
-        cancelLabel={t('common.cancel')}
-        closeAriaLabel={t('common.close')}
+        cancelLabel={t('app.common.cancel')}
+        closeAriaLabel={t('app.common.close')}
       />
 
       <ThemeSelectModal
@@ -219,8 +206,8 @@ export default function InvestigatorProfilePage(): JSX.Element {
         title={t('app.settings.theme')}
         selectedTheme={theme}
         onSelect={handleThemeSelect}
-        cancelLabel={t('common.cancel')}
-        closeAriaLabel={t('common.close')}
+        cancelLabel={t('app.common.cancel')}
+        closeAriaLabel={t('app.common.close')}
       />
     </div>
   );

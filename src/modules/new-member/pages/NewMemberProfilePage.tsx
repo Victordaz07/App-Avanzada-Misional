@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  FaChevronRight,
-  FaGlobe,
-  FaCircleQuestion,
-  FaPalette,
-} from 'react-icons/fa6';
+import { FaGlobe, FaCircleQuestion, FaPalette } from 'react-icons/fa6';
 import DataPrivacySection from '../../../components/DataPrivacySection';
 import { SpiritualPathSection } from '../../../components/profile/SpiritualPathSection';
 import { LeadersAndTeachersHub } from '../../../components/profile/LeadersAndTeachersHub';
@@ -13,6 +8,7 @@ import {
   ProfileRoleHero,
   PersonalProfileCard,
   AppearancePreferencesCard,
+  ProfileSettingsMenu,
 } from '../../../components/profile/unified';
 import { useAuth } from '../../../context/AuthContext';
 import { useI18n } from '../../../context/I18nContext';
@@ -21,6 +17,7 @@ import { LANGUAGE_OPTIONS, type Locale } from '../../../i18n/locales';
 import { LanguageSelectModal } from '../../../components/ui/LanguageSelectModal';
 import { ThemeSelectModal, type ThemeChoice } from '../../../components/ui/ThemeSelectModal';
 import { patchUserPreferences } from '../../../services/firebase/userService';
+import { themeModeLabelKey } from '../../../utils/themeModeLabelKey';
 import '../../../components/DataPrivacySection.css';
 import './NewMemberProfilePage.css';
 
@@ -35,7 +32,8 @@ export default function NewMemberProfilePage(): JSX.Element {
   const [showLangModal, setShowLangModal] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
 
-  const currentLanguage = LANGUAGE_OPTIONS.find((l) => l.code === locale);
+  const currentLanguage =
+    LANGUAGE_OPTIONS.find((l) => l.code === locale) ?? LANGUAGE_OPTIONS[0];
 
   const handleLanguageSelect = async (code: Locale): Promise<void> => {
     await setLocale(code);
@@ -73,48 +71,38 @@ export default function NewMemberProfilePage(): JSX.Element {
         </div>
       </section>
 
-      <section className="nm-profile__section">
-        <h2 className="nm-profile__section-title">{t('app.profileNewMember.settings')}</h2>
-        <div className="nm-profile__settings">
-          <button type="button" className="nm-profile__setting" onClick={() => setShowLangModal(true)}>
-            <div className="nm-profile__setting-icon">
-              <FaGlobe />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profile.language')}</h3>
-              <p className="nm-profile__setting-desc">
-                <span className="nm-profile__setting-code">{currentLanguage?.shortCode}</span>{' '}
-                {currentLanguage?.label ?? locale.toUpperCase()}
-              </p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-
-          <button type="button" className="nm-profile__setting" onClick={() => setShowThemeModal(true)}>
-            <div className="nm-profile__setting-icon">
-              <FaPalette />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profile.appearance')}</h3>
-              <p className="nm-profile__setting-desc">
-                {t(`app.settings.theme${theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'System'}`)}
-              </p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-
-          <button type="button" className="nm-profile__setting" onClick={() => navigate('/support')}>
-            <div className="nm-profile__setting-icon">
-              <FaCircleQuestion />
-            </div>
-            <div className="nm-profile__setting-content">
-              <h3 className="nm-profile__setting-title">{t('app.profileNewMember.helpSupport')}</h3>
-              <p className="nm-profile__setting-desc">{t('app.profileNewMember.getAssistance')}</p>
-            </div>
-            <FaChevronRight className="nm-profile__setting-arrow" />
-          </button>
-        </div>
-      </section>
+      <ProfileSettingsMenu
+        sectionTitle={t('app.profileNewMember.settings')}
+        rows={[
+          {
+            id: 'language',
+            icon: <FaGlobe />,
+            title: t('app.profile.language'),
+            description: (
+              <>
+                <span className="up-settings__code">{currentLanguage.shortCode}</span>{' '}
+                {currentLanguage.label}
+              </>
+            ),
+            detailAria: `${currentLanguage.shortCode} ${currentLanguage.label}`,
+            onClick: () => setShowLangModal(true),
+          },
+          {
+            id: 'theme',
+            icon: <FaPalette />,
+            title: t('app.profile.appearance'),
+            description: t(themeModeLabelKey(theme)),
+            onClick: () => setShowThemeModal(true),
+          },
+          {
+            id: 'help',
+            icon: <FaCircleQuestion />,
+            title: t('app.profileNewMember.helpSupport'),
+            description: t('app.profileNewMember.getAssistance'),
+            onClick: () => navigate('/support'),
+          },
+        ]}
+      />
 
       <section className="nm-profile__section">
         <h2 className="nm-profile__section-title">{t('app.profile.dataPrivacy')}</h2>
@@ -127,8 +115,8 @@ export default function NewMemberProfilePage(): JSX.Element {
         title={t('app.profile.language')}
         selectedLocale={locale}
         onSelect={handleLanguageSelect}
-        cancelLabel={t('common.cancel')}
-        closeAriaLabel={t('common.close')}
+        cancelLabel={t('app.common.cancel')}
+        closeAriaLabel={t('app.common.close')}
       />
 
       <ThemeSelectModal
@@ -137,8 +125,8 @@ export default function NewMemberProfilePage(): JSX.Element {
         title={t('app.settings.theme')}
         selectedTheme={theme}
         onSelect={handleThemeSelect}
-        cancelLabel={t('common.cancel')}
-        closeAriaLabel={t('common.close')}
+        cancelLabel={t('app.common.cancel')}
+        closeAriaLabel={t('app.common.close')}
       />
 
       <footer className="nm-profile__version">

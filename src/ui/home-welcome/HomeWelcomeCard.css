@@ -28,6 +28,70 @@
     );
 }
 
+/* Oscuro: menos saturación y glow; base más “profunda” para empatar con --background */
+[data-theme='dark'] .hw-card,
+.dark-mode .hw-card {
+  background:
+    radial-gradient(ellipse 120% 80% at 100% 0%, rgba(255, 255, 255, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 0% 100%, rgba(255, 255, 255, 0.035) 0%, transparent 50%),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--background-elevated) 52%, var(--primary-dark)) 0%,
+      color-mix(in srgb, var(--primary) 58%, var(--primary-dark)) 46%,
+      color-mix(in srgb, var(--primary-dark) 82%, #0a0e12) 100%
+    );
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.38),
+    0 1px 0 rgba(255, 255, 255, 0.07) inset;
+  border: 1px solid color-mix(in srgb, var(--primary) 28%, rgba(255, 255, 255, 0.12));
+}
+
+[data-theme='dark'] .hw-card--soft,
+.dark-mode .hw-card--soft {
+  background:
+    radial-gradient(ellipse 130% 90% at 100% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 0% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--background-elevated) 45%, var(--primary-dark)) 0%,
+      color-mix(in srgb, var(--primary) 52%, var(--primary-dark)) 52%,
+      color-mix(in srgb, var(--primary-dark) 88%, #080b0e) 100%
+    );
+}
+
+[data-theme='dark'] .hw-card::before,
+.dark-mode .hw-card::before {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme='dark'] .hw-card::after,
+.dark-mode .hw-card::after {
+  background: rgba(255, 255, 255, 0.022);
+}
+
+[data-theme='dark'] .hw-card--question::before,
+.dark-mode .hw-card--question::before {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme='dark'] .hw-card__mood,
+.dark-mode .hw-card__mood {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme='dark'] .hw-card__pill,
+.dark-mode .hw-card__pill {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .hw-card__pill:hover,
+.dark-mode .hw-card__pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
 .hw-card::before {
   content: '';
   position: absolute;
@@ -57,6 +121,11 @@
   top: -60px;
   right: -60px;
   background: rgba(255, 255, 255, 0.06);
+}
+
+/* Hub (sin fila de saludo): el título arranca el bloque */
+.hw-card--hub .hw-card__title:first-of-type {
+  margin-top: 0;
 }
 
 .hw-card__top {

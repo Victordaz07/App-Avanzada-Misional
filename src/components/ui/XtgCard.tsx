@@ -16,14 +16,14 @@ export const XtgCard: React.FC<XtgCardProps> = ({
   children 
 }) => {
   return (
-    <section className={`xtg-card xtg-stack-md ${className}`}>
+    <section className={`xtg-doc-card xtg-stack-md ${className}`}>
       {(title || actionLabel) && (
-        <div className="xtg-card-header">
-          {title && <h2 className="xtg-card-title">{title}</h2>}
+        <div className="xtg-doc-card-header">
+          {title && <h2 className="xtg-doc-card-title">{title}</h2>}
           {actionLabel && onAction && (
             <button 
               type="button"
-              className="xtg-card-action"
+              className="xtg-doc-card-action"
               onClick={onAction}
             >
               {actionLabel}

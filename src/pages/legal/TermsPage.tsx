@@ -8,6 +8,8 @@ export const TermsPage: React.FC = () => {
   return (
     <XtgAppLayout>
       <XtgPage
+      showBack
+      backFallbackTo="/profile"
       title="Terms of Use / Términos de Uso"
       subtitle="xTheGospel / For The Gospel"
       badge="Legal"

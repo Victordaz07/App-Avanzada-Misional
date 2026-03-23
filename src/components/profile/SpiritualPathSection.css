@@ -1,16 +1,18 @@
 .spiritual-path__subtitle {
   margin: 0 0 0.5rem;
   font-size: 0.95rem;
-  opacity: 0.88;
   line-height: 1.45;
+  color: var(--text-secondary);
+  opacity: 0.95;
 }
 
 .spiritual-path__disclaimer {
   margin: 0 0 1rem;
   font-size: 0.8rem;
   font-style: italic;
-  opacity: 0.75;
   line-height: 1.4;
+  color: var(--text-tertiary);
+  opacity: 0.95;
 }
 
 .spiritual-path__toggle {
@@ -53,6 +55,7 @@
 .spiritual-path__label {
   font-weight: 600;
   font-size: 0.9rem;
+  color: var(--text-primary);
 }
 
 .spiritual-path__error {

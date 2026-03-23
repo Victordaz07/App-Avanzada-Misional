@@ -11,15 +11,10 @@ function WelcomeMoodIcon({ hour, className }: { hour: number; className: string 
   return <FaMoon className={className} />;
 }
 
-export type HomeWelcomeCardProps = {
+type HomeWelcomeCardShared = {
   ariaLabel: string;
-  greetingLine: string;
-  dateLine: string;
-  hour: number;
   tone?: HomeWelcomeTone;
   mode?: 'declarative' | 'question';
-  title?: React.ReactNode;
-  subtitle?: React.ReactNode;
   questionText?: string;
   titleSize?: 'normal' | 'large';
   subtitleSize?: 'normal' | 'large';
@@ -32,33 +27,54 @@ export type HomeWelcomeCardProps = {
   className?: string;
 };
 
+/** `standard`: saludo + fecha + humor. `hub`: solo título/subtítulo dentro del mismo shell (p. ej. Estudio). */
+export type HomeWelcomeCardProps =
+  | (HomeWelcomeCardShared & {
+      layout?: undefined | 'standard';
+      greetingLine: string;
+      dateLine: string;
+      hour: number;
+      title?: React.ReactNode;
+      subtitle?: React.ReactNode;
+    })
+  | (HomeWelcomeCardShared & {
+      layout: 'hub';
+      title: React.ReactNode;
+      subtitle?: React.ReactNode;
+    });
+
 /**
  * Shared pastoral welcome hero (greeting, date, mood, body, optional pills).
  */
-export function HomeWelcomeCard({
-  ariaLabel,
-  greetingLine,
-  dateLine,
-  hour,
-  tone = 'default',
-  mode = 'declarative',
-  title,
-  subtitle,
-  questionText,
-  titleSize = 'normal',
-  subtitleSize = 'normal',
-  showQuickLinks = false,
-  journalHref = '/journal',
-  exploreHref = '/lessons',
-  exploreLabel,
-  journalLabel,
-  quickNavAriaLabel,
-  className = '',
-}: HomeWelcomeCardProps): JSX.Element {
+export function HomeWelcomeCard(props: HomeWelcomeCardProps): JSX.Element {
+  const hub = props.layout === 'hub';
+  const {
+    ariaLabel,
+    tone = 'default',
+    mode = 'declarative',
+    title,
+    subtitle,
+    questionText,
+    titleSize = 'normal',
+    subtitleSize = 'normal',
+    showQuickLinks = false,
+    journalHref = '/journal',
+    exploreHref = '/lessons',
+    exploreLabel,
+    journalLabel,
+    quickNavAriaLabel,
+    className = '',
+  } = props;
+
+  const greetingLine = !hub ? props.greetingLine : '';
+  const dateLine = !hub ? props.dateLine : '';
+  const hour = !hub ? props.hour : 12;
+
   const rootClass = [
     'hw-card',
     tone === 'soft' ? 'hw-card--soft' : '',
     mode === 'question' ? 'hw-card--question' : '',
+    hub ? 'hw-card--hub' : '',
     className,
   ]
     .filter(Boolean)
@@ -66,15 +82,17 @@ export function HomeWelcomeCard({
 
   return (
     <section className={rootClass} aria-label={ariaLabel}>
-      <div className="hw-card__top">
-        <div className="hw-card__top-text">
-          <p className="hw-card__greeting">{greetingLine}</p>
-          <p className="hw-card__date">{dateLine}</p>
+      {!hub ? (
+        <div className="hw-card__top">
+          <div className="hw-card__top-text">
+            <p className="hw-card__greeting">{greetingLine}</p>
+            <p className="hw-card__date">{dateLine}</p>
+          </div>
+          <span className="hw-card__mood" aria-hidden>
+            <WelcomeMoodIcon hour={hour} className="hw-card__mood-icon" />
+          </span>
         </div>
-        <span className="hw-card__mood" aria-hidden>
-          <WelcomeMoodIcon hour={hour} className="hw-card__mood-icon" />
-        </span>
-      </div>
+      ) : null}
 
       {mode === 'question' && questionText != null ? (
         <p className="hw-card__question">{questionText}</p>

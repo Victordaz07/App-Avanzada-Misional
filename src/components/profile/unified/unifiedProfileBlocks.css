@@ -356,3 +356,133 @@
   font-size: 13px;
   color: #b91c1c;
 }
+
+/* --- Modo oscuro: bloques de perfil alineados a tokens --- */
+[data-theme='dark'] .up-block__title,
+.dark-mode .up-block__title {
+  color: var(--primary);
+}
+
+[data-theme='dark'] .up-block__desc,
+.dark-mode .up-block__desc {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .up-hero,
+.dark-mode .up-hero {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 55%, var(--primary-dark)) 0%,
+    color-mix(in srgb, var(--primary-dark) 70%, #0a0e12) 100%
+  );
+}
+
+[data-theme='dark'] .up-personal,
+.dark-mode .up-personal {
+  background: var(--background-card);
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border-subtle));
+}
+
+[data-theme='dark'] .up-personal__photo-thumb,
+.dark-mode .up-personal__photo-thumb {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--info-light) 35%, var(--background-elevated)) 0%,
+    var(--background-muted) 100%
+  );
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='dark'] .up-personal__photo-thumb-placeholder,
+.dark-mode .up-personal__photo-thumb-placeholder {
+  color: var(--primary);
+}
+
+[data-theme='dark'] .up-personal__photo-thumb-badge,
+.dark-mode .up-personal__photo-thumb-badge {
+  background: var(--background-elevated);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='dark'] .up-personal__label,
+.dark-mode .up-personal__label {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .up-personal__input,
+.dark-mode .up-personal__input {
+  background: var(--background-elevated);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .up-personal__input:focus,
+.dark-mode .up-personal__input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+[data-theme='dark'] .up-personal__hint,
+.dark-mode .up-personal__hint {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .up-personal__minor-hint,
+.dark-mode .up-personal__minor-hint {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+[data-theme='dark'] .up-personal__primary,
+.dark-mode .up-personal__primary {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='dark'] .up-personal__success,
+.dark-mode .up-personal__success {
+  color: var(--success);
+}
+
+[data-theme='dark'] .up-appearance,
+.dark-mode .up-appearance {
+  background: var(--background-card);
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border-subtle));
+}
+
+[data-theme='dark'] .up-appearance__label,
+.dark-mode .up-appearance__label {
+  color: var(--primary);
+}
+
+[data-theme='dark'] .up-appearance__accent-btn,
+.dark-mode .up-appearance__accent-btn {
+  background: var(--background-elevated);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .up-appearance__accent-btn--selected,
+.dark-mode .up-appearance__accent-btn--selected {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, var(--background-elevated));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+[data-theme='dark'] .up-appearance__accent-name,
+.dark-mode .up-appearance__accent-name {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .up-appearance__pace-chip,
+.dark-mode .up-appearance__pace-chip {
+  background: var(--background-elevated);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .up-appearance__pace-chip--selected,
+.dark-mode .up-appearance__pace-chip--selected {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 14%, var(--background-elevated));
+}
