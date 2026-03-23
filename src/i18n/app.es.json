@@ -36,7 +36,9 @@
       "lessonsTitle": "Lecciones",
       "lessonsDesc": "Camino misional, tu guía y biblioteca.",
       "trainingTitle": "Capacitación",
-      "trainingDesc": "Rutas y lecciones para seguir creciendo."
+      "trainingDesc": "Rutas y lecciones para seguir creciendo.",
+      "trainingMembersOnlyTitle": "Capacitación (miembros bautizados)",
+      "trainingMembersOnlyDesc": "Si eres miembro bautizado, indícalo en tu perfil para acceder al hub de capacitación desde aquí."
     },
     "home": {
       "greeting": "Bienvenido",
@@ -238,7 +240,17 @@
     },
     "training": {
       "dashboard": {
-        "priesthoodTracksComplete": "Has completado toda la capacitación del sacerdocio ✓"
+        "priesthoodTracksComplete": "Has completado toda la capacitación del sacerdocio ✓",
+        "subtitle": "Fundamentos, enseñanza al estilo del Salvador, sacerdocio y organizaciones auxiliares, alineados al Manual General.",
+        "sectionTeachingSaviorsWay": "Enseñar a la manera del Salvador",
+        "sectionAuxiliaryOrgs": "Organizaciones auxiliares",
+        "openTeachingManualPath": "Enseñar a la manera del Salvador",
+        "callingSectionTitle": "Recomendado para tu llamamiento",
+        "callingSectionHint": "Según el rol que elegiste en Líderes y maestros, aquí ves primero lo más relacionado. Más abajo sigue disponible todo el hub.",
+        "callingBadge": "Prioridad"
+      },
+      "path": {
+        "emptyTrack": "No hay lecciones en esta pista todavía."
       },
       "lesson": {
         "backToNode": "Volver",
@@ -266,7 +278,31 @@
         "practiceIncompleteGeneric": "Completa las prácticas para finalizar.",
         "nextLesson": "Siguiente lección",
         "nextLessonGatedMany": "Completa las prácticas para desbloquear la siguiente lección. Te faltan {{count}} prácticas.",
-        "nextLessonGatedOne": "Completa las prácticas para desbloquear la siguiente lección. Te falta 1 práctica."
+        "nextLessonGatedOne": "Completa las prácticas para desbloquear la siguiente lección. Te falta 1 práctica.",
+        "officialResourcesHeading": "Recursos oficiales (léelos en ChurchofJesusChrist.org)",
+        "structured": {
+          "overviewAria": "Panorama de la lección",
+          "sectionScriptures": "Escrituras relacionadas",
+          "deepen": "Profundiza",
+          "keyPoints": "Ideas clave",
+          "doctrine": "Doctrina",
+          "explanation": "Explicación",
+          "example": "Ejemplo",
+          "application": "Aplicación",
+          "action": "Acción",
+          "scripturesHeading": "Escrituras para estudiar",
+          "practiceHeading": "Compromisos de la semana",
+          "practiceHint": "Marca cada bloque cuando hayas vivido su acción concretamente esta semana.",
+          "practiceDone": "Hecho",
+          "practicePending": "Pendiente",
+          "modesTitle": "Modos de aplicación",
+          "modesNote": "Usa estos recordatorios para llevar el tema al barrio, a la ministración y al hogar.",
+          "modes": {
+            "council": "Modo consejo: ¿cómo aplicarías este principio en tu barrio o estaca?",
+            "ministering": "Modo ministración: ¿a quién podrías servir o animar con este principio?",
+            "home": "Modo hogar: ¿cómo se ve esto en tu casa esta semana?"
+          }
+        }
       }
     },
     "profile": {

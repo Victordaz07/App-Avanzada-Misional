@@ -38,6 +38,8 @@ export interface TeachingSession {
   id: string;
   title: string;
   description?: string;
+  /** Clase o grupo concreto dentro del tipo de organización (p. ej. quórum de diáconos). */
+  classWithinOrganization?: string;
   callingType: CallingType;
   teacherUid: string;
   teacherDisplayName?: string;
@@ -58,6 +60,7 @@ export interface CreateDraftSessionPayload {
   title: string;
   callingType: CallingType;
   description?: string;
+  classWithinOrganization?: string;
   parts: TeachingSessionPart[];
   scheduledAt?: number;
 }
@@ -65,6 +68,7 @@ export interface CreateDraftSessionPayload {
 export interface UpdateSessionPayload {
   title?: string;
   description?: string;
+  classWithinOrganization?: string;
   callingType?: CallingType;
   parts?: TeachingSessionPart[];
   scheduledAt?: number;

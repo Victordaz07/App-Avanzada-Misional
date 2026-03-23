@@ -13,6 +13,7 @@ import { elder1TrainingScripturesEs } from './scriptures.training.elder1.es';
 import { elder2TrainingScripturesEs } from './scriptures.training.elder2.es';
 import { highPriest1TrainingScripturesEs } from './scriptures.training.highPriest1.es';
 import { highPriest2TrainingScripturesEs } from './scriptures.training.highPriest2.es';
+import { manualTrainingScripturesEs } from './scriptures.training.manual.es';
 
 export const scripturesTrainingEs: Scripture[] = [
   {
@@ -157,4 +158,5 @@ export const scripturesTrainingEs: Scripture[] = [
   ...elder2TrainingScripturesEs,
   ...highPriest1TrainingScripturesEs,
   ...highPriest2TrainingScripturesEs,
+  ...manualTrainingScripturesEs,
 ];

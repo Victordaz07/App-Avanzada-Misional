@@ -36,7 +36,9 @@
       "lessonsTitle": "Lessons",
       "lessonsDesc": "Missionary path, your guide, and library.",
       "trainingTitle": "Training",
-      "trainingDesc": "Paths and lessons to keep growing."
+      "trainingDesc": "Paths and lessons to keep growing.",
+      "trainingMembersOnlyTitle": "Training (baptized members)",
+      "trainingMembersOnlyDesc": "If you are a baptized member, choose that in your profile to open the training hub from here."
     },
     "home": {
       "greeting": "Welcome",
@@ -238,7 +240,17 @@
     },
     "training": {
       "dashboard": {
-        "priesthoodTracksComplete": "You have completed all priesthood training tracks ✓"
+        "priesthoodTracksComplete": "You have completed all priesthood training tracks ✓",
+        "subtitle": "Foundations, Teaching in the Savior’s Way, priesthood, and auxiliary organizations—aligned with the General Handbook.",
+        "sectionTeachingSaviorsWay": "Teaching in the Savior’s Way",
+        "sectionAuxiliaryOrgs": "Auxiliary organizations",
+        "openTeachingManualPath": "Teaching in the Savior’s Way",
+        "callingSectionTitle": "Recommended for your calling",
+        "callingSectionHint": "Based on the role you chose in Leaders and Teachers, these items are highlighted first. The full hub is still below.",
+        "callingBadge": "Priority"
+      },
+      "path": {
+        "emptyTrack": "There are no lessons in this track yet."
       },
       "lesson": {
         "backToNode": "Back",
@@ -266,7 +278,31 @@
         "practiceIncompleteGeneric": "Complete the practices to finish.",
         "nextLesson": "Next lesson",
         "nextLessonGatedMany": "Complete the practices to unlock the next lesson. You have {{count}} practices left.",
-        "nextLessonGatedOne": "Complete the practices to unlock the next lesson. You have 1 practice left."
+        "nextLessonGatedOne": "Complete the practices to unlock the next lesson. You have 1 practice left.",
+        "officialResourcesHeading": "Official resources (read on ChurchofJesusChrist.org)",
+        "structured": {
+          "overviewAria": "Lesson overview",
+          "sectionScriptures": "Related scriptures",
+          "deepen": "Go deeper",
+          "keyPoints": "Key ideas",
+          "doctrine": "Doctrine",
+          "explanation": "Explanation",
+          "example": "Example",
+          "application": "Application",
+          "action": "Action",
+          "scripturesHeading": "Scriptures to study",
+          "practiceHeading": "This week’s commitments",
+          "practiceHint": "Check each block when you have lived its action in a concrete way this week.",
+          "practiceDone": "Done",
+          "practicePending": "Pending",
+          "modesTitle": "Ways to apply",
+          "modesNote": "Use these prompts to connect this topic to ward council, ministering, and home.",
+          "modes": {
+            "council": "Ward council mode: How would you apply this principle in your ward or stake?",
+            "ministering": "Ministering mode: Who could you serve or encourage with this principle?",
+            "home": "Home mode: What does this look like in your home this week?"
+          }
+        }
       }
     },
     "profile": {

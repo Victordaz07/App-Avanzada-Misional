@@ -257,20 +257,22 @@ export function canUserPerform(role: LeadershipRole, action: keyof RolePermissio
   return permissions[action] || false;
 }
 
-// Helper para obtener roles agrupados (para UI de selección)
-export function getRolesGrouped(): { label: string; roles: RoleDefinition[] }[] {
+export type RoleGroupKey = 'bishopric' | 'organization' | 'auxiliary';
+
+/** Agrupación para UI; las etiquetas van en i18n (`auth.roleSelection.groups.*`). */
+export function getRolesGrouped(): { groupKey: RoleGroupKey; roles: RoleDefinition[] }[] {
   return [
     {
-      label: 'Obispado',
-      roles: ROLES_BY_LEVEL.bishopric.map(r => ROLE_DEFINITIONS[r]),
+      groupKey: 'bishopric',
+      roles: ROLES_BY_LEVEL.bishopric.map((r) => ROLE_DEFINITIONS[r]),
     },
     {
-      label: 'Presidentes de Organizaciones',
-      roles: ROLES_BY_LEVEL.organization.map(r => ROLE_DEFINITIONS[r]),
+      groupKey: 'organization',
+      roles: ROLES_BY_LEVEL.organization.map((r) => ROLE_DEFINITIONS[r]),
     },
     {
-      label: 'Otros',
-      roles: ROLES_BY_LEVEL.auxiliary.map(r => ROLE_DEFINITIONS[r]),
+      groupKey: 'auxiliary',
+      roles: ROLES_BY_LEVEL.auxiliary.map((r) => ROLE_DEFINITIONS[r]),
     },
   ];
 }

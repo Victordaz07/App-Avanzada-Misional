@@ -1,6 +1,6 @@
-import type { TrainingLessonContent } from './trainingLessonContent.types';
+import type { TrainingLessonCanonicalContent } from './trainingLessonContent.types';
 
-export const core1RestoreEs: TrainingLessonContent = {
+export const core1RestoreEs: TrainingLessonCanonicalContent = {
   intro:
     'La Restauración del Evangelio de Jesucristo es el acontecimiento más importante desde la resurrección del Salvador. En esta lección explorarás sus fundamentos y cómo aplicarlos en tu vida.',
   objectivesHeading: 'Objetivos',

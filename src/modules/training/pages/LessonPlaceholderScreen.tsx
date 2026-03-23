@@ -15,7 +15,14 @@ import {
   lessonsById,
   getLessonsForNode,
   getTrainingLessonCategoryLabel,
+  TRAINING_NODE_ORDER,
+  trainingLessonTitle,
 } from '../data/trainingPaths';
+import {
+  MANUAL_LESSON_IDS,
+  isManualTrainingLesson,
+} from '../lessons/content/manualLessonContent';
+import { LessonManualBased } from '../lessons/LessonManualBased';
 import { LessonRestoration } from '../lessons/LessonRestoration';
 import { LessonPlanOfSalvation } from '../lessons/LessonPlanOfSalvation';
 import { LessonPriesthood } from '../lessons/LessonPriesthood';
@@ -54,15 +61,7 @@ const LESSONS_WITH_HINT = [
   'elder-2',
   'high-priest-1',
   'high-priest-2',
-];
-
-const ORDERED_NODES = [
-  'core-foundations',
-  'aaronic-deacon',
-  'aaronic-teacher',
-  'aaronic-priest',
-  'melchizedek-elder',
-  'melchizedek-high-priest',
+  ...MANUAL_LESSON_IDS,
 ];
 
 function getNextUnlockedLesson(
@@ -77,12 +76,13 @@ function getNextUnlockedLesson(
       return { nodeId, lessonId: lessons[i].id };
     }
   }
-  const nodeIdx = ORDERED_NODES.indexOf(nodeId);
-  for (let n = nodeIdx + 1; n < ORDERED_NODES.length; n++) {
-    const nextLessons = getLessonsForNode(ORDERED_NODES[n]);
+  const nodeIdx = TRAINING_NODE_ORDER.indexOf(nodeId);
+  for (let n = nodeIdx + 1; n < TRAINING_NODE_ORDER.length; n++) {
+    const nid = TRAINING_NODE_ORDER[n];
+    const nextLessons = getLessonsForNode(nid);
     for (const l of nextLessons) {
       if (isLessonUnlocked(l.id, ctx)) {
-        return { nodeId: ORDERED_NODES[n], lessonId: l.id };
+        return { nodeId: nid, lessonId: l.id };
       }
     }
   }
@@ -90,7 +90,7 @@ function getNextUnlockedLesson(
 }
 
 export default function LessonPlaceholderScreen(): JSX.Element {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const location = useLocation();
   const navigate = useNavigate();
   const parts = location.pathname.replace(/^\/training\/?/, '').split('/').filter(Boolean);
@@ -122,6 +122,12 @@ export default function LessonPlaceholderScreen(): JSX.Element {
   }, [lessonId]);
 
   useEffect(() => {
+    if (stage !== 'covenanted') {
+      navigate('/home', { replace: true });
+    }
+  }, [stage, navigate]);
+
+  useEffect(() => {
     if (!lessonId) return;
     scrollToTop('.unified-layout-content');
   }, [lessonId]);
@@ -135,6 +141,10 @@ export default function LessonPlaceholderScreen(): JSX.Element {
   const lesson = lessonId ? lessonsById[lessonId] : null;
   const nextLesson =
     nodeId && lessonId ? getNextUnlockedLesson(nodeId, lessonId, ctx) : null;
+
+  if (stage !== 'covenanted') {
+    return <div className="tr-lesson" />;
+  }
 
   if (!nodeId || !lessonId || !lesson) {
     return (
@@ -201,10 +211,12 @@ export default function LessonPlaceholderScreen(): JSX.Element {
     }
   };
 
-  const categoryLabel = getTrainingLessonCategoryLabel(lessonId);
+  const categoryLabel = getTrainingLessonCategoryLabel(lessonId, locale);
+  const lessonTitleDisplay = trainingLessonTitle(lesson, locale);
 
-  const lessonInner =
-    lessonId === 'core-1' ? (
+  const lessonInner = isManualTrainingLesson(lessonId) ? (
+    <LessonManualBased lessonId={lessonId} onPracticeProgress={handlePracticeProgress} />
+  ) : lessonId === 'core-1' ? (
       <LessonRestoration onPracticeProgress={handlePracticeProgress} />
     ) : lessonId === 'core-2' ? (
       <LessonPlanOfSalvation onPracticeProgress={handlePracticeProgress} />
@@ -236,12 +248,12 @@ export default function LessonPlaceholderScreen(): JSX.Element {
       <>
         <TeachingCanonHeroHeader
           categoryLabel={categoryLabel}
-          title={lesson.title}
+          title={lessonTitleDisplay}
           subtitle={t('app.training.lesson.placeholderSubtitle')}
           heroNote={t('app.training.lesson.heroNote')}
         />
         <p className="tr-lesson__placeholder">
-          {t('app.training.lesson.placeholderBody', { title: lesson.title })}
+          {t('app.training.lesson.placeholderBody', { title: lessonTitleDisplay })}
         </p>
       </>
     );

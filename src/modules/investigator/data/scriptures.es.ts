@@ -431,6 +431,23 @@ export const scripturesEs: Scripture[] = [
       'Pablo explica el simbolismo del bautismo: sepultura y resurrección a una vida nueva. Refuerza la importancia de la inmersión.',
   },
   {
+    id: 'mosiah-18-8-9',
+    reference: 'Mosíah 18:8–9',
+    text: 'Y aconteció que les dijo: He aquí las aguas de Mormón (porque así se llamaban); y ya que deseáis entrar en el redil de Dios y ser llamados su pueblo, y estáis dispuestos a llevar las cargas los unos de los otros para que sean ligeras; sí, y estáis dispuestos a llorar con los que lloran; sí, y a consolar a los que necesitan de consuelo, y ser testigos de Dios en todo tiempo, y en todas las cosas y en todo lugar en que estuvieseis, aun hasta la muerte, para que seáis redimidos por Dios, y seáis contados con los de la primera resurrección, para que tengáis vida eterna;',
+    verses: [
+      {
+        verse: 8,
+        text: 'Y aconteció que les dijo: He aquí las aguas de Mormón (porque así se llamaban); y ya que deseáis entrar en el redil de Dios y ser llamados su pueblo, y estáis dispuestos a llevar las cargas los unos de los otros para que sean ligeras;',
+      },
+      {
+        verse: 9,
+        text: 'sí, y estáis dispuestos a llorar con los que lloran; sí, y a consolar a los que necesitan de consuelo, y ser testigos de Dios en todo tiempo, y en todas las cosas y en todo lugar en que estuvieseis, aun hasta la muerte, para que seáis redimidos por Dios, y seáis contados con los de la primera resurrección, para que tengáis vida eterna;',
+      },
+    ],
+    context:
+      'Alma enseña el convenio bautismal: llevar cargas, consolar y ser testigos hasta la muerte.',
+  },
+  {
     id: 'mosiah-18-8-10',
     reference: 'Mosíah 18:8–10',
     text: 'Y aconteció que les dijo: He aquí las aguas de Mormón (porque así se llamaban); y ya que deseáis entrar en el redil de Dios y ser llamados su pueblo, y estáis dispuestos a llevar las cargas los unos de los otros para que sean ligeras; sí, y estáis dispuestos a llorar con los que lloran; sí, y a consolar a los que necesitan de consuelo, y ser testigos de Dios en todo tiempo, y en todas las cosas y en todo lugar en que estuvieseis, aun hasta la muerte, para que seáis redimidos por Dios, y seáis contados con los de la primera resurrección, para que tengáis vida eterna; os digo ahora, si este es el deseo de vuestros corazones, ¿qué os impide ser bautizados en el nombre del Señor, como testimonio ante él de que habéis concertado un convenio con él de que lo serviréis y guardaréis sus mandamientos, para que él derrame su Espíritu más abundantemente sobre vosotros?',

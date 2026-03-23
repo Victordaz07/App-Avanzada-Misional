@@ -2,12 +2,12 @@
  * Session Report Service - Firestore
  *
  * Genera reporte final de sesión: asistencia, progreso por parte, participantes.
- * Fase 4: Reporte + Cierre + Export PDF.
  */
 
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { getFirebaseDb } from '../../../services/firebase/firebaseApp';
 import type { TeachingSession, TeachingSessionPart, SessionParticipant } from '../types';
+import type { SessionStorageParent } from './sessionStoragePaths';
 
 const getDb = () => getFirebaseDb();
 
@@ -37,10 +37,11 @@ export type SessionReport = {
 // ============================================================================
 
 export async function buildSessionReport(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string
 ): Promise<SessionReport> {
-  const sessionRef = doc(getDb(), 'wards', wardId, 'teachingSessions', sessionId);
+  const sessionRef = doc(getDb(), parent, parentId, 'teachingSessions', sessionId);
   const sessionSnap = await getDoc(sessionRef);
 
   if (!sessionSnap.exists()) {
@@ -52,6 +53,9 @@ export async function buildSessionReport(
     id: sessionId,
     title: String(sessionData.title ?? ''),
     description: sessionData.description ? String(sessionData.description) : undefined,
+    classWithinOrganization: sessionData.classWithinOrganization
+      ? String(sessionData.classWithinOrganization)
+      : undefined,
     callingType: (sessionData.callingType as TeachingSession['callingType']) ?? 'other',
     teacherUid: String(sessionData.teacherUid ?? ''),
     teacherDisplayName: sessionData.teacherDisplayName ? String(sessionData.teacherDisplayName) : undefined,
@@ -64,7 +68,7 @@ export async function buildSessionReport(
     updatedAt: Number(sessionData.updatedAt ?? 0),
   };
 
-  const participantsRef = collection(getDb(), 'wards', wardId, 'teachingSessions', sessionId, 'participants');
+  const participantsRef = collection(getDb(), parent, parentId, 'teachingSessions', sessionId, 'participants');
   const participantsSnap = await getDocs(participantsRef);
 
   const participants: SessionParticipant[] = participantsSnap.docs.map((d) => {
@@ -109,7 +113,7 @@ export async function buildSessionReport(
 
   participantsWithCount.sort((a, b) => b.completedPartsCount - a.completedPartsCount);
 
-  const feedbackRef = collection(getDb(), 'wards', wardId, 'teachingSessions', sessionId, 'feedback');
+  const feedbackRef = collection(getDb(), parent, parentId, 'teachingSessions', sessionId, 'feedback');
   const feedbackSnap = await getDocs(feedbackRef);
   const feedbackDocs = feedbackSnap.docs.map((d) => d.data() as { rating?: number; comment?: string });
   const feedbackCount = feedbackDocs.length;

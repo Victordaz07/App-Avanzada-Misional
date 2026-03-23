@@ -1,8 +1,8 @@
 /**
  * Teaching Sessions Service - Firestore
  *
- * CRUD + activate + subscribe para sesiones de clase en vivo.
- * Colección: wards/{wardId}/teachingSessions/{sessionId}
+ * Sesiones bajo users/{teacherUid}/teachingSessions (sin barrio obligatorio).
+ * Compatibilidad: wards/{wardId}/teachingSessions (lectura/listado legado).
  */
 
 import {
@@ -12,7 +12,6 @@ import {
   updateDoc,
   collection,
   query,
-  where,
   orderBy,
   limit,
   getDocs,
@@ -28,6 +27,7 @@ import type {
   CallingType,
 } from '../types';
 import { generateJoinCode } from '../utils/joinCode';
+import type { SessionStorageParent } from './sessionStoragePaths';
 
 const getDb = () => getFirebaseDb();
 
@@ -35,15 +35,26 @@ const getDb = () => getFirebaseDb();
 // HELPERS
 // ============================================================================
 
-function sessionPath(wardId: string, sessionId: string) {
-  return `wards/${wardId}/teachingSessions/${sessionId}`;
+function sessionDocRef(
+  parent: SessionStorageParent,
+  parentId: string,
+  sessionId: string
+) {
+  return doc(getDb(), parent, parentId, 'teachingSessions', sessionId);
 }
 
-function mapDocToSession(wardId: string, sessionId: string, data: Record<string, unknown>): TeachingSession {
+function mapDocToSession(
+  parentId: string,
+  sessionId: string,
+  data: Record<string, unknown>
+): TeachingSession {
   return {
     id: sessionId,
     title: String(data.title ?? ''),
     description: data.description ? String(data.description) : undefined,
+    classWithinOrganization: data.classWithinOrganization
+      ? String(data.classWithinOrganization)
+      : undefined,
     callingType: (data.callingType as TeachingSession['callingType']) ?? 'other',
     teacherUid: String(data.teacherUid ?? ''),
     teacherDisplayName: data.teacherDisplayName ? String(data.teacherDisplayName) : undefined,
@@ -57,37 +68,94 @@ function mapDocToSession(wardId: string, sessionId: string, data: Record<string,
   };
 }
 
+export interface ResolvedTeachingSession {
+  session: TeachingSession;
+  parent: SessionStorageParent;
+  parentId: string;
+}
+
 // ============================================================================
-// CREATE DRAFT
+// CREATE DRAFT (siempre bajo el usuario maestro — no requiere barrio)
 // ============================================================================
 
 export async function createDraftSession(
-  wardId: string,
   teacherUid: string,
   teacherDisplayName: string,
   payload: CreateDraftSessionPayload
 ): Promise<string> {
-  const ref = doc(collection(getDb(), 'wards', wardId, 'teachingSessions'));
+  const ref = doc(collection(getDb(), 'users', teacherUid, 'teachingSessions'));
   const sessionId = ref.id;
   const now = Date.now();
 
-  const session: Omit<TeachingSession, 'id'> & { id?: string } = {
+  const session: Record<string, unknown> = {
     title: payload.title.trim(),
     callingType: payload.callingType,
-    description: payload.description?.trim(),
     teacherUid,
     teacherDisplayName,
     status: 'draft',
     parts: payload.parts ?? [],
     currentPartId: null,
     joinCode: null,
-    scheduledAt: payload.scheduledAt,
     createdAt: now,
     updatedAt: now,
   };
 
+  const desc = payload.description?.trim();
+  if (desc) session.description = desc;
+
+  if (payload.scheduledAt != null) session.scheduledAt = payload.scheduledAt;
+
+  const cwo = payload.classWithinOrganization?.trim();
+  if (cwo) session.classWithinOrganization = cwo;
+
   await setDoc(ref, session);
   return sessionId;
+}
+
+// ============================================================================
+// RESOLVER sesión del maestro (user primero, luego ward legado)
+// ============================================================================
+
+/**
+ * Resuelve si scopeId es users/... o wards/... (p. ej. ruta /session/:scopeId/:sessionId/live).
+ */
+export async function findSessionStorageByScopeId(
+  scopeId: string,
+  sessionId: string
+): Promise<{ parent: SessionStorageParent; parentId: string } | null> {
+  const u = await getSession('users', scopeId, sessionId);
+  if (u) return { parent: 'users', parentId: scopeId };
+  const w = await getSession('wards', scopeId, sessionId);
+  if (w) return { parent: 'wards', parentId: scopeId };
+  return null;
+}
+
+export async function findSessionForTeacher(
+  teacherUid: string,
+  wardId: string | undefined,
+  sessionId: string
+): Promise<ResolvedTeachingSession | null> {
+  const userRef = sessionDocRef('users', teacherUid, sessionId);
+  const userSnap = await getDoc(userRef);
+  if (userSnap.exists()) {
+    return {
+      session: mapDocToSession(teacherUid, sessionId, userSnap.data() as Record<string, unknown>),
+      parent: 'users',
+      parentId: teacherUid,
+    };
+  }
+  if (wardId) {
+    const wardRef = sessionDocRef('wards', wardId, sessionId);
+    const wardSnap = await getDoc(wardRef);
+    if (wardSnap.exists()) {
+      return {
+        session: mapDocToSession(wardId, sessionId, wardSnap.data() as Record<string, unknown>),
+        parent: 'wards',
+        parentId: wardId,
+      };
+    }
+  }
+  return null;
 }
 
 // ============================================================================
@@ -95,11 +163,12 @@ export async function createDraftSession(
 // ============================================================================
 
 export async function updateSession(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   patch: UpdateSessionPayload
 ): Promise<void> {
-  const ref = doc(getDb(), sessionPath(wardId, sessionId));
+  const ref = sessionDocRef(parent, parentId, sessionId);
   const now = Date.now();
 
   const update: Record<string, unknown> = {
@@ -107,6 +176,9 @@ export async function updateSession(
   };
   if (patch.title !== undefined) update.title = patch.title.trim();
   if (patch.description !== undefined) update.description = patch.description?.trim() || null;
+  if (patch.classWithinOrganization !== undefined) {
+    update.classWithinOrganization = patch.classWithinOrganization?.trim() || null;
+  }
   if (patch.callingType !== undefined) update.callingType = patch.callingType;
   if (patch.parts !== undefined) update.parts = patch.parts;
   if (patch.scheduledAt !== undefined) update.scheduledAt = patch.scheduledAt ?? null;
@@ -119,10 +191,11 @@ export async function updateSession(
 // ============================================================================
 
 export async function activateSession(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string
 ): Promise<string> {
-  const ref = doc(getDb(), sessionPath(wardId, sessionId));
+  const ref = sessionDocRef(parent, parentId, sessionId);
   const snap = await getDoc(ref);
   if (!snap.exists()) throw new Error('Sesión no encontrada');
 
@@ -147,11 +220,12 @@ export async function activateSession(
 // ============================================================================
 
 export async function setCurrentPart(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   partId: string | null
 ): Promise<void> {
-  const ref = doc(getDb(), sessionPath(wardId, sessionId));
+  const ref = sessionDocRef(parent, parentId, sessionId);
   await updateDoc(ref, {
     currentPartId: partId,
     updatedAt: Date.now(),
@@ -163,10 +237,11 @@ export async function setCurrentPart(
 // ============================================================================
 
 export async function completeSession(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string
 ): Promise<void> {
-  const ref = doc(getDb(), sessionPath(wardId, sessionId));
+  const ref = sessionDocRef(parent, parentId, sessionId);
   await updateDoc(ref, {
     status: 'completed',
     updatedAt: Date.now(),
@@ -174,17 +249,18 @@ export async function completeSession(
 }
 
 // ============================================================================
-// GET SESSION
+// GET SESSION (directo por padre)
 // ============================================================================
 
 export async function getSession(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string
 ): Promise<TeachingSession | null> {
-  const ref = doc(getDb(), sessionPath(wardId, sessionId));
+  const ref = sessionDocRef(parent, parentId, sessionId);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
-  return mapDocToSession(wardId, sessionId, snap.data() as Record<string, unknown>);
+  return mapDocToSession(parentId, sessionId, snap.data() as Record<string, unknown>);
 }
 
 // ============================================================================
@@ -192,25 +268,46 @@ export async function getSession(
 // ============================================================================
 
 export async function listSessionsForTeacher(
-  wardId: string,
   teacherUid: string,
-  limitCount: number = 10
+  legacyWardId?: string | null,
+  limitCount: number = 50
 ): Promise<TeachingSession[]> {
-  const coll = collection(getDb(), 'wards', wardId, 'teachingSessions');
-  const q = query(
-    coll,
-    where('teacherUid', '==', teacherUid),
-    orderBy('updatedAt', 'desc'),
-    limit(limitCount)
+  const db = getDb();
+  const userColl = collection(db, 'users', teacherUid, 'teachingSessions');
+  const userQ = query(userColl, orderBy('updatedAt', 'desc'), limit(limitCount));
+  const userSnap = await getDocs(userQ);
+  const fromUser = userSnap.docs.map((d) =>
+    mapDocToSession(teacherUid, d.id, d.data() as Record<string, unknown>)
   );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) =>
-    mapDocToSession(wardId, d.id, d.data() as Record<string, unknown>)
-  );
+
+  if (!legacyWardId) {
+    return fromUser;
+  }
+
+  const wardColl = collection(db, 'wards', legacyWardId, 'teachingSessions');
+  const wardQ = query(wardColl, orderBy('updatedAt', 'desc'), limit(limitCount * 2));
+  let fromWard: TeachingSession[] = [];
+  try {
+    const wardSnap = await getDocs(wardQ);
+    fromWard = wardSnap.docs
+      .filter((d) => (d.data() as { teacherUid?: string }).teacherUid === teacherUid)
+      .map((d) =>
+        mapDocToSession(legacyWardId, d.id, d.data() as Record<string, unknown>)
+      )
+      .slice(0, limitCount);
+  } catch {
+    fromWard = [];
+  }
+
+  const merged = new Map<string, TeachingSession>();
+  [...fromUser, ...fromWard].forEach((s) => merged.set(s.id, s));
+  return Array.from(merged.values())
+    .sort((a, b) => b.updatedAt - a.updatedAt)
+    .slice(0, limitCount);
 }
 
 // ============================================================================
-// LIST SESSIONS FOR WARD (bishopric - all sessions)
+// LIST SESSIONS FOR WARD (bishopric - all sessions in ward)
 // ============================================================================
 
 export interface ListSessionsForWardOptions {
@@ -225,11 +322,7 @@ export async function listSessionsForWard(
 ): Promise<TeachingSession[]> {
   const coll = collection(getDb(), 'wards', wardId, 'teachingSessions');
   const limitCount = options?.limit ?? 50;
-  const q = query(
-    coll,
-    orderBy('updatedAt', 'desc'),
-    limit(limitCount * 2)
-  );
+  const q = query(coll, orderBy('updatedAt', 'desc'), limit(limitCount * 2));
   const snapshot = await getDocs(q);
   let sessions = snapshot.docs.map((d) =>
     mapDocToSession(wardId, d.id, d.data() as Record<string, unknown>)
@@ -252,11 +345,12 @@ export async function listSessionsForWard(
 // ============================================================================
 
 export function subscribeToSession(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   callback: (session: TeachingSession | null) => void
 ): Unsubscribe {
-  const ref = doc(getDb(), sessionPath(wardId, sessionId));
+  const ref = sessionDocRef(parent, parentId, sessionId);
   return onSnapshot(
     ref,
     (snap) => {
@@ -264,7 +358,7 @@ export function subscribeToSession(
         callback(null);
         return;
       }
-      callback(mapDocToSession(wardId, sessionId, snap.data() as Record<string, unknown>));
+      callback(mapDocToSession(parentId, sessionId, snap.data() as Record<string, unknown>));
     },
     (err) => {
       console.error('subscribeToSession error:', err);

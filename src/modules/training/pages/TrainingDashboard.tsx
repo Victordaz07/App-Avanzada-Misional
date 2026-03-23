@@ -3,12 +3,22 @@
  * La zona de líderes está en perfil → «Líderes y maestros», no aquí.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaLock } from 'react-icons/fa6';
 import { useTrainingUnlockStage } from '../../../hooks/useMemberSpiritualPath';
 import { useTrainingStore } from '../store/useTrainingStore';
-import { paths, tracksById, lessonsById, getNodeById } from '../data/trainingPaths';
+import {
+  paths,
+  tracksById,
+  lessonsById,
+  getNodeById,
+  getAggregatedPathProgress,
+  trainingNodeTitle,
+  trainingNodeDescription,
+} from '../data/trainingPaths';
+import { getRecommendedTrainingNodeIds } from '../data/callingTrainingRecommendations';
+import { useUserRoleStore } from '../../../leaders/state/user/useUserRoleStore';
 import { isPathUnlocked, isTrackUnlocked } from '../utils/unlockLogic';
 import type { UnlockContext } from '../utils/unlockLogic';
 import { TrainingCard } from '../components';
@@ -43,6 +53,12 @@ export default function TrainingDashboard(): JSX.Element {
   const lastCompletedNodeId = useTrainingStore((s) => s.lastCompletedNodeId);
   const ackLastCompletedEvent = useTrainingStore((s) => s.ackLastCompletedEvent);
 
+  const leadershipRole = useUserRoleStore((s) => s.role);
+  const recommendedNodeIds = useMemo(
+    () => getRecommendedTrainingNodeIds(leadershipRole),
+    [leadershipRole],
+  );
+
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
@@ -69,6 +85,9 @@ export default function TrainingDashboard(): JSX.Element {
     tracksById,
     lessonsById,
   };
+
+  const tswPathMeta = paths.find((p) => p.id === 'teaching-saviors-way');
+  const auxPathMeta = paths.find((p) => p.id === 'auxiliary-organizations');
 
   if (stage !== 'covenanted') {
     navigate('/home', { replace: true });
@@ -105,7 +124,6 @@ export default function TrainingDashboard(): JSX.Element {
         toastAria: `Track completado. Completaste: ${completedNodeTitle}`,
         toastBodyPrefix: 'Completaste:',
         title: 'Capacitación',
-        subtitle: 'Prepara tu progreso en el sacerdocio',
         coreDoneTitle: 'Fundamentos Básicos completados ✓',
         coreDoneSubtitle: 'Ya tienes la base: Restauración, Plan, Sacerdocio y Ordenanzas.',
         coreBullets: [
@@ -137,7 +155,6 @@ export default function TrainingDashboard(): JSX.Element {
         toastAria: `Track completed. You completed: ${completedNodeTitle}`,
         toastBodyPrefix: 'You completed:',
         title: 'Training',
-        subtitle: 'Prepare your priesthood growth',
         coreDoneTitle: 'Core Foundations completed ✓',
         coreDoneSubtitle: 'You now have the base: Restoration, Plan, Priesthood, and Ordinances.',
         coreBullets: [
@@ -180,10 +197,47 @@ export default function TrainingDashboard(): JSX.Element {
 
       <header className="tr-dashboard__header">
         <h1 className="tr-dashboard__title">{ui.title}</h1>
-        <p className="tr-dashboard__subtitle">
-          {ui.subtitle}
-        </p>
+        <p className="tr-dashboard__subtitle">{t('app.training.dashboard.subtitle')}</p>
       </header>
+
+      {recommendedNodeIds.length > 0 && (
+        <section className="tr-dashboard__section tr-dashboard__section--calling">
+          <h2 className="tr-dashboard__section-title">
+            {t('app.training.dashboard.callingSectionTitle')}
+          </h2>
+          <p className="tr-dashboard__calling-hint">{t('app.training.dashboard.callingSectionHint')}</p>
+          <div className="tr-dashboard__cards">
+            {recommendedNodeIds.map((nodeId) => {
+              const node = getNodeById(nodeId);
+              if (!node) return null;
+              const pathMeta = paths.find((p) => p.id === nodeId);
+              const isPathRoot = Boolean(pathMeta);
+              const unlocked = isPathRoot
+                ? isPathUnlocked(nodeId, ctx)
+                : isTrackUnlocked(nodeId, ctx);
+              const progress =
+                pathMeta && pathMeta.trackIds.length > 0
+                  ? getAggregatedPathProgress(nodeId, completedLessons)
+                  : getProgressForNode(nodeId);
+              return (
+                <TrainingCard
+                  key={nodeId}
+                  nodeId={nodeId}
+                  title={trainingNodeTitle(node, locale)}
+                  description={trainingNodeDescription(node, locale)}
+                  status={unlocked ? 'in_progress' : 'locked'}
+                  progress={progress}
+                  to={`/training/${nodeId}`}
+                  badge={{
+                    label: t('app.training.dashboard.callingBadge'),
+                    variant: 'neutral',
+                  }}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {stage === 'covenanted' && isCoreDone && (
         <div className="tr-dashboard__core-done">
@@ -197,6 +251,9 @@ export default function TrainingDashboard(): JSX.Element {
           <div className="tr-dashboard__core-done-actions">
             <Link to="/training/aaronic-deacon" className="tr-dashboard__core-done-btn">
               {ui.startPriesthood}
+            </Link>
+            <Link to="/training/teaching-saviors-way" className="tr-dashboard__core-done-btn">
+              {t('app.training.dashboard.openTeachingManualPath')}
             </Link>
             <Link to="/training/core-foundations" className="tr-dashboard__core-done-link">
               {ui.coreSummary}
@@ -286,6 +343,24 @@ export default function TrainingDashboard(): JSX.Element {
       </section>
 
       <section className="tr-dashboard__section">
+        <h2 className="tr-dashboard__section-title">
+          {t('app.training.dashboard.sectionTeachingSaviorsWay')}
+        </h2>
+        <div className="tr-dashboard__cards">
+          {tswPathMeta ? (
+            <TrainingCard
+              nodeId={tswPathMeta.id}
+              title={trainingNodeTitle(tswPathMeta, locale)}
+              description={trainingNodeDescription(tswPathMeta, locale)}
+              status={isPathUnlocked(tswPathMeta.id, ctx) ? 'in_progress' : 'locked'}
+              progress={getAggregatedPathProgress(tswPathMeta.id, completedLessons)}
+              to={`/training/${tswPathMeta.id}`}
+            />
+          ) : null}
+        </div>
+      </section>
+
+      <section className="tr-dashboard__section">
         <h2 className="tr-dashboard__section-title">{ui.priesthoodSection}</h2>
         <div className="tr-dashboard__cards">
           {paths
@@ -299,14 +374,32 @@ export default function TrainingDashboard(): JSX.Element {
                 <TrainingCard
                   key={trackId}
                   nodeId={trackId}
-                  title={track.title}
-                  description={track.description}
+                  title={trainingNodeTitle(track, locale)}
+                  description={trainingNodeDescription(track, locale)}
                   status={unlocked ? 'in_progress' : 'locked'}
                   progress={trackProgress}
                   to={`/training/${trackId}`}
                 />
               );
             })}
+        </div>
+      </section>
+
+      <section className="tr-dashboard__section">
+        <h2 className="tr-dashboard__section-title">
+          {t('app.training.dashboard.sectionAuxiliaryOrgs')}
+        </h2>
+        <div className="tr-dashboard__cards">
+          {auxPathMeta ? (
+            <TrainingCard
+              nodeId={auxPathMeta.id}
+              title={trainingNodeTitle(auxPathMeta, locale)}
+              description={trainingNodeDescription(auxPathMeta, locale)}
+              status={isPathUnlocked(auxPathMeta.id, ctx) ? 'in_progress' : 'locked'}
+              progress={getAggregatedPathProgress(auxPathMeta.id, completedLessons)}
+              to={`/training/${auxPathMeta.id}`}
+            />
+          ) : null}
         </div>
       </section>
     </div>

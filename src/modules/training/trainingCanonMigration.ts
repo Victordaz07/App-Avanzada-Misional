@@ -7,7 +7,8 @@
  * - Componentes: `src/ui/teaching-canon/`
  * - Ejemplo integrado: `src/modules/new-member/pages/NewMemberGuideDetailPage.tsx`
  * - Tipos de contenido guía: `src/modules/new-member/data/guideTopics.types.ts`
- * - Lecciones actuales: `TrainingLessonBody` + `TrainingLessonContent` en `src/modules/training/lessons/`
+ * - Lecciones actuales: `TrainingLessonBody` (canónico) + `TrainingLessonStructuredBody` (`layout: 'structured'`)
+ *   y tipos en `trainingLessonContent.types.ts` (`TrainingLessonContent` = unión).
  *
  * ## Pasos recomendados (por lección o por sprint)
  * 1. Modelar datos de la lección con campos opcionales alineados al canon: `audioPlaceholder`,

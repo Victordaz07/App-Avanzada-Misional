@@ -2,9 +2,7 @@
  * Participants Service - Firestore
  *
  * Join por código, suscripción en tiempo real, presence, progreso por parte.
- * Colección: wards/{wardId}/teachingSessions/{sessionId}/participants/{uid}
- *
- * Fase 3 completa: progreso por parte en vivo (participante → maestro) funcionando.
+ * Rutas: users/{uid}/teachingSessions/... o wards/{wardId}/teachingSessions/...
  */
 
 import {
@@ -24,6 +22,8 @@ import {
 import { getFirebaseDb } from '../../../services/firebase/firebaseApp';
 import type { SessionParticipant, TeachingSession } from '../types';
 import { isValidJoinCode, normalizeJoinCode, formatJoinCodeForDisplay } from '../utils/joinCode';
+import type { SessionStorageParent } from './sessionStoragePaths';
+import { parseTeachingSessionDocumentPath } from './sessionStoragePaths';
 
 const getDb = () => getFirebaseDb();
 
@@ -32,9 +32,28 @@ const getDb = () => getFirebaseDb();
 // ============================================================================
 
 export interface SessionLookupResult {
+  /** Primer segmento de ruta (uid del maestro o id de barrio legado) — mismo uso que en /session/:wardId/... */
   wardId: string;
+  parent: SessionStorageParent;
   sessionId: string;
   session: TeachingSession;
+}
+
+function participantDocRef(
+  parent: SessionStorageParent,
+  parentId: string,
+  sessionId: string,
+  uid: string
+) {
+  return doc(
+    getDb(),
+    parent,
+    parentId,
+    'teachingSessions',
+    sessionId,
+    'participants',
+    uid
+  );
 }
 
 // ============================================================================
@@ -60,15 +79,18 @@ export async function getSessionByJoinCode(
   if (snapshot.empty) return null;
 
   const docSnap = snapshot.docs[0];
-  const pathParts = docSnap.ref.path.split('/');
-  const wardId = pathParts[1];
-  const sessionId = docSnap.id;
+  const parsed = parseTeachingSessionDocumentPath(docSnap.ref.path);
+  if (!parsed) return null;
+
   const data = docSnap.data() as Record<string, unknown>;
 
   const session: TeachingSession = {
-    id: sessionId,
+    id: parsed.sessionId,
     title: String(data.title ?? ''),
     description: data.description ? String(data.description) : undefined,
+    classWithinOrganization: data.classWithinOrganization
+      ? String(data.classWithinOrganization)
+      : undefined,
     callingType: (data.callingType as TeachingSession['callingType']) ?? 'other',
     teacherUid: String(data.teacherUid ?? ''),
     teacherDisplayName: data.teacherDisplayName ? String(data.teacherDisplayName) : undefined,
@@ -81,7 +103,12 @@ export async function getSessionByJoinCode(
     updatedAt: Number(data.updatedAt ?? 0),
   };
 
-  return { wardId, sessionId, session };
+  return {
+    wardId: parsed.parentId,
+    parent: parsed.parent,
+    sessionId: parsed.sessionId,
+    session,
+  };
 }
 
 // ============================================================================
@@ -103,16 +130,8 @@ export async function joinSessionByCode(
     return { success: false, error: 'Sesión no encontrada o no está activa' };
   }
 
-  const { wardId, sessionId } = lookup;
-  const participantRef = doc(
-    getDb(),
-    'wards',
-    wardId,
-    'teachingSessions',
-    sessionId,
-    'participants',
-    user.uid
-  );
+  const { parent, wardId: parentId, sessionId } = lookup;
+  const participantRef = participantDocRef(parent, parentId, sessionId, user.uid);
 
   const existing = await getDoc(participantRef);
   const now = Date.now();
@@ -131,7 +150,7 @@ export async function joinSessionByCode(
 
   await setDoc(participantRef, participant);
 
-  return { success: true, wardId, sessionId };
+  return { success: true, wardId: parentId, sessionId };
 }
 
 // ============================================================================
@@ -151,14 +170,15 @@ function mapDocToParticipant(data: Record<string, unknown>, uid: string): Sessio
 }
 
 export function subscribeToParticipants(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   callback: (participants: SessionParticipant[]) => void
 ): Unsubscribe {
   const coll = collection(
     getDb(),
-    'wards',
-    wardId,
+    parent,
+    parentId,
     'teachingSessions',
     sessionId,
     'participants'
@@ -185,19 +205,12 @@ export function subscribeToParticipants(
 // ============================================================================
 
 export async function touchLastSeen(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   uid: string
 ): Promise<void> {
-  const ref = doc(
-    getDb(),
-    'wards',
-    wardId,
-    'teachingSessions',
-    sessionId,
-    'participants',
-    uid
-  );
+  const ref = participantDocRef(parent, parentId, sessionId, uid);
   await updateDoc(ref, { lastSeenAt: Date.now() });
 }
 
@@ -214,20 +227,13 @@ export function hasCompletedPart(
 }
 
 export async function markPartCompleted(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   uid: string,
   partId: string
 ): Promise<void> {
-  const ref = doc(
-    getDb(),
-    'wards',
-    wardId,
-    'teachingSessions',
-    sessionId,
-    'participants',
-    uid
-  );
+  const ref = participantDocRef(parent, parentId, sessionId, uid);
 
   const existing = await getDoc(ref);
   const data = existing.data() as Record<string, unknown> | undefined;
@@ -248,19 +254,12 @@ export async function markPartCompleted(
 // ============================================================================
 
 export async function updatePresence(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   uid: string,
   presence: SessionParticipant['presence']
 ): Promise<void> {
-  const ref = doc(
-    getDb(),
-    'wards',
-    wardId,
-    'teachingSessions',
-    sessionId,
-    'participants',
-    uid
-  );
+  const ref = participantDocRef(parent, parentId, sessionId, uid);
   await updateDoc(ref, { presence, lastSeenAt: Date.now() });
 }

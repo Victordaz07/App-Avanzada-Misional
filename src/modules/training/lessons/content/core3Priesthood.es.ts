@@ -12,7 +12,7 @@ export const core3PriesthoodEs: TrainingLessonSpecific = {
   ],
   briefHeading: 'El Sacerdocio: autoridad, llaves y servicio',
   briefBody:
-    'La autoridad del sacerdocio es el derecho de actuar en nombre de Dios; el poder depende de la rectitud, fe, humildad y obediencia. Las llaves son el derecho de presidir y dirigir cómo se usa la autoridad en un área. El sacerdocio Aarónico se enfoca en ordenanzas preparatorias y ministerio; el de Melquisedec en las ordenanzas espirituales y el gobierno de la Iglesia. Se ejerce mediante el servicio y la dignidad.',
+    'La autoridad del sacerdocio es el derecho de actuar en nombre de Dios; el poder depende de la rectitud, fe, humildad y obediencia. Las llaves son el derecho de presidir y dirigir cómo se usa la autoridad en un área. El sacerdocio Aarónico se enfoca en ordenanzas preparatorias y ministerio; el de Melquisedec en las ordenanzas espirituales y el gobierno de la Iglesia. Se ejerce mediante el servicio y la dignidad. Para organización y deberes en la Iglesia, profundiza con el Manual General (cap. 3) en ChurchofJesusChrist.org.',
   scriptures: [
     {
       ref: 'DyC 13',

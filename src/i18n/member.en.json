@@ -360,58 +360,9 @@
       "auxiliaryGuide": {
         "title": "Guide for auxiliary organizations",
         "description": "Ward organizations are critical so new members quickly find a place to serve, learn, and feel needed.",
-        "organizations": [
-          {
-            "id": "relief-society",
-            "name": "Relief Society",
-            "focus": "Embrace, teach, and sustain newly baptized sisters.",
-            "ideas": [
-              "Prepare a welcome kit with leader phone numbers, meeting schedules, and a handwritten note.",
-              "Assign two sisters to take turns sitting with her during the first Sundays.",
-              "Invite her to participate in a simple service project so she can feel she is already contributing."
-            ]
-          },
-          {
-            "id": "elders-quorum",
-            "name": "Elders quorum",
-            "focus": "Help new brothers understand and prepare to hold the priesthood worthily.",
-            "ideas": [
-              "Hold a short “Priesthood 101” class each quarter for new brethren.",
-              "Assign experienced ministers to accompany him on easy visits.",
-              "Invite him to physical service projects where he can integrate without the pressure to teach yet."
-            ]
-          },
-          {
-            "id": "young-men",
-            "name": "Young Men",
-            "focus": "Make the quorum a safe, motivating place for teenage converts.",
-            "ideas": [
-              "Assign a youth of the same age to act as his “welcome companion.”",
-              "Include him in sports and service activities instead of only classroom settings.",
-              "Help him prepare to receive and use the Aaronic Priesthood with tasks such as setting up the sacrament or arranging chairs."
-            ]
-          },
-          {
-            "id": "young-women",
-            "name": "Young Women",
-            "focus": "Help young convert women find friendship, identity, and purpose in the gospel.",
-            "ideas": [
-              "Quickly integrate her into a small group with similar interests.",
-              "Invite her to personal goal projects and community service.",
-              "Accompany her in key spiritual experiences like testimony meetings or camps."
-            ]
-          },
-          {
-            "id": "primary",
-            "name": "Primary",
-            "focus": "Help convert children—and their parents—understand the Church structure in simple ways.",
-            "ideas": [
-              "Personally greet them at the Primary door and show them their classroom.",
-              "Briefly explain to the parents what Primary does and how they can help at home.",
-              "Send home a short page with a scripture and a family activity."
-            ]
-          }
-        ]
+        "trainingHubBody": "Training by organization (elders quorum, Relief Society, Aaronic, Young Women, Primary, Sunday School) and teaching principles lives in the app’s Training hub, aligned with the General Handbook and Teaching in the Savior’s Way.",
+        "trainingHubCta": "Open training",
+        "organizations": []
       },
       "callingsForNewMembers": {
         "title": "Appropriate callings and assignments",

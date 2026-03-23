@@ -2,15 +2,14 @@
  * Session Participant Live View
  *
  * Vista mínima para participantes (no maestros).
- * Ruta: /session/:wardId/:sessionId/live
- * Solo ProtectedRoute - NO WardRequiredRoute.
- * Muestra "Estás en la sesión" y llama touchLastSeen cada 30-60s.
+ * Ruta: /session/:wardId/:sessionId/live  (primer segmento = uid maestro o id barrio legado)
  */
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
-import { subscribeToSession } from '../services/teachingSessionsService';
+import { findSessionStorageByScopeId, subscribeToSession } from '../services/teachingSessionsService';
+import type { SessionStorageParent } from '../services/sessionStoragePaths';
 import {
   touchLastSeen,
   subscribeToParticipants,
@@ -24,7 +23,7 @@ import { Card, Button } from '../../../ui';
 
 const FEEDBACK_STORAGE_KEY = (sessionId: string) => `teaching:feedback:${sessionId}:submitted`;
 
-const TOUCH_INTERVAL_MS = 45_000; // 45 segundos
+const TOUCH_INTERVAL_MS = 45_000;
 
 const SessionParticipantLiveView: React.FC = () => {
   const { wardId, sessionId } = useParams<{ wardId: string; sessionId: string }>();
@@ -35,21 +34,45 @@ const SessionParticipantLiveView: React.FC = () => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackShown, setFeedbackShown] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    if (!wardId || !sessionId || !user?.uid) return;
-
-    const unsub = subscribeToSession(wardId, sessionId, setSession);
-    return () => unsub();
-  }, [wardId, sessionId, user?.uid]);
+  const [storage, setStorage] = useState<{
+    parent: SessionStorageParent;
+    parentId: string;
+  } | null>(null);
+  const [resolved, setResolved] = useState(false);
 
   useEffect(() => {
     if (!wardId || !sessionId) return;
-    const unsub = subscribeToParticipants(wardId, sessionId, setParticipants);
-    return () => unsub();
+    let cancelled = false;
+    findSessionStorageByScopeId(wardId, sessionId)
+      .then((loc) => {
+        if (cancelled) return;
+        setStorage(loc);
+        setResolved(true);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStorage(null);
+          setResolved(true);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [wardId, sessionId]);
 
-  // Mostrar modal de feedback cuando sesión pasa a completed (una vez por sesión)
+  useEffect(() => {
+    if (!storage || !sessionId || !user?.uid) return;
+
+    const unsub = subscribeToSession(storage.parent, storage.parentId, sessionId, setSession);
+    return () => unsub();
+  }, [storage, sessionId, user?.uid]);
+
+  useEffect(() => {
+    if (!storage || !sessionId) return;
+    const unsub = subscribeToParticipants(storage.parent, storage.parentId, sessionId, setParticipants);
+    return () => unsub();
+  }, [storage, sessionId]);
+
   useEffect(() => {
     if (!sessionId || !session || !user?.uid) return;
     if (session.status !== 'completed') return;
@@ -60,25 +83,32 @@ const SessionParticipantLiveView: React.FC = () => {
     setFeedbackShown(true);
   }, [sessionId, session?.status, user?.uid, feedbackShown]);
 
-  // touchLastSeen cada 45s
   useEffect(() => {
-    if (!wardId || !sessionId || !user?.uid) return;
+    if (!storage || !sessionId || !user?.uid) return;
 
     const touch = () => {
-      touchLastSeen(wardId, sessionId, user.uid).catch(console.error);
+      touchLastSeen(storage.parent, storage.parentId, sessionId, user.uid).catch(console.error);
     };
 
-    touch(); // inmediato
+    touch();
     intervalRef.current = setInterval(touch, TOUCH_INTERVAL_MS);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [wardId, sessionId, user?.uid]);
+  }, [storage, sessionId, user?.uid]);
 
   if (!wardId || !sessionId) {
     return (
       <div style={{ padding: 24 }}>
         <p>Parámetros inválidos.</p>
+      </div>
+    );
+  }
+
+  if (!resolved || !storage) {
+    return (
+      <div style={{ padding: 24 }}>
+        <p>{resolved ? 'Sesión no encontrada.' : 'Cargando sesión...'}</p>
       </div>
     );
   }
@@ -97,18 +127,18 @@ const SessionParticipantLiveView: React.FC = () => {
   const hasCompletedCurrentPart = hasCompletedPart(me, currentPartId);
 
   const handleFeedbackSubmit = async (rating: number, comment?: string) => {
-    if (!wardId || !sessionId || !user?.uid) return;
-    await submitFeedback(wardId, sessionId, user.uid, { rating, comment });
+    if (!storage || !sessionId || !user?.uid) return;
+    await submitFeedback(storage.parent, storage.parentId, sessionId, user.uid, { rating, comment });
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(FEEDBACK_STORAGE_KEY(sessionId), 'true');
     }
   };
 
   const handleMarkCompleted = async () => {
-    if (!wardId || !sessionId || !user?.uid || !currentPartId || hasCompletedCurrentPart) return;
+    if (!storage || !sessionId || !user?.uid || !currentPartId || hasCompletedCurrentPart) return;
     setMarking(true);
     try {
-      await markPartCompleted(wardId, sessionId, user.uid, currentPartId);
+      await markPartCompleted(storage.parent, storage.parentId, sessionId, user.uid, currentPartId);
     } catch (err) {
       console.error('markPartCompleted:', err);
     } finally {

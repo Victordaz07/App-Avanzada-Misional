@@ -1,11 +1,10 @@
 /**
  * Teaching Sessions List Page
  *
- * Lista de sesiones del maestro (últimas 10).
- * Query: wards/{wardId}/teachingSessions where teacherUid == currentUser.uid
+ * Lista de sesiones del maestro: users/{uid}/teachingSessions (+ legado barrio si aplica).
  */
 
-import { LEADERS_APP } from '../../../leadersPaths';
+import { leadersAppUrl } from '../../../leadersPaths';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
@@ -39,12 +38,12 @@ const TeachingSessionsListPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!wardId || !user?.uid) {
+    if (!user?.uid) {
       setLoading(false);
       return;
     }
     let cancelled = false;
-    listSessionsForTeacher(wardId, user.uid, 30)
+    listSessionsForTeacher(user.uid, wardId, 30)
       .then((list) => {
         if (!cancelled) setSessions(list);
       })
@@ -56,25 +55,6 @@ const TeachingSessionsListPage: React.FC = () => {
       });
     return () => { cancelled = true; };
   }, [wardId, user?.uid]);
-
-  if (!wardId) {
-    return (
-      <PageShell variant="gradient">
-        <TeachingCanonShell>
-          <TeachingCanonHeroHeader
-            categoryLabel={t('leadership.canon.teachingEyebrow')}
-            title={t('leadership.canon.teachingPageTitle')}
-            subtitle={t('leadership.canon.teachingSubtitle')}
-            heroNote={t('leadership.canon.teachingHeroNote')}
-          />
-          <EmptyState
-            title={t('ward.exploration.emptyTitle')}
-            description={t('ward.exploration.emptyDescription')}
-          />
-        </TeachingCanonShell>
-      </PageShell>
-    );
-  }
 
   return (
     <PageShell variant="gradient">
@@ -104,14 +84,14 @@ const TeachingSessionsListPage: React.FC = () => {
             <Button
               variant="primary"
               size="sm"
-              onClick={() => navigate(`/leaders/app/teaching/${staleActiveSessions[0].id}`)}
+              onClick={() => navigate(leadersAppUrl(`teaching/${staleActiveSessions[0].id}`))}
             >
               Ir a cerrar
             </Button>
           </Card>
         )}
 
-        <Button variant="primary" fullWidth onClick={() => navigate('/teaching/new')}>
+        <Button variant="primary" fullWidth onClick={() => navigate(leadersAppUrl('teaching/new'))}>
           ➕ Nueva sesión
         </Button>
 
@@ -130,7 +110,7 @@ const TeachingSessionsListPage: React.FC = () => {
             title="Sin sesiones"
             description="Crea tu primera sesión para preparar una clase."
             action={
-              <Button variant="primary" onClick={() => navigate('/teaching/new')}>
+              <Button variant="primary" onClick={() => navigate(leadersAppUrl('teaching/new'))}>
                 Nueva sesión
               </Button>
             }
@@ -144,7 +124,7 @@ const TeachingSessionsListPage: React.FC = () => {
                 key={s.id}
                 variant="default"
                 padding="md"
-                onClick={() => navigate(`/leaders/app/teaching/${s.id}`)}
+                onClick={() => navigate(leadersAppUrl(`teaching/${s.id}`))}
                 style={{ cursor: 'pointer' }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -173,7 +153,7 @@ const TeachingSessionsListPage: React.FC = () => {
                     size="sm"
                     onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/leaders/app/teaching/${s.id}`);
+                    navigate(leadersAppUrl(`teaching/${s.id}`));
                   }}
                   >
                     Abrir

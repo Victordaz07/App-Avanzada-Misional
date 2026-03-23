@@ -1,7 +1,10 @@
 /**
- * Unlock Logic (Member App)
- * Core → Aaronic → Melchizedek progression only.
- * NO calling-based logic (lives in Leaders app).
+ * Lógica de desbloqueo — sin llamamientos (eso vive en Líderes).
+ *
+ * - Fundamentos: siempre si el usuario es miembro (no investigador).
+ * - Sacerdocio: tras completar fundamentos.
+ * - Enseñar a la manera del Salvador: disponible al ser miembro (paralelo a fundamentos).
+ * - Organizaciones auxiliares: tras completar fundamentos.
  */
 
 import type {
@@ -19,9 +22,17 @@ const AARONIC_TRACK_IDS = [
   'aaronic-priest',
 ] as const;
 
-const MELCHIZEDEK_TRACK_IDS = [
-  'melchizedek-elder',
-  'melchizedek-high-priest',
+const MELCHIZEDEK_TRACK_IDS = ['melchizedek-elder', 'melchizedek-high-priest'] as const;
+
+const TSW_TRACK_IDS = ['tsw-part1', 'tsw-part2', 'tsw-part3'] as const;
+
+const ORG_TRACK_IDS = [
+  'org-elders-quorum',
+  'org-relief-society',
+  'org-aaronic',
+  'org-young-women',
+  'org-primary',
+  'org-sunday-school',
 ] as const;
 
 const CORE_LESSON_IDS = ['core-1', 'core-2', 'core-3', 'core-4'];
@@ -48,7 +59,10 @@ function isAllAaronicCompleted(ctx: UnlockContext): boolean {
 export function isPathUnlocked(pathId: string, ctx: UnlockContext): boolean {
   if (ctx.stage !== 'covenanted') return false;
   if (pathId === 'core-foundations') return true;
-  if (pathId === 'priesthood') return isCoreCompleted(ctx);
+  if (pathId === 'teaching-saviors-way') return true;
+  if (pathId === 'priesthood' || pathId === 'auxiliary-organizations') {
+    return isCoreCompleted(ctx);
+  }
   return false;
 }
 
@@ -58,11 +72,19 @@ export function isTrackUnlocked(trackId: string, ctx: UnlockContext): boolean {
   const track = ctx.tracksById[trackId];
   if (!track) return false;
 
-  if (AARONIC_TRACK_IDS.includes(trackId as any)) {
+  if ((TSW_TRACK_IDS as readonly string[]).includes(trackId)) {
+    return true;
+  }
+
+  if ((ORG_TRACK_IDS as readonly string[]).includes(trackId)) {
     return isCoreCompleted(ctx);
   }
 
-  if (MELCHIZEDEK_TRACK_IDS.includes(trackId as any)) {
+  if (AARONIC_TRACK_IDS.includes(trackId as (typeof AARONIC_TRACK_IDS)[number])) {
+    return isCoreCompleted(ctx);
+  }
+
+  if (MELCHIZEDEK_TRACK_IDS.includes(trackId as (typeof MELCHIZEDEK_TRACK_IDS)[number])) {
     return isCoreCompleted(ctx) && isAllAaronicCompleted(ctx);
   }
 

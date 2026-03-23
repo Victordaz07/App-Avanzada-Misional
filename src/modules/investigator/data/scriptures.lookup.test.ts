@@ -28,4 +28,26 @@ describe('getScriptureByReference', () => {
     expect(getScriptureByReference('Doctrina y Convenios 1:30', 'es')?.id).toBe('dc-1-30');
     expect(getScriptureByReference('Doctrine and Covenants 1:30', 'en')?.id).toBe('dc-1-30');
   });
+
+  it('maps John 13:34 and Juan 13:34 to the 34–35 passage by id', () => {
+    expect(getScriptureByReference('John 13:34', 'en')?.id).toBe('john-13-34-35');
+    expect(getScriptureByReference('Juan 13:34', 'es')?.id).toBe('john-13-34-35');
+    expect(getScriptureByReference('John 13:34', 'en')?.reference).toMatch(/34/);
+  });
+
+  it('resolves Mosiah 18:8–9 and verse 9 alone to mosiah-18-8-9', () => {
+    expect(getScriptureByReference('Mosíah 18:8–9', 'es')?.id).toBe('mosiah-18-8-9');
+    expect(getScriptureByReference('Mosiah 18:8–9', 'en')?.id).toBe('mosiah-18-8-9');
+    expect(getScriptureByReference('Mosíah 18:9', 'es')?.id).toBe('mosiah-18-8-9');
+  });
+
+  it('resolves 1 Timothy 4:12 from manual training catalog', () => {
+    expect(getScriptureByReference('1 Timoteo 4:12', 'es')?.id).toBe('1-timothy-4-12');
+    expect(getScriptureByReference('1 Timothy 4:12', 'en')?.id).toBe('1-timothy-4-12');
+  });
+
+  it('normalizes Doctrina y Convenios 107 heading to dc-107-head', () => {
+    expect(getScriptureByReference('Doctrina y Convenios 107', 'es')?.id).toBe('dc-107-head');
+    expect(getScriptureByReference('Doctrine and Covenants 107', 'en')?.id).toBe('dc-107-head');
+  });
 });

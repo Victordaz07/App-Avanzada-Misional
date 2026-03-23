@@ -63,17 +63,21 @@ export const elder1TrainingScripturesEs: Scripture[] = [
     context: 'Oración de fe, unción con aceite y ancianos de la iglesia.',
   },
   {
-    id: 'dc-42-44',
-    reference: 'Doctrina y Convenios 42:44',
+    id: 'dc-42-44-45',
+    reference: 'Doctrina y Convenios 42:44–45',
     text:
-      'Y los élderes de la iglesia, dos o más, serán llamados, y orarán por ellos y les impondrán las manos en mi nombre; y si murieren, morirán para mí; y si vivieren, vivirán para mí.',
+      'Y los élderes de la iglesia, dos o más, serán llamados, y orarán por ellos y les impondrán las manos en mi nombre; y si murieren, morirán para mí; y si vivieren, vivirán para mí. Viviréis juntos en amor, al grado de que lloraréis por los que mueran, y más particularmente por aquellos que no tengan la esperanza de una resurrección gloriosa.',
     verses: [
       {
         verse: 44,
         text: 'Y los élderes de la iglesia, dos o más, serán llamados, y orarán por ellos y les impondrán las manos en mi nombre; y si murieren, morirán para mí; y si vivieren, vivirán para mí.',
       },
+      {
+        verse: 45,
+        text: 'Viviréis juntos en amor, al grado de que lloraréis por los que mueran, y más particularmente por aquellos que no tengan la esperanza de una resurrección gloriosa.',
+      },
     ],
-    context: 'Los élderes oran e imponen manos a los enfermos en el nombre del Señor.',
+    context: 'Los élderes oran e imponen manos a los enfermos; el pueblo del convenio vive en amor y duelo piadoso.',
   },
   {
     id: 'dc-107-12',

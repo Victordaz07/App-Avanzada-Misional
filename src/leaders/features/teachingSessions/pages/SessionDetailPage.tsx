@@ -7,7 +7,6 @@
  * Botón: Ir a En Vivo → /teaching/:id/live
  */
 
-import { LEADERS_APP } from '../../../leadersPaths';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
@@ -15,11 +14,13 @@ import { useAuth } from '../../../../context/AuthContext';
 import { useI18n } from '../../../context/I18nContext';
 import { useWardStore } from '../../../state/ward/useWardStore';
 import {
-  getSession,
+  findSessionForTeacher,
   activateSession,
   completeSession,
 } from '../services/teachingSessionsService';
-import type { TeachingSession, CallingType } from '../types';
+import type { SessionStorageParent } from '../services/sessionStoragePaths';
+import type { TeachingSession } from '../types';
+import { resolveClassWithinOrgLabel } from '../config/classWithinOrganizationOptions';
 import { PageShell, Card, Button, SectionTitle } from '../../../ui';
 import {
   TeachingCanonShell,
@@ -28,15 +29,6 @@ import {
   TeachingCanonImagePlaceholder,
   TeachingCanonReflectionHint,
 } from '../../../ui/teaching-canon';
-
-const CALLING_LABELS: Record<CallingType, string> = {
-  sunday_school: 'Escuela Dominical',
-  seminary: 'Seminario',
-  quorum: 'Quórum',
-  relief_society: 'Sociedad de Socorro',
-  primary: 'Primaria',
-  other: 'Otro',
-};
 
 const SessionDetailPage: React.FC = () => {
   const { t } = useI18n();
@@ -51,6 +43,10 @@ const SessionDetailPage: React.FC = () => {
   const [joinCode, setJoinCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [completing, setCompleting] = useState(false);
+  const [storage, setStorage] = useState<{
+    parent: SessionStorageParent;
+    parentId: string;
+  } | null>(null);
 
   const wardId = membership?.wardId;
 
@@ -60,24 +56,43 @@ const SessionDetailPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!wardId || !sessionId) {
+    if (!sessionId || !user?.uid) {
       setLoading(false);
       return;
     }
-    getSession(wardId, sessionId)
-      .then(setSession)
-      .catch((err) => setError(err?.message ?? 'Error al cargar'))
-      .finally(() => setLoading(false));
-  }, [wardId, sessionId]);
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    findSessionForTeacher(user.uid, wardId, sessionId)
+      .then((resolved) => {
+        if (cancelled) return;
+        if (!resolved) {
+          setSession(null);
+          setStorage(null);
+          return;
+        }
+        setSession(resolved.session);
+        setStorage({ parent: resolved.parent, parentId: resolved.parentId });
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err?.message ?? 'Error al cargar');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [wardId, sessionId, user?.uid]);
 
   const handleActivate = async () => {
-    if (!wardId || !sessionId || !user?.uid) return;
+    if (!storage || !sessionId || !user?.uid) return;
     if (session?.teacherUid !== user.uid) return;
 
     setActivating(true);
     setError(null);
     try {
-      const code = await activateSession(wardId, sessionId);
+      const code = await activateSession(storage.parent, storage.parentId, sessionId);
       setJoinCode(code);
       setSession((prev) =>
         prev ? { ...prev, status: 'active', joinCode: code } : null
@@ -109,11 +124,11 @@ const SessionDetailPage: React.FC = () => {
   };
 
   const handleCompleteFromDetail = async () => {
-    if (!wardId || !sessionId || session?.teacherUid !== user?.uid) return;
+    if (!storage || !sessionId || session?.teacherUid !== user?.uid) return;
     setCompleting(true);
     setError(null);
     try {
-      await completeSession(wardId, sessionId);
+      await completeSession(storage.parent, storage.parentId, sessionId);
       navigate(`/leaders/app/teaching/${sessionId}/report`, { replace: true });
     } catch (err: unknown) {
       setError((err as Error)?.message ?? 'Error al cerrar');
@@ -122,7 +137,7 @@ const SessionDetailPage: React.FC = () => {
     }
   };
 
-  if (!wardId || !sessionId) {
+  if (!sessionId) {
     return (
       <PageShell title="Sesión" onBack={() => navigate(-1)} variant="gradient">
         <p>Parámetros inválidos.</p>
@@ -154,8 +169,11 @@ const SessionDetailPage: React.FC = () => {
     );
   }
 
+  const callingLabel = t(`leadership.canon.callingType.${session.callingType}`);
+  const classWithinLabel = resolveClassWithinOrgLabel(t, session.classWithinOrganization);
+
   const sessionSubtitle = t('leadership.canon.sessionSubtitle', {
-    calling: CALLING_LABELS[session.callingType],
+    calling: callingLabel,
     parts: session.parts.length,
   });
 
@@ -219,9 +237,25 @@ const SessionDetailPage: React.FC = () => {
 
         <Card variant="default" padding="md">
           <div style={{ fontSize: 14, color: 'var(--am-color-text-muted)' }}>
-            {CALLING_LABELS[session.callingType]}
+            {callingLabel}
           </div>
           <div style={{ marginTop: 8, fontWeight: 600 }}>{session.title}</div>
+          {session.description?.trim() && (
+            <div style={{ marginTop: 12 }}>
+              <div style={{ fontSize: 12, color: 'var(--am-color-text-muted)', marginBottom: 4 }}>
+                {t('leadership.canon.sessionDetailWhatYouTeach')}
+              </div>
+              <div style={{ fontSize: 14, whiteSpace: 'pre-wrap' }}>{session.description}</div>
+            </div>
+          )}
+          {classWithinLabel && (
+            <div style={{ marginTop: 12, fontSize: 14 }}>
+              <span style={{ color: 'var(--am-color-text-muted)' }}>
+                {t('leadership.canon.sessionDetailClassWithinOrg')}:{' '}
+              </span>
+              {classWithinLabel}
+            </div>
+          )}
           {session.parts.length > 0 && (
             <div style={{ marginTop: 12 }}>
               <SectionTitle>Partes</SectionTitle>

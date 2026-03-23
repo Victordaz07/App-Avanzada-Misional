@@ -74,10 +74,10 @@ function normalizeReference(ref: string): string {
     .replace(/\u2014/g, ' ')
     .replace(/\u2013|\u2010/g, '-') // en-dash, hyphen → hyphen
     .replace(/,\s*/g, ', ')
-    .replace(/\bdyc\b/g, 'doctrina y convenios')
+    .replace(/\bdyc\b/g, 'doctrine and covenants')
     .replace(/\bd&c\b/g, 'doctrine and covenants')
     .replace(/\bdoctrine and covenants\b/g, 'doctrine and covenants')
-    .replace(/\bdoctrina y convenios\b/g, 'doctrina y convenios')
+    .replace(/\bdoctrina y convenios\b/g, 'doctrine and covenants')
     .replace(/\bartículos de fe\b/g, 'artículos de fe')
     .replace(/\barticles of faith\b/g, 'articles of faith')
     .replace(/\b2 nefi\b/g, '2 nephi')
@@ -87,17 +87,26 @@ function normalizeReference(ref: string): string {
     .replace(/\bjoseph smith\s+historia\b/g, 'joseph smith history')
     .replace(/\bjoseph smith history\b/g, 'joseph smith history')
     .replace(/\b1 timoteo\b/g, '1 timothy')
+    .replace(/\b2 timoteo\b/g, '2 timothy')
+    .replace(/\b1 corintios\b/g, '1 corinthians')
     .replace(/\bmateo\b/g, 'matthew')
     .replace(/\bjuan\b/g, 'john')
     .replace(/\bmarcos\b/g, 'mark')
     .replace(/\bsantiago\b/g, 'james')
     .replace(/\bfilipenses\b/g, 'philippians')
     .replace(/\befesios\b/g, 'ephesians')
+    .replace(/\bhechos\b/g, 'acts')
+    .replace(/\bproverbios\b/g, 'proverbs')
+    .replace(/\bsalmos\b/g, 'psalms')
+    .replace(/\blucas\b/g, 'luke')
+    .replace(/\bhebreos\b/g, 'hebrews')
+    .replace(/\bromanos\b/g, 'romans')
     .replace(/\s+/g, ' ')
     .trim();
   r = stripLatinDiacritics(r);
   // Libro Moisés (PGP) / Moses — misma clave canónica que el catálogo en inglés
   r = r.replace(/\bmoises\b/g, 'moses');
+  r = r.replace(/\bgalatas\b/g, 'galatians');
   return r;
 }
 
@@ -120,6 +129,12 @@ const REF_TO_ID: Record<string, string> = {
   'john 3:5': 'john-3-5',
   'mosíah 18:8-10': 'mosiah-18-8-10',
   'mosiah 18:8-10': 'mosiah-18-8-10',
+  'mosíah 18:8-9': 'mosiah-18-8-9',
+  'mosiah 18:8-9': 'mosiah-18-8-9',
+  'mosíah 18:9': 'mosiah-18-8-9',
+  'mosiah 18:9': 'mosiah-18-8-9',
+  'juan 13:34': 'john-13-34-35',
+  'john 13:34': 'john-13-34-35',
   'doctrina y convenios 20:37': 'dc-20-37',
   'doctrine and covenants 20:37': 'dc-20-37',
   'dyc 20:37': 'dc-20-37',
@@ -247,10 +262,14 @@ const REF_TO_ID: Record<string, string> = {
   'dyc 20:38-45': 'dc-20-38-45',
   'd&c 20:38-45': 'dc-20-38-45',
   'james 5:14-15': 'james-5-14-15',
-  'doctrina y convenios 42:44': 'dc-42-44',
-  'doctrine and covenants 42:44': 'dc-42-44',
-  'dyc 42:44': 'dc-42-44',
-  'd&c 42:44': 'dc-42-44',
+  'doctrina y convenios 42:44': 'dc-42-44-45',
+  'doctrine and covenants 42:44': 'dc-42-44-45',
+  'dyc 42:44': 'dc-42-44-45',
+  'd&c 42:44': 'dc-42-44-45',
+  'doctrina y convenios 42:44-45': 'dc-42-44-45',
+  'doctrine and covenants 42:44-45': 'dc-42-44-45',
+  'dyc 42:44-45': 'dc-42-44-45',
+  'd&c 42:44-45': 'dc-42-44-45',
   'doctrina y convenios 107:12': 'dc-107-12',
   'doctrine and covenants 107:12': 'dc-107-12',
   'dyc 107:12': 'dc-107-12',

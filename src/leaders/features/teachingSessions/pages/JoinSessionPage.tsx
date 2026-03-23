@@ -10,6 +10,10 @@ import { LEADERS_ROOT } from '../../../leadersPaths';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
+import { useMemberSpiritualPath } from '../../../../hooks/useMemberSpiritualPath';
+import { useI18n } from '../../../context/I18nContext';
+import { useTrainingStore } from '../../../../modules/training/store/useTrainingStore';
+import { isCoreFoundationsComplete } from '../../../../modules/training/utils/trainingPrerequisites';
 import {
   getSessionByJoinCode,
   joinSessionByCode,
@@ -32,10 +36,16 @@ type JoinState =
   | { status: 'error'; message: string };
 
 const JoinSessionPage: React.FC = () => {
+  const { t } = useI18n();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user } = useAuth();
   const isAuthenticated = !!user;
+  const { trainingUnlockStage } = useMemberSpiritualPath();
+  const completedLessons = useTrainingStore((s) => s.completedLessons);
+  const coreComplete = isCoreFoundationsComplete(completedLessons);
+  const needsCoreForJoin =
+    isAuthenticated && trainingUnlockStage === 'covenanted' && !coreComplete;
   const [state, setState] = useState<JoinState>({ status: 'loading' });
 
   const code = searchParams.get('code')?.trim() ?? '';
@@ -204,6 +214,22 @@ const JoinSessionPage: React.FC = () => {
               <p>Inicia sesión para unirte a esta clase.</p>
               <Button variant="primary" fullWidth onClick={handleLoginToJoin}>
                 Iniciar sesión para unirte
+              </Button>
+            </div>
+          ) : needsCoreForJoin ? (
+            <div style={{ marginTop: 24 }}>
+              <h3 style={{ fontSize: '1.1rem', margin: '0 0 8px' }}>
+                {t('leadership.canon.trainingGateCoreTitle')}
+              </h3>
+              <p style={{ lineHeight: 1.5, marginBottom: 16 }}>
+                {t('leadership.canon.trainingGateCoreBody')}
+              </p>
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={() => navigate('/training/core-foundations')}
+              >
+                {t('leadership.canon.trainingGateCoreCta')}
               </Button>
             </div>
           ) : (

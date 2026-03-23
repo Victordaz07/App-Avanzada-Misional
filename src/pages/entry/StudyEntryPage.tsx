@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaBookOpen, FaGraduationCap, FaChevronRight } from 'react-icons/fa6';
+import { FaBookOpen, FaGraduationCap, FaChevronRight, FaLock } from 'react-icons/fa6';
 import { useI18n } from '../../context/I18nContext';
+import { useMemberSpiritualPath } from '../../hooks/useMemberSpiritualPath';
 import { HomeWelcomeCard } from '../../ui/home-welcome/HomeWelcomeCard';
 import '../../ui/home-discovery/HomeDiscoveryRails.css';
 import './StudyEntryPage.css';
@@ -12,6 +13,8 @@ import './StudyEntryPage.css';
  */
 export default function StudyEntryPage(): JSX.Element {
   const { t } = useI18n();
+  const { trainingUnlockStage } = useMemberSpiritualPath();
+  const canOpenTraining = trainingUnlockStage === 'covenanted';
 
   return (
     <div className="study-hub anim-fade-up">
@@ -44,22 +47,38 @@ export default function StudyEntryPage(): JSX.Element {
             </span>
           </Link>
 
-          <Link
-            to="/training"
-            className="home-discovery__card home-discovery__card--tone-1"
-            role="listitem"
-          >
-            <div className="home-discovery__card-icon" aria-hidden>
-              <FaGraduationCap />
+          {canOpenTraining ? (
+            <Link
+              to="/training"
+              className="home-discovery__card home-discovery__card--tone-1"
+              role="listitem"
+            >
+              <div className="home-discovery__card-icon" aria-hidden>
+                <FaGraduationCap />
+              </div>
+              <div className="home-discovery__card-body">
+                <h2 className="home-discovery__card-title">{t('app.studyHub.trainingTitle')}</h2>
+                <p className="home-discovery__card-subtitle">{t('app.studyHub.trainingDesc')}</p>
+              </div>
+              <span className="home-discovery__card-arrow-wrap" aria-hidden>
+                <FaChevronRight className="home-discovery__card-arrow" />
+              </span>
+            </Link>
+          ) : (
+            <div
+              className="home-discovery__card home-discovery__card--tone-1 home-discovery__card--muted"
+              role="listitem"
+              aria-disabled="true"
+            >
+              <div className="home-discovery__card-icon" aria-hidden>
+                <FaLock />
+              </div>
+              <div className="home-discovery__card-body">
+                <h2 className="home-discovery__card-title">{t('app.studyHub.trainingMembersOnlyTitle')}</h2>
+                <p className="home-discovery__card-subtitle">{t('app.studyHub.trainingMembersOnlyDesc')}</p>
+              </div>
             </div>
-            <div className="home-discovery__card-body">
-              <h2 className="home-discovery__card-title">{t('app.studyHub.trainingTitle')}</h2>
-              <p className="home-discovery__card-subtitle">{t('app.studyHub.trainingDesc')}</p>
-            </div>
-            <span className="home-discovery__card-arrow-wrap" aria-hidden>
-              <FaChevronRight className="home-discovery__card-arrow" />
-            </span>
-          </Link>
+          )}
         </div>
       </section>
     </div>

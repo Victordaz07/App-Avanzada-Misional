@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import '../Page.css';
 import './MemberConversionCare.css';
 import { useI18n } from '../../context/I18nContext';
@@ -74,19 +75,12 @@ const MemberConversionCare: React.FC = () => {
         <section className="conversion-card">
           <h2>{care.auxiliaryGuide.title}</h2>
           <p>{care.auxiliaryGuide.description}</p>
-          <div className="aux-grid">
-            {care.auxiliaryGuide.organizations.map(org => (
-              <div key={org.id} className="aux-card">
-                <h3>{org.name}</h3>
-                <p className="aux-focus">{org.focus}</p>
-                <ul className="conversion-bullets">
-                  {org.ideas.map((idea, index) => (
-                    <li key={index}>{idea}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <p>{t('member.conversionCare.auxiliaryGuide.trainingHubBody')}</p>
+          <p className="conversion-care__training-cta">
+            <Link to="/training" className="conversion-care__training-link">
+              {t('member.conversionCare.auxiliaryGuide.trainingHubCta')}
+            </Link>
+          </p>
         </section>
 
         <section className="conversion-card">

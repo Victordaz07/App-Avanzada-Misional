@@ -138,6 +138,23 @@
   margin-bottom: 8px;
 }
 
+.conversion-care__training-cta {
+  margin: 12px 0 0 0;
+}
+
+.conversion-care__training-link {
+  display: inline-flex;
+  align-items: center;
+  font-weight: var(--font-weight-semibold);
+  color: var(--primary, #1f3a5f);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.conversion-care__training-link:hover {
+  opacity: 0.9;
+}
+
 @media (max-width: 768px) {
   .conversion-layout {
     grid-template-columns: 1fr;

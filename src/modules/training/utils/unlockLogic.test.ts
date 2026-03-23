@@ -1,16 +1,16 @@
 import { describe, it, expect } from "vitest";
-import { isTrackUnlocked, isPathUnlocked } from "./unlockLogic";
+import { isTrackUnlocked, isPathUnlocked, type UnlockContext } from "./unlockLogic";
 import { paths, tracksById, lessonsById } from "../data/trainingPaths";
 
-function makeCtx(overrides?: Partial<any>) {
-  return {
+function makeCtx(overrides?: Partial<UnlockContext>) {
+  const base: UnlockContext = {
     stage: "covenanted",
     completedLessons: {},
     paths,
     tracksById,
     lessonsById,
-    ...overrides,
   };
+  return { ...base, ...overrides };
 }
 
 describe("unlockLogic – no regression", () => {

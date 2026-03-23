@@ -5,11 +5,11 @@
  */
 
 import React, { useState } from 'react';
-import { LEADERS_ROOT } from '../../../leadersPaths';
-import { useNavigate } from 'react-router-dom';
+import { LEADERS_ROOT, leadersIsEmbeddedPath } from '../../../leadersPaths';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
 import { useI18n, type Locale } from '../../../context/I18nContext';
-import { useTheme, type ThemeMode } from '../../../context/ThemeContext';
+import { useTheme } from '../../../../context/ThemeContext';
 import { useUserRoleStore } from '../../../state/user/useUserRoleStore';
 import { useWardStore } from '../../../state/ward/useWardStore';
 import {
@@ -45,6 +45,8 @@ function formatLastSynced(
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isEmbeddedInMainApp = leadersIsEmbeddedPath(location.pathname);
   const { user, logout, isLoading, refreshProfile } = useAuth();
   const { getRoleLabel, getRoleIcon, getRoleOrganization, isBishopric } = useUserRoleStore();
   const { ward, membership } = useWardStore();
@@ -70,6 +72,10 @@ const ProfilePage: React.FC = () => {
     navigate(`${LEADERS_ROOT}/select-role`);
   };
 
+  const handleBackToMemberProfile = () => {
+    navigate('/profile');
+  };
+
   const handleToggleLanguage = async () => {
     const nextLocale: Locale = locale === 'en' ? 'es' : 'en';
     await setLocale(nextLocale);
@@ -84,7 +90,7 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleToggleTheme = () => {
-    const order: ThemeMode[] = ['light', 'dark', 'system'];
+    const order = ['light', 'dark', 'system'] as const;
     const idx = order.indexOf(theme);
     setTheme(order[(idx + 1) % order.length]);
   };
@@ -125,7 +131,22 @@ const ProfilePage: React.FC = () => {
   const roleOrg = getRoleOrganization();
 
   return (
-    <PageShell title={t('auth.profile.title')} variant="default">
+    <PageShell
+      title={t('auth.profile.title')}
+      variant="default"
+      headerActions={
+        isEmbeddedInMainApp ? (
+          <Button
+            variant="ghost"
+            size="sm"
+            type="button"
+            onClick={handleBackToMemberProfile}
+          >
+            {t('auth.profile.backToMemberProfile')}
+          </Button>
+        ) : undefined
+      }
+    >
       <div className="profile-page">
         <ProfileRoleHero roleLabelKey="app.profile.member" roleLabelText={roleLabel} />
 

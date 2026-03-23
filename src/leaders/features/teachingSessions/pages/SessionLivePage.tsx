@@ -6,19 +6,20 @@
  * Guard: Si status !== 'active' → mostrar "Activa la sesión para iniciar el modo en vivo".
  */
 
-import { LEADERS_APP } from '../../../leadersPaths';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
 import { useI18n } from '../../../context/I18nContext';
 import { useWardStore } from '../../../state/ward/useWardStore';
 import {
+  findSessionForTeacher,
   subscribeToSession,
   setCurrentPart,
   completeSession,
 } from '../services/teachingSessionsService';
+import type { SessionStorageParent } from '../services/sessionStoragePaths';
 import { subscribeToParticipants, hasCompletedPart } from '../services/participantsService';
-import type { TeachingSession, SessionParticipant, CallingType } from '../types';
+import type { TeachingSession, SessionParticipant } from '../types';
 import {
   PageShell,
   Card,
@@ -27,15 +28,6 @@ import {
   TeachingCanonShell,
   TeachingCanonHeroHeader,
 } from '../../../ui';
-
-const CALLING_LABELS: Record<CallingType, string> = {
-  sunday_school: 'Escuela Dominical',
-  seminary: 'Seminario',
-  quorum: 'Quórum',
-  relief_society: 'Sociedad de Socorro',
-  primary: 'Primaria',
-  other: 'Otro',
-};
 
 const SessionLivePage: React.FC = () => {
   const { t } = useI18n();
@@ -48,26 +40,55 @@ const SessionLivePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [storage, setStorage] = useState<{
+    parent: SessionStorageParent;
+    parentId: string;
+  } | null>(null);
 
   const wardId = membership?.wardId;
 
   useEffect(() => {
-    if (!wardId || !sessionId) {
+    if (!sessionId || !user?.uid) {
       setLoading(false);
       return;
     }
-    const unsub = subscribeToSession(wardId, sessionId, (s) => {
+    let cancelled = false;
+    findSessionForTeacher(user.uid, wardId, sessionId)
+      .then((r) => {
+        if (cancelled) return;
+        if (!r) {
+          setStorage(null);
+          setSession(null);
+          setLoading(false);
+          return;
+        }
+        setStorage({ parent: r.parent, parentId: r.parentId });
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStorage(null);
+          setLoading(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionId, user?.uid, wardId]);
+
+  useEffect(() => {
+    if (!storage || !sessionId) return;
+    const unsub = subscribeToSession(storage.parent, storage.parentId, sessionId, (s) => {
       setSession(s);
       setLoading(false);
     });
     return () => unsub();
-  }, [wardId, sessionId]);
+  }, [storage, sessionId]);
 
   useEffect(() => {
-    if (!wardId || !sessionId) return;
-    const unsub = subscribeToParticipants(wardId, sessionId, setParticipants);
+    if (!storage || !sessionId) return;
+    const unsub = subscribeToParticipants(storage.parent, storage.parentId, sessionId, setParticipants);
     return () => unsub();
-  }, [wardId, sessionId]);
+  }, [storage, sessionId]);
 
   const currentPartId = session?.currentPartId ?? null;
   const currentPart = session?.parts.find((p) => p.id === currentPartId);
@@ -80,10 +101,10 @@ const SessionLivePage: React.FC = () => {
     : null;
 
   const handlePrev = async () => {
-    if (!wardId || !sessionId || !prevPart || session?.teacherUid !== user?.uid) return;
+    if (!storage || !sessionId || !prevPart || session?.teacherUid !== user?.uid) return;
     setUpdating(true);
     try {
-      await setCurrentPart(wardId, sessionId, prevPart.id);
+      await setCurrentPart(storage.parent, storage.parentId, sessionId, prevPart.id);
     } catch (err) {
       setError((err as Error)?.message ?? 'Error');
     } finally {
@@ -92,10 +113,10 @@ const SessionLivePage: React.FC = () => {
   };
 
   const handleNext = async () => {
-    if (!wardId || !sessionId || !nextPart || session?.teacherUid !== user?.uid) return;
+    if (!storage || !sessionId || !nextPart || session?.teacherUid !== user?.uid) return;
     setUpdating(true);
     try {
-      await setCurrentPart(wardId, sessionId, nextPart.id);
+      await setCurrentPart(storage.parent, storage.parentId, sessionId, nextPart.id);
     } catch (err) {
       setError((err as Error)?.message ?? 'Error');
     } finally {
@@ -104,10 +125,10 @@ const SessionLivePage: React.FC = () => {
   };
 
   const handleComplete = async () => {
-    if (!wardId || !sessionId || session?.teacherUid !== user?.uid) return;
+    if (!storage || !sessionId || session?.teacherUid !== user?.uid) return;
     setUpdating(true);
     try {
-      await completeSession(wardId, sessionId);
+      await completeSession(storage.parent, storage.parentId, sessionId);
       navigate(`/leaders/app/teaching/${sessionId}/report`, { replace: true });
     } catch (err) {
       setError((err as Error)?.message ?? 'Error');
@@ -116,7 +137,7 @@ const SessionLivePage: React.FC = () => {
     }
   };
 
-  if (!wardId || !sessionId) {
+  if (!sessionId) {
     return (
       <PageShell title="En vivo" onBack={() => navigate(-1)} variant="gradient">
         <p>Parámetros inválidos.</p>
@@ -169,7 +190,7 @@ const SessionLivePage: React.FC = () => {
   }
 
   const liveSubtitle = t('leadership.canon.sessionLiveSubtitle', {
-    calling: CALLING_LABELS[session.callingType],
+    calling: t(`leadership.canon.callingType.${session.callingType}`),
   });
 
   return (

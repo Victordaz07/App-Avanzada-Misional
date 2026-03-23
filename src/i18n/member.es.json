@@ -360,58 +360,9 @@
       "auxiliaryGuide": {
         "title": "Guía para organizaciones auxiliares",
         "description": "Las organizaciones del barrio son esenciales para que el nuevo miembro encuentre un lugar donde servir y aprender.",
-        "organizations": [
-          {
-            "id": "relief-society",
-            "name": "Sociedad de Socorro",
-            "focus": "Abrazar, enseñar y sostener a las hermanas recién bautizadas.",
-            "ideas": [
-              "Preparar un paquete de bienvenida con teléfonos de líderes, horarios de reuniones y una breve carta escrita a mano.",
-              "Asignar a dos hermanas que se turnen para sentarse con la nueva miembro los primeros domingos.",
-              "Invitarla a participar en un proyecto de servicio sencillo donde pueda sentir que ya está aportando algo."
-            ]
-          },
-          {
-            "id": "elders-quorum",
-            "name": "Cuórum de Élderes",
-            "focus": "Ayudar a los hermanos conversos a comprender y prepararse para portar el sacerdocio dignamente.",
-            "ideas": [
-              "Organizar una breve clase trimestral: \"Introducción al sacerdocio\" para nuevos hermanos.",
-              "Asignar compañeros de ministración experimentados que lo acompañen en visitas sencillas.",
-              "Invitarlo a participar en actividades de servicio físico del cuórum, donde pueda integrarse sin presión de enseñar aún."
-            ]
-          },
-          {
-            "id": "young-men",
-            "name": "Hombres Jóvenes",
-            "focus": "Convertir la clase de los jóvenes en un lugar seguro y motivador para los nuevos conversos adolescentes.",
-            "ideas": [
-              "Designar a un joven de su misma edad para ser su \"compañero de bienvenida\" durante los primeros meses.",
-              "Involucrarlo en actividades deportivas y de servicio, evitando que sus primeras experiencias sean solo clases teóricas.",
-              "Ayudarle a prepararse para recibir y ejercer el sacerdocio de Aarón con tareas sencillas como recoger la Santa Cena o acomodar sillas."
-            ]
-          },
-          {
-            "id": "young-women",
-            "name": "Mujeres Jóvenes",
-            "focus": "Ayudar a las jovencitas conversas a encontrar amistad, identidad y propósito en el evangelio.",
-            "ideas": [
-              "Integrarla rápidamente en un grupo pequeño de amigas con intereses similares.",
-              "Invitarla a participar en proyectos de meta personal y servicio comunitario.",
-              "Acompañarla en sus primeras experiencias espirituales significativas, como testimonios o campamentos."
-            ]
-          },
-          {
-            "id": "primary",
-            "name": "Primaria",
-            "focus": "Ayudar a que los niños conversos y sus padres entiendan la estructura de la Iglesia de manera simple.",
-            "ideas": [
-              "Recibirlos personalmente en la puerta de la Primaria y mostrarles su salón.",
-              "Explicar brevemente a los padres qué hacen los niños en la Primaria y cómo pueden apoyar desde el hogar.",
-              "Enviar a casa una hoja sencilla con una escritura corta y una actividad para hacer en familia."
-            ]
-          }
-        ]
+        "trainingHubBody": "La capacitación por organización (cuórum de élderes, Sociedad de Socorro, Aarónico, Mujeres Jóvenes, Primaria, Escuela Dominical) y los principios de enseñanza viven en el hub Capacitación de la app, alineados al Manual General y a Enseñar a la manera del Salvador.",
+        "trainingHubCta": "Abrir capacitación",
+        "organizations": []
       },
       "callingsForNewMembers": {
         "title": "Llamamientos y asignaciones apropiadas",

@@ -66,7 +66,7 @@ export async function getWardTeachingStats(
   const reports: Awaited<ReturnType<typeof buildSessionReport>>[] = [];
   for (const s of completedSessions) {
     try {
-      const report = await buildSessionReport(wardId, s.id);
+      const report = await buildSessionReport('wards', wardId, s.id);
       reports.push(report);
     } catch {
       // skip sessions that fail (e.g. deleted)

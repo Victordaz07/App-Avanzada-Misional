@@ -183,8 +183,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Sign up with email - creates Firebase account AND xTheGospel profile
   const signUpWithEmail = async (email: string, password: string, displayName?: string, isMember?: boolean) => {
     try {
-      setIsLoading(true);
-      
       // Determine member status based on isMember flag
       // isMember = true -> 'active' (but unverified)
       // isMember = false/undefined -> 'investigator'
@@ -210,16 +208,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error: any) {
       console.error('Error en registro:', error);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
   // Sign in with email
   const signInWithEmail = async (email: string, password: string) => {
     try {
-      setIsLoading(true);
-      
       const result = await signIn(email, password);
       setUser(result.user);
       if (result.profile) {
@@ -232,14 +226,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error: any) {
       console.error('Error en login:', error);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const signInWithGoogle = async () => {
     try {
-      setIsLoading(true);
       const result = await firebaseSignInWithGoogle();
       setUser(result.user);
       const sanitized = sanitizeUniversalProfile(result.profile);
@@ -248,8 +239,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error: unknown) {
       console.error('Error en login con Google:', error);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 

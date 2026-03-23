@@ -1,6 +1,6 @@
-import type { TrainingLessonContent } from './trainingLessonContent.types';
+import type { TrainingLessonCanonicalContent } from './trainingLessonContent.types';
 
-export const core1RestoreEn: TrainingLessonContent = {
+export const core1RestoreEn: TrainingLessonCanonicalContent = {
   intro:
     'The Restoration of the gospel of Jesus Christ is the most important event since the Savior’s resurrection. In this lesson you will explore its foundations and how to apply them in your life.',
   objectivesHeading: 'Objectives',

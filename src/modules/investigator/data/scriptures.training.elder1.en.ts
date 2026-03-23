@@ -63,17 +63,21 @@ export const elder1TrainingScripturesEn: Scripture[] = [
     context: 'The prayer of faith, anointing with oil, and the elders of the church.',
   },
   {
-    id: 'dc-42-44',
-    reference: 'Doctrine and Covenants 42:44',
+    id: 'dc-42-44-45',
+    reference: 'Doctrine and Covenants 42:44–45',
     text:
-      'And the elders of the church, two or more, shall be called, and shall pray for and lay their hands upon them in my name; and if they die they shall die unto me, and if they live they shall live unto me.',
+      'And the elders of the church, two or more, shall be called, and shall pray for and lay their hands upon them in my name; and if they die they shall die unto me, and if they live they shall live unto me. And thou shalt live together in love, insomuch that thou shalt weep for the loss of them that die, and more especially for those that have not hope of a glorious resurrection.',
     verses: [
       {
         verse: 44,
         text: 'And the elders of the church, two or more, shall be called, and shall pray for and lay their hands upon them in my name; and if they die they shall die unto me, and if they live they shall live unto me.',
       },
+      {
+        verse: 45,
+        text: 'And thou shalt live together in love, insomuch that thou shalt weep for the loss of them that die, and more especially for those that have not hope of a glorious resurrection.',
+      },
     ],
-    context: 'Elders pray and lay hands on the sick in the name of the Lord.',
+    context: 'Elders pray and lay hands on the sick; covenant people live in love and mourn with hope.',
   },
   {
     id: 'dc-107-12',

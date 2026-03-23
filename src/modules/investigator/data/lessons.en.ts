@@ -181,7 +181,7 @@ const gospelOfJesusChrist: Lesson = {
   subtitle: 'Stage: Investigator · 25–30 min',
   description:
     'Learn the practical path to come to Christ: faith, repentance, baptism, the gift of the Holy Ghost, and enduring to the end.',
-  icon: '✝️',
+  icon: '✨',
   estimatedMinutes: 30,
 
   introParagraph:
@@ -488,7 +488,7 @@ export const libraryLessonsEn: Lesson[] = [
     subtitle: 'Stage: Investigator · 20–25 min',
     description:
       'Help the investigator know who Jesus Christ is, why He is central to God’s plan, and how His life and sacrifice matter in their life today.',
-    icon: '✝️',
+    icon: '🌟',
     estimatedMinutes: 25,
     introParagraph:
       'Throughout history, millions have spoken of Jesus Christ. Some see Him as a great teacher. Others, as a moral prophet. Others, as an inspiring figure from the past. But the restored Gospel testifies of something deeper: Jesus Christ did not only teach the way. He IS the way. Knowing Jesus Christ is not only learning about Him; it is beginning a relationship that changes life.',

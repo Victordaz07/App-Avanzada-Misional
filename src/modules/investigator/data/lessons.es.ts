@@ -182,7 +182,7 @@ const gospelOfJesusChrist: Lesson = {
   subtitle: 'Etapa: Investigador · 25–30 min',
   description:
     'Aprender el camino práctico para venir a Cristo: fe, arrepentimiento, bautismo, don del Espíritu Santo y perseverar hasta el fin.',
-  icon: '✝️',
+  icon: '✨',
   estimatedMinutes: 30,
 
   introParagraph:
@@ -479,7 +479,7 @@ export const libraryLessonsEs: Lesson[] = [
     title: 'Jesucristo: nuestro Salvador y Redentor',
     subtitle: 'Etapa: Investigador · 20–25 min',
     description: 'Que el investigador conozca quién es Jesucristo, por qué es central en el plan de Dios y cómo Su vida y sacrificio impactan su vida personal hoy.',
-    icon: '✝️',
+    icon: '🌟',
     estimatedMinutes: 25,
     introParagraph: 'A lo largo de la historia, millones han hablado de Jesucristo. Algunos lo ven como un gran maestro. Otros, como un profeta moral. Otros más, como una figura inspiradora del pasado. Pero el Evangelio restaurado testifica algo más profundo: Jesucristo no solo enseñó el camino. Él ES el camino. Conocer a Jesucristo no es solo aprender sobre Él; es iniciar una relación que transforma la vida.',
     sections: [

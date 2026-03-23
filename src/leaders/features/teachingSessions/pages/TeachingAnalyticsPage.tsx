@@ -4,7 +4,7 @@
  * Métricas e insights para obispado. Detección de problemas. Fase 6.
  */
 
-import { LEADERS_APP } from '../../../leadersPaths';
+import { leadersAppUrl } from '../../../leadersPaths';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../../context/I18nContext';
@@ -62,27 +62,8 @@ const TeachingAnalyticsPage: React.FC = () => {
     return () => { cancelled = true; };
   }, [wardId, daysRange]);
 
-  if (!wardId) {
-    return (
-      <PageShell onBack={() => navigate('/bishop/teaching')} variant="gradient">
-        <TeachingCanonShell>
-          <TeachingCanonHeroHeader
-            categoryLabel={t('leadership.canon.bishopEyebrow')}
-            title={t('leadership.canon.analyticsPageTitle')}
-            subtitle={t('leadership.canon.analyticsSubtitle')}
-            heroNote={t('leadership.canon.analyticsHeroNote')}
-          />
-          <EmptyState
-            title={t('ward.exploration.emptyTitle')}
-            description={t('ward.exploration.emptyDescription')}
-          />
-        </TeachingCanonShell>
-      </PageShell>
-    );
-  }
-
   return (
-    <PageShell onBack={() => navigate('/bishop/teaching')} variant="gradient">
+    <PageShell onBack={() => navigate(leadersAppUrl('bishop/teaching'))} variant="gradient">
       <TeachingCanonShell>
         <TeachingCanonHeroHeader
           categoryLabel={t('leadership.canon.bishopEyebrow')}
@@ -91,11 +72,19 @@ const TeachingAnalyticsPage: React.FC = () => {
           heroNote={t('leadership.canon.analyticsHeroNote')}
         />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+        {!wardId && (
+          <Card variant="default" padding="md" style={{ background: 'var(--color-primary-50, #eef3fa)' }}>
+            <p style={{ margin: 0, fontSize: 14, color: 'var(--am-color-text-main, #0f172a)', lineHeight: 1.5 }}>
+              {t('ward.exploration.contentWithoutWardHint')}
+            </p>
+          </Card>
+        )}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <label style={{ fontSize: 14, fontWeight: 500 }}>Período:</label>
           <select
             value={daysRange}
             onChange={(e) => setDaysRange(Number(e.target.value))}
+            disabled={!wardId}
             style={{
               padding: '8px 12px',
               borderRadius: 8,
@@ -119,7 +108,13 @@ const TeachingAnalyticsPage: React.FC = () => {
         {error && (
           <p style={{ color: 'var(--am-color-error, #dc2626)', fontSize: 14 }}>{error}</p>
         )}
-        {!loading && !error && stats && (
+        {!wardId && !loading && (
+          <EmptyState
+            title={t('ward.exploration.teachingListEmptyNoWardTitle')}
+            description={t('ward.exploration.teachingListEmptyNoWardDesc')}
+          />
+        )}
+        {wardId && !loading && !error && stats && (
           <>
             <Card variant="default" padding="lg">
               <SectionTitle>Resumen</SectionTitle>
@@ -168,7 +163,7 @@ const TeachingAnalyticsPage: React.FC = () => {
                       <Button
                         variant="secondary"
                         size="sm"
-                        onClick={() => navigate(`/leaders/app/bishop/teaching/${s.sessionId}/report`)}
+                        onClick={() => navigate(leadersAppUrl(`bishop/teaching/${s.sessionId}/report`))}
                       >
                         Ver
                       </Button>
@@ -202,7 +197,7 @@ const TeachingAnalyticsPage: React.FC = () => {
                       <Button
                         variant="secondary"
                         size="sm"
-                        onClick={() => navigate(`/leaders/app/bishop/teaching/${s.sessionId}/report`)}
+                        onClick={() => navigate(leadersAppUrl(`bishop/teaching/${s.sessionId}/report`))}
                       >
                         Ver reporte
                       </Button>

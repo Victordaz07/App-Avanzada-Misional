@@ -426,6 +426,23 @@ export const scripturesEn: Scripture[] = [
       'Paul explains the symbolism of baptism: burial and resurrection to a new life. It reinforces the importance of immersion.',
   },
   {
+    id: 'mosiah-18-8-9',
+    reference: 'Mosiah 18:8–9',
+    text: 'And it came to pass that he said unto them: Behold, here are the waters of Mormon (for thus were they called) and now, as ye are desirous to come into the fold of God, and to be called his people, and are willing to bear one another\'s burdens, that they may be light; Yea, and are willing to mourn with those that mourn; yea, and comfort those that stand in need of comfort, and to stand as witnesses of God at all times and in all things, and in all places that ye may be in, even until death, that ye may be redeemed of God, and be numbered with those of the first resurrection, that ye may have eternal life—',
+    verses: [
+      {
+        verse: 8,
+        text: 'And it came to pass that he said unto them: Behold, here are the waters of Mormon (for thus were they called) and now, as ye are desirous to come into the fold of God, and to be called his people, and are willing to bear one another\'s burdens, that they may be light;',
+      },
+      {
+        verse: 9,
+        text: 'Yea, and are willing to mourn with those that mourn; yea, and comfort those that stand in need of comfort, and to stand as witnesses of God at all times and in all things, and in all places that ye may be in, even until death, that ye may be redeemed of God, and be numbered with those of the first resurrection, that ye may have eternal life—',
+      },
+    ],
+    context:
+      'Alma teaches the baptismal covenant: bearing burdens, comforting others, and standing as witnesses.',
+  },
+  {
     id: 'mosiah-18-8-10',
     reference: 'Mosiah 18:8–10',
     text: 'And it came to pass that he said unto them: Behold, here are the waters of Mormon (for thus were they called) and now, as ye are desirous to come into the fold of God, and to be called his people, and are willing to bear one another\'s burdens, that they may be light; Yea, and are willing to mourn with those that mourn; yea, and comfort those that stand in need of comfort, and to stand as witnesses of God at all times and in all things, and in all places that ye may be in, even until death, that ye may be redeemed of God, and be numbered with those of the first resurrection, that ye may have eternal life— Now I say unto you, if this be the desire of your hearts, what have you against being baptized in the name of the Lord, as a witness before him that ye have entered into a covenant with him, that ye will serve him and keep his commandments, that he may pour out his Spirit more abundantly upon you?',

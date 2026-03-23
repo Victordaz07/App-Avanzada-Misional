@@ -12,7 +12,7 @@ export const core3PriesthoodEn: TrainingLessonSpecific = {
   ],
   briefHeading: 'The priesthood: authority, keys, and service',
   briefBody:
-    'Priesthood authority is the right to act in God’s name; power depends on righteousness, faith, humility, and obedience. Keys are the right to preside and direct how authority is used in an area. The Aaronic Priesthood focuses on preparatory ordinances and ministry; the Melchizedek Priesthood on spiritual ordinances and governing the Church. Both are exercised through service and dignity.',
+    'Priesthood authority is the right to act in God’s name; power depends on righteousness, faith, humility, and obedience. Keys are the right to preside and direct how authority is used in an area. The Aaronic Priesthood focuses on preparatory ordinances and ministry; the Melchizedek Priesthood on spiritual ordinances and governing the Church. Both are exercised through service and dignity. For Church organization and duties, study the General Handbook (section 3) on ChurchofJesusChrist.org.',
   scriptures: [
     {
       ref: 'D&C 13',

@@ -176,6 +176,21 @@
     0 12px 32px -12px rgba(var(--primary-rgb), 0.18);
 }
 
+.home-discovery__card--muted {
+  cursor: default;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.home-discovery__card--muted:hover {
+  transform: none;
+  border-color: var(--hd-card-border);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--background-card) 90%, transparent) inset,
+    0 10px 36px -16px rgba(var(--primary-rgb), 0.14),
+    0 2px 10px -4px rgba(var(--primary-rgb), 0.08);
+}
+
 .home-discovery__card-icon {
   width: var(--app-rail-card-icon-size);
   height: var(--app-rail-card-icon-size);

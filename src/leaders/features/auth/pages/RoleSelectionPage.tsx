@@ -5,20 +5,19 @@
  * This determines their permissions and what they can see in the app.
  */
 
-import { LEADERS_APP } from '../../../leadersPaths';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserRoleStore } from '../../../state/user/useUserRoleStore';
 import { getRolesGrouped, LeadershipRole, RoleDefinition } from '../../../config/roles';
-import { useI18n } from '../../../context/I18nContext';
+import { useI18n, type Locale } from '../../../context/I18nContext';
 import './RoleSelectionPage.css';
 
 const RoleSelectionPage: React.FC = () => {
   const navigate = useNavigate();
   const { role: currentRole, setRole } = useUserRoleStore();
   const [selectedRole, setSelectedRole] = useState<LeadershipRole | null>(currentRole);
-  const { t } = useI18n();
-  
+  const { t, locale } = useI18n();
+
   const roleGroups = getRolesGrouped();
 
   const handleRoleSelect = (role: LeadershipRole) => {
@@ -54,13 +53,16 @@ const RoleSelectionPage: React.FC = () => {
         <div className="role-selection-panel leaders-mint-panel">
           <div className="role-groups">
             {roleGroups.map((group) => (
-              <div key={group.label} className="role-group">
-                <h2 className="role-group-title">{group.label}</h2>
+              <div key={group.groupKey} className="role-group">
+                <h2 className="role-group-title">
+                  {t(`auth.roleSelection.groups.${group.groupKey}`)}
+                </h2>
                 <div className="role-list">
                   {group.roles.map((role) => (
                     <RoleCard
                       key={role.id}
                       role={role}
+                      locale={locale}
                       isSelected={selectedRole === role.id}
                       onClick={() => handleRoleSelect(role.id)}
                     />
@@ -92,11 +94,13 @@ const RoleSelectionPage: React.FC = () => {
 // Role Card Component
 interface RoleCardProps {
   role: RoleDefinition;
+  locale: Locale;
   isSelected: boolean;
   onClick: () => void;
 }
 
-const RoleCard: React.FC<RoleCardProps> = ({ role, isSelected, onClick }) => {
+const RoleCard: React.FC<RoleCardProps> = ({ role, locale, isSelected, onClick }) => {
+  const displayLabel = locale === 'en' ? role.labelEn : role.label;
   return (
     <button
       className={`role-card ${isSelected ? 'role-card-selected' : ''}`}
@@ -104,7 +108,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ role, isSelected, onClick }) => {
       type="button"
     >
       <span className="role-card-icon">{role.icon}</span>
-      <span className="role-card-label">{role.label}</span>
+      <span className="role-card-label">{displayLabel}</span>
     </button>
   );
 };

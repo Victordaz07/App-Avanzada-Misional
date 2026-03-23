@@ -31,6 +31,7 @@ const AuthPage: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [authSubmitting, setAuthSubmitting] = useState(false);
 
   useEffect(() => {
     if (userRole) {
@@ -82,6 +83,7 @@ const AuthPage: React.FC = () => {
     }
 
     try {
+      setAuthSubmitting(true);
       if (view === 'register') {
         // Register with Firebase and create xTheGospel profile
         await signUpWithEmail(email, password, fullName || undefined);
@@ -103,11 +105,17 @@ const AuthPage: React.FC = () => {
         setError('Email inválido');
       } else if (err.code === 'auth/weak-password') {
         setError('La contraseña debe tener al menos 6 caracteres');
-      } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+      } else if (
+        err.code === 'auth/user-not-found' ||
+        err.code === 'auth/wrong-password' ||
+        err.code === 'auth/invalid-credential'
+      ) {
         setError('Email o contraseña incorrectos');
       } else {
         setError(err.message || 'Error de autenticación');
       }
+    } finally {
+      setAuthSubmitting(false);
     }
   };
 
@@ -287,8 +295,8 @@ const AuthPage: React.FC = () => {
           </div>
         )}
 
-        <button type="submit" className="auth-primary-btn" disabled={!selectedRole || isLoading}>
-          {isLoading
+        <button type="submit" className="auth-primary-btn" disabled={!selectedRole || authSubmitting}>
+          {authSubmitting
             ? t('auth.loading') || 'Cargando...'
             : mode === 'login'
             ? t('auth.signIn') || 'Iniciar Sesión'

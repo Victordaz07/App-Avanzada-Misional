@@ -30,6 +30,18 @@ service cloud.firestore {
       allow read, write: if signedIn() && request.auth.uid == userId;
     }
 
+    // Sesiones de enseñanza bajo el usuario (sin barrio obligatorio): maestro = userId; participantes = cualquier usuario autenticado
+    match /users/{teacherUid}/teachingSessions/{sessionId} {
+      allow read: if signedIn();
+      allow create, update, delete: if signedIn() && request.auth.uid == teacherUid;
+      match /participants/{participantId} {
+        allow read, write: if signedIn();
+      }
+      match /feedback/{feedbackId} {
+        allow read, write: if signedIn();
+      }
+    }
+
     match /users/{userId}/{document=**} {
       allow read, write: if signedIn() && request.auth.uid == userId;
     }

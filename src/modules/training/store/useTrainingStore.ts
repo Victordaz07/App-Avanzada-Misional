@@ -6,7 +6,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CompletedLessonsMap } from '../types/training';
-import { getLessonsForNode } from '../data/trainingPaths';
+import { getLessonsForNode, TRAINING_NODE_ORDER } from '../data/trainingPaths';
 import {
   isLessonUnlocked,
   type UnlockContext,
@@ -98,14 +98,7 @@ export const useTrainingStore = create<TrainingState>()(
 
       getNextLessonToContinue: (ctx: UnlockContext) => {
         const { completedLessons } = get();
-        const orderedNodes = [
-          'core-foundations',
-          'aaronic-deacon',
-          'aaronic-teacher',
-          'aaronic-priest',
-          'melchizedek-elder',
-          'melchizedek-high-priest',
-        ];
+        const orderedNodes = [...TRAINING_NODE_ORDER];
         for (const nodeId of orderedNodes) {
           const lessons = getLessonsForNode(nodeId);
           for (const lesson of lessons) {

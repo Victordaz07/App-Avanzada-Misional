@@ -1,8 +1,8 @@
 import type { Locale } from '../../../../i18n/locales';
-import type { TrainingLessonContent } from './trainingLessonContent.types';
+import type { TrainingLessonCanonicalContent } from './trainingLessonContent.types';
 
 type TrainingLessonUiFields = Pick<
-  TrainingLessonContent,
+  TrainingLessonCanonicalContent,
   | 'objectivesHeading'
   | 'scripturesHeading'
   | 'didYouKnowHeading'
@@ -45,12 +45,12 @@ const UI_EN: TrainingLessonUiFields = {
 };
 
 /** Campos de lección sin las etiquetas de UI compartidas (se rellenan según locale). */
-export type TrainingLessonSpecific = Omit<TrainingLessonContent, keyof TrainingLessonUiFields>;
+export type TrainingLessonSpecific = Omit<TrainingLessonCanonicalContent, keyof TrainingLessonUiFields>;
 
 export function mergeTrainingLesson(
   locale: Locale,
   specific: TrainingLessonSpecific,
-): TrainingLessonContent {
+): TrainingLessonCanonicalContent {
   const ui: TrainingLessonUiFields = locale === 'en' ? UI_EN : UI_ES;
   return { ...ui, ...specific };
 }

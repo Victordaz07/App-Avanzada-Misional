@@ -14,8 +14,12 @@ import {
 import type { GuideAudioPlaceholder, GuideImagePlaceholder } from '../../new-member/data/guideTopics.types';
 import { FaCheck, FaCircle } from 'react-icons/fa6';
 import { useI18n } from '../../../context/I18nContext';
-import { lessonsById, getTrainingLessonCategoryLabel } from '../data/trainingPaths';
-import type { TrainingLessonContent } from './content/trainingLessonContent.types';
+import {
+  lessonsById,
+  getTrainingLessonCategoryLabel,
+  trainingLessonTitle,
+} from '../data/trainingPaths';
+import type { TrainingLessonCanonicalContent } from './content/trainingLessonContent.types';
 import {
   getLessonStorage,
   setLessonStorage,
@@ -26,7 +30,7 @@ import './TrainingLessonCanon.css';
 
 export interface TrainingLessonBodyProps {
   lessonId: string;
-  content: TrainingLessonContent;
+  content: TrainingLessonCanonicalContent;
   onPracticeProgress?: (checked: number, total: number) => void;
 }
 
@@ -54,12 +58,12 @@ export function TrainingLessonBody({
   content: c,
   onPracticeProgress,
 }: TrainingLessonBodyProps): JSX.Element {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const storagePracticeKey = `training:lesson:${lessonId}:practice`;
   const storageReflectionsKey = `training:lesson:${lessonId}:reflections`;
 
   const lesson = lessonsById[lessonId];
-  const categoryLabel = getTrainingLessonCategoryLabel(lessonId);
+  const categoryLabel = getTrainingLessonCategoryLabel(lessonId, locale);
   const sectionPrefix = useMemo(
     () => `training-${lessonId.replace(/[^a-zA-Z0-9]+/g, '-')}`,
     [lessonId],
@@ -105,8 +109,10 @@ export function TrainingLessonBody({
     setReflections((prev) => ({ ...prev, [idx]: value }));
   }, []);
 
+  const displayTitle = lesson ? trainingLessonTitle(lesson, locale) : '';
+
   const audioPlaceholder: GuideAudioPlaceholder = useMemo(() => {
-    const title = lesson?.title ?? '';
+    const title = displayTitle;
     const minutes = lesson?.estimatedMinutes;
     return {
       eyebrow: t('app.training.lesson.audioEyebrow'),
@@ -119,7 +125,7 @@ export function TrainingLessonBody({
           ? t('app.training.lesson.durationApprox', { minutes })
           : undefined,
     };
-  }, [lesson, t]);
+  }, [displayTitle, lesson, t]);
 
   const imagePlaceholder: GuideImagePlaceholder = useMemo(
     () => ({
@@ -143,10 +149,25 @@ export function TrainingLessonBody({
     <>
       <TeachingCanonHeroHeader
         categoryLabel={categoryLabel}
-        title={lesson.title}
+        title={displayTitle}
         subtitle={c.intro}
         heroNote={t('app.training.lesson.heroNote')}
       />
+
+      {c.officialLinks && c.officialLinks.length > 0 ? (
+        <div className="tr-canon__official-links">
+          <p className="tr-canon__hint">{t('app.training.lesson.officialResourcesHeading')}</p>
+          <ul className="tr-canon__official-links-list">
+            {c.officialLinks.map((link) => (
+              <li key={`${link.url}-${link.label}`}>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <TeachingCanonAudioCard
         audio={audioPlaceholder}

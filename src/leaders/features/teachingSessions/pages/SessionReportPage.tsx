@@ -7,8 +7,10 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../../context/AuthContext';
 import { useI18n } from '../../../context/I18nContext';
 import { useWardStore } from '../../../state/ward/useWardStore';
+import { findSessionForTeacher } from '../services/teachingSessionsService';
 import { buildSessionReport, type SessionReport } from '../services/sessionReportService';
 import { PageShell, Card, Button, SectionTitle, TeachingCanonShell, TeachingCanonHeroHeader } from '../../../ui';
 
@@ -100,6 +102,7 @@ const SessionReportPage: React.FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
   const { membership } = useWardStore();
   const fromBishop = location.pathname.includes('/bishop/teaching');
   const backTo = fromBishop ? '/bishop/teaching' : '/teaching';
@@ -110,19 +113,23 @@ const SessionReportPage: React.FC = () => {
   const wardId = membership?.wardId;
 
   useEffect(() => {
-    if (!wardId || !sessionId) {
+    if (!sessionId || !user?.uid) {
       setLoading(false);
       return;
     }
     setLoading(true);
     setError(null);
-    buildSessionReport(wardId, sessionId)
+    findSessionForTeacher(user.uid, wardId, sessionId)
+      .then((resolved) => {
+        if (!resolved) throw new Error('Sesión no encontrada');
+        return buildSessionReport(resolved.parent, resolved.parentId, sessionId);
+      })
       .then(setReport)
       .catch((err) => setError((err as Error)?.message ?? 'Error al cargar'))
       .finally(() => setLoading(false));
-  }, [wardId, sessionId]);
+  }, [wardId, sessionId, user?.uid]);
 
-  if (!wardId || !sessionId) {
+  if (!sessionId || !user?.uid) {
     return (
       <PageShell title="Reporte" onBack={() => navigate(backTo)} variant="gradient">
         <Card variant="default" padding="lg">

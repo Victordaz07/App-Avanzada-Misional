@@ -2,11 +2,11 @@
  * Feedback Service - Firestore
  *
  * Rating y comentarios post-clase. Fase 8.
- * Subcolección: wards/{wardId}/teachingSessions/{sessionId}/feedback/{uid}
  */
 
 import { doc, setDoc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { getFirebaseDb } from '../../../services/firebase/firebaseApp';
+import type { SessionStorageParent } from './sessionStoragePaths';
 
 const getDb = () => getFirebaseDb();
 
@@ -16,7 +16,8 @@ export interface SubmitFeedbackPayload {
 }
 
 export async function submitFeedback(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string,
   uid: string,
   payload: SubmitFeedbackPayload
@@ -25,7 +26,7 @@ export async function submitFeedback(
     throw new Error('Rating debe ser entre 1 y 5');
   }
 
-  const ref = doc(getDb(), 'wards', wardId, 'teachingSessions', sessionId, 'feedback', uid);
+  const ref = doc(getDb(), parent, parentId, 'teachingSessions', sessionId, 'feedback', uid);
   const existing = await getDoc(ref);
   const now = Date.now();
 
@@ -47,10 +48,11 @@ export interface FeedbackSummaryResult {
 }
 
 export async function getFeedbackSummary(
-  wardId: string,
+  parent: SessionStorageParent,
+  parentId: string,
   sessionId: string
 ): Promise<FeedbackSummaryResult> {
-  const coll = collection(getDb(), 'wards', wardId, 'teachingSessions', sessionId, 'feedback');
+  const coll = collection(getDb(), parent, parentId, 'teachingSessions', sessionId, 'feedback');
   const snapshot = await getDocs(coll);
 
   const docs = snapshot.docs.map((d) => d.data() as { rating?: number; comment?: string; createdAt?: number });

@@ -5,7 +5,7 @@
  * Fase 5.
  */
 
-import { LEADERS_APP } from '../../../leadersPaths';
+import { leadersAppUrl } from '../../../leadersPaths';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../../context/I18nContext';
@@ -74,25 +74,6 @@ const BishopTeachingDashboard: React.FC = () => {
     return () => { cancelled = true; };
   }, [wardId, callingFilter]);
 
-  if (!wardId) {
-    return (
-      <PageShell variant="gradient">
-        <TeachingCanonShell>
-          <TeachingCanonHeroHeader
-            categoryLabel={t('leadership.canon.bishopEyebrow')}
-            title={t('leadership.canon.bishopPageTitle')}
-            subtitle={t('leadership.canon.bishopSubtitle')}
-            heroNote={t('leadership.canon.bishopHeroNote')}
-          />
-          <EmptyState
-            title={t('ward.exploration.emptyTitle')}
-            description={t('ward.exploration.emptyDescription')}
-          />
-        </TeachingCanonShell>
-      </PageShell>
-    );
-  }
-
   const activeCount = sessions.filter((s) => s.status === 'active').length;
   const completedCount = sessions.filter((s) => s.status === 'completed').length;
 
@@ -106,7 +87,18 @@ const BishopTeachingDashboard: React.FC = () => {
           heroNote={t('leadership.canon.bishopHeroNote')}
         />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
-        <Button variant="secondary" fullWidth onClick={() => navigate('/bishop/teaching/analytics')}>
+        {!wardId && (
+          <Card variant="default" padding="md" style={{ background: 'var(--color-primary-50, #eef3fa)' }}>
+            <p style={{ margin: 0, fontSize: 14, color: 'var(--am-color-text-main, #0f172a)', lineHeight: 1.5 }}>
+              {t('ward.exploration.contentWithoutWardHint')}
+            </p>
+          </Card>
+        )}
+        <Button
+          variant="secondary"
+          fullWidth
+          onClick={() => navigate(leadersAppUrl('bishop/teaching/analytics'))}
+        >
           📊 Ver métricas e insights
         </Button>
         <Card variant="default" padding="lg">
@@ -190,7 +182,7 @@ const BishopTeachingDashboard: React.FC = () => {
                     <Button
                       variant="secondary"
                       size="sm"
-                      onClick={() => navigate(`/leaders/app/bishop/teaching/${s.id}/report`)}
+                      onClick={() => navigate(leadersAppUrl(`bishop/teaching/${s.id}/report`))}
                     >
                       Ver reporte
                     </Button>
