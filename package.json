@@ -14,7 +14,8 @@
     "translate:i18n": "python -u scripts/translate_i18n.py app member",
     "validate:i18n": "node scripts/validate-i18n.mjs",
     "postinstall": "patch-package",
-    "test": "vitest run"
+    "test": "vitest run",
+    "storage:cors": "gsutil cors set storage-cors.json gs://xthegospel.firebasestorage.app"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.18.2",
