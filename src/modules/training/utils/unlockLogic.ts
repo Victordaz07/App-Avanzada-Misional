@@ -5,6 +5,7 @@
  * - Sacerdocio: tras completar fundamentos.
  * - Enseñar a la manera del Salvador: disponible al ser miembro (paralelo a fundamentos).
  * - Organizaciones auxiliares: tras completar fundamentos.
+ * - Liderazgo en el barrio: tras completar fundamentos (obispado, consejo, obra de salvación).
  */
 
 import type {
@@ -35,6 +36,8 @@ const ORG_TRACK_IDS = [
   'org-sunday-school',
 ] as const;
 
+const WARD_LEADERSHIP_TRACK_IDS = ['lead-bishopric-council'] as const;
+
 const CORE_LESSON_IDS = ['core-1', 'core-2', 'core-3', 'core-4'];
 
 export interface UnlockContext {
@@ -60,7 +63,11 @@ export function isPathUnlocked(pathId: string, ctx: UnlockContext): boolean {
   if (ctx.stage !== 'covenanted') return false;
   if (pathId === 'core-foundations') return true;
   if (pathId === 'teaching-saviors-way') return true;
-  if (pathId === 'priesthood' || pathId === 'auxiliary-organizations') {
+  if (
+    pathId === 'priesthood' ||
+    pathId === 'auxiliary-organizations' ||
+    pathId === 'ward-leadership'
+  ) {
     return isCoreCompleted(ctx);
   }
   return false;
@@ -77,6 +84,10 @@ export function isTrackUnlocked(trackId: string, ctx: UnlockContext): boolean {
   }
 
   if ((ORG_TRACK_IDS as readonly string[]).includes(trackId)) {
+    return isCoreCompleted(ctx);
+  }
+
+  if ((WARD_LEADERSHIP_TRACK_IDS as readonly string[]).includes(trackId)) {
     return isCoreCompleted(ctx);
   }
 

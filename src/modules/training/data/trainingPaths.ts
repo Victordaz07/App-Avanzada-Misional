@@ -74,6 +74,17 @@ export const paths: TrainingPath[] = [
       'org-sunday-school',
     ],
   },
+  {
+    id: 'ward-leadership',
+    title: 'Liderazgo en el barrio',
+    titleEn: 'Ward leadership',
+    description:
+      'Obispado, llaves del sacerdocio, consejo de barrio y obra de salvación y exaltación (Manual General).',
+    descriptionEn:
+      'Bishopric, priesthood keys, ward council, and the work of salvation and exaltation (General Handbook).',
+    category: 'ward_leadership',
+    trackIds: ['lead-bishopric-council'],
+  },
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -211,6 +222,16 @@ export const tracksById: Record<string, TrainingTrack> = {
     description: 'Manual General, cap. 13.',
     descriptionEn: 'General Handbook, section 13.',
     lessonIds: ['org-ss-1'],
+  },
+  'lead-bishopric-council': {
+    id: 'lead-bishopric-council',
+    pathId: 'ward-leadership',
+    title: 'Obispado y consejo de barrio',
+    titleEn: 'Bishopric and ward council',
+    description:
+      'Servicio con revelación, mayordomía del sacerdocio y cuidado pastoral de las personas.',
+    descriptionEn: 'Service through revelation, priesthood stewardship, and pastoral care for individuals.',
+    lessonIds: ['lead-1'],
   },
 };
 
@@ -362,8 +383,8 @@ const tswLessons: TrainingLesson[] = [
 const orgLessons: TrainingLesson[] = [
   {
     id: 'org-eq-1',
-    title: 'Cuórum de élderes: propósito y enseñanza',
-    titleEn: 'Elders quorum: purpose and teaching',
+    title: 'Cuórum de Élderes: propósito y responsabilidades',
+    titleEn: 'Elders Quorum: purpose and responsibilities',
     nodeId: 'org-elders-quorum',
     order: 1,
     estimatedMinutes: 12,
@@ -389,30 +410,42 @@ const orgLessons: TrainingLesson[] = [
   },
   {
     id: 'org-yw-1',
-    title: 'Mujeres Jóvenes: propósito y enseñanza',
-    titleEn: 'Young Women: purpose and teaching',
+    title: 'Mujeres Jóvenes: propósito, convenios y discipulado',
+    titleEn: 'Young Women: purpose, covenants, and discipleship',
     nodeId: 'org-young-women',
     order: 1,
-    estimatedMinutes: 12,
+    estimatedMinutes: 14,
     tags: ['org', 'handbook-11'],
   },
   {
     id: 'org-pr-1',
-    title: 'Primaria: propósito y enseñanza centrada en el hogar',
-    titleEn: 'Primary: purpose and home-centered teaching',
+    title: 'Primaria: aprender de Jesucristo desde pequeños',
+    titleEn: 'Primary: learning of Jesus Christ from childhood',
     nodeId: 'org-primary',
     order: 1,
-    estimatedMinutes: 12,
+    estimatedMinutes: 10,
     tags: ['org', 'handbook-12'],
   },
   {
     id: 'org-ss-1',
-    title: 'Escuela Dominical: propósito y mejora de la enseñanza',
-    titleEn: 'Sunday School: purpose and improving teaching',
+    title: 'Escuela Dominical: aprender y vivir el Evangelio',
+    titleEn: 'Sunday School: learning and living the gospel',
     nodeId: 'org-sunday-school',
     order: 1,
-    estimatedMinutes: 12,
+    estimatedMinutes: 15,
     tags: ['org', 'handbook-13'],
+  },
+];
+
+const wardLeadershipLessons: TrainingLesson[] = [
+  {
+    id: 'lead-1',
+    title: 'Obispado y consejo de barrio',
+    titleEn: 'Bishopric and ward council',
+    nodeId: 'lead-bishopric-council',
+    order: 1,
+    estimatedMinutes: 16,
+    tags: ['leadership', 'bishopric', 'ward-council'],
   },
 ];
 
@@ -504,6 +537,7 @@ export const lessonsById: Record<string, TrainingLesson> = [
   ...tswLessons,
   ...trackLessons,
   ...orgLessons,
+  ...wardLeadershipLessons,
 ].reduce(
   (acc, lesson) => {
     acc[lesson.id] = lesson;
@@ -529,6 +563,7 @@ export const TRAINING_NODE_ORDER: readonly string[] = [
   'org-young-women',
   'org-primary',
   'org-sunday-school',
+  'lead-bishopric-council',
 ] as const;
 
 // ═══════════════════════════════════════════════════════════════

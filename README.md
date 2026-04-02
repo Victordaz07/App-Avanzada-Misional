@@ -1,768 +1,130 @@
-# xTheGospel
+# xTheGospel (For The Gospel)
 
-### For The Gospel — A Multilingual Web Application for Investigators, Members, and Ward Mission Leadership
+**Plataforma web progresiva centrada en el Evangelio** para acompañar a personas en su camino de fe, unificar el recorrido de investigadores y miembros, y ofrecer **capacitación** alineada a *Enseñar a la manera del Salvador* y al Manual General.
 
-### _(Natively available in English, Spanish, French, and Portuguese)_
-
----
-
-## 🌟 Vision & Purpose
-
-**xTheGospel (For The Gospel)** is a fully integrated gospel-focused platform designed to:
-
-> **Help investigators come unto Christ and progress toward baptism, conversion, and a lasting relationship with the Savior.**
-
-This application provides a unified, spiritually centered experience for:
-
-1. **Investigators** — The primary focus of the entire platform
-
-2. **Members** — Supporters who strengthen and accompany new friends, with optional **ward mission leadership** mode to coordinate with elders in the ward
-
-Mission-specific hierarchy tools (full-time missionary app flows, district/zone/AP roles) are not part of this product surface.
-
-The entire architecture is built around a single guiding principle:
-
-> **"How can this help investigators draw closer to Jesus Christ?"**
-
-Everything else—member tools and ward-level mission leadership support—exists to support that sacred purpose.
+Proyecto pensado como producto único: la experiencia gira en torno a acercar a las personas a Jesucristo con rigor doctrinal, tono pastoral y diseño accesible y multilingüe.
 
 ---
 
-# 📘 1. Investigators Module (PRIMARY & CENTRAL)
+## Rol en mi portafolio
 
-This is the heart of xTheGospel.
-
-### **Purpose**
-
-To guide investigators through:
-
-- Understanding gospel doctrine
-
-- Building faith and testimony
-
-- Preparing spiritually and emotionally for baptism
-
-- Making and keeping commitments
-
-- Recording their spiritual journey
-
-- Integrating into the Church with confidence
-
-### **Key Features**
-
-#### **📖 Interactive Gospel Lessons**
-
-- Doctrinally accurate
-
-- Simple, structured, progressive
-
-- Available in 4 languages
-
-- Tracks personal progress
-
-#### **💬 Daily Devotional Messages**
-
-- Short spiritual insights
-
-- Scripture-based
-
-- Practical application
-
-#### **📝 Spiritual Journal – "My Story with God"**
-
-- Record inspiration, experiences, prayers, and spiritual growth
-
-- A guided format that builds testimony over time
-
-#### **🎯 Baptism Preparation**
-
-- Step-by-step system
-
-- Commitments, tasks, reminders
-
-- Evaluates readiness
-
-#### **❓ Difficult Questions (FAQ)**
-
-- Faithful doctrinal answers
-
-- Pastoral and respectful tone
-
-- Helps investigators overcome doubts
-
-#### **📊 Visual Progress Tracking**
-
-- Milestones
-
-- Achievements
-
-- Progress dashboard
+Este repositorio muestra trabajo de **arquitectura front-end**, **modelado de producto** (flujos por etapas del usuario), **internacionalización**, integración con **Firebase** y despliegue en **Vercel**, con énfasis en claridad de información sensible y buenas prácticas de seguridad en navegador (CSP y cabeceras HTTP en producción).
 
 ---
 
-# 🧭 2. Missionary Module
+## Qué resuelve
 
-Designed to help missionaries **teach more effectively** and **support investigators with structure**.
+| Área | Descripción |
+|------|-------------|
+| **Recorrido unificado** | Una sola aplicación con rutas `/home`, `/lessons`, `/study`, `/journal`, `/progress`, `/profile`, `/friends` y `/training`, donde el contenido puede cambiar según la etapa espiritual del perfil (investigador / miembro convenido, etc.). |
+| **Investigadores** | Lecciones interactivas, estudio, progreso y contenido doctrinal estructurado. |
+| **Miembros** | Módulo “new member” / vínculo con amigos y apoyo a la misión local de barrio (no orientado a jerarquías de misión de tiempo completo). |
+| **Capacitación** | Hub de rutas y pistas: fundamentos, enseñanza, sacerdocio, organizaciones auxiliares, liderazgo en barrio; desbloqueo por prerrequisitos; lecciones con layout “canon” (bloques de doctrina, aplicación, acción). |
+| **Líderes locales** | Rutas `/leaders/*` y flujos de sesiones de enseñanza y perfil de liderazgo dentro de la misma base de código. |
 
-### **Features:**
-
-- Missionary Agenda (appointments, planning, follow-up)
-
-- People Manager (investigators, contacts, members)
-
-- Lesson Plans & Resources
-
-- Commitments Tracking
-
-- Access to Leadership Center (read-only for missionary role)
-
-Everything is built around **real-world missionary workflows**.
+> **Alcance explícito:** no forma parte de la superficie del producto la app de misión de tiempo completo (distritos, zonas, AP, etc.). El foco es barrio, miembros e investigadores.
 
 ---
 
-# 👥 3. Member Module
+## Stack técnico
 
-Members receive tools to strengthen their testimony and support missionary work.
+- **React 18** + **TypeScript**
+- **Vite 5** (build y dev server)
+- **React Router v6**
+- **Zustand** y Context API para estado
+- **Firebase** (Auth y servicios integrados en cliente)
+- **Zod** para validación
+- **Vitest** para pruebas unitarias
+- **CSS** modular / sistema de estilos propio (`styles/`, componentes canon de enseñanza)
+- Base **Expo / React Native** en el mismo paquete para evolución mobile (`npm run start` / entornos nativos)
 
-### **Features:**
+**i18n:** UI y copy principal en **español e inglés** (`app.es.json` / `app.en.json`); el README histórico del proyecto menciona más idiomas como dirección de producto.
 
-- Deep doctrinal study modules
-
-- Interactive activities with gamification
-
-- Convert Care Guide (7 sections, 4 languages)
-
-- Friends Management
-
-- XP / Levels / Streaks / Badges
-
-- Missionary Support Resource Center
-
-Designed to make members **active partners in missionary work**.
+**Despliegue:** desde la raíz del monorepo, `vercel.json` compila esta carpeta y sirve la SPA con rewrites y política de seguridad (CSP, `X-Frame-Options`, etc.).
 
 ---
 
-# 🛡️ 4. Leadership Module (District Leaders, Zone Leaders, AP)
-
-This is a **full corporate-level leadership system**, designed like a professional managerial dashboard but built for the Lord's work.
-
-### **Features:**
-
-#### **District Leaders**
-
-- District Councils
-
-- Exchanges
-
-- Baptismal Interviews
-
-- District Messaging
-
-- Notes (private)
-
-#### **Zone Leaders**
-
-- Zone Councils
-
-- Exchanges with DLs
-
-- Baptismal Interviews
-
-- Zone-wide Messaging
-
-- Leadership Notes
-
-#### **Assistants to the President (AP)**
-
-- Mission Dashboard
-
-- Transfers Planning
-
-- Leadership Tours
-
-- Messaging to Mission
-
-- AP Notes
-
-#### **Universal for All Leaders**
-
-- History of all published events
-
-- Sharing system (WhatsApp, Email, Clipboard)
-
-- Comprehensive records
-
-- Role-based access permissions
-
----
-
-# 🧩 5. Leadership Architecture Diagram
-
-```mermaid
-flowchart TD
-    A1["Missionary (Regular)"]:::role
-    A2["District Leader"]:::role
-    A3["Zone Leader"]:::role
-    A4["Assistant to the President"]:::role
-
-    B1[(leadershipEvents)]:::db
-    B2[(leaderMessages)]:::db
-    B3[(districtCouncils)]:::db
-    B4[(zoneCouncils)]:::db
-    B5[(exchanges)]:::db
-    B6[(baptismalInterviews)]:::db
-    B7[(transferPlans)]:::db
-    B8[(personalNotes)]:::db
-
-    C1["Leadership Center (Read-Only Feed)"]:::center
-
-    A2 --> B3
-    A3 --> B4
-    A4 --> B7
-
-    A2 --> B1
-    A3 --> B1
-    A4 --> B1
-
-    A2 --> B2
-    A3 --> B2
-    A4 --> B2
-
-    A2 --> B5
-    A3 --> B5
-    A4 --> B5
-
-    A2 --> B6
-    A3 --> B6
-
-    A2 --> B8
-    A3 --> B8
-    A4 --> B8
-
-    B1 --> C1
-    B2 --> C1
-
-    A1 --> C1
-    A2 --> C1
-    A3 --> C1
-    A4 --> C1
-
-    classDef role fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-    classDef db fill:#ede9fe,stroke:#6d28d9,color:#4c1d95
-    classDef center fill:#fef3c7,stroke:#d97706,color:#92400e
-```
-
----
-
-# 🏗️ 6. Tech Stack
-
-- React 18 + TypeScript
-
-- Vite
-
-- Zustand + Context API
-
-- Custom CSS design system
-
-- Internationalization (i18n): EN, ES, FR, PT (native)
-
-- localStorage (prepared for Firestore real-time sync)
-
----
-
-# 🤖 6.1 Cursor AI Project Rules
-
-This repository includes project-level Cursor rules in `.cursor/rules/` to enforce:
-
-- Security and compliance constraints (Firebase, COPPA, GDPR, Vercel headers)
-- TypeScript and React implementation standards
-- Accessibility and UX guardrails (WCAG 2.1 AA, mobile-first)
-- Architecture and maintainability conventions
-- Pre-response safety checklist for AI-assisted coding
-
-Rule files:
-
-- `familydash-security-and-compliance.mdc` (`alwaysApply: true`)
-- `familydash-pre-response-checklist.mdc` (`alwaysApply: true`)
-- `familydash-typescript-react.mdc` (`globs: src/**/*.{ts,tsx}`)
-- `familydash-accessibility-and-ux.mdc` (`globs: src/**/*.{tsx,css}`)
-- `familydash-architecture-and-maintainability.mdc` (`globs: src/**/*`)
-
----
-
-# 🚀 7. Quick Start
+## Cómo ejecutarlo en local
 
 ```bash
+cd App-Avanzada-Misional
 npm install
 npm run dev
+```
+
+Por defecto Vite usa el puerto definido en `vite.config.ts` (típicamente **3001**). Puedes forzar otro puerto, por ejemplo:
+
+```bash
+npm run dev -- --port 3002
+```
+
+**Producción local:**
+
+```bash
 npm run build
 npm run preview
 ```
 
-**Default dev URL:** `http://localhost:3000`
-
----
-
-# ☁️ 7.1 Vercel Deployment
-
-Production deploy is configured for Vercel with `vercel.json`.
+**Pruebas:**
 
 ```bash
-npm run build
-vercel --prod
+npm run test
 ```
 
-If you deploy through Git integration, pushing to `main` will trigger a new production deployment.
-
----
-
-# 📂 8. Project Structure
-
-```
-src/
-├── components/
-├── context/
-├── data/
-│   ├── missionary/
-│   └── member/
-├── hooks/
-├── i18n/          # EN, ES, FR, PT fully supported natively
-├── layouts/
-├── pages/
-│   ├── investigator/
-│   ├── missionary/
-│   │   └── leadership/
-│   └── member/
-├── services/
-├── router/
-└── utils/
-```
-
----
-
-# 📊 9. Project Status
-
-**All major modules completed:**
-
-- ✅ Investigator module
-
-- ✅ Missionary module
-
-- ✅ Member module
-
-- ✅ Leadership module (DL, ZL, AP)
-
-- ✅ Full multilingual support (EN, ES, FR, PT)
-
-- ✅ Leadership architecture fully operational
-
----
-
-# ⏳ 10. Next Steps
-
-- 🔄 Firestore real-time sync
-
-- 📱 Mobile version (React Native)
-
-- 📄 PDF exports
-
-- 🔔 Push notifications
-
-- 📊 Advanced analytics
-
-- 🌐 Offline mode
-
----
-
-# 💡 11. Philosophy
-
-Everything exists to help investigators come unto Christ.
-
-Missionaries teach better.
-
-Members support better.
-
-Leaders guide better.
-
-Investigators grow and believe.
-
----
-
-# 📄 12. License
-
-Internal spiritual-use software for missions of
-
-**The Church of Jesus Christ of Latter-day Saints.**
-
-**Designed & Architected by Víctor Ruiz Bello**
-
-> "And whatsoever ye do, do it heartily, as to the Lord, and not unto men." — Colossians 3:23
-
----
-
----
-
-# 🇪🇸 **VERSIÓN COMPLETA EN ESPAÑOL (FULL)**
-
-# xTheGospel
-
-### Por El Evangelio — Aplicación Web Multilingüe para Investigadores, Misioneros, Miembros y Líderes Misionales
-
-### _(Disponible de forma nativa en Español, Inglés, Francés y Portugués)_
-
----
-
-## 🌟 Visión y Propósito
-
-**xTheGospel (Por El Evangelio)** es una plataforma integral centrada en el evangelio diseñada para:
-
-> **Ayudar a los investigadores a venir a Cristo y progresar hacia el bautismo, la conversión y una relación duradera con el Salvador.**
-
-Esta aplicación provee una experiencia espiritual unificada para cuatro grupos principales:
-
-1. **Investigadores** — El enfoque principal del proyecto
-
-2. **Misioneros** — Maestros y compañeros en el evangelio
-
-3. **Miembros** — Apoyan y fortalecen a los nuevos amigos
-
-4. **Líderes misionales (LD, LZ, AP)** — Coordina y capacita la obra
-
-Todo está construido sobre un principio guía:
-
-> **"¿Cómo ayuda esto a que los investigadores se acerquen al Salvador Jesucristo?"**
-
-Todo lo demás — herramientas de misioneros, miembros y líderes — existe para apoyar ese propósito sagrado.
-
----
-
-# 📘 1. Módulo de Investigadores (PRINCIPAL Y CENTRAL)
-
-El corazón de xTheGospel.
-
-### **Propósito**
-
-Guiar a los investigadores en:
-
-- Comprender la doctrina del evangelio
-
-- Construir fe y testimonio
-
-- Prepararse espiritualmente y emocionalmente para el bautismo
-
-- Hacer y guardar compromisos
-
-- Registrar su experiencia espiritual
-
-- Integrarse a la Iglesia con seguridad
-
-### **Funciones Principales**
-
-#### **📖 Lecciones Interactivas del Evangelio**
-
-- Doctrinalmente correctas
-
-- Simples, estructuradas y progresivas
-
-- Disponibles en 4 idiomas
-
-- Seguimiento de progreso
-
-#### **💬 Mensajes Devocionales Diarios**
-
-- Inspiración espiritual
-
-- Escrituras y citas
-
-- Aplicación práctica
-
-#### **📝 Diario Espiritual — "Mi Historia con Dios"**
-
-- Registros de fe, experiencias, oraciones
-
-- Desarrollo espiritual guiado
-
-#### **🎯 Preparación Bautismal**
-
-- Sistema paso a paso
-
-- Compromisos, tareas, recordatorios
-
-- Evaluación de preparación
-
-#### **❓ Preguntas Difíciles (FAQ)**
-
-- Respuestas doctrinales fieles
-
-- Tono pastoral y respetuoso
-
-#### **📊 Seguimiento Visual del Progreso**
-
-- Logros
-
-- Metas cumplidas
-
-- Panel visual
-
----
-
-# 🧭 2. Módulo de Misioneros
-
-Ayuda a los misioneros a **enseñar mejor** y **apoyar a los investigadores** con estructura.
-
-### **Funciones:**
-
-- Agenda misional
-
-- Planificación de lecciones
-
-- Gestión de personas (investigadores, miembros, contactos)
-
-- Seguimiento de compromisos
-
-- Acceso al Centro de Liderazgo (solo lectura)
-
----
-
-# 👥 3. Módulo de Miembros
-
-Diseñado para ayudar a los miembros a fortalecer su testimonio y apoyar la obra misional.
-
-### **Funciones:**
-
-- Módulos doctrinales profundos
-
-- Actividades interactivas (gamificación)
-
-- Guía de Cuidado de Conversos (7 secciones, 4 idiomas)
-
-- Gestión de amigos
-
-- Sistema de XP, rachas, niveles e insignias
-
-- Centro de apoyo al misionero
-
----
-
-# 🛡️ 4. Módulo de Liderazgo (LD, LZ, AP)
-
-Un sistema profesional de liderazgo con visión corporativa, diseñado especialmente para la obra del Señor.
-
-### **Funciones:**
-
-#### **Líderes de Distrito**
-
-- Reuniones de distrito
-
-- Intercambios
-
-- Entrevistas bautismales
-
-- Mensajes a distrito
-
-- Notas privadas
-
-#### **Líderes de Zona**
-
-- Reuniones de zona
-
-- Intercambios con LD
-
-- Entrevistas bautismales
-
-- Mensajes a zona
-
-- Notas de liderazgo
-
-#### **Asistentes del Presidente (AP)**
-
-- Dashboard de la misión
-
-- Planificación de transfers
-
-- Giras de liderazgo
-
-- Mensajes a la misión
-
-- Notas AP
-
-#### **Funciones Universales**
-
-- Historial de eventos
-
-- Sistema de compartir (WhatsApp, Email, Portapapeles)
-
-- Registros completos
-
-- Permisos según rol
-
----
-
-# 🧩 5. Diagrama de Arquitectura de Liderazgo
-
-_(El diagrama es neutral en idioma y funcional en GitHub)_
-
-```mermaid
-flowchart TD
-    A1["Misionero (Regular)"]:::role
-    A2["Líder de Distrito"]:::role
-    A3["Líder de Zona"]:::role
-    A4["Asistente del Presidente"]:::role
-
-    B1[(leadershipEvents)]:::db
-    B2[(leaderMessages)]:::db
-    B3[(districtCouncils)]:::db
-    B4[(zoneCouncils)]:::db
-    B5[(exchanges)]:::db
-    B6[(baptismalInterviews)]:::db
-    B7[(transferPlans)]:::db
-    B8[(personalNotes)]:::db
-
-    C1["Centro de Liderazgo (Feed de Solo Lectura)"]:::center
-
-    A2 --> B3
-    A3 --> B4
-    A4 --> B7
-
-    A2 --> B1
-    A3 --> B1
-    A4 --> B1
-
-    A2 --> B2
-    A3 --> B2
-    A4 --> B2
-
-    A2 --> B5
-    A3 --> B5
-    A4 --> B5
-
-    A2 --> B6
-    A3 --> B6
-
-    A2 --> B8
-    A3 --> B8
-    A4 --> B8
-
-    B1 --> C1
-    B2 --> C1
-
-    A1 --> C1
-    A2 --> C1
-    A3 --> C1
-    A4 --> C1
-
-    classDef role fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-    classDef db fill:#ede9fe,stroke:#6d28d9,color:#4c1d95
-    classDef center fill:#fef3c7,stroke:#d97706,color:#92400e
-```
-
----
-
-# 🏗️ 6. Stack Tecnológico
-
-- React 18 + TypeScript
-
-- Vite
-
-- Zustand + Context API
-
-- Sistema de diseño CSS personalizado
-
-- i18n nativo (ES, EN, FR, PT)
-
-- localStorage (listo para Firestore)
-
----
-
-# 🚀 7. Inicio Rápido
+**Validación de traducciones (ES/EN):**
 
 ```bash
-npm install
-npm run dev
-npm run build
-npm run preview
+npm run validate:i18n
 ```
 
-**URL por defecto:** `http://localhost:3000`
+Configura las variables de entorno de Firebase según la documentación interna del proyecto (sin commitear secretos).
 
 ---
 
-# 📂 8. Estructura del Proyecto
+## Estructura relevante del código
 
 ```
-src/
-├── components/
-├── context/
-├── data/
-│   ├── missionary/
-│   └── member/
-├── hooks/
-├── i18n/
-├── layouts/
-├── pages/
-│   ├── investigator/
-│   ├── missionary/
-│   │   └── leadership/
-│   └── member/
-├── services/
-├── router/
-└── utils/
+App-Avanzada-Misional/
+├── src/
+│   ├── router/           # AppRouter, rutas unificadas, investigador, líderes
+│   ├── modules/
+│   │   ├── investigator/
+│   │   ├── new-member/
+│   │   └── training/     # Currículo, paths, lecciones manuales, unlock logic
+│   ├── leaders/          # Sub-app de liderazgo (sesiones, auth de líderes, UI)
+│   ├── i18n/
+│   ├── context/
+│   ├── layouts/
+│   └── ...
+├── vite.config.ts
+└── vercel.json           # También puede existir uno en la raíz del monorepo
 ```
 
 ---
 
-# 📊 9. Estado del Proyecto
+## Monorepo
 
-**Módulos completados:**
+En el directorio padre suele convivir:
 
-- ✅ Investigadores
-
-- ✅ Misioneros
-
-- ✅ Miembros
-
-- ✅ Liderazgo completo (LD, LZ, AP)
-
-- ✅ Multilingüe nativo (ES, EN, FR, PT)
+- **`xthegospel-lidership/`** — aplicación Vite separada para herramientas de liderazgo de barrio/estaca, mismo ecosistema Firebase.
+- **`scripts/`** — utilidades (por ejemplo migraciones con Firebase Admin).
 
 ---
 
-# ⏳ 10. Próximas Mejoras
+## Buenas prácticas y cumplimiento
 
-- 🔄 Sincronización en tiempo real con Firestore
-
-- 📱 Versión móvil (React Native)
-
-- 📄 Exportación a PDF
-
-- 🔔 Notificaciones push
-
-- 🌐 Modo offline
-
-- 📊 Analíticas
+En el repositorio hay reglas de proyecto (p. ej. en `.cursor/rules/`) orientadas a **seguridad**, **COPPA/GDPR** cuando hay datos sensibles, **Firebase** (reglas, timestamps, App Check en funciones nuevas) y **contenido bilingüe** obligatorio para cadenas de UI y material largo coordinado.
 
 ---
 
-# 💡 11. Filosofía
+## Licencia y uso
 
-Todo existe para ayudar a los investigadores a venir a Cristo.
-
-Los misioneros enseñan mejor.
-
-Los miembros apoyan mejor.
-
-Los líderes guían mejor.
-
-Los investigadores crecen y creen.
+Software de uso interno / espiritual-educativo, alineado al propósito de la Iglesia de Jesucristo de los Santos de los Últimos Días. No sustituye los manuales oficiales ni la orientación de autoridades locales.
 
 ---
 
-# 📄 12. Licencia
+## Autor
 
-Uso espiritual interno para las misiones de
+**Víctor Ruiz Bello** — diseño de producto y arquitectura de esta línea de código.
 
-**La Iglesia de Jesucristo de los Santos de los Últimos Días.**
-
-**Diseñado y Arquitectado por Víctor Ruiz Bello**
-
-> "Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres." — Colosenses 3:23
+*Para portafolio: añade aquí enlaces a tu sitio, LinkedIn o demo en vivo si son públicos.*

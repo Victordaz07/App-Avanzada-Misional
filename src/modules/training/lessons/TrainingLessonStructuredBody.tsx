@@ -136,15 +136,31 @@ export function TrainingLessonStructuredBody({
   const practiceDone = t('app.training.lesson.structured.practiceDone');
   const practicePending = t('app.training.lesson.structured.practicePending');
   const practiceHeading = t('app.training.lesson.structured.practiceHeading');
-  const practiceHint = t('app.training.lesson.structured.practiceHint');
+  const practiceHintDefault = t('app.training.lesson.structured.practiceHint');
+  const practiceHintPrimary = t('app.training.lesson.structured.practiceHintPrimary');
+  const practiceHintLeadership = t('app.training.lesson.structured.practiceHintLeadership');
+  const isPrimaryVariant = c.promptVariant === 'primary';
+  const isLeadershipVariant = c.promptVariant === 'leadership';
+  const practiceHint = isPrimaryVariant
+    ? practiceHintPrimary
+    : isLeadershipVariant
+      ? practiceHintLeadership
+      : practiceHintDefault;
 
   const modeItems = useMemo(
-    () => [
-      t('app.training.lesson.structured.modes.council'),
-      t('app.training.lesson.structured.modes.ministering'),
-      t('app.training.lesson.structured.modes.home'),
-    ],
-    [t],
+    () =>
+      isPrimaryVariant
+        ? [
+            t('app.training.lesson.structured.modesPrimary.home'),
+            t('app.training.lesson.structured.modesPrimary.christ'),
+            t('app.training.lesson.structured.modesPrimary.simple'),
+          ]
+        : [
+            t('app.training.lesson.structured.modes.council'),
+            t('app.training.lesson.structured.modes.ministering'),
+            t('app.training.lesson.structured.modes.home'),
+          ],
+    [isPrimaryVariant, t],
   );
 
   if (!lesson) {
@@ -156,7 +172,14 @@ export function TrainingLessonStructuredBody({
   const scripturesBlockNum = n + 1;
   const practiceBlockNum = n + (hasScriptures ? 2 : 1);
 
-  return (
+  const promptHomeLabel = isPrimaryVariant
+    ? t('app.training.lesson.structured.promptsPrimary.home')
+    : t('app.training.lesson.structured.prompts.home');
+  const promptServiceLabel = isPrimaryVariant
+    ? t('app.training.lesson.structured.promptsPrimary.service')
+    : t('app.training.lesson.structured.prompts.service');
+
+  const structuredInner = (
     <>
       <TeachingCanonHeroHeader
         categoryLabel={categoryLabel}
@@ -274,6 +297,40 @@ export function TrainingLessonStructuredBody({
                 <div className="tr-canon__action-card tr-canon__action-card--in-section">
                   <p className="tr-canon__action-text">{section.action}</p>
                 </div>
+
+                {section.prompts ? (
+                  <div className="tr-canon__prompts">
+                    <p className="tr-canon__structured-label">{t('app.training.lesson.structured.promptsTitle')}</p>
+                    {section.prompts.home ? (
+                      <details className="tr-canon__prompt-item">
+                        <summary className="tr-canon__prompt-summary">{promptHomeLabel}</summary>
+                        <p className="tr-canon__prompt-text">{section.prompts.home}</p>
+                      </details>
+                    ) : null}
+                    {section.prompts.service ? (
+                      <details className="tr-canon__prompt-item">
+                        <summary className="tr-canon__prompt-summary">{promptServiceLabel}</summary>
+                        <p className="tr-canon__prompt-text">{section.prompts.service}</p>
+                      </details>
+                    ) : null}
+                    {section.prompts.leadersOrParents ? (
+                      <details className="tr-canon__prompt-item">
+                        <summary className="tr-canon__prompt-summary">
+                          {t('app.training.lesson.structured.promptsPrimary.leaders')}
+                        </summary>
+                        <p className="tr-canon__prompt-text">{section.prompts.leadersOrParents}</p>
+                      </details>
+                    ) : null}
+                    {!section.prompts.leadersOrParents && section.prompts.council ? (
+                      <details className="tr-canon__prompt-item">
+                        <summary className="tr-canon__prompt-summary">
+                          {t('app.training.lesson.structured.prompts.council')}
+                        </summary>
+                        <p className="tr-canon__prompt-text">{section.prompts.council}</p>
+                      </details>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             </TeachingCanonAccordionSection>
           );
@@ -344,12 +401,28 @@ export function TrainingLessonStructuredBody({
       </div>
 
       <TeachingCanonExtra
-        title={t('app.training.lesson.structured.modesTitle')}
+        title={
+          isPrimaryVariant
+            ? t('app.training.lesson.structured.modesTitlePrimary')
+            : t('app.training.lesson.structured.modesTitle')
+        }
         isOpen={openExtraId === 'modes'}
         onToggle={() => setOpenExtraId((prev) => (prev === 'modes' ? null : 'modes'))}
-        note={t('app.training.lesson.structured.modesNote')}
+        note={
+          isPrimaryVariant
+            ? t('app.training.lesson.structured.modesNotePrimary')
+            : t('app.training.lesson.structured.modesNote')
+        }
         items={modeItems}
       />
     </>
   );
+
+  if (isPrimaryVariant) {
+    return <div className="tr-canon--primary-lesson">{structuredInner}</div>;
+  }
+  if (isLeadershipVariant) {
+    return <div className="tr-canon--leadership-lesson">{structuredInner}</div>;
+  }
+  return structuredInner;
 }

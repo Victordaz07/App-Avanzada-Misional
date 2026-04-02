@@ -144,6 +144,19 @@ const SUMMARY_COPY_ES: Record<string, { bullets: string[] }> = {
       'Escuela Dominical como apoyo al estudio personal y familiar de las Escrituras.',
     ],
   },
+  'ward-leadership': {
+    bullets: [
+      'Liderazgo centrado en Cristo: llaves, mayordomía y cuidado de personas — no protagonismo ni burocracia.',
+      'Consejo de barrio y coordinación de la obra de salvación y exaltación según el Manual General.',
+      'Útil para obispados, consejo de barrio, presidencias y líderes que emergen.',
+    ],
+  },
+  'lead-bishopric-council': {
+    bullets: [
+      'Deliberar con revelación; ministrar y fortalecer a miembros nuevos o que regresan.',
+      'Coordinar con cuórum de élderes y Sociedad de Socorro en unidad.',
+    ],
+  },
 };
 
 const SUMMARY_COPY_EN: Record<string, { bullets: string[] }> = {
@@ -254,6 +267,19 @@ const SUMMARY_COPY_EN: Record<string, { bullets: string[] }> = {
   'org-sunday-school': {
     bullets: [
       'Sunday School as support for personal and family scripture study.',
+    ],
+  },
+  'ward-leadership': {
+    bullets: [
+      'Christ-centered leadership: keys, stewardship, and care for people—not ego or bureaucracy.',
+      'Ward council and coordination of the work of salvation and exaltation per the General Handbook.',
+      'Useful for bishoprics, ward council, organization presidencies, and emerging leaders.',
+    ],
+  },
+  'lead-bishopric-council': {
+    bullets: [
+      'Counsel together by revelation; minister to and strengthen new and returning members.',
+      'Coordinate in unity with the elders quorum and Relief Society.',
     ],
   },
 };

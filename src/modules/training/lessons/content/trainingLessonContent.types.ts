@@ -25,6 +25,13 @@ export interface TrainingLessonStructuredSection {
   example: string;
   application: string[];
   action: string;
+  prompts?: {
+    home?: string;
+    service?: string;
+    council?: string;
+    /** Tercer prompt para Primaria: orientación a líderes o padres (cap. 12). */
+    leadersOrParents?: string;
+  };
 }
 
 /**
@@ -62,6 +69,12 @@ export interface TrainingLessonCanonicalContent {
  */
 export interface TrainingLessonStructuredContent {
   layout: 'structured';
+  /**
+   * `primary`: tono y etiquetas de prompts pensados para niños y familias (Primaria).
+   * `leadership`: tono más sobrio y pastoral para liderazgo local (obispado / consejo).
+   * @default 'default'
+   */
+  promptVariant?: 'default' | 'primary' | 'leadership';
   intro: string;
   /**
    * Texto ampliado tras el hero: panorama, intención pedagógica, cómo usar la lección.

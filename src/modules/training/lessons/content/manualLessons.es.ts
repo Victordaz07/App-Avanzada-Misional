@@ -425,36 +425,100 @@ export const MANUAL_LESSONS_ES: Record<string, TrainingLessonContent> = {
     actionText: 'Enviá una solicitud concreta de apoyo a tu líder directo esta semana.',
   },
   'org-eq-1': {
+    layout: 'structured',
     intro:
-      'El cuórum de élderes participa en la obra de salvación y exaltación: vivir el Evangelio, ministrar, compartirlo y unir familias.',
-    officialLinks: hbLink('cap. 8 — Cuórum de élderes'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'Explicar en una frase el propósito del cuórum según el Manual General.',
-      'Relacionar la enseñanza en el cuórum con el hogar y la ministración.',
+      'Aprende el propósito del sacerdocio y cómo los hombres pueden servir como discípulos de Jesucristo en sus hogares y comunidades.',
+    overview:
+      'Esta lección ayuda a entender con claridad doctrinal el propósito del Cuórum de Élderes según el Manual General (cap. 8): formar discípulos que ministren, fortalezcan el hogar, sirvan con caridad y preparen a otros para las ordenanzas del templo.\n\nCada sección termina con una invitación práctica para vivir el sacerdocio como servicio cristiano esta misma semana.',
+    officialLinks: [
+      ...hbLink('cap. 8 — Cuórum de élderes'),
+      { label: 'Enseñar a la manera del Salvador (manual 2022)', url: URL_TSW_ES },
     ],
-    briefHeading: H.brief,
-    briefBody:
-      'Las reuniones del sacerdocio forman élderes que enseñan con ejemplo. El manual describe cómo el cuórum apoya al obispo sin duplicar su labor.',
-    scripturesHeading: H.scriptures,
-    scriptures: [{ ref: 'Doctrina y Convenios 107:85–87', text: '…el deber del élder…' }],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['Una lección del cuórum puede inspirar una noche de hogar en alguna familia.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Leé la introducción del cap. 8 del Manual General.',
-      'Anotá cómo tu clase puede motivar ministración esta semana.',
-      'Coordiná con la presidencia del cuórum un tema que el barrio necesita.',
+    sections: [
+      {
+        id: 'priesthood',
+        title: 'El sacerdocio',
+        handbookRef:
+          'Manual General, cap. 8 — el Cuórum de Élderes ayuda a los hombres a usar el sacerdocio para bendecir personas y familias.',
+        doctrine:
+          'El sacerdocio es la autoridad y el poder de Dios delegados al hombre para actuar en Su nombre para la salvación de Sus hijos.',
+        explanation:
+          'No es un privilegio personal, sino una responsabilidad sagrada para servir, bendecir y guiar.',
+        example:
+          'Un hombre digno usa el sacerdocio para bendecir a su familia, no para elevarse sobre otros.',
+        application: [
+          '¿Uso el sacerdocio para servir o solo como un título?',
+          '¿Estoy viviendo de manera digna de esa autoridad?',
+        ],
+        action:
+          'Ora esta semana para entender mejor cómo usar el sacerdocio para bendecir a alguien.',
+      },
+      {
+        id: 'ministering',
+        title: 'Ministrar como discípulos',
+        handbookRef:
+          'Manual General, cap. 8 — la ministración es una asignación central del Cuórum de Élderes y se realiza con amor y revelación.',
+        doctrine:
+          'Los poseedores del sacerdocio tienen la responsabilidad de ministrar como Jesucristo: con amor, servicio y revelación.',
+        explanation: 'Ministrar no es una tarea, es una forma de vivir el discipulado.',
+        example: 'Un mensaje o visita sincera puede cambiar la vida de alguien.',
+        application: [
+          '¿Conozco las necesidades reales de las familias a las que ministro?',
+          '¿Estoy presente en sus vidas?',
+        ],
+        action:
+          'Contacta a una familia o hermano esta semana sin agenda, solo para servir.',
+      },
+      {
+        id: 'home',
+        title: 'Fortalecer el hogar',
+        handbookRef:
+          'Manual General, cap. 8 — el liderazgo del sacerdocio fortalece la fe en el hogar y apoya la adoración centrada en Cristo.',
+        doctrine:
+          'Los hombres del sacerdocio tienen la responsabilidad de fortalecer sus hogares como centros de fe.',
+        explanation: 'El liderazgo espiritual comienza en casa.',
+        example:
+          'Un padre que ora y estudia las Escrituras con su familia crea un ambiente espiritual duradero.',
+        application: [
+          '¿Estoy guiando espiritualmente mi hogar?',
+          '¿Qué puedo mejorar hoy?',
+        ],
+        action: 'Dirige una oración o estudio familiar esta semana.',
+      },
+      {
+        id: 'service',
+        title: 'Servicio y autosuficiencia',
+        handbookRef:
+          'Manual General, cap. 8 — el cuórum ayuda a cuidar a los necesitados y promueve la autosuficiencia temporal y espiritual.',
+        doctrine:
+          'El sacerdocio se ejerce sirviendo y ayudando a otros a ser autosuficientes.',
+        explanation: 'Servir es parte central del discipulado.',
+        example:
+          'Ayudar a alguien a encontrar trabajo o resolver una necesidad es parte del Evangelio.',
+        application: [
+          '¿Estoy dispuesto a servir sin reconocimiento?',
+          '¿A quién puedo ayudar esta semana?',
+        ],
+        action: 'Haz un acto de servicio concreto esta semana.',
+      },
+      {
+        id: 'temple',
+        title: 'Preparación espiritual',
+        handbookRef:
+          'Manual General, cap. 8 — los líderes y miembros del cuórum ayudan a preparar a las personas para convenios y ordenanzas del templo.',
+        doctrine:
+          'Los hombres del sacerdocio ayudan a preparar a otros para recibir las ordenanzas del templo.',
+        explanation:
+          'El templo es el objetivo central del camino del Evangelio.',
+        example:
+          'Un líder ayuda a otros a progresar espiritualmente hacia el templo.',
+        application: [
+          '¿Estoy avanzando hacia el templo?',
+          '¿Estoy ayudando a otros a hacerlo?',
+        ],
+        action: 'Haz un plan personal para acercarte más al templo.',
+      },
     ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['¿Qué hermano del cuórum necesita ser incluido mejor?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Propone un tema de quorum alineado a una necesidad real del barrio.',
   },
   'org-rs-1': {
     layout: 'structured',
@@ -688,104 +752,683 @@ export const MANUAL_LESSONS_ES: Record<string, TrainingLessonContent> = {
     actionText: 'Coordiná con la presidencia una participación juvenil en la próxima reunión.',
   },
   'org-yw-1': {
+    layout: 'structured',
     intro:
-      'Mujeres Jóvenes fortalece la fe en Cristo, el servicio y la preparación para la Sociedad de Socorro y el templo.',
-    officialLinks: hbLink('cap. 11 — Mujeres Jóvenes'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'Alinear lecciones con el propósito del Manual General.',
-      'Proteger la dignidad y la participación equilibrada de cada joven.',
+      'Aprende cómo la organización de Mujeres Jóvenes ayuda a las jóvenes a venir a Cristo, guardar convenios, servir a los demás y participar en la obra de Dios.',
+    overview:
+      'Esta lección fortalece el propósito doctrinal de Mujeres Jóvenes según el Manual General (cap. 11): ayudar a las jóvenes a hacer y guardar convenios sagrados, profundizar su conversión a Jesucristo, y participar en la obra de salvación y exaltación.\n\nCada sección incluye doctrina, explicación, ejemplo, aplicación y una acción concreta para vivir el discipulado durante la semana.',
+    officialLinks: [
+      ...hbLink('cap. 11 — Mujeres Jóvenes'),
+      { label: 'Enseñar a la manera del Salvador (manual 2022)', url: URL_TSW_ES },
     ],
-    briefHeading: H.brief,
-    briefBody:
-      'Las clases deben sentirse seguras. Los líderes adultos modelan respeto y confidencialidad apropiada.',
-    scripturesHeading: H.scriptures,
-    scriptures: [{ ref: '1 Timoteo 4:12', text: '…ejemplo de los creyentes…' }],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['Preguntas abiertas funcionan mejor que sermones cuando hay dudas sensibles.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Revisá el cap. 11: propósito y participación en la obra de salvación.',
-      'Planificá un cierre que invite a la acción en el hogar.',
-      'Consultá normas locales de protección y dos adultos presentes cuando aplique.',
-    ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['¿Qué joven necesita que le escuchemos más y hablemos menos?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Incluí un espacio de participación juvenil real en tu plan.',
-  },
-  'org-pr-1': {
-    intro:
-      'Primaria enseña doctrina sencilla con gozo; está centrada en el hogar y apoyada por la Iglesia.',
-    officialLinks: hbLink('cap. 12 — Primaria'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'Preparar lecciones cortas con movimiento, música y testimonio apropiados.',
-      'Involucrar a los padres con recursos o retos sencillos.',
-    ],
-    briefHeading: H.brief,
-    briefBody:
-      'El Manual General describe edades, tiempo para cantar y seguridad. La reverencia se enseña con paciencia, no con gritos.',
-    scripturesHeading: H.scriptures,
-    scriptures: [{ ref: 'Mateo 19:14', text: '…dejad a los niños venir a mí…' }],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['Un objeto o ilustración simple ancla la doctrina en la memoria de un niño.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Leé el cap. 12: propósitos y tiempo para cantar.',
-      'Elegí un método visual para tu próximo principio doctrinal.',
-      'Prepará una oración o testimonio breve que los niños puedan repetir con sus palabras.',
-    ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['¿Cómo honro la atención limitada de los niños?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Enviá a los padres una invitación de 2 líneas para repasar en casa.',
-  },
-  'org-ss-1': {
-    intro:
-      'Escuela Dominical fortalece la conversión por estudio de las Escrituras y la enseñanza del Espíritu.',
-    officialLinks: hbLink('cap. 13 — Escuela Dominical'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'Explicar cómo la Escuela Dominical apoya el estudio en el hogar.',
-      'Diseñar preguntas que abran las Escrituras, no solo el manual impreso.',
-    ],
-    briefHeading: H.brief,
-    briefBody:
-      'El Manual General enfatiza discusión respetuosa y mejora continua de la enseñanza. Los maestros coordinan con la presidencia del barrio.',
-    scripturesHeading: H.scriptures,
-    scriptures: [
+    sections: [
       {
-        ref: 'Doctrina y Convenios 88:118',
-        text: '…buscad diligentemente y enseñad unos a otros palabras de sabiduría…',
+        id: 'identity-and-purpose',
+        title: 'Identidad divina y propósito',
+        handbookRef:
+          'Manual General, cap. 11 — Mujeres Jóvenes ayuda a las jóvenes a hacer y guardar convenios y a profundizar su conversión a Jesucristo.',
+        doctrine:
+          'La organización de Mujeres Jóvenes ayuda a las jóvenes a hacer y guardar convenios sagrados y a profundizar su conversión a Jesucristo y Su Evangelio.',
+        explanation:
+          'Mujeres Jóvenes no es solo una clase dominical ni una actividad social. Es una parte sagrada de la obra del Señor para ayudar a cada joven a recordar quién es, venir a Cristo y prepararse para una vida de discipulado fiel.',
+        example:
+          'Una joven que entiende su identidad divina no basa su valor en la aprobación del mundo. Toma decisiones diferentes porque sabe a quién pertenece y en quién confía.',
+        application: [
+          '¿Mi identidad está basada en Jesucristo o en la opinión de los demás?',
+          '¿Estoy creciendo en conversión o solo participando por costumbre?',
+          '¿Qué decisiones muestran que sé quién soy delante de Dios?',
+        ],
+        action:
+          'Escribe esta semana una verdad sobre tu identidad como hija de Dios y léela cada mañana en oración.',
+        prompts: {
+          home: '¿Cómo puede tu hogar recordarte más claramente tu identidad divina?',
+          service: '¿Hay otra joven que necesite que la ayudes a recordar su valor delante de Dios?',
+          council:
+            '¿Qué puede hacer una clase de Mujeres Jóvenes para ayudar a todas a sentirse vistas, amadas y espiritualmente fuertes?',
+        },
+      },
+      {
+        id: 'covenants-and-conversion',
+        title: 'Convenios y conversión',
+        handbookRef:
+          'Manual General, cap. 11 — las jóvenes son fortalecidas al guardar convenios y profundizar su conversión diaria a Jesucristo.',
+        doctrine:
+          'Las jóvenes son fortalecidas al hacer y guardar convenios sagrados, y al profundizar diariamente su conversión a Jesucristo.',
+        explanation:
+          'Los convenios no son una formalidad religiosa. Son una relación real con Dios. Guardarlos cambia la forma en que una joven piensa, habla, se viste, se arrepiente, sirve y responde a la tentación.',
+        example:
+          'Una joven que toma en serio sus convenios puede decidir apartarse de algo popular pero espiritualmente dañino, porque su lealtad a Cristo pesa más que la presión del momento.',
+        application: [
+          '¿Estoy tratando mis convenios como algo sagrado o como algo lejano?',
+          '¿Qué hábito me acerca más a Jesucristo?',
+          '¿Qué cosa debo cambiar para vivir con mayor integridad espiritual?',
+        ],
+        action:
+          'Escoge una forma concreta de honrar mejor tus convenios esta semana y anótala en tu reflexión personal.',
+        prompts: {
+          home: '¿Qué práctica en casa podría ayudarte a recordar más seguido tus convenios?',
+          service: '¿Cómo puedes apoyar a una amiga para que permanezca firme en lo correcto?',
+          council:
+            '¿Qué conversaciones deberían tenerse más en la clase para fortalecer la conversión real, no solo la participación externa?',
+        },
+      },
+      {
+        id: 'work-of-salvation',
+        title: 'Participar en la obra de Dios',
+        handbookRef:
+          'Manual General, cap. 11 — las jóvenes participan en la obra de salvación y exaltación: vivir el Evangelio, cuidar al necesitado, invitar a todos y unir familias.',
+        doctrine:
+          'El propósito de una clase de Mujeres Jóvenes es ayudar a las jóvenes a trabajar juntas para participar en la obra de Dios de salvación y exaltación.',
+        explanation:
+          'Eso incluye vivir el Evangelio, cuidar de los necesitados, invitar a todos a recibir el Evangelio y ayudar a unir a las familias por la eternidad. Las jóvenes no son espectadoras de la obra; son parte activa de ella.',
+        example:
+          'Una joven participa en la obra de Dios cuando fortalece a una amiga, comparte su testimonio, ayuda a alguien necesitado o apoya la obra del templo e historia familiar.',
+        application: [
+          '¿Estoy participando activamente en la obra de Dios o solo asistiendo a reuniones?',
+          '¿A quién puedo fortalecer espiritualmente esta semana?',
+          '¿Cómo puedo apoyar mejor la obra del Señor en mi barrio y en mi hogar?',
+        ],
+        action:
+          'Haz esta semana una acción concreta en la obra de Dios: servir, invitar, compartir o ayudar a alguien espiritualmente.',
+        prompts: {
+          home: '¿Cómo puede tu familia participar más unida en la obra del Señor?',
+          service: '¿Quién necesita alivio, ánimo o ayuda práctica en este momento?',
+          council: '¿Qué proyecto simple podría hacer tu clase para bendecir a alguien de manera real?',
+        },
+      },
+      {
+        id: 'unity-and-class',
+        title: 'Unidad y vida en la clase',
+        handbookRef:
+          'Manual General, cap. 11 — en clase, las jóvenes sirven, cumplen responsabilidades del convenio, cultivan unidad y aprenden y viven doctrina.',
+        doctrine:
+          'En sus clases, las mujeres jóvenes prestan servicio a los demás, cumplen con las responsabilidades que adquirieron con sus convenios, cultivan la unidad, y aprenden y viven la doctrina.',
+        explanation:
+          'La clase no debe ser un grupo pasivo donde unas pocas hablan y el resto mira. Debe ser una hermandad espiritual donde las jóvenes se fortalezcan unas a otras, deliberen juntas, sirvan juntas y crezcan juntas en Cristo.',
+        example:
+          'Cuando una clase recibe con amor a una joven tímida o menos activa, la unidad deja de ser una palabra bonita y se vuelve discipulado real.',
+        application: [
+          '¿Contribuyo a la unidad de mi clase o me aíslo?',
+          '¿Hay alguna joven que necesite sentirse incluida y amada?',
+          '¿Estoy aprendiendo doctrina para vivirla o solo para escucharla?',
+        ],
+        action:
+          'Busca esta semana a una joven de tu clase que necesite amistad, inclusión o ánimo, y da el primer paso.',
+        prompts: {
+          home: '¿Cómo puedes llevar el espíritu de unidad de la clase a tu casa?',
+          service: '¿A quién podrías incluir, consolar o fortalecer esta semana?',
+          council: '¿Qué hábitos de la clase ayudan a la unidad y cuáles la debilitan?',
+        },
+      },
+      {
+        id: 'leadership-and-revelation',
+        title: 'Liderazgo juvenil inspirado',
+        handbookRef:
+          'Manual General, cap. 11 — las presidencias de clase aprenden a liderar bajo revelación, deliberar en consejo y bendecir a otras jóvenes.',
+        doctrine:
+          'Las jóvenes pueden liderar y servir bajo dirección inspirada, aprendiendo a recibir revelación, deliberar en consejo y bendecir a otras personas.',
+        explanation:
+          'En Mujeres Jóvenes, el liderazgo no es fama ni control. Es aprender a escuchar al Espíritu, pensar en otras personas y actuar con fe. Las presidencias de clase no existen para adornar una lista; existen para ayudar a cuidar a las jóvenes y fortalecer la obra.',
+        example:
+          'Una presidenta de clase que ora por las necesidades de sus compañeras y propone una actividad con propósito está aprendiendo liderazgo celestial, no solo organización humana.',
+        application: [
+          '¿Veo el liderazgo como servicio o como posición?',
+          '¿Busco inspiración antes de actuar?',
+          '¿Cómo puedo bendecir mejor a las demás jóvenes de mi clase?',
+        ],
+        action:
+          'Ora por una persona específica de tu clase esta semana y actúa según la impresión que recibas.',
+        prompts: {
+          home: '¿Dónde puedes practicar liderazgo cristiano dentro de tu hogar?',
+          service: '¿Qué necesidad de otra joven podrías notar mejor si oras por ella?',
+          council:
+            '¿Cómo puede una presidencia de clase escuchar mejor a todas, no solo a las más visibles?',
+        },
+      },
+      {
+        id: 'ministering-and-compassion',
+        title: 'Servicio, compasión y ministración',
+        handbookRef:
+          'Manual General, cap. 11 — las jóvenes siguen a Jesucristo al servir con compasión; desde los 14 años pueden servir como compañeras de ministración cuando corresponda.',
+        doctrine:
+          'Las jóvenes siguen a Jesucristo cuando sirven con compasión, alivian cargas y ayudan a cuidar a los hijos de Dios.',
+        explanation:
+          'Aunque la ministración formal está organizada de maneras específicas, toda joven discípula puede aprender desde ahora a notar necesidades, responder con amor y servir con pureza de intención. Además, una joven puede servir como compañera de ministración de una hermana de la Sociedad de Socorro desde el año en que cumple 14, si está dispuesta y preparada.',
+        example:
+          'A veces una joven no resuelve el problema completo de alguien, pero su mensaje, visita o acto de amor cambia por completo el día de esa persona.',
+        application: [
+          '¿Estoy pendiente de las necesidades de los demás o muy enfocada en mí misma?',
+          '¿Qué persona necesita hoy compasión real?',
+          '¿Estoy dispuesta a servir incluso cuando nadie me lo aplauda?',
+        ],
+        action:
+          'Haz esta semana un acto silencioso de compasión por alguien que necesite ánimo, ayuda o consuelo.',
+        prompts: {
+          home: '¿Quién en tu casa necesita más paciencia, amor o ayuda práctica?',
+          service: '¿A quién puedes ministrar con más intención esta semana?',
+          council: '¿Cómo puede la clase llegar a ser más sensible a quienes están luchando?',
+        },
+      },
+      {
+        id: 'future-discipleship',
+        title: 'Preparación para una vida de discipulado',
+        handbookRef:
+          'Manual General, cap. 11 — Mujeres Jóvenes prepara a cada joven para una vida de fidelidad, convenios, servicio y participación en la Iglesia.',
+        doctrine:
+          'La experiencia en Mujeres Jóvenes debe preparar a cada joven para una vida entera de fidelidad, servicio, convenios, hogar centrado en Cristo y participación en la Iglesia.',
+        explanation:
+          'La meta no es solo pasar bien la adolescencia. La meta es formar discípulas de Jesucristo para toda la vida: mujeres firmes, sabias, compasivas, valientes y espiritualmente preparadas.',
+        example:
+          'Una joven que aprende ahora a orar, estudiar, servir, guardar convenios y actuar con fe llegará más preparada a las decisiones grandes de su vida.',
+        application: [
+          '¿Qué clase de discípula estoy llegando a ser?',
+          '¿Qué hábitos me están preparando para el futuro y cuáles me están debilitando?',
+          '¿Estoy construyendo una base espiritual que dure toda la vida?',
+        ],
+        action:
+          'Elige un hábito espiritual para fortalecer durante los próximos 7 días: oración, Escrituras, templo, servicio o diario espiritual.',
+        prompts: {
+          home: '¿Qué costumbre del hogar podría ayudarte a ser una discípula más constante?',
+          service: '¿Cómo puede tu crecimiento espiritual bendecir a otras personas desde ahora?',
+          council:
+            '¿Qué debería enseñar una clase de Mujeres Jóvenes para preparar mejor a las jóvenes para la vida real?',
+        },
       },
     ],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['El “Ven, sígueme” del individuo es la base; la clase es catalizador, no reemplazo.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Leé el cap. 13: propósito y responsabilidades.',
-      'Escribí cinco preguntas basadas en versículos, no solo en comentarios.',
-      'Programá un seguimiento en el hogar (lectura, aplicación).',
+  },
+  'org-pr-1': {
+    layout: 'structured',
+    promptVariant: 'primary',
+    intro:
+      'Aprende cómo la Primaria ayuda a los niños a sentir el amor de Dios, aprender el Evangelio, prepararse para los convenios y seguir a Jesucristo.',
+    overview:
+      'La Primaria no es una clase de adultos con dibujos. Según el Manual General (cap. 12), ayuda a los niños a conocer el amor del Padre Celestial, a Jesucristo, el Evangelio, el Espíritu Santo, el camino de convenios y la obra de Dios — con enseñanza sencilla, cálida y memorable.\n\nEl capítulo también orienta sobre preparación para el bautismo y la confirmación; piensa en niñez y camino de convenios, no solo en «portarse bien».',
+    officialLinks: [
+      ...hbLink('cap. 12 — Primaria'),
+      { label: 'Enseñar a la manera del Salvador (manual 2022)', url: URL_TSW_ES },
     ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['¿Qué hábito de estudio personal modelo mis alumnos adultos?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Transformá un bloque de charla en estudio de versículos en parejas.',
+    sections: [
+      {
+        id: 'heavenly-father-love',
+        title: 'Dios me ama',
+        handbookRef: 'Manual General, cap. 12 — sentir el amor del Padre Celestial y Su plan de felicidad.',
+        doctrine:
+          'La Primaria ayuda a los niños a sentir el amor de su Padre Celestial y a aprender acerca de Su plan de felicidad.',
+        explanation:
+          'Dios es tu Padre Celestial. Él te conoce, te ama y desea ayudarte. No estás solo. Su plan fue hecho para bendecirte y ayudarte a volver a Él.',
+        example:
+          'Un niño puede sentir el amor de Dios cuando ora, cuando escucha una canción de la Iglesia o cuando siente paz al hacer lo correcto.',
+        application: [
+          '¿Recuerdo que soy hijo o hija de Dios?',
+          '¿Cuándo he sentido paz o amor de Dios?',
+          '¿Qué puedo hacer para acercarme más a Él?',
+        ],
+        action: 'Esta semana, haz una oración sincera cada día y da gracias por una bendición.',
+        prompts: {
+          home: '¿Qué puede hacer tu familia para recordar más seguido que Dios los ama?',
+          service: '¿Cómo puedes demostrar amor a alguien en casa esta semana?',
+          leadersOrParents:
+            '¿Qué ayuda más a un niño a sentir el amor de Dios: una clase larga o un momento espiritual claro y sencillo?',
+        },
+      },
+      {
+        id: 'learn-of-christ',
+        title: 'Jesucristo es mi Salvador',
+        handbookRef: 'Manual General, cap. 12 — aprender acerca de Jesucristo y Su función en el plan del Padre.',
+        doctrine:
+          'La Primaria ayuda a los niños a aprender acerca de Jesucristo y Su función en el plan del Padre Celestial.',
+        explanation:
+          'Jesucristo nos ama, nos enseña el camino y nos ayuda a arrepentirnos y volver al Padre Celestial. Él es nuestro Salvador y nuestro ejemplo perfecto.',
+        example:
+          'Cuando un niño decide decir la verdad, pedir perdón o ser amable, está tratando de seguir a Jesucristo.',
+        application: [
+          '¿Qué hizo Jesús que yo puedo imitar?',
+          '¿Cómo puedo parecerme más a Él?',
+          '¿Qué haría Jesús si estuviera conmigo hoy?',
+        ],
+        action:
+          'Elige una cosa esta semana para parecerte más a Jesús: decir la verdad, compartir, obedecer o ayudar.',
+        prompts: {
+          home: '¿Qué historia de Jesucristo podrían leer juntos en familia esta semana?',
+          service: '¿A quién podrías ayudar como lo haría Jesús?',
+          leadersOrParents: '¿Cómo puede una clase de Primaria enseñar más claramente quién es Jesucristo?',
+        },
+      },
+      {
+        id: 'live-the-gospel',
+        title: 'Puedo vivir el Evangelio',
+        handbookRef: 'Manual General, cap. 12 — aprender y vivir el Evangelio de Jesucristo.',
+        doctrine: 'La Primaria ayuda a los niños a aprender y vivir el Evangelio de Jesucristo.',
+        explanation:
+          'El Evangelio no es solo algo que escuchamos en la Iglesia. También es algo que vivimos en casa, en la escuela y con nuestros amigos.',
+        example:
+          'Un niño vive el Evangelio cuando obedece, comparte, perdona, es reverente o escoge lo correcto aunque sea difícil.',
+        application: [
+          '¿Estoy escogiendo lo correcto?',
+          '¿Cómo trato a mi familia y a mis amigos?',
+          '¿Qué puedo mejorar esta semana?',
+        ],
+        action: 'Haz esta semana una cosa buena sin que nadie te lo tenga que pedir.',
+        prompts: {
+          home: '¿Qué pequeña costumbre puede ayudar a tu familia a vivir mejor el Evangelio?',
+          service: '¿Quién necesita tu ayuda o tu bondad hoy?',
+          leadersOrParents: '¿Cómo se puede enseñar el Evangelio a los niños de manera sencilla y real?',
+        },
+      },
+      {
+        id: 'holy-ghost',
+        title: 'El Espíritu Santo me puede ayudar',
+        handbookRef:
+          'Manual General, cap. 12 — sentir y reconocer la influencia del Espíritu Santo y actuar según ella.',
+        doctrine:
+          'La Primaria ayuda a los niños a sentir y reconocer la influencia del Espíritu Santo y a actuar de conformidad con ella.',
+        explanation:
+          'El Espíritu Santo puede traer paz, consuelo, advertencia y guía. A veces habla a nuestro corazón con sentimientos tranquilos y buenos.',
+        example:
+          'Un niño puede sentir que debe pedir perdón, ser amable o dejar de hacer algo incorrecto. Esa puede ser una ayuda del Espíritu.',
+        application: [
+          '¿He sentido paz cuando hago lo correcto?',
+          '¿Escucho sentimientos buenos y tranquilos?',
+          '¿Qué hago cuando siento que debo actuar bien?',
+        ],
+        action: 'Esta semana, cuando sientas un buen deseo de hacer algo correcto, hazlo rápido.',
+        prompts: {
+          home: '¿Qué cosas en casa ayudan a sentir más el Espíritu?',
+          service: '¿Cómo puede el Espíritu ayudarte a notar a alguien triste o solo?',
+          leadersOrParents:
+            '¿Cómo se enseña a un niño sobre el Espíritu sin volverlo confuso o místico?',
+        },
+      },
+      {
+        id: 'covenant-path',
+        title: 'Me preparo para los convenios',
+        handbookRef:
+          'Manual General, cap. 12 — prepararse para convenios sagrados, hacerlos y cumplirlos (incluye orientación sobre preparación para el bautismo y la confirmación).',
+        doctrine:
+          'La Primaria ayuda a los niños a prepararse para los convenios sagrados, hacerlos y cumplirlos.',
+        explanation:
+          'Uno de esos convenios importantes es el bautismo. Cuando una persona se bautiza, promete seguir a Jesucristo. Después, al participar de la Santa Cena, recuerda y renueva ese convenio.',
+        example:
+          'Un niño que aprende sobre el bautismo, la Santa Cena y el arrepentimiento se está preparando para seguir a Jesús con más seriedad.',
+        application: [
+          '¿Entiendo por qué el bautismo es importante?',
+          '¿Qué significa seguir a Jesucristo?',
+          '¿Cómo puedo prepararme mejor para hacer y guardar convenios?',
+        ],
+        action:
+          'Habla esta semana con tus padres o líderes sobre el bautismo, la Santa Cena o los convenios.',
+        prompts: {
+          home: '¿Qué podrían conversar en familia sobre el bautismo y la Santa Cena?',
+          service: '¿Cómo puedes mostrar que quieres seguir a Jesucristo cada día?',
+          leadersOrParents:
+            '¿Cómo puede una clase de Primaria preparar mejor a los niños para el camino de convenios?',
+        },
+      },
+      {
+        id: 'work-of-god',
+        title: 'Puedo ayudar en la obra de Dios',
+        handbookRef:
+          'Manual General, cap. 12 — participar en la obra de Dios de salvación y exaltación.',
+        doctrine:
+          'La Primaria ayuda a los niños a participar en la obra de Dios de salvación y exaltación.',
+        explanation:
+          'Los niños también pueden ayudar en la obra del Señor. Pueden amar, invitar, servir, compartir su testimonio y ayudar a otras personas a sentir el amor de Dios.',
+        example:
+          'Un niño participa en la obra de Dios cuando invita a un amigo, consuela a alguien, comparte una escritura o ayuda con amor en su casa.',
+        application: [
+          '¿A quién puedo ayudar esta semana?',
+          '¿Cómo puedo compartir bondad o fe con alguien?',
+          '¿Qué pequeño servicio puedo hacer?',
+        ],
+        action:
+          'Haz esta semana un acto pequeño de servicio por alguien en tu casa, en la Iglesia o en la escuela.',
+        prompts: {
+          home: '¿Qué servicio pequeño podrían hacer juntos en familia?',
+          service: '¿Quién necesita ánimo, ayuda o amistad hoy?',
+          leadersOrParents:
+            '¿Cómo puede la Primaria enseñar a los niños que ellos también son parte de la obra del Señor?',
+        },
+      },
+    ],
+  },
+  'org-ss-1': {
+    layout: 'structured',
+    intro:
+      'Aprende cómo estudiar las Escrituras y el Evangelio de Jesucristo de manera que transforme tu vida diaria y fortalezca tu hogar.',
+    overview:
+      'Según el Manual General (cap. 13), la Escuela Dominical existe para enseñar el Evangelio de Jesucristo, fortalecer la fe en Él, apoyar el aprendizaje centrado en el hogar y ayudar a vivir la doctrina — con las Escrituras y las palabras de los profetas como base.\n\nNo es una clase para acumular datos ni un resumen de “Ven, sígueme”. Es un puente: de la verdad a la vida, del entendimiento a la obediencia, de la clase al hogar.',
+    officialLinks: [
+      ...hbLink('cap. 13 — Escuela Dominical'),
+      { label: 'Enseñar a la manera del Salvador (manual 2022)', url: URL_TSW_ES },
+    ],
+    sections: [
+      {
+        id: 'christ-centered-learning',
+        title: 'Jesucristo es el centro del aprendizaje',
+        handbookRef:
+          'Manual General, cap. 13 — enseñar el Evangelio de Jesucristo y fortalecer la fe en Él.',
+        doctrine: 'El propósito del aprendizaje del Evangelio es venir a Jesucristo y seguirlo.',
+        explanation:
+          'Estudiar el Evangelio no es acumular conocimiento. Es cambiar el corazón, fortalecer la fe y acercarse más a Jesucristo.',
+        example:
+          'Una persona puede conocer muchas historias de las Escrituras, pero solo cambia cuando decide aplicarlas en su vida.',
+        application: [
+          '¿Estoy aprendiendo sobre Cristo o acercándome a Él?',
+          '¿Mi estudio me está cambiando?',
+          '¿Estoy aplicando lo que aprendo?',
+        ],
+        action:
+          'Elige una enseñanza de Jesucristo esta semana y aplícala de forma consciente en tu vida diaria.',
+        prompts: {
+          home: '¿Cómo puedes hacer que Jesucristo sea el centro del estudio en tu hogar?',
+          service: '¿Cómo puedes ayudar a alguien a acercarse más a Cristo?',
+          council: '¿Qué hace que una clase realmente enseñe a venir a Cristo?',
+        },
+      },
+      {
+        id: 'scriptures-and-prophets',
+        title: 'Las Escrituras y los profetas',
+        handbookRef:
+          'Manual General, cap. 13 — el Evangelio se enseña con las Escrituras y las enseñanzas de los profetas vivientes.',
+        doctrine:
+          'El Evangelio se enseña por medio de las Escrituras y las palabras de los profetas vivientes.',
+        explanation:
+          'Dios habla a Sus hijos a través de las Escrituras y los profetas. Estudiarlas con intención trae guía, claridad y dirección espiritual.',
+        example:
+          'Una escritura puede dar respuesta a una duda personal si se estudia con fe y oración.',
+        application: [
+          '¿Estoy estudiando las Escrituras con intención o por rutina?',
+          '¿Busco respuestas reales en ellas?',
+          '¿Escucho y aplico a los profetas?',
+        ],
+        action:
+          'Lee un pasaje de las Escrituras esta semana con una pregunta en mente y escribe lo que aprendas.',
+        prompts: {
+          home: '¿Cómo pueden estudiar las Escrituras en familia de manera más significativa?',
+          service: '¿Puedes compartir una escritura con alguien que la necesite?',
+          council: '¿Qué hace que el estudio de las Escrituras sea realmente poderoso?',
+        },
+      },
+      {
+        id: 'home-centered-learning',
+        title: 'Aprendizaje centrado en el hogar',
+        handbookRef:
+          'Manual General, cap. 13 — el aprendizaje del Evangelio es centrado en el hogar y apoyado por la Iglesia.',
+        doctrine: 'El aprendizaje del Evangelio es centrado en el hogar y apoyado por la Iglesia.',
+        explanation:
+          'La clase dominical no reemplaza el estudio personal o familiar. Es un apoyo. El verdadero crecimiento ocurre en la vida diaria.',
+        example:
+          'Una familia que estudia junta desarrolla una base espiritual más fuerte que solo asistir a reuniones.',
+        application: [
+          '¿Estoy estudiando el Evangelio en casa?',
+          '¿Mi hogar tiene momentos espirituales?',
+          '¿Qué puedo mejorar en mi rutina espiritual?',
+        ],
+        action: 'Establece un momento fijo esta semana para estudiar el Evangelio en tu hogar.',
+        prompts: {
+          home: '¿Qué hábito pequeño puede fortalecer el estudio en familia?',
+          service: '¿Cómo puedes invitar a alguien a estudiar el Evangelio contigo?',
+          council: '¿Cómo puede la Iglesia apoyar mejor el aprendizaje en el hogar?',
+        },
+      },
+      {
+        id: 'teach-by-the-spirit',
+        title: 'Aprender y enseñar por el Espíritu',
+        handbookRef:
+          'Manual General, cap. 13 — el Espíritu Santo enseña y confirma la verdad en el aprendizaje del Evangelio.',
+        doctrine:
+          'El aprendizaje verdadero ocurre cuando el Espíritu Santo enseña y confirma la verdad.',
+        explanation:
+          'El Espíritu Santo es el maestro principal. Sin Él, el aprendizaje es solo información. Con Él, el aprendizaje cambia vidas.',
+        example:
+          'Una impresión espiritual durante una clase puede ser más poderosa que toda la lección.',
+        application: [
+          '¿Estoy buscando sentir el Espíritu al aprender?',
+          '¿Preparo mi corazón antes de estudiar?',
+          '¿Estoy atento a impresiones espirituales?',
+        ],
+        action: 'Antes de estudiar esta semana, haz una oración pidiendo aprender por el Espíritu.',
+        prompts: {
+          home: '¿Qué cosas en tu hogar invitan al Espíritu?',
+          service: '¿Cómo puedes ayudar a otros a sentir el Espíritu?',
+          council: '¿Qué hace que una clase tenga el Espíritu presente?',
+        },
+      },
+      {
+        id: 'live-the-doctrine',
+        title: 'Vivir la doctrina',
+        handbookRef:
+          'Manual General, cap. 13 — el Evangelio transforma la vida; la fe crece al vivir la doctrina.',
+        doctrine: 'El propósito del Evangelio es cambiar la vida de las personas, no solo informar.',
+        explanation:
+          'La doctrina se convierte en poder cuando se vive. La fe crece cuando actuamos.',
+        example:
+          'Una persona que aplica lo que aprende desarrolla más fe que alguien que solo escucha.',
+        application: [
+          '¿Estoy viviendo lo que aprendo?',
+          '¿Qué principio debo aplicar hoy?',
+          '¿Qué debo cambiar en mi vida?',
+        ],
+        action: 'Elige un principio del Evangelio y ponlo en práctica hoy mismo.',
+        prompts: {
+          home: '¿Cómo pueden aplicar juntos lo que aprenden como familia?',
+          service: '¿Cómo puedes bendecir a alguien aplicando el Evangelio?',
+          council: '¿Qué diferencia hay entre aprender doctrina y vivirla?',
+        },
+      },
+      {
+        id: 'discussion-and-council',
+        title: 'Aprender en consejo y participación',
+        handbookRef:
+          'Manual General, cap. 13 — discusión respetuosa y participación que fortalece el aprendizaje.',
+        doctrine:
+          'El aprendizaje del Evangelio se fortalece cuando las personas participan, comparten y aprenden juntas.',
+        explanation:
+          'Las mejores clases no son monólogos. Son conversaciones guiadas por el Espíritu donde todos pueden aprender.',
+        example:
+          'Una experiencia o testimonio compartido puede enseñar más que una explicación larga.',
+        application: [
+          '¿Participo en las clases o solo escucho?',
+          '¿Estoy dispuesto a compartir?',
+          '¿Respeto y aprendo de otros?',
+        ],
+        action: 'Comparte una idea o testimonio en tu próxima clase.',
+        prompts: {
+          home: '¿Cómo pueden tener conversaciones espirituales en casa?',
+          service: '¿A quién puedes escuchar con más atención?',
+          council: '¿Cómo hacer que todos participen sin presión?',
+        },
+      },
+    ],
+  },
+  'lead-1': {
+    layout: 'structured',
+    promptVariant: 'leadership',
+    intro:
+      'Aprende cómo el liderazgo en la Iglesia se ejerce con revelación, amor, consejo y responsabilidad sagrada para bendecir a las personas y fortalecer la obra del Señor.',
+    overview:
+      'Esta lección no sustituye al Manual General: orienta el corazón del líder hacia el Salvador, las llaves del sacerdocio, el consejo revelador y el cuidado de almas reales.\n\nEstá pensada para obispados, consejo de barrio, presidencias de organización y quienes se preparan para servir — con tono sobrio y pastoral, no administrativo ni corporativo.',
+    officialLinks: [
+      ...hbLink('Obispado, consejo de barrio y obra de salvación y exaltación'),
+      { label: 'Enseñar a la manera del Salvador (manual 2022)', url: URL_TSW_ES },
+    ],
+    sections: [
+      {
+        id: 'christ-centered-leadership',
+        title: 'El liderazgo en la Iglesia pertenece a Jesucristo',
+        handbookRef:
+          'Manual General — Jesucristo dirige Su Iglesia; los líderes sirven en Su nombre con humildad.',
+        doctrine:
+          'El liderazgo en la Iglesia no se trata de poder personal, sino de servir bajo la dirección de Jesucristo para bendecir a los hijos de Dios.',
+        explanation:
+          'En la Iglesia, un líder no existe para ser admirado ni para imponer su carácter. Existe para representar al Señor con humildad, cuidar personas reales y ayudar a que la obra de Dios avance de acuerdo con Su voluntad.',
+        example:
+          'Un líder que escucha con paciencia, ora antes de decidir y piensa primero en el bienestar espiritual de las personas está actuando más como siervo de Cristo que como simple administrador.',
+        application: [
+          '¿Veo mi llamamiento como servicio o como posición?',
+          '¿Mis decisiones reflejan el carácter de Jesucristo?',
+          '¿Estoy más enfocado en personas o en quedar bien?',
+        ],
+        action:
+          'Ora esta semana para ver tu llamamiento como una mayordomía sagrada y no como una función rutinaria.',
+        prompts: {
+          home:
+            '¿Cómo puede tu manera de liderar bendecir más claramente a tu familia?',
+          service: '¿A quién necesitas servir con más paciencia y compasión?',
+          council:
+            '¿Qué cambia en un consejo cuando todos recuerdan que Jesucristo es el verdadero líder?',
+        },
+      },
+      {
+        id: 'keys-and-stewardship',
+        title: 'Llaves, autoridad y mayordomía',
+        handbookRef:
+          'Manual General — el obispo posee las llaves del sacerdocio para dirigir la obra de la Iglesia en el barrio; cada líder sirve dentro de una mayordomía.',
+        doctrine:
+          'El obispo posee las llaves del sacerdocio para dirigir la obra de la Iglesia en el barrio, y los líderes sirven dentro de mayordomías específicas para bendecir a las personas.',
+        explanation:
+          'No todos tienen la misma responsabilidad, pero todos sirven bajo orden divino. Las llaves traen dirección, y la mayordomía trae responsabilidad. Un líder fiel respeta el orden del Señor, evita invadir funciones ajenas y sirve con claridad y reverencia.',
+        example:
+          'Un líder de organización que coordina con el obispado y actúa dentro de su mayordomía fortalece la unidad; uno que actúa por su cuenta puede crear confusión aunque tenga buenas intenciones.',
+        application: [
+          '¿Entiendo bien mi mayordomía?',
+          '¿Respeto el orden del sacerdocio y la coordinación con otros líderes?',
+          '¿Estoy actuando con humildad dentro de los límites de mi llamamiento?',
+        ],
+        action:
+          'Haz una revisión de tu llamamiento y define con claridad qué te corresponde cuidar personalmente esta semana.',
+        prompts: {
+          home: '¿Qué te enseña el orden del Señor sobre responsabilidad en tu hogar?',
+          service: '¿Cómo puedes servir con más claridad sin exceder tu mayordomía?',
+          council:
+            '¿Qué problemas aparecen cuando los líderes no entienden bien sus responsabilidades?',
+        },
+      },
+      {
+        id: 'bishopric-and-care',
+        title: 'Cuidar a las personas con amor',
+        handbookRef:
+          'Manual General — el obispado cuida a los miembros del barrio con amor y los ayuda a ser discípulos verdaderos de Jesucristo.',
+        doctrine:
+          'El obispado cuida de los miembros del barrio con amor y los ayuda a llegar a ser discípulos verdaderos de Jesucristo.',
+        explanation:
+          'El liderazgo local no existe para sostener una estructura vacía. Existe para cuidar almas. Eso incluye fortalecer la fe, ayudar en el arrepentimiento, sostener a familias, atender necesidades y acercar a las personas al Salvador.',
+        example:
+          'Un obispado que conoce a las familias, escucha sus cargas y actúa con amor inspirado ejerce liderazgo real, aunque no haga ruido ni busque reconocimiento.',
+        application: [
+          '¿Estoy viendo personas o solo tareas?',
+          '¿Conozco las necesidades reales de quienes sirvo?',
+          '¿Estoy ayudando a otros a venir a Cristo o solo manteniendo funciones?',
+        ],
+        action:
+          'Piensa en una persona o familia específica esta semana, ora por ella y toma una acción concreta para cuidarla mejor.',
+        prompts: {
+          home: '¿Cómo puedes reflejar ese mismo cuidado en tu propia familia?',
+          service: '¿Quién necesita ser escuchado y atendido con más amor?',
+          council: '¿Cómo puede un consejo enfocarse más en personas y menos en reportes?',
+        },
+      },
+      {
+        id: 'council-and-revelation',
+        title: 'Deliberar en consejo con revelación',
+        handbookRef:
+          'Manual General — los líderes deliberan en consejo para promover fortaleza espiritual y unidad, buscando la guía del Espíritu.',
+        doctrine:
+          'Los líderes deliberan en consejo para promover la fortaleza espiritual y la unidad, procurando inspiración y participación guiada por el Espíritu.',
+        explanation:
+          'Un consejo de barrio no debe ser una reunión fría de anuncios. Debe ser un lugar sagrado donde líderes inspirados unen perspectivas, consideran personas y familias, y buscan la voluntad del Señor juntos.',
+        example:
+          'Cuando un consejo deja de hablar solo de actividades y empieza a hablar de personas específicas, barreras espirituales y cómo ayudar con amor, se vuelve realmente útil.',
+        application: [
+          '¿Participo en consejo con preparación espiritual?',
+          '¿Escucho con humildad o solo espero mi turno para hablar?',
+          '¿Estoy ayudando a que el consejo sea revelador o pesado?',
+        ],
+        action:
+          'Llega a tu próxima reunión habiendo orado por una persona o necesidad específica que deba considerarse.',
+        prompts: {
+          home: '¿Cómo puedes aplicar el principio de deliberar en consejo dentro de tu hogar?',
+          service: '¿A quién puede bendecir una mejor reunión de consejo?',
+          council: '¿Qué hábitos hacen que un consejo tenga más revelación y menos rutina?',
+        },
+      },
+      {
+        id: 'work-of-salvation',
+        title: 'Coordinar la obra de salvación y exaltación',
+        handbookRef:
+          'Manual General — el consejo de barrio ayuda a coordinar la obra de salvación y exaltación en la unidad.',
+        doctrine:
+          'El consejo de barrio ayuda a coordinar la obra de salvación y exaltación, incluyendo vivir el Evangelio, cuidar de los necesitados, invitar a todos a recibir el Evangelio y unir a las familias por la eternidad.',
+        explanation:
+          'El liderazgo verdadero no solo reacciona a problemas. También impulsa la obra del Señor de manera ordenada, unida y centrada en convenios. Los líderes deben mirar el barrio completo, sin perder de vista a cada alma.',
+        example:
+          'Cuando obispado, Sociedad de Socorro, cuórum de élderes y otros líderes coordinan esfuerzos reales en vez de trabajar aislados, el barrio empieza a bendecir mejor a sus miembros.',
+        application: [
+          '¿Estoy viendo la obra del Señor como un todo o solo mi área?',
+          '¿Trabajo unido con otros líderes?',
+          '¿Mis esfuerzos ayudan a las personas a avanzar hacia Cristo y Sus ordenanzas?',
+        ],
+        action:
+          'Identifica una forma concreta de coordinar mejor con otro líder esta semana para bendecir a una persona o familia.',
+        prompts: {
+          home: '¿Cómo puede la obra de salvación empezar de manera más clara en tu hogar?',
+          service:
+            '¿Qué necesidad del barrio requiere colaboración y no solo esfuerzo individual?',
+          council:
+            '¿Qué parte de la obra de salvación y exaltación está recibiendo menos atención en este momento?',
+        },
+      },
+      {
+        id: 'ministering-and-strengthening',
+        title: 'Ministración, conversión y miembros nuevos o que regresan',
+        handbookRef:
+          'Manual General — el obispado coordina con los presidentes del cuórum de élderes y de la Sociedad de Socorro para compartir el Evangelio y fortalecer a nuevos miembros y a los que regresan.',
+        doctrine:
+          'El obispado coordina con los presidentes del cuórum de élderes y de la Sociedad de Socorro los esfuerzos para compartir el Evangelio y fortalecer a los miembros nuevos y a los que regresan.',
+        explanation:
+          'Una unidad fuerte no solo organiza reuniones; también acompaña a las personas en su proceso de fe. Eso requiere ministración intencional, seguimiento amoroso y coordinación real entre líderes.',
+        example:
+          'Cuando un nuevo miembro recibe amistad, enseñanza, apoyo y oportunidades para pertenecer, su experiencia cambia por completo. Lo mismo ocurre con alguien que está regresando poco a poco.',
+        application: [
+          '¿Estamos fortaleciendo a las personas nuevas o solo dándoles la bienvenida una vez?',
+          '¿Hay alguien que esté intentando regresar y necesite atención real?',
+          '¿Estamos coordinando bien la ministración y el acompañamiento?',
+        ],
+        action:
+          'Piensa en una persona nueva o que esté regresando y define un siguiente paso concreto para ayudarla a sentirse sostenida y fortalecida.',
+        prompts: {
+          home: '¿Cómo puede tu familia ayudar a alguien a sentirse bienvenido en la Iglesia?',
+          service: '¿A quién puedes incluir, acompañar o animar esta semana?',
+          council:
+            '¿Qué debe mejorar en la forma en que el barrio fortalece a miembros nuevos y que regresan?',
+        },
+      },
+      {
+        id: 'humility-and-accountability',
+        title: 'Humildad, integridad y responsabilidad espiritual',
+        handbookRef:
+          'Las escrituras y el Manual General — el siervo del Señor debe ser manso, digno y rendir cuentas ante Dios.',
+        doctrine:
+          'Un líder del Señor sirve con humildad, busca revelación, actúa con integridad y responde ante Dios por la manera en que cuida a Su pueblo.',
+        explanation:
+          'No basta con ocupar un llamamiento. Un líder fiel se examina, se arrepiente, corrige y evita caer en dureza, orgullo, favoritismo, desorden o apatía. La autoridad espiritual se sostiene con rectitud personal y dependencia del Señor.',
+        example:
+          'Un líder que reconoce un error, pide perdón y corrige su forma de servir demuestra más madurez espiritual que uno que siempre quiere parecer fuerte.',
+        application: [
+          '¿Hay orgullo, dureza o rutina en mi forma de liderar?',
+          '¿Estoy buscando al Señor con sinceridad en mi llamamiento?',
+          '¿Qué debo corregir para servir con mayor integridad?',
+        ],
+        action:
+          'Haz esta semana una autoevaluación honesta de tu servicio y escribe un cambio específico que debas hacer delante del Señor.',
+        prompts: {
+          home:
+            '¿Qué te está enseñando el liderazgo espiritual sobre tu propio carácter en casa?',
+          service: '¿A quién necesitas tratar con más humildad o paciencia?',
+          council:
+            '¿Cómo puede un consejo crear una cultura de humildad, responsabilidad y confianza?',
+        },
+      },
+    ],
   },
 };

@@ -7,7 +7,8 @@ export type TrainingPathCategory =
   | 'core'
   | 'priesthood'
   | 'teaching_saviors_way'
-  | 'auxiliary_organizations';
+  | 'auxiliary_organizations'
+  | 'ward_leadership';
 
 export type PriesthoodOffice =
   | 'deacon'

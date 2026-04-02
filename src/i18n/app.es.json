@@ -241,9 +241,10 @@
     "training": {
       "dashboard": {
         "priesthoodTracksComplete": "Has completado toda la capacitación del sacerdocio ✓",
-        "subtitle": "Fundamentos, enseñanza al estilo del Salvador, sacerdocio y organizaciones auxiliares, alineados al Manual General.",
+        "subtitle": "Fundamentos, enseñanza al estilo del Salvador, sacerdocio, liderazgo local y organizaciones auxiliares, alineados al Manual General.",
         "sectionTeachingSaviorsWay": "Enseñar a la manera del Salvador",
         "sectionAuxiliaryOrgs": "Organizaciones auxiliares",
+        "sectionWardLeadership": "Liderazgo en el barrio",
         "openTeachingManualPath": "Enseñar a la manera del Salvador",
         "callingSectionTitle": "Recomendado para tu llamamiento",
         "callingSectionHint": "Según el rol que elegiste en Líderes y maestros, aquí ves primero lo más relacionado. Más abajo sigue disponible todo el hub.",
@@ -293,10 +294,30 @@
           "scripturesHeading": "Escrituras para estudiar",
           "practiceHeading": "Compromisos de la semana",
           "practiceHint": "Marca cada bloque cuando hayas vivido su acción concretamente esta semana.",
+          "practiceHintPrimary": "Marca cada parte cuando un niño o la familia haya vivido la acción esta semana (sin presión: pasos pequeños).",
+          "practiceHintLeadership": "Marca cada bloque cuando hayas reflexionado con honestidad y dado un paso concreto de servicio; el liderazgo del Señor se mide en almas atendidas, no en listas cumplidas.",
           "practiceDone": "Hecho",
           "practicePending": "Pendiente",
           "modesTitle": "Modos de aplicación",
           "modesNote": "Usa estos recordatorios para llevar el tema al barrio, a la ministración y al hogar.",
+          "modesTitlePrimary": "Ideas sencillas en familia",
+          "modesNotePrimary": "La Primaria forma mejor con momentos cortos, claros y repetidos — no con charlas largas.",
+          "promptsTitle": "Prompts opcionales",
+          "prompts": {
+            "home": "Modo Hogar",
+            "service": "Modo Servicio",
+            "council": "Modo Consejo"
+          },
+          "promptsPrimary": {
+            "home": "En casa",
+            "service": "Servicio",
+            "leaders": "Para líderes o padres"
+          },
+          "modesPrimary": {
+            "home": "Leer juntos un versículo o frase corta sobre Jesucristo.",
+            "christ": "Preguntar en familia: «¿Qué hizo Jesús que podemos imitar hoy?»",
+            "simple": "Planear un momento breve de reverencia (oración, canción o gratitud) sin apuro."
+          },
           "modes": {
             "council": "Modo consejo: ¿cómo aplicarías este principio en tu barrio o estaca?",
             "ministering": "Modo ministración: ¿a quién podrías servir o animar con este principio?",

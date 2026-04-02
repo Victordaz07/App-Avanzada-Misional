@@ -88,6 +88,7 @@ export default function TrainingDashboard(): JSX.Element {
 
   const tswPathMeta = paths.find((p) => p.id === 'teaching-saviors-way');
   const auxPathMeta = paths.find((p) => p.id === 'auxiliary-organizations');
+  const wardLeadershipPathMeta = paths.find((p) => p.id === 'ward-leadership');
 
   if (stage !== 'covenanted') {
     navigate('/home', { replace: true });
@@ -398,6 +399,24 @@ export default function TrainingDashboard(): JSX.Element {
               status={isPathUnlocked(auxPathMeta.id, ctx) ? 'in_progress' : 'locked'}
               progress={getAggregatedPathProgress(auxPathMeta.id, completedLessons)}
               to={`/training/${auxPathMeta.id}`}
+            />
+          ) : null}
+        </div>
+      </section>
+
+      <section className="tr-dashboard__section">
+        <h2 className="tr-dashboard__section-title">
+          {t('app.training.dashboard.sectionWardLeadership')}
+        </h2>
+        <div className="tr-dashboard__cards">
+          {wardLeadershipPathMeta ? (
+            <TrainingCard
+              nodeId={wardLeadershipPathMeta.id}
+              title={trainingNodeTitle(wardLeadershipPathMeta, locale)}
+              description={trainingNodeDescription(wardLeadershipPathMeta, locale)}
+              status={isPathUnlocked(wardLeadershipPathMeta.id, ctx) ? 'in_progress' : 'locked'}
+              progress={getAggregatedPathProgress(wardLeadershipPathMeta.id, completedLessons)}
+              to={`/training/${wardLeadershipPathMeta.id}`}
             />
           ) : null}
         </div>

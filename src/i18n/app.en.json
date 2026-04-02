@@ -241,9 +241,10 @@
     "training": {
       "dashboard": {
         "priesthoodTracksComplete": "You have completed all priesthood training tracks ✓",
-        "subtitle": "Foundations, Teaching in the Savior’s Way, priesthood, and auxiliary organizations—aligned with the General Handbook.",
+        "subtitle": "Foundations, Teaching in the Savior’s Way, priesthood, local ward leadership, and auxiliary organizations—aligned with the General Handbook.",
         "sectionTeachingSaviorsWay": "Teaching in the Savior’s Way",
         "sectionAuxiliaryOrgs": "Auxiliary organizations",
+        "sectionWardLeadership": "Ward leadership",
         "openTeachingManualPath": "Teaching in the Savior’s Way",
         "callingSectionTitle": "Recommended for your calling",
         "callingSectionHint": "Based on the role you chose in Leaders and Teachers, these items are highlighted first. The full hub is still below.",
@@ -293,10 +294,30 @@
           "scripturesHeading": "Scriptures to study",
           "practiceHeading": "This week’s commitments",
           "practiceHint": "Check each block when you have lived its action in a concrete way this week.",
+          "practiceHintPrimary": "Check each part when a child or the family has lived the action this week (small steps, no pressure).",
+          "practiceHintLeadership": "Check each block when you have reflected honestly and taken a concrete step of service; the Lord’s leadership is measured in souls cared for, not completed checklists.",
           "practiceDone": "Done",
           "practicePending": "Pending",
           "modesTitle": "Ways to apply",
           "modesNote": "Use these prompts to connect this topic to ward council, ministering, and home.",
+          "modesTitlePrimary": "Simple ideas at home",
+          "modesNotePrimary": "Primary forms faith best through short, clear, repeated moments—not long lectures.",
+          "promptsTitle": "Optional prompts",
+          "prompts": {
+            "home": "Home Mode",
+            "service": "Service Mode",
+            "council": "Council Mode"
+          },
+          "promptsPrimary": {
+            "home": "At home",
+            "service": "Service",
+            "leaders": "For leaders or parents"
+          },
+          "modesPrimary": {
+            "home": "Read a short verse or phrase about Jesus Christ together.",
+            "christ": "Ask at home: “What did Jesus do that we can imitate today?”",
+            "simple": "Plan a brief moment of reverence (prayer, song, or gratitude) without rushing."
+          },
           "modes": {
             "council": "Ward council mode: How would you apply this principle in your ward or stake?",
             "ministering": "Ministering mode: Who could you serve or encourage with this principle?",

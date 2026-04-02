@@ -9,6 +9,7 @@ const BISHOPRIC_WIDE: readonly string[] = [
   'core-foundations',
   'teaching-saviors-way',
   'priesthood',
+  'ward-leadership',
   'auxiliary-organizations',
 ];
 
@@ -20,14 +21,15 @@ const BY_ROLE: Record<LeadershipRole, readonly string[]> = {
   executive_secretary: BISHOPRIC_WIDE,
   elders_quorum_president: [
     'teaching-saviors-way',
+    'ward-leadership',
     'org-elders-quorum',
     'melchizedek-elder',
   ],
-  relief_society_president: ['teaching-saviors-way', 'org-relief-society'],
-  sunday_school_president: ['teaching-saviors-way', 'org-sunday-school'],
-  young_women_president: ['teaching-saviors-way', 'org-young-women'],
-  young_men_president: ['teaching-saviors-way', 'org-aaronic'],
-  primary_president: ['teaching-saviors-way', 'org-primary'],
+  relief_society_president: ['teaching-saviors-way', 'ward-leadership', 'org-relief-society'],
+  sunday_school_president: ['teaching-saviors-way', 'ward-leadership', 'org-sunday-school'],
+  young_women_president: ['teaching-saviors-way', 'ward-leadership', 'org-young-women'],
+  young_men_president: ['teaching-saviors-way', 'ward-leadership', 'org-aaronic'],
+  primary_president: ['teaching-saviors-way', 'ward-leadership', 'org-primary'],
   ward_mission_leader: ['core-foundations', 'teaching-saviors-way'],
   other_leader: ['core-foundations', 'teaching-saviors-way'],
 };

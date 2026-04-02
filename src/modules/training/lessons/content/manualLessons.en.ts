@@ -416,36 +416,102 @@ export const MANUAL_LESSONS_EN: Record<string, TrainingLessonContent> = {
     actionText: 'Send one concrete support request to your direct leader this week.',
   },
   'org-eq-1': {
+    layout: 'structured',
     intro:
-      'The elders quorum advances God’s work of salvation and exaltation: live the gospel, care for those in need, share the gospel, and unite families.',
-    officialLinks: hbLink('section 8 — Elders Quorum'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'State the quorum’s purpose in one sentence from the General Handbook.',
-      'Connect quorum teaching with home study and ministering.',
+      'Learn the purpose of the priesthood and how men can serve as disciples of Jesus Christ in their homes and communities.',
+    overview:
+      'This lesson teaches with doctrinal clarity the purpose of the elders quorum according to the General Handbook (section 8): to form disciples who minister, strengthen the home, serve with charity, and help prepare others for temple ordinances.\n\nEach section ends with a practical invitation so priesthood service becomes real discipleship this week.',
+    officialLinks: [
+      ...hbLink('section 8 — Elders Quorum'),
+      { label: 'Teaching in the Savior’s Way (2022 manual)', url: URL_TSW_EN },
     ],
-    briefHeading: H.brief,
-    briefBody:
-      'Priesthood meetings form elders who teach by example. The handbook explains how the quorum supports the bishop without duplicating his duties.',
-    scripturesHeading: H.scriptures,
-    scriptures: [{ ref: 'Doctrine and Covenants 107:85–87', text: '…the duty of the elders…' }],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['One quorum lesson can inspire a family home evening somewhere in the ward.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Read the introduction to Handbook section 8.',
-      'Note how your lesson can motivate ministering this week.',
-      'Coordinate with the quorum presidency on a topic the ward needs.',
+    sections: [
+      {
+        id: 'priesthood',
+        title: 'The priesthood',
+        handbookRef:
+          'General Handbook, section 8 — the elders quorum helps men use priesthood authority to bless people and families.',
+        doctrine:
+          'The priesthood is God’s authority and power delegated to man to act in His name for the salvation of His children.',
+        explanation:
+          'It is not a personal privilege, but a sacred responsibility to serve, bless, and guide.',
+        example:
+          'A worthy man uses the priesthood to bless his family, not to elevate himself above others.',
+        application: [
+          'Do I use the priesthood to serve, or only as a title?',
+          'Am I living in a way that is worthy of that authority?',
+        ],
+        action:
+          'Pray this week to better understand how to use the priesthood to bless someone.',
+      },
+      {
+        id: 'ministering',
+        title: 'Ministering as disciples',
+        handbookRef:
+          'General Handbook, section 8 — ministering is a central assignment of the elders quorum and is done with love and revelation.',
+        doctrine:
+          'Priesthood holders are responsible to minister as Jesus Christ did: with love, service, and revelation.',
+        explanation:
+          'Ministering is not a task; it is a way of living discipleship.',
+        example:
+          'A sincere message or visit can change someone’s life.',
+        application: [
+          'Do I know the real needs of the families I minister to?',
+          'Am I truly present in their lives?',
+        ],
+        action:
+          'Reach out to a family or brother this week with no agenda, only to serve.',
+      },
+      {
+        id: 'home',
+        title: 'Strengthen the home',
+        handbookRef:
+          'General Handbook, section 8 — priesthood leadership strengthens faith in the home and supports Christ-centered worship.',
+        doctrine:
+          'Priesthood men are responsible to strengthen their homes as centers of faith.',
+        explanation: 'Spiritual leadership begins at home.',
+        example:
+          'A father who prays and studies the scriptures with his family builds a lasting spiritual atmosphere.',
+        application: [
+          'Am I guiding my home spiritually?',
+          'What can I improve today?',
+        ],
+        action: 'Lead a family prayer or scripture study this week.',
+      },
+      {
+        id: 'service',
+        title: 'Service and self-reliance',
+        handbookRef:
+          'General Handbook, section 8 — the quorum helps care for those in need and promotes temporal and spiritual self-reliance.',
+        doctrine:
+          'The priesthood is exercised by serving and helping others become self-reliant.',
+        explanation: 'Serving is central to discipleship.',
+        example:
+          'Helping someone find work or resolve a need is part of living the gospel.',
+        application: [
+          'Am I willing to serve without recognition?',
+          'Whom can I help this week?',
+        ],
+        action: 'Do one concrete act of service this week.',
+      },
+      {
+        id: 'temple',
+        title: 'Spiritual preparation',
+        handbookRef:
+          'General Handbook, section 8 — quorum leaders and members help prepare people for temple covenants and ordinances.',
+        doctrine:
+          'Priesthood men help prepare others to receive temple ordinances.',
+        explanation:
+          'The temple is a central objective in the gospel path.',
+        example:
+          'A leader helps others progress spiritually toward the temple.',
+        application: [
+          'Am I moving forward toward the temple?',
+          'Am I helping others do the same?',
+        ],
+        action: 'Make a personal plan to come closer to the temple.',
+      },
     ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['Which quorum member needs to be included more intentionally?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Suggest one quorum topic tied to a real ward need.',
   },
   'org-rs-1': {
     layout: 'structured',
@@ -711,72 +777,487 @@ export const MANUAL_LESSONS_EN: Record<string, TrainingLessonContent> = {
     actionText: 'Include real youth participation in your plan.',
   },
   'org-pr-1': {
+    layout: 'structured',
+    promptVariant: 'primary',
     intro:
-      'Primary teaches simple doctrine with joy; it is home centered and Church supported.',
-    officialLinks: hbLink('section 12 — Primary'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'Prepare short lessons with movement, music, and appropriate testimony.',
-      'Engage parents with simple take-home challenges.',
+      'Learn how Primary helps children feel God’s love, learn the gospel, prepare for covenants, and follow Jesus Christ.',
+    overview:
+      'Primary is not an adult class with pictures. According to the General Handbook (section 12), it helps children know Heavenly Father’s love, Jesus Christ, the gospel, the Holy Ghost, the covenant path, and God’s work—in teaching that is simple, warm, and memorable.\n\nThe handbook also includes guidance on preparing for baptism and confirmation; think childhood and covenant path, not only “behave well.”',
+    officialLinks: [
+      ...hbLink('section 12 — Primary'),
+      { label: 'Teaching in the Savior’s Way (2022 manual)', url: URL_TSW_EN },
     ],
-    briefHeading: H.brief,
-    briefBody:
-      'The General Handbook covers ages, singing time, and safety. Reverence is taught patiently, not by shouting.',
-    scripturesHeading: H.scriptures,
-    scriptures: [{ ref: 'Matthew 19:14', text: '…Suffer little children… to come unto me…' }],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['One simple object lesson can anchor doctrine in a child’s memory.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Read Handbook section 12: purposes and singing time.',
-      'Pick a visual for your next doctrinal point.',
-      'Prepare a short prayer or testimony children can echo in their own words.',
-    ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['How do I honor children’s limited attention spans?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Send parents a two-line invitation to review at home.',
-  },
-  'org-ss-1': {
-    intro:
-      'Sunday School strengthens conversion through scripture study and Spirit-led teaching.',
-    officialLinks: hbLink('section 13 — Sunday School'),
-    objectivesHeading: H.objectives,
-    objectives: [
-      'Explain how Sunday School supports home-centered study.',
-      'Draft questions that open the scriptures, not only the printed manual.',
-    ],
-    briefHeading: H.brief,
-    briefBody:
-      'The General Handbook emphasizes respectful discussion and continual improvement. Teachers coordinate with ward leadership.',
-    scripturesHeading: H.scriptures,
-    scriptures: [
+    sections: [
       {
-        ref: 'Doctrine and Covenants 88:118',
-        text: '…teach one another words of wisdom…',
+        id: 'heavenly-father-love',
+        title: 'God loves me',
+        handbookRef: 'General Handbook, section 12 — feel Heavenly Father’s love and learn about His plan of happiness.',
+        doctrine:
+          'Primary helps children feel the love of their Heavenly Father and learn about His plan of happiness.',
+        explanation:
+          'God is your Heavenly Father. He knows you, loves you, and wants to help you. You are not alone. His plan was made to bless you and help you return to Him.',
+        example:
+          'A child can feel God’s love when they pray, hear a Church song, or feel peace when they choose the right.',
+        application: [
+          'Do I remember that I am a son or daughter of God?',
+          'When have I felt God’s peace or love?',
+          'What can I do to draw closer to Him?',
+        ],
+        action: 'This week, say a sincere prayer each day and thank Heavenly Father for one blessing.',
+        prompts: {
+          home: 'What could your family do to remember more often that God loves you?',
+          service: 'How can you show love to someone at home this week?',
+          leadersOrParents:
+            'What helps a child feel God’s love more: a long class or one clear, simple spiritual moment?',
+        },
+      },
+      {
+        id: 'learn-of-christ',
+        title: 'Jesus Christ is my Savior',
+        handbookRef: 'General Handbook, section 12 — learn about Jesus Christ and His role in Heavenly Father’s plan.',
+        doctrine:
+          'Primary helps children learn about Jesus Christ and His role in Heavenly Father’s plan.',
+        explanation:
+          'Jesus Christ loves us, teaches us the way, and helps us repent and return to Heavenly Father. He is our Savior and our perfect example.',
+        example:
+          'When a child chooses to tell the truth, ask forgiveness, or be kind, they are trying to follow Jesus Christ.',
+        application: [
+          'What did Jesus do that I can copy?',
+          'How can I be more like Him?',
+          'What would Jesus do if He were with me today?',
+        ],
+        action:
+          'Choose one thing this week to be more like Jesus: tell the truth, share, obey, or help someone.',
+        prompts: {
+          home: 'What story about Jesus Christ could you read together as a family this week?',
+          service: 'Who could you help the way Jesus would?',
+          leadersOrParents: 'How can a Primary class teach more clearly who Jesus Christ is?',
+        },
+      },
+      {
+        id: 'live-the-gospel',
+        title: 'I can live the gospel',
+        handbookRef: 'General Handbook, section 12 — learn and live the gospel of Jesus Christ.',
+        doctrine: 'Primary helps children learn and live the gospel of Jesus Christ.',
+        explanation:
+          'The gospel is not only something we hear at church. It is something we live at home, at school, and with friends.',
+        example:
+          'A child lives the gospel when they obey, share, forgive, are reverent, or choose the right even when it is hard.',
+        application: [
+          'Am I choosing the right?',
+          'How do I treat my family and friends?',
+          'What can I improve this week?',
+        ],
+        action: 'This week, do one good thing without being asked.',
+        prompts: {
+          home: 'What small habit could help your family live the gospel better?',
+          service: 'Who needs your help or kindness today?',
+          leadersOrParents: 'How can we teach the gospel to children in a simple, real way?',
+        },
+      },
+      {
+        id: 'holy-ghost',
+        title: 'The Holy Ghost can help me',
+        handbookRef:
+          'General Handbook, section 12 — feel and recognize the influence of the Holy Ghost and act on it.',
+        doctrine:
+          'Primary helps children feel and recognize the influence of the Holy Ghost and act according to it.',
+        explanation:
+          'The Holy Ghost can bring peace, comfort, warning, and guidance. Sometimes He speaks to our hearts with calm, good feelings.',
+        example:
+          'A child may feel they should say sorry, be kind, or stop doing something wrong. That can be help from the Spirit.',
+        application: [
+          'Do I feel peace when I do what is right?',
+          'Do I notice calm, good feelings?',
+          'What do I do when I feel I should do good?',
+        ],
+        action: 'This week, when you feel a good desire to do something right, do it soon.',
+        prompts: {
+          home: 'What at home helps us feel the Spirit more?',
+          service: 'How can the Spirit help you notice someone who is sad or alone?',
+          leadersOrParents:
+            'How do we teach children about the Spirit without making it confusing or overly mystical?',
+        },
+      },
+      {
+        id: 'covenant-path',
+        title: 'I prepare for covenants',
+        handbookRef:
+          'General Handbook, section 12 — prepare for sacred covenants, make them, and keep them (including guidance on preparing for baptism and confirmation).',
+        doctrine:
+          'Primary helps children prepare for sacred covenants, make them, and keep them.',
+        explanation:
+          'One important covenant is baptism. When a person is baptized, they promise to follow Jesus Christ. Later, the sacrament helps us remember and renew that covenant.',
+        example:
+          'A child who learns about baptism, the sacrament, and repentance is preparing to follow Jesus more seriously.',
+        application: [
+          'Do I understand why baptism matters?',
+          'What does it mean to follow Jesus Christ?',
+          'How can I prepare better to make and keep covenants?',
+        ],
+        action: 'This week, talk with your parents or leaders about baptism, the sacrament, or covenants.',
+        prompts: {
+          home: 'What could your family talk about regarding baptism and the sacrament?',
+          service: 'How can you show each day that you want to follow Jesus Christ?',
+          leadersOrParents: 'How can Primary class better prepare children for the covenant path?',
+        },
+      },
+      {
+        id: 'work-of-god',
+        title: 'I can help in God’s work',
+        handbookRef: 'General Handbook, section 12 — participate in God’s work of salvation and exaltation.',
+        doctrine:
+          'Primary helps children participate in God’s work of salvation and exaltation.',
+        explanation:
+          'Children can help the Lord’s work too. They can love, invite, serve, share testimony, and help others feel God’s love.',
+        example:
+          'A child helps God’s work when they invite a friend, comfort someone, share a scripture, or lovingly help at home.',
+        application: [
+          'Who can I help this week?',
+          'How can I share kindness or faith with someone?',
+          'What small service can I do?',
+        ],
+        action:
+          'This week, do one small act of service for someone at home, at church, or at school.',
+        prompts: {
+          home: 'What small service could you do together as a family?',
+          service: 'Who needs encouragement, help, or friendship today?',
+          leadersOrParents:
+            'How can Primary teach children that they are part of the Lord’s work too?',
+        },
       },
     ],
-    didYouKnowHeading: H.didYouKnow,
-    didYouKnow: ['Personal Come, Follow Me study is the foundation; class is a catalyst, not a substitute.'],
-    practiceHeading: H.practice,
-    practiceHint: H.practiceHint,
-    practiceItems: [
-      'Read Handbook section 13: purpose and responsibilities.',
-      'Write five questions rooted in verses, not only in chatter.',
-      'Plan a simple home follow-up (reading or application).',
+  },
+  'org-ss-1': {
+    layout: 'structured',
+    intro:
+      'Learn how to study the scriptures and the gospel of Jesus Christ in a way that changes your daily life and strengthens your home.',
+    overview:
+      'According to the General Handbook (section 13), Sunday School exists to teach the gospel of Jesus Christ, strengthen faith in Him, support home-centered learning, and help people live doctrine—with the scriptures and the words of the prophets as the foundation.\n\nIt is not a class to collect facts or summarize Come, Follow Me. It is a bridge: from truth to life, from understanding to obedience, from class to home.',
+    officialLinks: [
+      ...hbLink('section 13 — Sunday School'),
+      { label: 'Teaching in the Savior’s Way (2022 manual)', url: URL_TSW_EN },
     ],
-    practiceDone: H.practiceDone,
-    practicePending: H.practicePending,
-    reflectionHeading: H.reflection,
-    reflectionHint: H.reflectionHint,
-    reflectionQuestions: ['What personal study habit do I model for adult learners?'],
-    reflectionPlaceholder: H.reflectionPh,
-    actionHeading: H.action,
-    actionText: 'Turn one lecture block into paired scripture study.',
+    sections: [
+      {
+        id: 'christ-centered-learning',
+        title: 'Jesus Christ is the center of learning',
+        handbookRef:
+          'General Handbook, section 13 — teach the gospel of Jesus Christ and strengthen faith in Him.',
+        doctrine: 'The purpose of gospel learning is to come unto Jesus Christ and follow Him.',
+        explanation:
+          'Studying the gospel is not collecting knowledge. It is changing the heart, strengthening faith, and drawing closer to Jesus Christ.',
+        example:
+          'Someone may know many scripture stories, but they change when they choose to apply them in life.',
+        application: [
+          'Am I learning about Christ or coming closer to Him?',
+          'Is my study changing me?',
+          'Am I applying what I learn?',
+        ],
+        action:
+          'Choose one teaching of Jesus Christ this week and apply it consciously in your daily life.',
+        prompts: {
+          home: 'How can you make Jesus Christ the center of study in your home?',
+          service: 'How can you help someone draw closer to Christ?',
+          council: 'What helps a class truly teach coming unto Christ?',
+        },
+      },
+      {
+        id: 'scriptures-and-prophets',
+        title: 'The scriptures and the prophets',
+        handbookRef:
+          'General Handbook, section 13 — the gospel is taught through the scriptures and the words of living prophets.',
+        doctrine:
+          'The gospel is taught through the scriptures and the words of living prophets.',
+        explanation:
+          'God speaks to His children through the scriptures and the prophets. Studying them with real intent brings guidance, clarity, and spiritual direction.',
+        example:
+          'A verse can answer a personal question when studied with faith and prayer.',
+        application: [
+          'Am I studying the scriptures with intent or by routine?',
+          'Do I seek real answers in them?',
+          'Do I listen to and apply the prophets?',
+        ],
+        action:
+          'Read a passage of scripture this week with a question in mind and write what you learn.',
+        prompts: {
+          home: 'How could your family study the scriptures in a more meaningful way?',
+          service: 'Can you share a scripture with someone who needs it?',
+          council: 'What makes scripture study truly powerful?',
+        },
+      },
+      {
+        id: 'home-centered-learning',
+        title: 'Home-centered learning',
+        handbookRef:
+          'General Handbook, section 13 — gospel learning is home centered and Church supported.',
+        doctrine: 'Gospel learning is home centered and Church supported.',
+        explanation:
+          'Sunday class does not replace personal or family study. It supports it. Real growth happens in daily life.',
+        example:
+          'A family that studies together builds a stronger spiritual foundation than attending meetings alone.',
+        application: [
+          'Am I studying the gospel at home?',
+          'Does my home have spiritual moments?',
+          'What can I improve in my spiritual routine?',
+        ],
+        action: 'Set a fixed time this week to study the gospel in your home.',
+        prompts: {
+          home: 'What small habit could strengthen family study?',
+          service: 'How could you invite someone to study the gospel with you?',
+          council: 'How can the Church better support learning in the home?',
+        },
+      },
+      {
+        id: 'teach-by-the-spirit',
+        title: 'Learn and teach by the Spirit',
+        handbookRef:
+          'General Handbook, section 13 — the Holy Ghost teaches and confirms truth in gospel learning.',
+        doctrine:
+          'True learning happens when the Holy Ghost teaches and confirms truth.',
+        explanation:
+          'The Holy Ghost is the true teacher. Without Him, learning is only information. With Him, learning changes lives.',
+        example:
+          'A spiritual impression during class can be more powerful than the whole lesson.',
+        application: [
+          'Do I seek to feel the Spirit as I learn?',
+          'Do I prepare my heart before I study?',
+          'Am I attentive to spiritual impressions?',
+        ],
+        action: 'Before you study this week, pray to learn by the Spirit.',
+        prompts: {
+          home: 'What in your home invites the Spirit?',
+          service: 'How can you help others feel the Spirit?',
+          council: 'What helps a class have the Spirit present?',
+        },
+      },
+      {
+        id: 'live-the-doctrine',
+        title: 'Live the doctrine',
+        handbookRef:
+          'General Handbook, section 13 — the gospel changes lives; faith grows as we live doctrine.',
+        doctrine: 'The purpose of the gospel is to change people’s lives, not only to inform them.',
+        explanation:
+          'Doctrine becomes power when it is lived. Faith grows when we act.',
+        example:
+          'Someone who applies what they learn develops more faith than someone who only listens.',
+        application: [
+          'Am I living what I learn?',
+          'What principle should I apply today?',
+          'What should I change in my life?',
+        ],
+        action: 'Choose a gospel principle and put it into practice today.',
+        prompts: {
+          home: 'How can you apply together what you learn as a family?',
+          service: 'How can you bless someone by living the gospel?',
+          council: 'What is the difference between learning doctrine and living it?',
+        },
+      },
+      {
+        id: 'discussion-and-council',
+        title: 'Learn in council and participation',
+        handbookRef:
+          'General Handbook, section 13 — respectful discussion and participation strengthen learning.',
+        doctrine:
+          'Gospel learning grows when people participate, share, and learn together.',
+        explanation:
+          'The best classes are not monologues. They are Spirit-led conversations where everyone can learn.',
+        example:
+          'A shared experience or testimony can teach more than a long explanation.',
+        application: [
+          'Do I participate in class or only listen?',
+          'Am I willing to share?',
+          'Do I respect and learn from others?',
+        ],
+        action: 'Share an idea or testimony in your next class.',
+        prompts: {
+          home: 'How can you have spiritual conversations at home?',
+          service: 'Whom could you listen to more carefully?',
+          council: 'How can everyone participate without pressure?',
+        },
+      },
+    ],
+  },
+  'lead-1': {
+    layout: 'structured',
+    promptVariant: 'leadership',
+    intro:
+      'Learn how leadership in the Church is exercised through revelation, love, council, and sacred responsibility—to bless people and strengthen the Lord’s work.',
+    overview:
+      'This lesson does not replace the General Handbook. It turns a leader’s heart toward the Savior, priesthood keys, Spirit-led council, and the care of real souls.\n\nIt is written for bishoprics, ward council, organization presidencies, and those preparing to serve—with a sober, pastoral tone rather than an administrative or corporate one.',
+    officialLinks: [
+      ...hbLink('Bishopric, ward council, and the work of salvation and exaltation'),
+      { label: 'Teaching in the Savior’s Way (2022 manual)', url: URL_TSW_EN },
+    ],
+    sections: [
+      {
+        id: 'christ-centered-leadership',
+        title: 'Leadership in the Church belongs to Jesus Christ',
+        handbookRef:
+          'General Handbook — Jesus Christ leads His Church; leaders serve in His name with humility.',
+        doctrine:
+          'Leadership in the Church is not about personal power, but about serving under Jesus Christ’s direction to bless God’s children.',
+        explanation:
+          'In the Church, a leader does not exist to be admired or to impose a personal style. A leader exists to represent the Lord humbly, care for real people, and help God’s work move forward according to His will.',
+        example:
+          'A leader who listens patiently, prays before deciding, and thinks first about others’ spiritual welfare is acting more as Christ’s servant than as a mere administrator.',
+        application: [
+          'Do I see my calling as service or as status?',
+          'Do my decisions reflect the character of Jesus Christ?',
+          'Am I more focused on people or on looking good?',
+        ],
+        action:
+          'Pray this week to see your calling as sacred stewardship, not as a routine function.',
+        prompts: {
+          home: 'How could your way of leading bless your family more clearly?',
+          service: 'Whom do you need to serve with more patience and compassion?',
+          council: 'What changes in a council when everyone remembers that Jesus Christ is the true leader?',
+        },
+      },
+      {
+        id: 'keys-and-stewardship',
+        title: 'Keys, authority, and stewardship',
+        handbookRef:
+          'General Handbook — the bishop holds priesthood keys to direct the Lord’s work in the ward; each leader serves within a stewardship.',
+        doctrine:
+          'The bishop holds the priesthood keys to direct the Lord’s work in the ward, and leaders serve within specific stewardships to bless people.',
+        explanation:
+          'Not everyone carries the same responsibility, but everyone serves under divine order. Keys bring direction; stewardship brings responsibility. A faithful leader honors the Lord’s order, avoids overstepping others’ duties, and serves with clarity and reverence.',
+        example:
+          'An organization leader who coordinates with the bishopric and stays within a stewardship strengthens unity; one who acts alone can create confusion even with good intentions.',
+        application: [
+          'Do I understand my stewardship clearly?',
+          'Do I honor priesthood order and coordination with other leaders?',
+          'Am I serving humbly within the limits of my calling?',
+        ],
+        action:
+          'Review your calling this week and define clearly what you are personally responsible to care for.',
+        prompts: {
+          home: 'What does the Lord’s order teach you about responsibility in your home?',
+          service: 'How can you serve with greater clarity without exceeding your stewardship?',
+          council: 'What problems appear when leaders do not understand their responsibilities?',
+        },
+      },
+      {
+        id: 'bishopric-and-care',
+        title: 'Care for people with love',
+        handbookRef:
+          'General Handbook — the bishopric cares for ward members with love and helps them become true disciples of Jesus Christ.',
+        doctrine:
+          'The bishopric cares for ward members with love and helps them become true disciples of Jesus Christ.',
+        explanation:
+          'Local leadership does not exist to sustain an empty structure. It exists to care for souls. That includes strengthening faith, helping with repentance, supporting families, meeting needs, and drawing people to the Savior.',
+        example:
+          'A bishopric that knows families, listens to their burdens, and acts with inspired love exercises real leadership—even without fanfare or seeking recognition.',
+        application: [
+          'Am I seeing people or only tasks?',
+          'Do I know the real needs of those I serve?',
+          'Am I helping others come unto Christ or only keeping programs running?',
+        ],
+        action:
+          'Think of one specific person or family this week, pray for them, and take one concrete action to care for them better.',
+        prompts: {
+          home: 'How can you reflect that same care in your own family?',
+          service: 'Who needs to be heard and cared for with more love?',
+          council: 'How can a council focus more on people and less on reports?',
+        },
+      },
+      {
+        id: 'council-and-revelation',
+        title: 'Counsel together in council through revelation',
+        handbookRef:
+          'General Handbook — leaders counsel together to strengthen spiritual life and unity, seeking the Spirit’s guidance.',
+        doctrine:
+          'Leaders counsel together to strengthen spiritual life and unity, seeking inspiration and participation guided by the Spirit.',
+        explanation:
+          'Ward council should not be a cold meeting of announcements. It should be a sacred place where inspired leaders unite perspectives, consider people and families, and seek the Lord’s will together.',
+        example:
+          'When a council stops talking only about activities and begins talking about specific people, spiritual obstacles, and how to help with love, it becomes truly useful.',
+        application: [
+          'Do I participate in council with spiritual preparation?',
+          'Do I listen humbly or only wait for my turn to speak?',
+          'Am I helping council be revelatory rather than heavy?',
+        ],
+        action:
+          'Come to your next meeting having prayed about one specific person or need that should be considered.',
+        prompts: {
+          home: 'How can you apply the principle of counseling together within your home?',
+          service: 'Who might be blessed by a better council meeting?',
+          council: 'What habits help a council have more revelation and less routine?',
+        },
+      },
+      {
+        id: 'work-of-salvation',
+        title: 'Coordinate the work of salvation and exaltation',
+        handbookRef:
+          'General Handbook — ward council helps coordinate the work of salvation and exaltation in unity.',
+        doctrine:
+          'Ward council helps coordinate the work of salvation and exaltation, including living the gospel, caring for those in need, inviting all to receive the gospel, and uniting families for eternity.',
+        explanation:
+          'True leadership does not only react to problems. It also advances the Lord’s work in an orderly, united, covenant-centered way. Leaders should see the whole ward without losing sight of each soul.',
+        example:
+          'When the bishopric, Relief Society, elders quorum, and other leaders coordinate real effort instead of working in isolation, the ward begins to bless its members more fully.',
+        application: [
+          'Am I seeing the Lord’s work as a whole or only my area?',
+          'Am I united with other leaders?',
+          'Do my efforts help people move toward Christ and His ordinances?',
+        ],
+        action:
+          'Identify one concrete way to coordinate better with another leader this week to bless one person or family.',
+        prompts: {
+          home: 'How could the work of salvation begin more clearly in your home?',
+          service: 'What ward need requires collaboration, not only individual effort?',
+          council: 'Which part of the work of salvation and exaltation is receiving less attention right now?',
+        },
+      },
+      {
+        id: 'ministering-and-strengthening',
+        title: 'Ministering, conversion, and new or returning members',
+        handbookRef:
+          'General Handbook — the bishopric coordinates with the elders quorum and Relief Society presidents to share the gospel and strengthen new and returning members.',
+        doctrine:
+          'The bishopric coordinates with the elders quorum president and Relief Society president in efforts to share the gospel and strengthen new members and those who are returning.',
+        explanation:
+          'A strong unit does more than hold meetings; it walks with people through their journey of faith. That takes intentional ministering, loving follow-up, and real coordination among leaders.',
+        example:
+          'When a new member receives friendship, teaching, support, and opportunities to belong, the experience changes completely. The same is true for someone returning step by step.',
+        application: [
+          'Are we strengthening new people or only welcoming them once?',
+          'Is someone trying to return who needs real attention?',
+          'Are we coordinating ministering and follow-up well?',
+        ],
+        action:
+          'Think of one person who is new or returning and define one concrete next step to help them feel sustained and strengthened.',
+        prompts: {
+          home: 'How could your family help someone feel welcome at church?',
+          service: 'Whom could you include, accompany, or encourage this week?',
+          council: 'What should improve in how the ward strengthens new and returning members?',
+        },
+      },
+      {
+        id: 'humility-and-accountability',
+        title: 'Humility, integrity, and spiritual accountability',
+        handbookRef:
+          'The scriptures and General Handbook — the Lord’s servant should be meek, worthy, and accountable to God.',
+        doctrine:
+          'A leader of the Lord serves with humility, seeks revelation, acts with integrity, and answers to God for how he or she cares for His people.',
+        explanation:
+          'Holding a calling is not enough. A faithful leader examines himself or herself, repents, corrects course, and avoids hardness, pride, favoritism, disorder, or apathy. Spiritual authority rests on personal righteousness and dependence on the Lord.',
+        example:
+          'A leader who admits a mistake, asks forgiveness, and changes how he or she serves shows more spiritual maturity than one who always needs to look strong.',
+        application: [
+          'Is there pride, hardness, or routine in how I lead?',
+          'Am I seeking the Lord sincerely in my calling?',
+          'What should I correct to serve with greater integrity?',
+        ],
+        action:
+          'This week, do an honest self-assessment of your service and write one specific change you need to make before the Lord.',
+        prompts: {
+          home: 'What is spiritual leadership teaching you about your character at home?',
+          service: 'Whom do you need to treat with more humility or patience?',
+          council: 'How can a council foster humility, accountability, and trust?',
+        },
+      },
+    ],
   },
 };
