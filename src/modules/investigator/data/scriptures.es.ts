@@ -538,4 +538,101 @@ export const scripturesEs: Scripture[] = [
     context:
       'Pablo testifica que la resurrección de Cristo garantiza la resurrección de toda la humanidad. Es base doctrinal para esperanza frente a la muerte.',
   },
+  {
+    id: 'dc-20-75',
+    reference: 'Doctrina y Convenios 20:75',
+    text: 'Conviene que la iglesia se reúna a menudo para tomar el pan y el vino en memoria del Señor Jesús.',
+    verses: [
+      {
+        verse: 75,
+        text: 'Conviene que la iglesia se reúna a menudo para tomar el pan y el vino en memoria del Señor Jesús.',
+      },
+    ],
+    context:
+      'En esta revelación dada en abril de 1830, al organizarse formalmente la Iglesia restaurada, el Señor establece el patrón de reunirnos con frecuencia para participar de la Santa Cena en memoria de Jesucristo.',
+  },
+  {
+    id: 'dc-20-79',
+    reference: 'Doctrina y Convenios 20:79',
+    text:
+      'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este vino para las almas de todos los que lo beban, para que lo hagan en memoria de la sangre de tu Hijo, que por ellos se derramó; para que testifiquen ante ti, oh Dios, Padre Eterno, que siempre se acuerdan de él, para que puedan tener su Espíritu consigo. Amén.',
+    verses: [
+      {
+        verse: 79,
+        text: 'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este vino para las almas de todos los que lo beban, para que lo hagan en memoria de la sangre de tu Hijo, que por ellos se derramó; para que testifiquen ante ti, oh Dios, Padre Eterno, que siempre se acuerdan de él, para que puedan tener su Espíritu consigo. Amén.',
+      },
+    ],
+    context:
+      'Oración sacramental del agua revelada al profeta José Smith. Hoy se utiliza agua en lugar de vino, conforme a Doctrina y Convenios 27:2, pero el texto de la oración se conserva tal como fue revelado.',
+  },
+  {
+    id: 'dc-27-2',
+    reference: 'Doctrina y Convenios 27:2',
+    text:
+      'Porque he aquí, te digo que no importa lo que comáis o bebáis al tomar el sacramento, si es que lo hacéis con la mira puesta únicamente en mi gloria, recordando ante el Padre mi cuerpo que fue sacrificado por vosotros, y mi sangre que se derramó para la remisión de vuestros pecados.',
+    verses: [
+      {
+        verse: 2,
+        text: 'Porque he aquí, te digo que no importa lo que comáis o bebáis al tomar el sacramento, si es que lo hacéis con la mira puesta únicamente en mi gloria, recordando ante el Padre mi cuerpo que fue sacrificado por vosotros, y mi sangre que se derramó para la remisión de vuestros pecados.',
+      },
+    ],
+    context:
+      'Revelación de agosto de 1830, recibida cuando José Smith iba a procurar vino para la Santa Cena y un mensajero celestial lo detuvo. El Señor enseña que el poder del sacramento no reside en el elemento físico sino en la intención y el recuerdo de Su sacrificio. Es la base doctrinal del uso del agua en lugar de vino.',
+  },
+  {
+    id: '3-nephi-18-7',
+    reference: '3 Nefi 18:7',
+    text:
+      'Y será un testimonio al Padre de que siempre os acordáis de mí. Y si os acordáis siempre de mí, tendréis mi Espíritu para que esté con vosotros.',
+    verses: [
+      {
+        verse: 7,
+        text: 'Y será un testimonio al Padre de que siempre os acordáis de mí. Y si os acordáis siempre de mí, tendréis mi Espíritu para que esté con vosotros.',
+      },
+    ],
+    context:
+      'Palabras del Salvador resucitado al instituir el sacramento entre los nefitas. Une explícitamente el recordar a Cristo con la promesa de tener Su Espíritu, mostrando una relación directa entre memoria fiel y compañía espiritual.',
+  },
+  {
+    id: 'moroni-4-3',
+    reference: 'Moroni 4:3',
+    text:
+      'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este pan para las almas de todos los que participen de él, para que lo coman en memoria del cuerpo de tu Hijo, y testifiquen ante ti, oh Dios, Padre Eterno, que están dispuestos a tomar sobre sí el nombre de tu Hijo, y a recordarle siempre, y a guardar sus mandamientos que él les ha dado, para que siempre puedan tener su Espíritu consigo. Amén.',
+    verses: [
+      {
+        verse: 3,
+        text: 'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este pan para las almas de todos los que participen de él, para que lo coman en memoria del cuerpo de tu Hijo, y testifiquen ante ti, oh Dios, Padre Eterno, que están dispuestos a tomar sobre sí el nombre de tu Hijo, y a recordarle siempre, y a guardar sus mandamientos que él les ha dado, para que siempre puedan tener su Espíritu consigo. Amén.',
+      },
+    ],
+    context:
+      'Oración sacramental del pan tal como Moroni la registró en el Libro de Mormón. Es virtualmente idéntica a la oración revelada en Doctrina y Convenios 20:77, lo cual muestra continuidad doctrinal entre la Iglesia entre los nefitas y la Iglesia restaurada.',
+  },
+  {
+    id: 'moroni-5-2',
+    reference: 'Moroni 5:2',
+    text:
+      'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este vino para las almas de todos los que lo beban, para que lo hagan en memoria de la sangre de tu Hijo, que por ellos se derramó; para que testifiquen ante ti, oh Dios, Padre Eterno, que siempre se acuerdan de él, para que puedan tener su Espíritu consigo.',
+    verses: [
+      {
+        verse: 2,
+        text: 'Oh Dios, Padre Eterno, en el nombre de Jesucristo, tu Hijo, te pedimos que bendigas y santifiques este vino para las almas de todos los que lo beban, para que lo hagan en memoria de la sangre de tu Hijo, que por ellos se derramó; para que testifiquen ante ti, oh Dios, Padre Eterno, que siempre se acuerdan de él, para que puedan tener su Espíritu consigo.',
+      },
+    ],
+    context:
+      'Oración sacramental del agua tal como Moroni la registró. Mantiene la misma estructura y promesa que la oración revelada modernamente en Doctrina y Convenios 20:79.',
+  },
+  {
+    id: '3-nephi-9-20',
+    reference: '3 Nefi 9:20',
+    text:
+      'Y me ofreceréis como sacrificio un corazón quebrantado y un espíritu contrito. Y al que venga a mí con un corazón quebrantado y un espíritu contrito, lo bautizaré con fuego y con el Espíritu Santo.',
+    verses: [
+      {
+        verse: 20,
+        text: 'Y me ofreceréis como sacrificio un corazón quebrantado y un espíritu contrito. Y al que venga a mí con un corazón quebrantado y un espíritu contrito, lo bautizaré con fuego y con el Espíritu Santo, así como los lamanitas fueron bautizados con fuego y con el Espíritu Santo al tiempo de su conversión, por motivo de su fe en mí, y no lo supieron.',
+      },
+    ],
+    context:
+      'El Salvador resucitado declara cuál es el sacrificio que ahora pide después de cumplir la ley de Moisés: ya no animales, sino un corazón quebrantado y un espíritu contrito. Esta es la disposición interior con la que llegamos al sacramento cada semana.',
+  },
 ];

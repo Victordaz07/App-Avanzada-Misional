@@ -1,50 +1,50 @@
 # xTheGospel (For The Gospel)
 
-**Plataforma web progresiva centrada en el Evangelio** para acompañar a personas en su camino de fe, unificar el recorrido de investigadores y miembros, y ofrecer **capacitación** alineada a *Enseñar a la manera del Salvador* y al Manual General.
+**A gospel-centered progressive web platform** to walk with people on their journey of faith, unify the investigator and member experience, and deliver **training** aligned with *Teaching in the Savior’s Way* and the General Handbook.
 
-Proyecto pensado como producto único: la experiencia gira en torno a acercar a las personas a Jesucristo con rigor doctrinal, tono pastoral y diseño accesible y multilingüe.
-
----
-
-## Rol en mi portafolio
-
-Este repositorio muestra trabajo de **arquitectura front-end**, **modelado de producto** (flujos por etapas del usuario), **internacionalización**, integración con **Firebase** y despliegue en **Vercel**, con énfasis en claridad de información sensible y buenas prácticas de seguridad en navegador (CSP y cabeceras HTTP en producción).
+A single product: the experience is designed to help people come unto Jesus Christ with sound doctrine, a pastoral tone, and accessible, multilingual UI.
 
 ---
 
-## Qué resuelve
+## Portfolio role
 
-| Área | Descripción |
+This repository highlights **front-end architecture**, **product modeling** (stage-based flows), **internationalization**, **Firebase** integration, and **Vercel** deployment—with focus on handling sensitive information responsibly and solid browser security (CSP and HTTP headers in production).
+
+---
+
+## What it solves
+
+| Area | Description |
 |------|-------------|
-| **Recorrido unificado** | Una sola aplicación con rutas `/home`, `/lessons`, `/study`, `/journal`, `/progress`, `/profile`, `/friends` y `/training`, donde el contenido puede cambiar según la etapa espiritual del perfil (investigador / miembro convenido, etc.). |
-| **Investigadores** | Lecciones interactivas, estudio, progreso y contenido doctrinal estructurado. |
-| **Miembros** | Módulo “new member” / vínculo con amigos y apoyo a la misión local de barrio (no orientado a jerarquías de misión de tiempo completo). |
-| **Capacitación** | Hub de rutas y pistas: fundamentos, enseñanza, sacerdocio, organizaciones auxiliares, liderazgo en barrio; desbloqueo por prerrequisitos; lecciones con layout “canon” (bloques de doctrina, aplicación, acción). |
-| **Líderes locales** | Rutas `/leaders/*` y flujos de sesiones de enseñanza y perfil de liderazgo dentro de la misma base de código. |
+| **Unified journey** | One app with `/home`, `/lessons`, `/study`, `/journal`, `/progress`, `/profile`, `/friends`, and `/training`, with content that can change by the user’s spiritual stage (investigator / covenant member, etc.). |
+| **Investigators** | Interactive lessons, study, progress, and structured doctrinal content. |
+| **Members** | New-member module, friends, and support for **ward** missionary work (not full-time mission area hierarchies). |
+| **Training** | Paths and tracks: foundations, teaching, priesthood, auxiliary organizations, ward leadership; prerequisite unlocks; “canon” lesson layout (doctrine, application, action blocks). |
+| **Local leaders** | `/leaders/*` routes and teaching-session / leadership profile flows in the same codebase. |
 
-> **Alcance explícito:** no forma parte de la superficie del producto la app de misión de tiempo completo (distritos, zonas, AP, etc.). El foco es barrio, miembros e investigadores.
+> **Explicit scope:** full-time mission tools (zones, districts, APs, etc.) are **not** part of this product surface. The focus is ward, members, and investigators.
 
 ---
 
-## Stack técnico
+## Tech stack
 
 - **React 18** + **TypeScript**
-- **Vite 5** (build y dev server)
+- **Vite 5** (build and dev server)
 - **React Router v6**
-- **Zustand** y Context API para estado
-- **Firebase** (Auth y servicios integrados en cliente)
-- **Zod** para validación
-- **Vitest** para pruebas unitarias
-- **CSS** modular / sistema de estilos propio (`styles/`, componentes canon de enseñanza)
-- Base **Expo / React Native** en el mismo paquete para evolución mobile (`npm run start` / entornos nativos)
+- **Zustand** and Context API for state
+- **Firebase** (Auth and client-side services)
+- **Zod** for validation
+- **Vitest** for unit tests
+- **CSS** modules / custom design system (`styles/`, teaching-canon components)
+- **Expo / React Native** in the same package for mobile evolution (`npm run start` / native targets)
 
-**i18n:** UI y copy principal en **español e inglés** (`app.es.json` / `app.en.json`); el README histórico del proyecto menciona más idiomas como dirección de producto.
+**i18n:** Primary UI copy is maintained in **Spanish and English** (`app.es.json` / `app.en.json`). Older docs may mention additional languages as a product direction.
 
-**Despliegue:** desde la raíz del monorepo, `vercel.json` compila esta carpeta y sirve la SPA con rewrites y política de seguridad (CSP, `X-Frame-Options`, etc.).
+**Deployment:** From the monorepo root, `vercel.json` builds this folder and serves the SPA with rewrites and security policy (CSP, `X-Frame-Options`, etc.).
 
 ---
 
-## Cómo ejecutarlo en local
+## Run locally
 
 ```bash
 cd App-Avanzada-Misional
@@ -52,79 +52,77 @@ npm install
 npm run dev
 ```
 
-Por defecto Vite usa el puerto definido en `vite.config.ts` (típicamente **3001**). Puedes forzar otro puerto, por ejemplo:
+By default Vite uses the port in `vite.config.ts` (typically **3001**). To use another port:
 
 ```bash
 npm run dev -- --port 3002
 ```
 
-**Producción local:**
+**Production build locally:**
 
 ```bash
 npm run build
 npm run preview
 ```
 
-**Pruebas:**
+**Tests:**
 
 ```bash
 npm run test
 ```
 
-**Validación de traducciones (ES/EN):**
+**i18n validation (ES/EN parity):**
 
 ```bash
 npm run validate:i18n
 ```
 
-Configura las variables de entorno de Firebase según la documentación interna del proyecto (sin commitear secretos).
+Configure Firebase environment variables per your internal setup (never commit secrets).
 
 ---
 
-## Estructura relevante del código
+## Code layout (high level)
 
 ```
 App-Avanzada-Misional/
 ├── src/
-│   ├── router/           # AppRouter, rutas unificadas, investigador, líderes
+│   ├── router/           # AppRouter, unified routes, investigator, leaders
 │   ├── modules/
 │   │   ├── investigator/
 │   │   ├── new-member/
-│   │   └── training/     # Currículo, paths, lecciones manuales, unlock logic
-│   ├── leaders/          # Sub-app de liderazgo (sesiones, auth de líderes, UI)
+│   │   └── training/     # Curriculum, paths, manual lessons, unlock logic
+│   ├── leaders/          # Leadership sub-app (sessions, leader auth, UI)
 │   ├── i18n/
 │   ├── context/
 │   ├── layouts/
 │   └── ...
 ├── vite.config.ts
-└── vercel.json           # También puede existir uno en la raíz del monorepo
+└── vercel.json           # May also exist at monorepo root
 ```
 
 ---
 
-## Monorepo
+## Monorepo (sibling folders)
 
-En el directorio padre suele convivir:
-
-- **`xthegospel-lidership/`** — aplicación Vite separada para herramientas de liderazgo de barrio/estaca, mismo ecosistema Firebase.
-- **`scripts/`** — utilidades (por ejemplo migraciones con Firebase Admin).
+- **`xthegospel-lidership/`** — Standalone Vite app for ward/stake leadership tools; same Firebase project where applicable.
+- **`scripts/`** — Maintenance utilities (e.g. Firestore migrations with Firebase Admin).
 
 ---
 
-## Buenas prácticas y cumplimiento
+## Standards and compliance
 
-En el repositorio hay reglas de proyecto (p. ej. en `.cursor/rules/`) orientadas a **seguridad**, **COPPA/GDPR** cuando hay datos sensibles, **Firebase** (reglas, timestamps, App Check en funciones nuevas) y **contenido bilingüe** obligatorio para cadenas de UI y material largo coordinado.
-
----
-
-## Licencia y uso
-
-Software de uso interno / espiritual-educativo, alineado al propósito de la Iglesia de Jesucristo de los Santos de los Últimos Días. No sustituye los manuales oficiales ni la orientación de autoridades locales.
+Project rules live under `.cursor/rules/` and cover **security**, **COPPA/GDPR** when minors or sensitive data apply, **Firebase** (rules, `serverTimestamp`, App Check on new functions), and **bilingual** UI and long-form content.
 
 ---
 
-## Autor
+## License and use
 
-**Víctor Ruiz Bello** — diseño de producto y arquitectura de esta línea de código.
+Internal / spiritual-educational software aligned with The Church of Jesus Christ of Latter-day Saints. It does not replace official manuals or local leader direction.
 
-*Para portafolio: añade aquí enlaces a tu sitio, LinkedIn o demo en vivo si son públicos.*
+---
+
+## Author
+
+**Víctor Ruiz Bello** — product design and architecture for this codebase.
+
+*For your portfolio: add links to your site, LinkedIn, or a public demo here.*

@@ -9,10 +9,10 @@ const guideTopicScripturesEs: Record<string, GuideTopicScriptureConfig> = {
   'sacrament-meeting': {
     featuredReference: 'Doctrina y Convenios 20:77',
     sectionReferences: [
-      ['3 Nefi 18:11'],
-      ['Doctrina y Convenios 20:77'],
-      ['Juan 14:26'],
-      ['Juan 14:15'],
+      ['Doctrina y Convenios 20:75', 'Mosíah 18:8–10'],
+      ['3 Nefi 18:11', 'Doctrina y Convenios 20:77', 'Doctrina y Convenios 20:79', 'Doctrina y Convenios 27:2'],
+      ['Juan 14:26', '3 Nefi 18:7'],
+      ['3 Nefi 9:20', 'Mateo 11:28'],
     ],
   },
   'come-follow-me': {
@@ -109,10 +109,10 @@ const guideTopicScripturesEn: Record<string, GuideTopicScriptureConfig> = {
   'sacrament-meeting': {
     featuredReference: 'Doctrine and Covenants 20:77',
     sectionReferences: [
-      ['3 Nephi 18:11'],
-      ['Doctrine and Covenants 20:77'],
-      ['John 14:26'],
-      ['John 14:15'],
+      ['Doctrine and Covenants 20:75', 'Mosiah 18:8–10'],
+      ['3 Nephi 18:11', 'Doctrine and Covenants 20:77', 'Doctrine and Covenants 20:79', 'Doctrine and Covenants 27:2'],
+      ['John 14:26', '3 Nephi 18:7'],
+      ['3 Nephi 9:20', 'Matthew 11:28'],
     ],
   },
   'come-follow-me': {

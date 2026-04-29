@@ -8,15 +8,20 @@ export interface GuideTopicDiscussion {
 const discussionEs: Record<string, GuideTopicDiscussion> = {
   'sacrament-meeting': {
     doctrinalQuestions: [
-      '¿Qué diferencia hay entre asistir a una reunión y adorar verdaderamente al Salvador?',
-      '¿Qué prometemos al participar del sacramento, y qué promete el Señor a cambio?',
-      '¿Por qué la reverencia interior importa tanto como el orden exterior en la Santa Cena?',
-      '¿Qué cambia en tu comprensión del domingo cuando ves la reunión sacramental como renovación de convenios?',
+      '¿Qué diferencia hay entre asistir a una reunión y adorar verdaderamente al Salvador? ¿Cómo se nota la diferencia desde adentro?',
+      '¿Qué prometemos al participar del sacramento, y qué promete el Señor a cambio? ¿Por qué esa promesa es uno de los regalos más grandes que el Padre Celestial nos ofrece?',
+      '¿Por qué la oración sacramental específicamente nos pide recordar a Cristo «siempre», no solo durante el sacramento? ¿Qué cambia en nuestra semana cuando lo recordamos a diario?',
+      '¿Qué relación hay entre el convenio bautismal y el sacramento? ¿Por qué el Señor proveyó una manera de renovar ese convenio cada semana en vez de hacerlo una sola vez?',
+      'En Doctrina y Convenios 27:2, el Señor dice que «no importa lo que comáis o bebáis... si lo hacéis con la mira puesta únicamente en mi gloria». ¿Qué nos enseña eso sobre dónde está el verdadero poder del sacramento?',
+      '¿Qué cambia en tu comprensión del domingo cuando ves la reunión sacramental como renovación de convenios y no solo como un servicio religioso?',
     ],
     lifeApplicationIdeas: [
-      'Llega unos minutos antes y apaga distracciones para prepararte espiritualmente.',
-      'Durante la oración sacramental, piensa en una promesa concreta que quieras guardar mejor esta semana.',
-      'Después de la reunión, anota una impresión del Espíritu y actúa sobre ella antes de que termine el día.',
+      'Llega cinco a diez minutos antes y silencia tu teléfono para preparar tu corazón antes del himno sacramental, no apenas comience la oración.',
+      'Durante la oración del pan y del agua, escucha cada palabra como si la oyeras por primera vez. Identifica los tres convenios que prometes y la promesa que recibes a cambio.',
+      'Antes de tomar el pan, piensa con honestidad: «¿En qué necesito que me ayude el Salvador esta semana?». Pídele esa ayuda específica mientras participas.',
+      'Después de la reunión, anota en tu diario una sola impresión que el Espíritu te haya dado durante el sacramento, los himnos o los mensajes. Actúa sobre ella antes de que termine el domingo.',
+      'A lo largo de la semana, escoge un momento diario (al despertar, al manejar, antes de dormir) para «recordarle siempre» con una oración breve o un versículo. Observa cómo eso prepara tu próximo sacramento.',
+      'Si te asignan dar un mensaje sacramental, escríbelo después de orar y de leer escrituras y enseñanzas de los profetas vivientes. Habla desde la sencillez y la fe, no para impresionar.',
     ],
   },
   'come-follow-me': {
@@ -156,15 +161,20 @@ const discussionEs: Record<string, GuideTopicDiscussion> = {
 const discussionEn: Record<string, GuideTopicDiscussion> = {
   'sacrament-meeting': {
     doctrinalQuestions: [
-      'What is the difference between attending a meeting and truly worshipping the Savior?',
-      'What do we witness when we partake of the sacrament, and what does the Lord promise in return?',
-      'Why does inward reverence matter just as much as outward order during the sacrament?',
-      'How does your view of Sunday change when sacrament meeting becomes covenant renewal?',
+      'What is the difference between attending a meeting and truly worshiping the Savior? How can you tell the difference from within yourself?',
+      'What do we promise when we partake of the sacrament, and what does the Lord promise in return? Why is that promise one of the greatest gifts Heavenly Father offers us?',
+      'Why do the sacramental prayers ask us to remember Christ "always," not only during the sacrament? What changes in our week when we remember Him daily?',
+      'What is the relationship between the baptismal covenant and the sacrament? Why did the Lord provide a way to renew that covenant every week rather than only once?',
+      'In Doctrine and Covenants 27:2, the Lord says it does not matter what you eat or drink "if it so be that ye do it with an eye single to my glory." What does this teach us about where the true power of the sacrament resides?',
+      'How does your understanding of Sunday change when you see sacrament meeting as a renewal of covenants rather than just a religious service?',
     ],
     lifeApplicationIdeas: [
-      'Arrive a few minutes early and remove distractions so your heart can settle before worship begins.',
-      'During the sacrament prayers, think of one promise you want to keep more faithfully this week.',
-      'After the meeting, write down one spiritual impression and act on it before the day ends.',
+      'Arrive five to ten minutes early and silence your phone to prepare your heart before the sacrament hymn, not just before the prayer begins.',
+      'During the prayers over the bread and water, listen to every word as if hearing it for the first time. Identify the three covenants you make and the promise you receive in return.',
+      "Before taking the bread, ask yourself honestly: \"Where do I need the Savior's help this week?\" Ask Him for that specific help as you partake.",
+      'After the meeting, write in your journal one impression the Spirit gave you during the sacrament, the hymns, or the talks. Act on it before Sunday ends.',
+      'Throughout the week, pick one daily moment (waking, driving, before sleep) to "always remember Him" with a short prayer or verse. Notice how it prepares your next sacrament.',
+      'If asked to give a sacrament talk, write it after prayer and study of the scriptures and living prophets. Speak from simplicity and faith, not to impress.',
     ],
   },
   'come-follow-me': {

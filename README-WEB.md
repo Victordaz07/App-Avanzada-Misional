@@ -1,15 +1,15 @@
-# Versión web (Vite)
+# Web build (Vite)
 
-La documentación **completa** del proyecto y el texto para portafolio están en **[README.md](./README.md)** de esta misma carpeta.
+Full project documentation and portfolio copy live in **[README.md](./README.md)** in this folder.
 
-## Comandos rápidos
+## Quick commands
 
 ```bash
 npm install
 npm run dev
 ```
 
-El puerto por defecto está en `vite.config.ts` (habitualmente **3001**). Otro puerto: `npm run dev -- --port 3002`.
+Default port is set in `vite.config.ts` (usually **3001**). Another port: `npm run dev -- --port 3002`.
 
 ```bash
 npm run build
