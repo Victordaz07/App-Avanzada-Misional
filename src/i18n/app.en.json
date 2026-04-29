@@ -568,6 +568,7 @@
       "passwordMinPlaceholder": "Min. 8 chars, 1 number & 1 special",
       "googleContinue": "Continue with Google",
       "googleLoading": "Connecting…",
+      "orWithEmail": "or with email and password",
       "createSubmit": "Create my account",
       "creatingAccount": "Creating account...",
       "termsPrefix": "By creating an account, you accept our",
@@ -600,7 +601,10 @@
         "passwordPolicy": "Use at least 8 characters, include one number and one special character (e.g. ! or ?).",
         "emailInUse": "This email is already registered. Try signing in.",
         "weakPassword": "Password does not meet security requirements",
-        "signupGeneric": "Could not create account"
+        "signupGeneric": "Could not create account",
+        "googlePopupClosed": "Google sign-in was cancelled. Try again if you want to use Google.",
+        "googlePopupBlocked": "The browser blocked the Google popup. Allow popups for this site and try again.",
+        "googleGeneric": "Google sign-in could not finish. Check your connection and that the Google provider is enabled for this project."
       }
     },
     "onboarding": {

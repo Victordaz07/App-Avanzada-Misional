@@ -609,9 +609,18 @@
   margin-top: 1rem;
 }
 
+.reg-oauth--first {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .reg-google-btn {
   width: 100%;
-  padding: 0.75rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.85rem 1rem;
   border-radius: 12px;
   border: 1px solid #cbd5e1;
   background: #fff;
@@ -619,6 +628,13 @@
   font-weight: 600;
   cursor: pointer;
   color: #1e293b;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.reg-google-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 .reg-google-btn:disabled {
@@ -628,4 +644,27 @@
 
 .reg-google-btn:hover:not(:disabled) {
   background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.reg-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 4px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.reg-divider::before,
+.reg-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.reg-divider span {
+  flex-shrink: 0;
 }

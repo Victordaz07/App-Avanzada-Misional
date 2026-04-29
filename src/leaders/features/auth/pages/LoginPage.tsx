@@ -1,8 +1,9 @@
 /**
- * Leaders login — uses main app Firebase Auth (email/password).
+ * Leaders login — uses main app Firebase Auth (email/password and Google).
  */
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { SiGoogle } from 'react-icons/si';
 import { useAuth } from '../../../../context/AuthContext';
 import { useI18n } from '../../../context/I18nContext';
 import { LEADERS_APP, LEADERS_ROOT } from '../../../leadersPaths';
@@ -12,7 +13,7 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const returnTo = searchParams.get('returnTo');
-  const { signInWithEmail, user, isLoading } = useAuth();
+  const { signInWithEmail, signInWithGoogle, user, isLoading } = useAuth();
   const { t } = useI18n();
 
   const [email, setEmail] = useState('');
@@ -49,6 +50,33 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const googleErrorMessage = (err: unknown): string => {
+    const code =
+      typeof err === 'object' && err !== null && 'code' in err
+        ? String((err as { code?: string }).code)
+        : '';
+    if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
+      return t('app.register.errors.googlePopupClosed');
+    }
+    if (code === 'auth/popup-blocked') {
+      return t('app.register.errors.googlePopupBlocked');
+    }
+    return t('app.register.errors.googleGeneric');
+  };
+
+  const handleGoogle = async () => {
+    setLocalError(null);
+    try {
+      setSubmitting(true);
+      await signInWithGoogle();
+    } catch (err: unknown) {
+      console.error('Leaders Google login:', err);
+      setLocalError(googleErrorMessage(err));
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const busy = submitting || isLoading;
   const displayError = localError;
 
@@ -59,6 +87,22 @@ const LoginPage: React.FC = () => {
           <div className="login-logo">👔</div>
           <h1 className="login-title">{t('auth.login.title')}</h1>
           <p className="login-subtitle">{t('auth.login.subtitle')}</p>
+        </div>
+
+        <div className="login-oauth">
+          <button
+            type="button"
+            className="login-google-btn"
+            onClick={() => void handleGoogle()}
+            disabled={busy}
+          >
+            <SiGoogle className="login-google-icon" aria-hidden />
+            {busy ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+          </button>
+        </div>
+
+        <div className="login-divider" role="presentation">
+          <span>{t('app.register.orWithEmail')}</span>
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>

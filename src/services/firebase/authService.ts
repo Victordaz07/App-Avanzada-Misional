@@ -144,11 +144,13 @@ export async function signInWithGoogle(): Promise<{ user: User; profile: Univers
   try {
     const auth = getFirebaseAuth();
     const provider = new GoogleAuthProvider();
-    
+    provider.setCustomParameters({ prompt: 'select_account' });
+
     const result = await signInWithPopup(auth, provider);
-    
-    // Get or create profile
-    const profile = await getOrCreateProfile(result.user);
+
+    // New OAuth users: prefer investigator until onboarding clarifies church relationship
+    // (matches email “friend” path; existing users keep their stored profile).
+    const profile = await getOrCreateProfile(result.user, 'investigator');
     
     console.log(`🔵 Google sign in: ${profile.xthegospelId}`);
     

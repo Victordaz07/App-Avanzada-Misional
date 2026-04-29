@@ -22,6 +22,7 @@ import {
   FaChurch,
   FaHashtag,
 } from 'react-icons/fa6';
+import { SiGoogle } from 'react-icons/si';
 import { useAuth } from '../context/AuthContext';
 import { useI18n } from '../context/I18nContext';
 import { isProfileFullyOnboarded } from '../types/user';
@@ -59,6 +60,20 @@ const RegisterPage: React.FC = () => {
     setPassword('');
     setWardCode('');
     setError(null);
+  };
+
+  const googleErrorMessage = (err: unknown): string => {
+    const code =
+      typeof err === 'object' && err !== null && 'code' in err
+        ? String((err as { code?: string }).code)
+        : '';
+    if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
+      return t('app.register.errors.googlePopupClosed');
+    }
+    if (code === 'auth/popup-blocked') {
+      return t('app.register.errors.googlePopupBlocked');
+    }
+    return t('app.register.errors.googleGeneric');
   };
 
   useEffect(() => {
@@ -160,7 +175,7 @@ const RegisterPage: React.FC = () => {
       navigate(destination, { replace: true });
     } catch (err: unknown) {
       console.error('Google login error:', err);
-      setError(t('app.register.errors.loginGeneric'));
+      setError(googleErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -181,6 +196,22 @@ const RegisterPage: React.FC = () => {
         </div>
         <h1 className="reg-title">{t('app.register.loginTitle')}</h1>
         <p className="reg-subtitle">{t('app.register.loginSubtitle')}</p>
+      </div>
+
+      <div className="reg-oauth reg-oauth--first">
+        <button
+          type="button"
+          className="reg-google-btn"
+          onClick={() => void handleGoogleLogin()}
+          disabled={loading}
+        >
+          <SiGoogle className="reg-google-icon" aria-hidden />
+          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+        </button>
+      </div>
+
+      <div className="reg-divider" role="presentation">
+        <span>{t('app.register.orWithEmail')}</span>
       </div>
 
       <form className="reg-form" onSubmit={handleLogin}>
@@ -244,17 +275,6 @@ const RegisterPage: React.FC = () => {
           )}
         </button>
       </form>
-
-      <div className="reg-oauth">
-        <button
-          type="button"
-          className="reg-google-btn"
-          onClick={() => void handleGoogleLogin()}
-          disabled={loading}
-        >
-          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
-        </button>
-      </div>
 
       <p className="reg-switch">
         {t('app.register.noAccount')}{' '}
@@ -336,6 +356,22 @@ const RegisterPage: React.FC = () => {
         <p className="reg-subtitle">{t('app.register.signupFriendSubtitle')}</p>
       </div>
 
+      <div className="reg-oauth reg-oauth--first">
+        <button
+          type="button"
+          className="reg-google-btn"
+          onClick={() => void handleGoogleLogin()}
+          disabled={loading}
+        >
+          <SiGoogle className="reg-google-icon" aria-hidden />
+          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+        </button>
+      </div>
+
+      <div className="reg-divider" role="presentation">
+        <span>{t('app.register.orWithEmail')}</span>
+      </div>
+
       <form className="reg-form" onSubmit={handleSignup}>
         <div className="reg-field">
           <label>{t('app.register.fullNameLabel')}</label>
@@ -408,17 +444,6 @@ const RegisterPage: React.FC = () => {
         </button>
       </form>
 
-      <div className="reg-oauth">
-        <button
-          type="button"
-          className="reg-google-btn"
-          onClick={() => void handleGoogleLogin()}
-          disabled={loading}
-        >
-          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
-        </button>
-      </div>
-
       <p className="reg-terms">
         {t('app.register.termsPrefix')}{' '}
         <a href="/terms">{t('app.register.termsLink')}</a> {t('app.register.termsAnd')}{' '}
@@ -442,6 +467,22 @@ const RegisterPage: React.FC = () => {
         </div>
         <h1 className="reg-title">{t('app.register.signupTitle')}</h1>
         <p className="reg-subtitle">{t('app.register.signupMemberSubtitle')}</p>
+      </div>
+
+      <div className="reg-oauth reg-oauth--first">
+        <button
+          type="button"
+          className="reg-google-btn"
+          onClick={() => void handleGoogleLogin()}
+          disabled={loading}
+        >
+          <SiGoogle className="reg-google-icon" aria-hidden />
+          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
+        </button>
+      </div>
+
+      <div className="reg-divider" role="presentation">
+        <span>{t('app.register.orWithEmail')}</span>
       </div>
 
       <form className="reg-form" onSubmit={handleSignup}>
@@ -535,17 +576,6 @@ const RegisterPage: React.FC = () => {
           )}
         </button>
       </form>
-
-      <div className="reg-oauth">
-        <button
-          type="button"
-          className="reg-google-btn"
-          onClick={() => void handleGoogleLogin()}
-          disabled={loading}
-        >
-          {loading ? t('app.register.googleLoading') : t('app.register.googleContinue')}
-        </button>
-      </div>
 
       <div className="reg-footer">
         <p className="reg-footer-note">

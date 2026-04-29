@@ -568,6 +568,7 @@
       "passwordMinPlaceholder": "Mín. 8 caracteres, 1 número y 1 especial",
       "googleContinue": "Continuar con Google",
       "googleLoading": "Conectando…",
+      "orWithEmail": "o con correo y contraseña",
       "createSubmit": "Crear mi cuenta",
       "creatingAccount": "Creando cuenta...",
       "termsPrefix": "Al crear tu cuenta, aceptas nuestros",
@@ -600,7 +601,10 @@
         "passwordPolicy": "Usa al menos 8 caracteres, incluye un número y un carácter especial (por ejemplo ! o ?).",
         "emailInUse": "Este email ya está registrado. Intenta iniciar sesión.",
         "weakPassword": "La contraseña no cumple los requisitos de seguridad",
-        "signupGeneric": "Error al crear cuenta"
+        "signupGeneric": "Error al crear cuenta",
+        "googlePopupClosed": "Inicio con Google cancelado. Inténtalo de nuevo si quieres usar Google.",
+        "googlePopupBlocked": "El navegador bloqueó la ventana de Google. Permite ventanas emergentes para este sitio e inténtalo de nuevo.",
+        "googleGeneric": "No se pudo completar el acceso con Google. Verifica la conexión y que el proveedor Google esté habilitado en el proyecto."
       }
     },
     "onboarding": {
