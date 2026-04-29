@@ -604,6 +604,7 @@
         "signupGeneric": "Error al crear cuenta",
         "googlePopupClosed": "Inicio con Google cancelado. Inténtalo de nuevo si quieres usar Google.",
         "googlePopupBlocked": "El navegador bloqueó la ventana de Google. Permite ventanas emergentes para este sitio e inténtalo de nuevo.",
+        "googleUnauthorizedDomain": "Este dominio ({{domain}}) no está autorizado para iniciar sesión con Google. En Firebase Console → Authentication → Settings → Authorized domains, pulsa «Add domain» y añade exactamente ese nombre (sin https ni rutas). Las URLs de preview de Vercel cambian en cada deploy: cada una debe añadirse, o prueba en tu dominio de producción ya autorizado.",
         "googleGeneric": "No se pudo completar el acceso con Google. Verifica la conexión y que el proveedor Google esté habilitado en el proyecto."
       }
     },

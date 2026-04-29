@@ -14,6 +14,7 @@ import {
 import TrainingDashboard from '../modules/training/pages/TrainingDashboard';
 import TrainingPathScreen from '../modules/training/pages/TrainingPathScreen';
 import LessonPlaceholderScreen from '../modules/training/pages/LessonPlaceholderScreen';
+import SacramentTheoryPage from '../pages/sanctuary/SacramentTheoryPage';
 
 /**
  * Unified Routes
@@ -39,6 +40,10 @@ export default function UnifiedRoutes(): JSX.Element {
       }
     }
     if (path.startsWith('/training')) return <TrainingDashboard />;
+
+    if (path === '/lessons/sacrament-meeting/theory') {
+      return <SacramentTheoryPage />;
+    }
 
     if (path.startsWith('/lessons/') && path !== '/lessons/') {
       const lessonId = path.split('/lessons/')[1]?.split('/')[0];

@@ -63,15 +63,27 @@ const RegisterPage: React.FC = () => {
   };
 
   const googleErrorMessage = (err: unknown): string => {
-    const code =
+    const rawCode =
       typeof err === 'object' && err !== null && 'code' in err
         ? String((err as { code?: string }).code)
         : '';
+    const msg =
+      typeof err === 'object' && err !== null && 'message' in err
+        ? String((err as { message?: string }).message)
+        : '';
+    const code =
+      rawCode ||
+      (msg.includes('unauthorized-domain') ? 'auth/unauthorized-domain' : '');
     if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
       return t('app.register.errors.googlePopupClosed');
     }
     if (code === 'auth/popup-blocked') {
       return t('app.register.errors.googlePopupBlocked');
+    }
+    if (code === 'auth/unauthorized-domain') {
+      return t('app.register.errors.googleUnauthorizedDomain', {
+        domain: typeof window !== 'undefined' ? window.location.hostname : '',
+      });
     }
     return t('app.register.errors.googleGeneric');
   };

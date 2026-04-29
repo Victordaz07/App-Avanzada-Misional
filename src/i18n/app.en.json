@@ -604,6 +604,7 @@
         "signupGeneric": "Could not create account",
         "googlePopupClosed": "Google sign-in was cancelled. Try again if you want to use Google.",
         "googlePopupBlocked": "The browser blocked the Google popup. Allow popups for this site and try again.",
+        "googleUnauthorizedDomain": "This domain ({{domain}}) is not authorized for Google sign-in. In Firebase Console → Authentication → Settings → Authorized domains, click “Add domain” and enter exactly that hostname (no https or path). Vercel preview URLs change on each deploy—add each one, or test on your production domain that is already authorized.",
         "googleGeneric": "Google sign-in could not finish. Check your connection and that the Google provider is enabled for this project."
       }
     },
